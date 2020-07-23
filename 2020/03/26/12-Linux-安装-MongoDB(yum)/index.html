@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Linux 安装 MongoDB (yum)"><meta name="keywords" content="MongoDB,Database"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Linux 安装 MongoDB (yum)【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">CentOS 安装 MongoDB 社区版</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-MongoDB"><span class="toc-number">1.1.</span> <span class="toc-text">¶安装 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-MongoDB"><span class="toc-number">1.2.</span> <span class="toc-text">¶配置 MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用默认目录"><span class="toc-number">1.2.1.</span> <span class="toc-text">¶使用默认目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用自定义目录"><span class="toc-number">1.2.2.</span> <span class="toc-text">¶使用自定义目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行-MongoDB"><span class="toc-number">1.3.</span> <span class="toc-text">¶运行 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MongoDB"><span class="toc-number">1.4.</span> <span class="toc-text">¶使用 MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">1.5.</span> <span class="toc-text">¶注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB-社区版的包信息"><span class="toc-number">1.6.</span> <span class="toc-text">¶MongoDB 社区版的包信息</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color1"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">49</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">35</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">14</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Linux 安装 MongoDB (yum)</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-03-26 | 更新于 2020-03-26</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/MongoDB/">MongoDB</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/MongoDB/">MongoDB</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Database/">Database</a></div></div></div><div class="main-content"><blockquote>
+<p>官方教程：<a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br>
+菜鸟教程：<a href="https://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h1>CentOS 安装 MongoDB 社区版</h1>
+<h2 id="安装-MongoDB"><a class="header-anchor" href="#安装-MongoDB">¶</a>安装 MongoDB</h2>
+<ul>
+<li>配置 yum 包管理器<br>
+创建 /etc/yum.repos.d/mongodb-org-4.2.repo 文件，文件内容如下：</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-4.2]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/4.2/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重建 yum 缓存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 MongoDB</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p>也可以安装指定版本，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y mongodb-org-4.2.3 mongodb-org-server-4.2.3 mongodb-org-shell-4.2.3 mongodb-org-mongos-4.2.3 mongodb-org-tools-4.2.3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你可以指定任何可用的 MongoDB 版本。但是，当有较新版本时，yum 会升级软件包。为防止意外升级，需要固定包装。要固定软件包，请在 <code>/etc/yum.conf</code> 文件中添加以下 exclude 指令：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools</span><br></pre></td></tr></table></figure>
+<h2 id="配置-MongoDB"><a class="header-anchor" href="#配置-MongoDB">¶</a>配置 MongoDB</h2>
+<h3 id="使用默认目录"><a class="header-anchor" href="#使用默认目录">¶</a>使用默认目录</h3>
+<p>默认情况下，MongoDB 使用 mongod 用户账户运行，并使用以下默认目录：</p>
+<ul>
+<li>数据目录： /var/lib/mongo</li>
+<li>日志目录： /var/log/mongodb</li>
+</ul>
+<p>如果你是使用包管理安装的，将自动默创建这些默认目录，并将这些目录的所有者和组设置为 mongod。如果你是下载 tar 包进行安装，这些目录将不会被创建，你需要自己手动创建它们。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /var/lib/mongo</span><br><span class="line">sudo mkdir -p /var/<span class="built_in">log</span>/mongodb</span><br><span class="line">sudo chown -R mongod:mongod /var/lib/mongo</span><br><span class="line">sudo chown -R mongod:mongod /var/<span class="built_in">log</span>/mongodb</span><br></pre></td></tr></table></figure>
+<h3 id="使用自定义目录"><a class="header-anchor" href="#使用自定义目录">¶</a>使用自定义目录</h3>
+<p>要使用默认目录以外的数据目录或日志目录，请执行以下操作：</p>
+<ul>
+<li>创建目录</li>
+<li>修改配置文件 <code>/etc/mongod.conf</code> 中的以下字段</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">storage.dbPath: 指定新的数据目录路径(例如 /some/data/directory)</span><br><span class="line">systemLog.path: 指定新的日志存放路径(例如 /some/<span class="built_in">log</span>/directory/mongod.log)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更改这些目录的所有者与所属组</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R mongod:mongod &lt;directory&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="运行-MongoDB"><a class="header-anchor" href="#运行-MongoDB">¶</a>运行 MongoDB</h2>
+<p>要运行和管理 mongod 进程，你将使用操作系统的内置初始化西戎。Linux 的最新版本趋向于使用 systemd（使用systemctl 命令）,而 Linux 的较早版本趋向于使用 System V init（使用 services 命令）.</p>
+<ul>
+<li>启动 MongoDB<br>
+使用如下命令启动 mongod 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mongod</span><br></pre></td></tr></table></figure>
+<p>如果启动时遇到类似如下错误： Failed to start mongod.service: Unit mongod.service not found.<br>
+首先运行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>然后再次运行上面的启动服务命令。</p>
+<ul>
+<li>查看 MongoDB 状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status mongod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置 MongoDB 开机启动</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> mongod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>停止 MongoDB</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop mongod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启 MongoDB</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart mongod</span><br></pre></td></tr></table></figure>
+<h2 id="使用-MongoDB"><a class="header-anchor" href="#使用-MongoDB">¶</a>使用 MongoDB</h2>
+<p>在与 mongod 相同的主机上启动 mongo shell。你可以在没有任何命令行选项的情况下运行 mongo shell，以使用默认端口 27017 连接到在本地主机上运行的 mongod。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@salt-master ~]<span class="comment"># mongo</span></span><br><span class="line">MongoDB shell version v4.2.3</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&amp;gssapiServiceName=mongodb</span><br><span class="line">Implicit session: session &#123; <span class="string">"id"</span> : UUID(<span class="string">"7dcfbe6d-b689-4974-87aa-3522b92bd022"</span>) &#125;</span><br><span class="line">MongoDB server version: 4.2.3</span><br><span class="line">Welcome to the MongoDB shell.</span><br><span class="line">....</span><br><span class="line">To <span class="built_in">enable</span> free monitoring, run the following <span class="built_in">command</span>: db.enableFreeMonitoring()</span><br><span class="line">To permanently <span class="built_in">disable</span> this reminder, run the following <span class="built_in">command</span>: db.disableFreeMonitoring()</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="注意"><a class="header-anchor" href="#注意">¶</a>注意</h2>
+<p>默认情况下，MongoDB 启动时将 bindIP 设置为 127.0.0.1，该绑定到 localhost 网络接口。这意味着 mongod 只能接受来自同一台计算机上运行的客户端连接。远程客户端将无法连接到 mongod，并且 mongod 将无法初始化副本集，除非将此值设置为有效的网络接口。</p>
+<ul>
+<li>解决方法：</li>
+</ul>
+<ol>
+<li>修改陪孩子文件中的 bindIp 字段的值</li>
+<li>命令行启动时添加参数 --bind_ip</li>
+</ol>
+<h2 id="MongoDB-社区版的包信息"><a class="header-anchor" href="#MongoDB-社区版的包信息">¶</a>MongoDB 社区版的包信息</h2>
+<p>MongoDB 社区版可以从其自己的专用存储库中获得，并且包含以下官方支持的软件包</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">包名</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mongodb-org</td>
+<td style="text-align:left">一个元软件包，它将自动安装下面列出的四个组件软件包</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-server</td>
+<td style="text-align:left">包含 mongod 守护程序，关联的 init 脚本和配置文件(/etc/mongod.conf)</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-mongos</td>
+<td style="text-align:left">包含 mongos 守护程序</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-shell</td>
+<td style="text-align:left">包含 mongo shell 客户端</td>
+</tr>
+<tr>
+<td style="text-align:left">mongodb-org-tools</td>
+<td style="text-align:left">包含以下 MongoDB 工具： mongoimport bsondump, mongodump, mongoexport, mongofiles, mongorestore, mongostat 和 mongotop</td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2020/03/26/12-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/">https://blog.59izt.com/2020/03/26/12-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/03/26/13-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/"><i class="fas fa-angle-left">&nbsp;</i><span>Linux 源码安装 MongoDB</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/03/26/11-SaltStack-%E5%85%A5%E9%97%A8/"><span>SaltStack 入门</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2020 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

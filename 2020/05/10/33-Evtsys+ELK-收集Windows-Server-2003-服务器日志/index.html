@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Windows Server 2003 服务器日志收集方法"><meta name="keywords" content="Evtsys,ELK"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Windows Server 2003 服务器日志收集方法【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">安装开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置-JDK"><span class="toc-number">2.1.</span> <span class="toc-text">¶安装配置 JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Elasticsearch"><span class="toc-number">2.2.</span> <span class="toc-text">¶安装 Elasticsearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Logstash"><span class="toc-number">2.3.</span> <span class="toc-text">¶安装 Logstash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Kibana"><span class="toc-number">2.4.</span> <span class="toc-text">¶安装 Kibana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Evtsys"><span class="toc-number">2.5.</span> <span class="toc-text">¶安装 Evtsys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Evtsys-cfg-配置文件配置说明"><span class="toc-number">2.5.1.</span> <span class="toc-text">¶Evtsys.cfg 配置文件配置说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kibana-配置索引"><span class="toc-number">2.6.</span> <span class="toc-text">¶Kibana 配置索引</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color1"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">49</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">35</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">14</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Windows Server 2003 服务器日志收集方法</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-05-10 | 更新于 2020-05-10</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/ELK/">ELK</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Evtsys/">Evtsys</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/ELK/">ELK</a></div></div></div><div class="main-content"><blockquote>
+<p>说明：由于 winlogbeat 不支持在 Windows Server 2003 系统上运行，所以才使用 Evtsys 替代 Winlogbeat；Evtsys 可以将 Windows 日志转换成 syslog，然后发送到日志服务器；更多说明请参考 <a href="https://code.google.com/archive/p/eventlog-to-syslog/" target="_blank" rel="noopener">Evtsys 官网</a>。</p>
+</blockquote>
+<a id="more"></a>
+<h1>环境说明</h1>
+<p>本次实验使用到的系统与软件版本如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">主机</th>
+<th style="text-align:center">IP地址</th>
+<th style="text-align:center">系统</th>
+<th style="text-align:center">版本</th>
+<th style="text-align:center">软件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Logstash</td>
+<td style="text-align:center">172.16.68.10</td>
+<td style="text-align:center">CentOS</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">logstash-7.6.2</td>
+</tr>
+<tr>
+<td style="text-align:center">Windows</td>
+<td style="text-align:center">172.16.68.131</td>
+<td style="text-align:center">Windows Server</td>
+<td style="text-align:center">2003 R2</td>
+<td style="text-align:center">evtsys-4.5.1</td>
+</tr>
+<tr>
+<td style="text-align:center">Elasticsearch1</td>
+<td style="text-align:center">172.16.68.12</td>
+<td style="text-align:center">CentOS</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">elasticsearch-7.6.2</td>
+</tr>
+<tr>
+<td style="text-align:center">Elasticsearch2</td>
+<td style="text-align:center">172.16.68.13</td>
+<td style="text-align:center">CentOS</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">elasticsearch-7.6.2</td>
+</tr>
+<tr>
+<td style="text-align:center">Elasticsearch3</td>
+<td style="text-align:center">172.16.68.14</td>
+<td style="text-align:center">CentOS</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">elasticsearch-7.6.2</td>
+</tr>
+<tr>
+<td style="text-align:center">Kibana</td>
+<td style="text-align:center">172.16.68.18</td>
+<td style="text-align:center">CentOS</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">kibana-7.6.2</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>JDK 环境：因为最新版本 ELasticsearch 最低需要 jdk 11 版本，固这里采用 jdk-11.0.7</p>
+</blockquote>
+<h1>安装开始</h1>
+<h2 id="安装配置-JDK"><a class="header-anchor" href="#安装配置-JDK">¶</a>安装配置 JDK</h2>
+<p>在所有的 Linux 服务器上安装配置 jdk-11.0.7 环境，安装步骤如下：</p>
+<ul>
+<li>解压 jdk 软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-11.0.7_linux-x64_bin.tar.gz -C /usr/<span class="built_in">local</span>/java/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置环境变量<br>
+新建文件 /etc/profile.d/java.sh，<a href="http://java.sh" target="_blank" rel="noopener">java.sh</a> 内容如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk-11.0.7</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$CLASSPATH</span>:<span class="variable">$JAVA_HOME</span>/lib:<span class="variable">$JAVA_HOME</span>/jre/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$JAVA_HOME</span>/jre/bin:<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新 <a href="http://java.sh" target="_blank" rel="noopener">java.sh</a> 配置文件，验证 Java 环境</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># java -version</span></span><br><span class="line">java version <span class="string">"11.0.7"</span> 2020-04-14 LTS</span><br><span class="line">Java(TM) SE Runtime Environment 18.9 (build 11.0.7+8-LTS)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.7+8-LTS, mixed mode)</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Elasticsearch"><a class="header-anchor" href="#安装-Elasticsearch">¶</a>安装 Elasticsearch</h2>
+<p>在主机 Elasticsearch1，Elasticsearch2，Elasticsearch3 上安装 Elasticsearch，具体步骤如下：</p>
+<ul>
+<li>解压 elasticsearch 软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf elasticsearch-7.6.2-linux-x86_64.tar.gz -C /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改 Elasticsearch 配置文件 elasticsearch.yml，需要修改的几个地方如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: titan-soc     <span class="comment"># 集群名称</span></span><br><span class="line">node.name: elasticsearch-2  <span class="comment"># 当前服务节点名称</span></span><br><span class="line">path.data: /soc/data        <span class="comment"># 数据存放目录</span></span><br><span class="line">path.logs: /soc/logs        <span class="comment"># 日志存放目录</span></span><br><span class="line">network.host: 0.0.0.0       <span class="comment"># 绑定地址</span></span><br><span class="line">http.port: 9200             <span class="comment"># 集群访问端口</span></span><br><span class="line">discovery.seed_hosts: [<span class="string">"172.16.68.12:9300"</span>, <span class="string">"172.16.68.13:9300"</span>, <span class="string">"172.16.68.14:9300"</span>]</span><br><span class="line">cluster.initial_master_nodes: [<span class="string">"elasticsearch-1"</span>, <span class="string">"elasticsearch-2"</span>, <span class="string">"elasticsearch-3"</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑 /etc/security/limits.conf，在最下面添加如下内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*       soft    nofile          65536</span><br><span class="line">*       hard    nofile          65536</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑 /etc/sysctl.conf 文件，在最下面添加如下内容：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改 elasticsearch 家目录权限为启动 Elasticsearch 的用户</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R wanwu:wanwu /usr/<span class="built_in">local</span>/elasticsearch-7.6.2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 Elasticsearch，注意，Elasticsearch 需要以普通用户启动，否则会报错，无法启动</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/elasticsearch-7.6.2</span><br><span class="line">./bin/elasticsearch -d</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看日志，确定集群启动正常，并且没有报错后，查看集群状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="string">'http://172.16.68.12:9200/_cluster/health?pretty'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"cluster_name"</span> : <span class="string">"titan-soc"</span>,</span><br><span class="line">  <span class="string">"status"</span> : <span class="string">"green"</span>,</span><br><span class="line">  <span class="string">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"number_of_nodes"</span> : 3,</span><br><span class="line">  <span class="string">"number_of_data_nodes"</span> : 3,</span><br><span class="line">  <span class="string">"active_primary_shards"</span> : 5,</span><br><span class="line">  <span class="string">"active_shards"</span> : 10,</span><br><span class="line">  <span class="string">"relocating_shards"</span> : 0,</span><br><span class="line">  <span class="string">"initializing_shards"</span> : 0,</span><br><span class="line">  <span class="string">"unassigned_shards"</span> : 0,</span><br><span class="line">  <span class="string">"delayed_unassigned_shards"</span> : 0,</span><br><span class="line">  <span class="string">"number_of_pending_tasks"</span> : 0,</span><br><span class="line">  <span class="string">"number_of_in_flight_fetch"</span> : 0,</span><br><span class="line">  <span class="string">"task_max_waiting_in_queue_millis"</span> : 0,</span><br><span class="line">  <span class="string">"active_shards_percent_as_number"</span> : 100.0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看集群节点信息</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="string">'http://172.16.68.12:9200/_cat/nodes?v'</span>          </span><br><span class="line">ip           heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line">172.16.68.12           14          85   4    0.03    0.10     0.08 dilm      -      elasticsearch-1</span><br><span class="line">172.16.68.14           16          91   3    0.02    0.08     0.07 dilm      -      elasticsearch-3</span><br><span class="line">172.16.68.13            9          96   3    0.01    0.05     0.05 dilm      *      elasticsearch-2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Elasticsearch 集群安装到此为止</p>
+</blockquote>
+<h2 id="安装-Logstash"><a class="header-anchor" href="#安装-Logstash">¶</a>安装 Logstash</h2>
+<p>在 Logstash 主机上安装 logstash，具体的步骤如下：</p>
+<ul>
+<li>解压软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf logstash-7.6.2.tar.gz -C /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建 logstash 配置文件，复制 logstash-sample.conf 为 0_evtsys.conf,修改后内容如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    port =&gt; 3514</span><br><span class="line">    <span class="built_in">type</span> =&gt; <span class="string">"evtsys"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">  <span class="keyword">if</span> [<span class="built_in">type</span>] == <span class="string">"evtsys"</span> &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">      hosts =&gt; [<span class="string">"http://172.16.68.12:9200"</span>, <span class="string">"http://172.16.68.13:9200"</span>, <span class="string">"http://172.16.68.14:9200"</span>]</span><br><span class="line">      index =&gt; <span class="string">"titan-evtsys-%&#123;+YYYY.MM.dd&#125;"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>检测配置文件是否正确，</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logstash -f /etc/logstash/conf.d/0_evtsys.conf --config.test_and_exit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出现如下提示时表示配置文件正确无误</span></span><br><span class="line">[2020-05-10T20:57:27,335][INFO ][logstash.runner          ] Using config.test_and_exit mode. Config Validation Result: OK. Exiting Logstash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 logstah，如果需要以普通用户启动 logstah，记得修改目录权威，和 Elasticsearch 一样修改目录属主即可。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logstash -f /etc/logstash/conf.d/0_evtsys.conf &gt; /tmp/logstash.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Logstash 的安装到此为止</p>
+</blockquote>
+<h2 id="安装-Kibana"><a class="header-anchor" href="#安装-Kibana">¶</a>安装 Kibana</h2>
+<p>Kibana 的安装比较简单，kibana 不需要 jdk 环境的支持；具体的安装步骤如下：</p>
+<ul>
+<li>解压软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kibana-7.6.2-linux-x86_64.tar.gz </span><br><span class="line">mv kibana-7.6.2-linux-x86_64 /usr/<span class="built_in">local</span>/kibana-7.6.2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑 kibana 的配置文件，需要修改的地方如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.port: 5601</span><br><span class="line">server.host: <span class="string">"0.0.0.0"</span></span><br><span class="line">elasticsearch.hosts: [<span class="string">"http://172.16.68.12:9200"</span>]</span><br><span class="line">kibana.index: <span class="string">".kibana"</span></span><br><span class="line">i18n.locale: <span class="string">"zh-CN"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>因为 kibana 不建议使用 root 运行，所以也需要修改目录权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R wanwu:wanwu /usr/<span class="built_in">local</span>/kibana-7.6.2/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 kibana</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/kibana-7.6.12</span><br><span class="line">./bin/kibana -c config/kibana.yml -l /tmp/kibana.log &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开浏览器，访问 <code>172.16.68.18:5601</code> 地址，如下图：<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500194-1b465300-9303-11ea-905d-b871b8737643.png width=800 height=360></li>
+</ul>
+<blockquote>
+<p>Kibana 的安装到此为主</p>
+</blockquote>
+<h2 id="安装-Evtsys"><a class="header-anchor" href="#安装-Evtsys">¶</a>安装 Evtsys</h2>
+<p>在 windows Server 2003 R2 系统上安装 Evtsys 软件，具体的步骤如下：</p>
+<ul>
+<li>
+<p>解压软件包，并将软件包放到 C:\Program Files 目录下，如下图：<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500250-97409b00-9303-11ea-9ec3-c637518b51e2.png width=800 height=360></p>
+</li>
+<li>
+<p>打开终端，进入到 Evtsys 软件所在目录</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"C:\Program Files"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 Evtsys</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">evtsys.exe -i -h 172.16.68.10 -p 3514</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 evtsys</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start evtsys</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看服务运行状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net start | findstr <span class="string">"Eventlog"</span></span><br><span class="line">Eventlog to Syslog</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Evtsys 安装到此结束</p>
+</blockquote>
+<h3 id="Evtsys-cfg-配置文件配置说明"><a class="header-anchor" href="#Evtsys-cfg-配置文件配置说明">¶</a>Evtsys.cfg 配置文件配置说明</h3>
+<p>此处内容来自 <a href="https://isc.sans.edu/forums/diary/Monitoring+Windows+Networks+Using+Syslog+Part+One/17342/" target="_blank" rel="noopener">https://isc.sans.edu/forums/diary/Monitoring+Windows+Networks+Using+Syslog+Part+One/17342/</a></p>
+<p>evtsys.cfg的基本版本可以在 Github（<a href="http://goo.gl/79spGK%EF%BC%89%E4%B8%8A%E6%89%BE%E5%88%B0%E3%80%82%E6%AD%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%80%82%E7%94%A8%E4%BA%8EWindows" target="_blank" rel="noopener">http://goo.gl/79spGK）上找到。此配置文件适用于Windows</a> 7及更高版本。使用之前，请将该文件重命名为 Evtsys.cfg。该文件使用XPATH作为过滤器，这使得创建新过滤器变得容易。这是创建自己的快速方法。</p>
+<ol>
+<li>在Windows事件查看器中，选择要从中创建规则的事件日志。</li>
+<li>单击详细信息选项卡，然后选择XML视图。</li>
+<li>确定事件的 Channel 以及您要从该Channel 中获取的任何特定事件ID。</li>
+</ol>
+<blockquote>
+<p>在这种情况下，Windows Defender通道为</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Channel</span>&gt;</span>Microsoft-Windows-Windows Defender/Operational<span class="tag">&lt;/<span class="name">Channel</span>&gt;</span></span><br><span class="line">The event ID’s we want are: 1005,1006,1010,1012,1014,2001,2003, 2004, 3002,5008</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>
+<p>全部放在一起。规则的格式为：XPath:&lt;\PathtoChannel&gt;:&lt;\Select statement&gt;，并且规则必须在一行上。在频道名称中可以有空格，但是 Select 语句必须带双引号。</p>
+</li>
+<li>
+<p>单击“事件视图”侧面的“过滤当前日志”按钮，然后输入要用于过滤的其他数据。然后单击顶部的XML选项卡。您可以剪切和粘贴整个选中的路径到你的过滤中</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XPath:Microsoft-Windows-Windows Defender/Operational:<span class="tag">&lt;<span class="name">Select</span> <span class="attr">Path</span>=<span class="string">”Microsoft-Windows-Windows</span> <span class="attr">Defender</span>/<span class="attr">Operational</span>\”&gt;</span>*[System[(EventID=1005 or EventID=1006 or EventID=1010 or EventID=1012 or EventID=1014 or EventID=2001 or EventID=2003 or EventID=2004 or EventID=3002 or EventID=5008)]]<span class="tag">&lt;/<span class="name">Select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Kibana-配置索引"><a class="header-anchor" href="#Kibana-配置索引">¶</a>Kibana 配置索引</h2>
+<ul>
+<li>
+<p>打开浏览器，访问 172.16.68.18:5601，点击 “Management”，选择 “索引模式”, 然后点击 “创建索引模式”，如下图所示<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500793-0d92cc80-9307-11ea-85c4-00b6d727c8b7.png width=800 height=360></p>
+</li>
+<li>
+<p>输入索引名称，点击下一步，如下图：<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500869-842fca00-9307-11ea-871b-b5ca064fe042.png width=800 height=360></p>
+</li>
+<li>
+<p>设置时间筛选字段名称，点击创建索引模式，如下图：<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500927-ca852900-9307-11ea-9ebc-6123227f5ee1.png width=800 height=360></p>
+</li>
+<li>
+<p>点击 Discover ，查看索引数据，如下图：<br>
+<img src=https://user-images.githubusercontent.com/45992270/81500990-55feba00-9308-11ea-9ccc-6868b7cf3c9f.png width=800 height=360></p>
+</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2020/05/10/33-Evtsys+ELK-%E6%94%B6%E9%9B%86Windows-Server-2003-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%A5%E5%BF%97/">https://blog.59izt.com/2020/05/10/33-Evtsys+ELK-%E6%94%B6%E9%9B%86Windows-Server-2003-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%A5%E5%BF%97/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/05/13/34-Jenkins-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/"><i class="fas fa-angle-left">&nbsp;</i><span>Jenkins 代码质量</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/05/08/32-Jenkins-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8E%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"><span>Jenkins 环境变量与构建工具</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2020 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
