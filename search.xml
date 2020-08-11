@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker 使用镜像</title>
+    <title>Docker 镜像相关的操作</title>
     <url>/2020/08/11/46-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<blockquote>
 <p>参考文章：[Docker技术入门与实战第3版]</p>
@@ -9,7 +9,7 @@
 <p>镜像是 Docker 三大核心概念中最重要的，Docker 运行容器前需要本地存在对应的镜像，如果镜像不存在，Docker 会尝试先从默认镜像仓库下载，用户也可以通过配置使用自定义的镜像仓库。</p>
 <a id="more"></a>
 <h1>获取镜像</h1>
-<p>本节主要介绍 Docker 镜像的 <code>pull</code> 子命令。可以使用 docker [image] pull 命令直接从 Docker Hub 镜像源来下载镜像。该命令的格式为：</p>
+<p>本节主要介绍 Docker 镜像的 <code>pull</code> 子命令。可以使用 <code>docker [image] pull</code> 命令直接从 Docker Hub 镜像源来下载镜像。该命令的格式为：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker [image] pull NAME[:TAG]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>NAME：镜像仓库名称</li>
