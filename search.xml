@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker 仓库相关的操作</title>
+    <url>/2020/08/13/48-Docker-%E4%BB%93%E5%BA%93%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战第3版]</p>
+</blockquote>
+<p>仓库(Repository)是集中存放镜像的地方，又分公共仓库和私有仓库。<br>
+有时候容易把仓库与注册服务器(Registty) 混淆。实际上注册服务器是存放仓库的具体服务器，一个注册服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，仓库可以被认为是一个具体的项目或者目录。例如对于仓库地址 <a href="http://private-docker.com/ubuntu" target="_blank" rel="noopener">private-docker.com/ubuntu</a> 来说，<a href="http://private-docker.com" target="_blank" rel="noopener">private-docker.com</a> 是注册服务器地址，ubuntu 是仓库名。</p>
+<a id="more"></a>
+<h1>Docker Hub 公共镜像市场</h1>
+<p>Docker Hub 是 Docker 官方提供的最大的公共镜像仓库，目前包括了超过 100000 的镜像，地址为 <a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a>。 大部分对镜像的需求，都可以通过在 Docker Hub 中直接下载镜像来实现。</p>
+<h2 id="登录"><a class="header-anchor" href="#登录">¶ </a>登录</h2>
+<p>可以通过命令行执行 <code>docker login</code> 命令来输入用户名，密码和邮箱来完成注册和登录。注册成功后，本地用户目录下会创建 .docker/config.json 文件，保存用户的认证信息。<br>
+登录成功的用户可以上传个人制作的镜像到 Docker Hub。</p>
+<h2 id="基本操作"><a class="header-anchor" href="#基本操作">¶ </a>基本操作</h2>
+<p>用户无需登录即可通过 docker search 命令来查找官方仓库中的镜像，并利用 docker [image] pull 命令来将它下载到本地。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker search centos</span><br><span class="line">NAME                               DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">centos                             The official build of CentOS.                   6131                [OK]                </span><br><span class="line">ansible/centos7-ansible            Ansible on Centos7                              132                                     [OK]</span><br><span class="line">consol/centos-xfce-vnc             Centos container with <span class="string">"headless"</span> VNC session…   119                                     [OK]</span><br><span class="line">jdeathe/centos-ssh                 OpenSSH / Supervisor / EPEL/IUS/SCL Repos - …   115                                     [OK]</span><br><span class="line">centos/systemd                     systemd enabled base container.                 86                                      [OK]</span><br></pre></td></tr></table></figure>
+<p>根据是否为官方提供，可将这些镜像资源分为两类：</p>
+<ul>
+<li>一种类似于 centos 这样的基础镜像，也称为根镜像。这些镜像是由 Docker 公司创建，验证，支持，提供，这样的镜像往往使用单个单词作为名字；</li>
+<li>另一种类型的镜像，比如 ansible/centos7-ansible 镜像，是由 Docker 用户 ansible 创建并维护的，带有用户名成为前缀，表明是某用户下的某仓库。可以通过用户名前缀 “user_name/镜像名” 来指定使用某个用户提供的镜像。</li>
+</ul>
+<p>例如，下载官方的 centos 镜像到本地：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker pull centos</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/centos</span><br><span class="line">3c72a8ed6814: Pull complete </span><br><span class="line">Digest: sha256:76d24f3ba3317fa945743bb3746fbaf3a0b752f10b10376960de01da70685fbd</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos:latest</span><br><span class="line">docker.io/library/centos:latest</span><br></pre></td></tr></table></figure>
+<p>用户也可以在登录后通过 docker push 命令将本地的镜像推送到 Docker Hub。</p>
+<h2 id="自动创建"><a class="header-anchor" href="#自动创建">¶ </a>自动创建</h2>
+<p>自动创建（Automated Builds）是 Docker Hub 提供的自动化服务，这一功能可以自动跟随项目代码的变更而重新构建镜像。</p>
+<p>例如，用户构建了某应用镜像，如果应用发布新版本，用户需要手动更新镜像。而自动创建则允许用户通过 Docker Hub 指定跟踪一个目标网站（目前支持 GitHub 或 BitBucket）上的项目，一旦项目发生新的提交，则自动执行创建。</p>
+<p>要配置自动创建，包括以下的步骤：</p>
+<ul>
+<li>创建并登陆 Docker Hub，以及目标网站如 GitHub；</li>
+<li>在目标网站中允许 Docker Hub 访问服务；</li>
+<li>在 Docker Hub 中配置一个 “自动创建” 类型的项目；</li>
+<li>选取一个目标网站中的项目（需要含 Dockerfile）和分支；</li>
+<li>指定 Dockerfile 的位置，并提交创建；</li>
+</ul>
+<p>之后，可以在 Docker Hub 的 “自动创建” 页面中跟中每次创建的状态。</p>
+<h1>第三方镜像市场</h1>
+<p>国内不少云服务商都提供了 Docker 镜像市场，包括腾讯云，网易云，阿里云等。下面以时速云为例，介绍如何使用这些市场。</p>
+<h2 id="查看镜像"><a class="header-anchor" href="#查看镜像">¶ </a>查看镜像</h2>
+<p>访问 <a href="https://hub.tenxcloud.com" target="_blank" rel="noopener">https://hub.tenxcloud.com</a>，即可看到已存在的仓库和存储的镜像，包括 Ubuntu, Java, Mongo, MySQL, Nginx 等热门仓库和镜像。<br>
+以 MongoDB 仓库为例，其中包括了 2.6,3.0 和 3.2 等镜像。</p>
+<h2 id="下载镜像"><a class="header-anchor" href="#下载镜像">¶ </a>下载镜像</h2>
+<p>下载镜像也是使用 <code>docker pull</code> 命令，但是要在镜像名称前添加注册服务器的具体地址。格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">index.tenxcloud.com/&lt;namespace&gt;/&lt;repository&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+<p>例如，要下载 Docker 官方仓库中的 node:latest 镜像，可以使用如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull index.tenxcloud.com/docker_library/node:latest</span><br></pre></td></tr></table></figure>
+<p>正常情况下，镜像下载会比直接从 Docker Hub 下载快得多。</p>
+<p>下载后，可以更新镜像的标签，与官方标签保持一致，方便使用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker tag index.tenxcloud.com/docker_library/node:latest node:latest</span><br></pre></td></tr></table></figure>
+<h1>搭建本地私有仓库</h1>
+<h2 id="使用-registry-镜像创建私有仓库"><a class="header-anchor" href="#使用-registry-镜像创建私有仓库">¶ </a>使用 registry 镜像创建私有仓库</h2>
+<p>安装 Docker 后，可以通过官方提供的 registry 镜像来简单搭建一套本地私有仓库环境：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 5000:5000 registry:2</span><br></pre></td></tr></table></figure>
+<p>这将自动下载并启动一个 registry 容器，创建本地的私有仓库服务。<br>
+默认情况下，仓库会被创建在容器的 /var/lib/registry 目录下。可以通过 -v 参数将镜像文件放在本地的指定路径。</p>
+<p>例如下面的例子将上传的镜像放到 /opt/data/registry 目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 5000:5000 --name hub.59izt.com -v /opt/data/registry:/var/lib/registry registry:2</span><br></pre></td></tr></table></figure>
+<p>此时，在本地将启动一个私有仓库服务，监听端口为 5000</p>
+<h2 id="管理私有仓库"><a class="header-anchor" href="#管理私有仓库">¶ </a>管理私有仓库</h2>
+<p>首先部署私有仓库，查看其地址为 192.168.1.100:5000，然后在虚拟机上测试上传和下载镜像。</p>
+<ul>
+<li>先在虚拟机上查看已有的镜像：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker images</span><br><span class="line">REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line"><span class="built_in">test</span>/ubuntu            v1.0                4d4bf73ee0c9        4 hours ago         73.9MB</span><br><span class="line">python                 3                   d2384a0baad0        2 days ago          95.2MB</span><br><span class="line"><span class="built_in">test</span>                   v0.1                17f766c5f30b        2 days ago          64.2MB</span><br><span class="line">centos                 latest              0d120b6ccaa8        2 days ago          215MB</span><br><span class="line">debian                 stretch-slim        8ff748cdd6b1        8 days ago          55.3MB</span><br><span class="line">ubuntu                 latest              1e4467b07108        2 weeks ago         73.9MB</span><br><span class="line">ubuntu                 18.04               2eb2d388e1a2        2 weeks ago         64.2MB</span><br><span class="line">counter-app_web-fe     latest              47753a083c2b        2 weeks ago         84.5MB</span><br><span class="line">multi                  stage               28e88758045d        2 weeks ago         211MB</span><br><span class="line">node                   latest              7f312bedcea0        3 weeks ago         944MB</span><br><span class="line">web                    latest              f461f5d43d79        3 weeks ago         82.7MB</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 docker tag 命令将 test 镜像标记为 192.168.1.100:5000/test</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker tag <span class="built_in">test</span>:v0.1 192.168.1.100:5000/<span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">$ docker images</span><br><span class="line">REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">192.168.1.100:5000/<span class="built_in">test</span>   latest              17f766c5f30b        2 days ago          64.2MB</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 docker push 上传标记的镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker push 192.168.1.100:5000/<span class="built_in">test</span></span><br><span class="line">The push refers to repository [192.168.1.100:5000/<span class="built_in">test</span>]</span><br><span class="line">67c64892cbe3: Pushed </span><br><span class="line">8682f9a74649: Pushed </span><br><span class="line">d3a6da143c91: Pushed </span><br><span class="line">83f4287e1f04: Pushed </span><br><span class="line">7ef368776582: Pushed </span><br><span class="line">latest: digest: sha256:ec28989f0f16540d48d284d28a2a8be007ac4b9bcb4dccfecf8c5e008cca45db size: 1359</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用 curl 查看仓库 192.168.1.100:5000 中的镜像：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl http://192.168.1.100:5000/v2/search</span><br><span class="line">&#123;<span class="string">"num_results"</span>: 1, <span class="string">"query"</span>: <span class="string">""</span>, <span class="string">"results"</span>: [&#123;<span class="string">"description"</span>: <span class="string">""</span>, <span class="string">"name"</span>: <span class="string">"library/test"</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
+<p>从结果中可以看到 {“description”: “”, “name”: “library/test”}，表明镜像已经成功上传了。现在可以在任意一台能访问到 192.168.1.100 地址的机器去下载这个镜像了。</p>
+<p>比较新的 Docker 版本对安全性要求较高，会要求仓库支持 SSL/TLS 证书。对于内部使用的私有仓库，可以自行配置证书或关闭对仓库的安全性检查。</p>
+<ul>
+<li>首先，修改 Docker daemon 的启动参数，添加如下参数，表示信任这个私有仓库，不进行安全证书检查：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"--insecure-registry 192.168.1.100:5000"</span></span><br></pre></td></tr></table></figure>
+<p>之后，重启 Docker 服务，并从私有仓库下载镜像到本地</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker pull 192.168.1.100:5000/<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Hub</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker 容器相关的操作</title>
     <url>/2020/08/13/47-Docker-%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</url>
     <content><![CDATA[<blockquote>
@@ -776,247 +870,6 @@
 <p>用户在 Docker Hub 网站注册后可以上传自制的镜像。</p>
 <p>例如，用户 user 上传本地的 test:latest 镜像，可以先添加新的标签 user/test:latest，然后用 docker [image] push 命令上传。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker tag <span class="built_in">test</span>:latest user/<span class="built_in">test</span>:latest</span><br><span class="line">$ docker push user/<span class="built_in">test</span>:latest</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-        <tag>Image</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker 应用容器化</title>
-    <url>/2020/07/23/48-Docker-%E5%BA%94%E7%94%A8%E5%AE%B9%E5%99%A8%E5%8C%96/</url>
-    <content><![CDATA[<blockquote>
-<p>参考文章：[深入浅出 Docker]</p>
-</blockquote>
-<h1>简介</h1>
-<p>容器是为应用而生，具体来说，容器能够简化应用的构建，部署和运行过程。<br>
-完整的应用容器化过程主要分为以下几个步骤：</p>
-<a id="more"></a>
-<ol>
-<li>编写应用代码</li>
-<li>创建一个 Dockerfile，其中包括当前应用的描述，依赖以及该如何运行这个应用</li>
-<li>对该 Dockerfile 执行 docker image build 命令</li>
-<li>等待 Docker 将应用程序构建到 Docker 镜像中。</li>
-</ol>
-<p>一旦应用容器化完成（即应用被打包成一个 Docker 镜像），就能以镜像的形式交付并以容器的方式运行了。</p>
-<h1>详解</h1>
-<h2 id="单体应用容器化"><a class="header-anchor" href="#单体应用容器化">¶ </a>单体应用容器化</h2>
-<p>接下来通过以下几个步骤，来介绍具体的过程：</p>
-<ol>
-<li>获取应用代码</li>
-<li>分析 Dockerfile</li>
-<li>构建应用镜像</li>
-<li>运行该应用</li>
-<li>测试应用</li>
-<li>容器应用化细节</li>
-<li>生产环境中的多阶段构建</li>
-<li>最佳实践</li>
-</ol>
-<h3 id="获取应用代码"><a class="header-anchor" href="#获取应用代码">¶ </a>获取应用代码</h3>
-<p>应用代码可以从 GitHub 获取，连接为 <a href="https://github.com/nigelpoulton/psweb" target="_blank" rel="noopener">psweb</a>，将代码 clone 到本地</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/nigelpoulton/psweb.git</span><br><span class="line"></span><br><span class="line">$ ll psweb/</span><br><span class="line">total 28</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  341 Jul 22 10:56 app.js</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  216 Jul 22 10:56 circle.yml</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  338 Jul 22 10:56 Dockerfile</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  377 Jul 22 10:56 package.json</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  396 Jul 22 10:56 README.md</span><br><span class="line">drwxrwxr-x 2 wanwu wanwu 4096 Jul 22 10:56 <span class="built_in">test</span></span><br><span class="line">drwxrwxr-x 2 wanwu wanwu 4096 Jul 22 10:56 views</span><br></pre></td></tr></table></figure>
-<p>克隆操作会创建一个名为 psweb 的文件夹，该目录下包含了全部的应用源码，以及包含界面和单元测试的子目录。</p>
-<h3 id="分析-Dockerfile"><a class="header-anchor" href="#分析-Dockerfile">¶ </a>分析 Dockerfile</h3>
-<p>在代码目录中，有个名为 Dockerfile 的文件。这个文件包含了对当前应用的描述，并且能指导 Docker 完成镜像的构建。<br>
-在 Docker 中，包含应用文件的目录通常被称为<code>构建上下文(Build Context)</code>。通常将 <code>Dockerfile</code> 放到构建上下文的根目录下。<br>
-另外很重要的一点是，文件开头字母是大写 <code>D</code>，这里是一个单词。像 “dockerfile” 或者 “Docker file” 这种写法是不允许的。</p>
-<p>接下来了解一下 Dockerfile 文件当中包含哪些具体内容：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat Dockerfile </span><br><span class="line"></span><br><span class="line"><span class="comment"># Test web-app to use with Pluralsight courses and Docker Deep Dive book</span></span><br><span class="line"><span class="comment"># Linux x64</span></span><br><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">LABEL maintainer=<span class="string">"nigelpoulton@hotmail.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install Node and NPM</span></span><br><span class="line">RUN apk add --update nodejs nodejs-npm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy app to /src</span></span><br><span class="line">COPY . /src</span><br><span class="line"></span><br><span class="line">WORKDIR /src</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies</span></span><br><span class="line">RUN  npm install</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"node"</span>, <span class="string">"./app.js"</span>]</span><br></pre></td></tr></table></figure>
-<p>Dockerfile 主要包扩两个用途：</p>
-<ul>
-<li>对当前应用的描述</li>
-<li>指导 Docker 完成应用的容器化（创建一个包含当前应用的镜像）</li>
-</ul>
-<p>下面是这个文件中的一些关键性步骤概述：</p>
-<ul>
-<li>以 apline 镜像作为当前镜像基础</li>
-<li>指定维护者 (maintainer) 为 “<a href="mailto:nigelpoulton@hotmail.com">nigelpoulton@hotmail.com</a>”</li>
-<li>安装 Node.js 和 NPM</li>
-<li>将应用的代码复制到镜像当中</li>
-<li>设置新的工作目录</li>
-<li>安装依赖包</li>
-<li>记录应用的网络端口</li>
-<li>将 app.js 设置为默认运行的应用</li>
-</ul>
-<p>具体分析一下每一步的作用：</p>
-<ul>
-<li>
-<p>每个 Dockerfile 文件的第一行都是 <code>FROM</code> 指令。FROM 指令指定的镜像，会作为当前镜像的一个基础镜像层，当前应用的剩余内容会作为新增镜像层添加到基础镜像层之上。</p>
-</li>
-<li>
-<p>接下来，Dockerfile 中通过 <code>LABEL</code>（标签）方式指定了当前镜像的维护者为 “<a href="mailto:nigelpoulton@hotmail.com">nigelpoulton@hotmail.com</a>”。每个标签其实是一个键值对（Key-Value），在一个镜像当中可以通过增加标签的方式来为镜像添加自定义元数据。</p>
-</li>
-<li>
-<p><code>RUN</code> 指令会在 FROM 指定的 alpine 基础镜像之上，新建一个镜像层来存储这些安装内容。<code>RUN apk add --update nodejs nodejs-npm</code> 指令使用 alpine 的 apk 包管理器将 nodejs 和 nodejs-npm 安装到当前镜像之中。</p>
-</li>
-<li>
-<p><code>COPY . /src</code> 指令将应用相关文件从构建上下文复制到了当前镜像中，并且新建一个镜像层来存储。</p>
-</li>
-<li>
-<p>下一步 Dockerfile 通过 <code>WORKDIR</code> 指令，为 Dockerfile 中尚未执行得指令设置工作目录。该目录与镜像相关，并且会作为元数据记录到镜像配置中，但不会创建新的镜像层。</p>
-</li>
-<li>
-<p>然后，<code>RUN npm install</code> 指令会根据 package.json 中的配置信息，使用 npm 来安装当前应用的相关依赖包。npm 命令会在前文设置的工作目录中执行，并且在镜像中新建镜像层来保存相应的依赖文件。</p>
-</li>
-<li>
-<p>因为当前应用需要通过端口 8080 对外提供一个 web 服务，所以在 Dockerfile 中通过 <code>EXPOSE 8080</code> 指令来完成相应端口的设置。这个配置信息会作为镜像的元数据被保存下来，并不会产生新的镜像层。</p>
-</li>
-<li>
-<p>最终，通过 <code>ENTRYPOINT</code> 指令来指定当前镜像的入口程序。<code>ENTRYPOINT</code> 指定的配置信息也是通过镜像元数据的形式保存下来，而不是新增镜像层。</p>
-</li>
-</ul>
-<h3 id="容器化当前应用-构建具体的镜像"><a class="header-anchor" href="#容器化当前应用-构建具体的镜像">¶ </a>容器化当前应用/构建具体的镜像</h3>
-<p>下面的命令会构建并生成一个名为 web:latest 的镜像。命令最后的点(.) 表示 Docker 在进行构建的时候，使用当前目录作为构建上下文。<br>
-一定要在命令最后包含这个点，并且在执行命令前，要确认当前目录是 psweb（包含Dockerfile 和应用代码的目录）。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image build -t web:latest .</span><br><span class="line"></span><br><span class="line">Sending build context to Docker daemon  95.74kB</span><br><span class="line">Step 1/8 : FROM alpine</span><br><span class="line"> ---&gt; a24bb4013296</span><br><span class="line">Step 2/8 : LABEL maintainer=<span class="string">"nigelpoulton@hotmail.com"</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> ce4cb18ec70f</span><br><span class="line">Removing intermediate container ce4cb18ec70f</span><br><span class="line"> ---&gt; 2232669c8a13</span><br><span class="line">Step 3/8 : RUN apk add --update nodejs nodejs-npm</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 73fc816163b0</span><br><span class="line"></span><br><span class="line">&lt;Snip&gt;</span><br><span class="line">Step 8/8 : ENTRYPOINT [<span class="string">"node"</span>, <span class="string">"./app.js"</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 5a788b3f974e</span><br><span class="line">Removing intermediate container 5a788b3f974e</span><br><span class="line"> ---&gt; f461f5d43d79</span><br><span class="line">Successfully built f461f5d43d79</span><br><span class="line">Successfully tagged web:latest</span><br></pre></td></tr></table></figure>
-<p>命令执行结束后，检查本地 Docker 镜像库是否包含了刚才构建的镜像</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image ls</span><br><span class="line">REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">web                    latest              f461f5d43d79        19 seconds ago      82.7MB</span><br></pre></td></tr></table></figure>
-<p>使用 <code>docker image inspect web:latest</code> 来确认刚刚构建的镜像配置是否正确。这个命令会列出 Dockerfile 中设置的所有配置项。</p>
-<h3 id="推送镜像到仓库"><a class="header-anchor" href="#推送镜像到仓库">¶ </a>推送镜像到仓库</h3>
-<p>在创建一个镜像之后，将其保存在一个镜像仓库服务是一个不错的方式。这样存储镜像会比较安全，并且可以被其他人访问使用。Docker Hub 就是这样的一个开放的公共镜像仓库服务，并且这也是 <code>docker image push</code> 命令默认的推送地址。</p>
-<p>在推送镜像之前，需要先使用 Docker ID 登录 Docker Hub。除此之外，还需要为待推送的镜像打上合适的标签。</p>
-<ul>
-<li>登录 Docker Hub</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker login</span><br><span class="line">Login with your Docker ID to push and pull images from Docker Hub. If you don<span class="string">'t have a Docker ID, head over to https://hub.docker.com to create one.</span></span><br><span class="line"><span class="string">Username: zx19904227511</span></span><br><span class="line"><span class="string">Password: </span></span><br><span class="line"><span class="string">Login Succeeded</span></span><br></pre></td></tr></table></figure>
-<p>推送镜像之前，还需要为镜像打标签。这是因为 Docker 在镜像推送的过程中需要如下信息：</p>
-<ul>
-<li>Registry（镜像仓库服务）</li>
-<li>Repository（镜像仓库）</li>
-<li>Tag（镜像标签）</li>
-</ul>
-<p>我们无需为 Registry 和 Tag 指定值，当我们没有为上述信息指定具体值的时候，Docker 会默认 <a href="http://Registry=docker.io" target="_blank" rel="noopener">Registry=docker.io</a>，Tag=latest。但是 Docker 并没有给 Repository 提供默认值，而是从被推送镜像中的 REPOSITORY 属性值获取。</p>
-<p>在前面的例子中执行了 docker image ls 命令。在该命令的输出内容中可以看到，镜像仓库的名称是 web。这意味着执行 docker image push 命令，会尝试将镜像推送到 <a href="http://docker.io/web:latest" target="_blank" rel="noopener">docker.io/web:latest</a> 中。但是其实 zx19904227511 这个用户并没有 web 这个镜像仓库的访问权限，所以只能尝试推送到 zx19904227511 这个二级命名空间之下。因此需要使用 zx19904227511 这个ID，为当前镜像重新打一个标签。</p>
-<ul>
-<li>为镜像重新打标签</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image tag web:latest zx19904227511/web:latest</span><br></pre></td></tr></table></figure>
-<p>为镜像打标签的命令格式是 <code>docker image tag &lt;current-tag&gt; &lt;new-tag&gt;</code>，其作用是为指定的镜像添加一个额外的标签，并且不需要覆盖已经存在的标签。<br>
-再次执行 docker image ls 命令，可以看到这个镜像现在有了两个标签，其中一个包含 Docker ID zx19904227511</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image ls</span><br><span class="line">REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">web                    latest              f461f5d43d79        35 minutes ago      82.7MB</span><br><span class="line">zx19904227511/web      latest              f461f5d43d79        35 minutes ago      82.7MB</span><br></pre></td></tr></table></figure>
-<ul>
-<li>推送镜像到 Docker Hub</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image push zx19904227511/web:latest </span><br><span class="line">The push refers to repository [docker.io/zx19904227511/web]</span><br><span class="line">1a26ed9de03e: Pushed </span><br><span class="line">460dba838ea7: Pushed </span><br><span class="line">65d8cc86a64c: Pushed </span><br><span class="line">50644c29ef5a: Mounted from library/alpine </span><br><span class="line">latest: digest: sha256:9dcba1b2a56e8d9cb8d3b34411cddb1175000447baae7eb7b2a8f625f435ac2d size: 1161</span><br></pre></td></tr></table></figure>
-<h3 id="运行应用程序"><a class="header-anchor" href="#运行应用程序">¶ </a>运行应用程序</h3>
-<p>下面的命令会基于 web:latest 这个镜像，启动一个名为 c1 的容器，该容器将内部的 8080 端口与 Docker 主机的 80 端口进行映射。这意味着可以在浏览器中输入 Docker 主机的 DNS 名称或者 IP 地址，然后就能直接访问这个 web 应用了。</p>
-<blockquote>
-<p>注意，如果 Docker 主机已经运行了某个使用 80 端口的应用程序，可以在执行 docker container run 命令的时候指定一个不同的映射端口。例如，可以使用 -p 5000:8080 参数，将 Docker 内部应用程序的 8080 端口映射到主机的 5000 端口.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker container run -d --name c1 -p 5000:8080 web:latest</span><br></pre></td></tr></table></figure>
-<p>-d 参数的作用是让应用程序以守护线程的方式在后台运行。-p 5000:8080 参数的作用是将主机的 5000 端口与容器内部的 8080 端口进行映射。</p>
-<p>接下来验证一下程序是否真的成功运行，并且对外提供服务的端口是否正常工作</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker container ls</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS                    NAMES</span><br><span class="line">55f39f45b106        web:latest          <span class="string">"node ./app.js"</span>     About a minute ago   Up About a minute   0.0.0.0:5000-&gt;8080/tcp   c1</span><br></pre></td></tr></table></figure>
-<h3 id="APP-测试"><a class="header-anchor" href="#APP-测试">¶ </a>APP 测试</h3>
-<p>打开浏览器，在地址栏输入 DNS名称或者 IP地址加5000 端口号，就能访问到运行的应用程序了。</p>
-<p>如果没有出现正常的页面，尝试执行下面的检查来确认原因所在</p>
-<ul>
-<li>使用 docker container ls 指令来确认容器已经启动并且正常运行。</li>
-<li>确认防火墙或其他网络安全设置没有阻止访问 Docker 主机的 5000 端口。</li>
-</ul>
-<h3 id="Dockerfile-解析"><a class="header-anchor" href="#Dockerfile-解析">¶ </a>Dockerfile 解析</h3>
-<ul>
-<li>Dockerfile 中的注释行，都是以 <code>#</code> 开头的，除注释之外，每一行都是一条指令。指令的格式如下：INSTRUCTION argument</li>
-<li>指令是不区分大小写的，但是通常都采用大写的方式。这样 Dockerfile 的可读性会高一点</li>
-<li><code>docker image build</code> 命令会按行来解析 Dockerfile 中的指令并顺序执行。</li>
-<li>部分指令会在镜像中创建新的镜像层，其他指令只会增加或修改镜像的元数据。</li>
-</ul>
-<blockquote>
-<p>在上面的例子当中，新增镜像层的指令包括 FROM，RUN 以及 COPY，而新增元数据的指令包括 EXPOSE，WORKDIR，ENV 以及 ENTERPOINT。关于如何区分命令是否会新建镜像层，一个基本的原则是：如果指令的作用是向镜像中添加新的文件或程序，那么这条指令就会新建镜像层；如果只是告诉 Docker 如何完成构建或者如何运行应用程序，那么就只会增加镜像的元数据。<br>
-可以通过 docker image history 来查看在构建镜像的过程中都执行了哪些命令</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image <span class="built_in">history</span> web:latest </span><br><span class="line">IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT</span><br><span class="line">f461f5d43d79        59 minutes ago      /bin/sh -c <span class="comment">#(nop)  ENTRYPOINT ["node" "./app…   0B                  </span></span><br><span class="line">85378500d7d0        59 minutes ago      /bin/sh -c <span class="comment">#(nop)  EXPOSE 8080                  0B                  </span></span><br><span class="line">4839a39f2934        59 minutes ago      /bin/sh -c npm install                          26.1MB              </span><br><span class="line">2cfcb8b1e498        About an hour ago   /bin/sh -c <span class="comment">#(nop) WORKDIR /src                  0B                  </span></span><br><span class="line">2cb6fbb6077f        About an hour ago   /bin/sh -c <span class="comment">#(nop) COPY dir:0f14e990f0d71d9e5…   25kB                </span></span><br><span class="line">8dfc762224ba        About an hour ago   /bin/sh -c apk add --update nodejs nodejs-npm   51MB                </span><br><span class="line">2232669c8a13        About an hour ago   /bin/sh -c <span class="comment">#(nop)  LABEL maintainer=nigelpou…   0B                  </span></span><br><span class="line">a24bb4013296        7 weeks ago         /bin/sh -c <span class="comment">#(nop)  CMD ["/bin/sh"]              0B                  </span></span><br><span class="line">&lt;missing&gt;           7 weeks ago         /bin/sh -c <span class="comment">#(nop) ADD file:c92c248239f8c7b9b…   5.57MB</span></span><br></pre></td></tr></table></figure>
-<p>在上面的输出内容当中，有两点是需要注意的。<br>
-首先，每行内容都对应了 Dockerfile 中的一条指令（顺序是自下而上）。CREATE BY 这一列中还展示了当前行具体对应 Dockerfile 中的哪条指令。</p>
-<p>其次，从这个输出内容中，可以观察到只有4条指令会新建镜像层（就是那些 SIZE列对应的数值不为零的指令），分别对应Dockerfile 中的 FROM，RUN 以及 COPY 指令。<br>
-我们可以通过执行 docker image inspect 指令来确认确实只有 4 个层被创建了。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;Snip&gt;</span><br><span class="line"><span class="string">"RootFS"</span>: &#123;</span><br><span class="line">    <span class="string">"Type"</span>: <span class="string">"layers"</span>,</span><br><span class="line">    <span class="string">"Layers"</span>: [</span><br><span class="line">        <span class="string">"sha256:50644c29ef5a27c9a40c393a73ece2479de78325cae7d762ef3cdc19bf42dd0a"</span>,</span><br><span class="line">        <span class="string">"sha256:65d8cc86a64cb670210485cc076268a9f87266603c39b9964cb139cff29f57da"</span>,</span><br><span class="line">        <span class="string">"sha256:460dba838ea777ae5df39cd97cc6c47f02365645b856bf3ae3a9a3add0dbef3d"</span>,</span><br><span class="line">        <span class="string">"sha256:1a26ed9de03e7ecad02313e58795335f3567fcbef40df40cc8f697c45b11afa5"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p>使用 FROM 指令引用官方基础镜像是一个很好的习惯，这是因为官方的镜像通常会遵循一些最佳实践，并且能帮助使用者规避一些已知的问题。除此之外，使用 FROM 的时候选择一个相对较小的镜像文件通常也能规避一些潜在的问题。</p>
-<h2 id="生产环境中的多阶段构建"><a class="header-anchor" href="#生产环境中的多阶段构建">¶ </a>生产环境中的多阶段构建</h2>
-<p>对于 Docker 镜像来说，过大的体积并不好，越大则越慢，这意味着更难使用，而且可能更加脆弱，更容易遭受攻击。<br>
-鉴于此，Docker 镜像应该尽量小，对于生产环境来说，目标是将其缩小到仅包含运行的应用所必需的内容即可。问题在于，生成较小的镜像并非易事。<br>
-例如，不同的 Dockerfile 写法就会对镜像的大小产生显著影响。常见的例子是，每一个 RUN 指令会新增一个镜像层。因此，通过使用 <code>&amp;&amp;</code> 连接多个命令以及使用反斜杠(<code>\</code>)换行的方法，将多个命令包含在一个 RUN 指令中，通常来说是一个值的提倡的方式。<br>
-另一个问题是开发者通常不会再构建完成后进行清理。当使用 RUN 执行一个命令时，可能会拉取一些构建工具，这些工具会留在镜像中移交至生产环境。这是不合适的。<br>
-有多种方式来改善这一问题，比如常见的是采用建造者模式。但无论采用哪种方式，通常都需要额外的培训，并且会增加构建的复杂度。<br>
-建造者模式需要至少两个 Dockerfile，一个用于开发环境，一个用于生产环境。首先需要编写 Dockerfile.dev，它基于一个大型基础镜像，拉取所需的构建工具，并构建应用。接下来，需要基于 Dockerfile.dev 构建一个镜像，并用这个镜像创建一个容器。这时再编写 Dockerfile.prod，它基于一个较小的基础镜像开始构建，并从刚才创建的容器中将应用程序相关的部分复制过来。整个过程需要编写额外的脚本才能串联起来。这种方式是可行的，但是比较复杂。</p>
-<p><code>多阶段构建（Multi-Stage Build）</code>是一种更好的方式！多阶段构建能够在不增加复杂度的情况下优化构建过程。</p>
-<p>下面介绍一下多阶段构建方式<br>
-多阶段构建方式使用一个 Dockerfile，其中包含多个 FROM 指令。每一个 FROM 指令都是一个新的构建阶段（Build Satge）,并且可以方便地复制之前阶段的构建。</p>
-<p>示例源码可以从 GitHub  <a href="https://github.com/dockersamples/atsea-sample-shop-app" target="_blank" rel="noopener">atsea-sample-shop-app</a> 仓库下载，Dockerfile 位于 app 目录。这是一个基于 Linux 系统的应用，因此只能运行在 Linux 容器环境上。</p>
-<ul>
-<li>Dockerfile 如下所示：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat app/Dockerfile</span><br><span class="line"></span><br><span class="line">FROM node:latest AS storefront</span><br><span class="line">WORKDIR /usr/src/atsea/app/react-app</span><br><span class="line">COPY react-app .</span><br><span class="line">RUN npm install</span><br><span class="line">RUN npm run build</span><br><span class="line"></span><br><span class="line">FROM maven:latest AS appserver</span><br><span class="line">WORKDIR /usr/src/atsea</span><br><span class="line">COPY pom.xml .</span><br><span class="line">RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:resolve</span><br><span class="line">COPY . .</span><br><span class="line">RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package -DskipTests</span><br><span class="line"></span><br><span class="line">FROM java:8-jdk-alpine AS production</span><br><span class="line">RUN adduser -Dh /home/gordon gordon</span><br><span class="line">WORKDIR /static</span><br><span class="line">COPY --from=storefront /usr/src/atsea/app/react-app/build/ .</span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY --from=appserver /usr/src/atsea/target/AtSea-0.0.1-SNAPSHOT.jar .</span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/app/AtSea-0.0.1-SNAPSHOT.jar"</span>]</span><br><span class="line">CMD [<span class="string">"--spring.profiles.active=postgres"</span>]</span><br></pre></td></tr></table></figure>
-<p>首先注意到，Dockerfile 中有 3 个 FROM 指令。每一个 FROM 指令构成一个单独的构建阶段。各个阶段在内部从 0 开始编号。不过，示例中针对每个阶段都定义了便于理解的名字</p>
-<ul>
-<li>阶段 0 叫做 storefront</li>
-<li>阶段 1 叫做 appserver</li>
-<li>阶段 2 叫做 production</li>
-</ul>
-<p>storefront 阶段拉取了大小超过 600MB 的 node:latest 镜像，然后设置了工作目录，复制一些应用代码进去，然后使用 2 个 RUN 指令来执行 npm 操作。这会生成 3个镜像层并显著增加镜像大小。指令执行结束后会得到一个比原镜像大得多的镜像，其中包含许多构建工具和少量应用程序代码。<br>
-appserver 阶段拉取了大小超过 700MB 的 maven:latest 镜像。然后通过2个 COPY 指令和 2个 RUN 指令生成了 4个镜像层。这个阶段同样会构建出一个非常大的包含许多构建工具和非常少量应用程序代码的镜像。<br>
-production 阶段拉取 java:8-jdk-alpine 镜像，这个镜像大约 150 MB，明显小于前两个构建阶段用到的 node 和 ，maven 镜像。这个阶段会创建一个用户，设置工作目录，从 storefront 阶段生成的镜像中复制一些应用代码过来。之后设置一个不同的工作目录，然后从 appserver 阶段生成的镜像中复制应用相关的代码。最后，production 设置当前应用程序为容器启动时的主程序。</p>
-<p>重点在于 <code>COPY --from</code> 指令，它从之前的阶段构建的镜像中仅复制生产环境相关的应用代码，而不会复制生产环境下不需要的构件。<br>
-还有一点也很重要，多阶段构建这种方式仅用到了一个 Dockerfile，并且 docker image build 命令不需要增加额外的参数。</p>
-<p>下面演示一下构建操作。</p>
-<ul>
-<li>克隆代码到 app 目录，并确保其中有 Dockerfile。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> atsea-sample-shop-app/app</span><br><span class="line"></span><br><span class="line">$ ls -l</span><br><span class="line">total 24</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  682 Jul 22 17:29 Dockerfile</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu  683 Jul 22 17:29 Dockerfile-dev</span><br><span class="line">-rw-rw-r-- 1 wanwu wanwu 4365 Jul 22 17:29 pom.xml</span><br><span class="line">drwxrwxr-x 4 wanwu wanwu 4096 Jul 22 17:29 react-app</span><br><span class="line">drwxrwxr-x 4 wanwu wanwu 4096 Jul 22 17:29 src</span><br></pre></td></tr></table></figure>
-<ul>
-<li>执行构建</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image build -t multi:stage .</span><br><span class="line"></span><br><span class="line">Sending build context to Docker daemon  3.658MB</span><br><span class="line">Step 1/19 : FROM node:latest AS storefront</span><br><span class="line">latest: Pulling from library/node</span><br><span class="line">7e6d8ed60355: Pull complete </span><br><span class="line">43421f771d04: Pull complete </span><br><span class="line">c36327c39ae4: Pull complete </span><br><span class="line"></span><br><span class="line">&lt;Snip&gt;</span><br><span class="line"></span><br><span class="line">Step 19/19 : CMD [<span class="string">"--spring.profiles.active=postgres"</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 42d7ac1161c6</span><br><span class="line">Removing intermediate container 42d7ac1161c6</span><br><span class="line"> ---&gt; 28e88758045d</span><br><span class="line">Successfully built 28e88758045d</span><br><span class="line">Successfully tagged multi:stage</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注：示例中的 multi:stage 标签是自行定义的，我们可以根据自己的需要和规范来指定标签名称。不过并不要求一定必须为多阶段构建指定标签。</p>
-</blockquote>
-<ul>
-<li>执行 docker image ls 查看由构建命令拉取和生成的镜像</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker image ls</span><br><span class="line">REPOSITORY             TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">node                   latest              7f312bedcea0        9 hours ago          944MB</span><br><span class="line">&lt;none&gt;                 &lt;none&gt;              6dc29a2a9b3e        2 minutes ago        663MB</span><br><span class="line">maven                  latest              b47eb3b5b269        6 days ago           522MB</span><br><span class="line">&lt;none&gt;                 &lt;none&gt;              c0d2774b21fd        38 minutes ago       1.12GB</span><br><span class="line">multi                  stage               28e88758045d        About a minute ago   211MB</span><br></pre></td></tr></table></figure>
-<p>输出内容的第一行显示了在 storefront 阶段拉取的 node:latest 镜像，下一行内容为该阶段生成的镜像。这两个都包含许多的构建工具，因此镜像体积非常大。<br>
-第 3~4 行是在 appserver 阶段拉取和生成的镜像，它们也都因为包含许多构建工具而导致体积较大<br>
-最后一行是 Dockerfile 中的最后一个构建阶段（stage2/production）生成的 multi:stage 镜像。可见它明显比之前阶段拉取和生成的镜像要小。这是因为该镜像是基于相对精简的 java:8-jdk-alpine 镜像构建的，并且仅添加了用于生产环境的应用程序文件。</p>
-<h2 id="最佳实践"><a class="header-anchor" href="#最佳实践">¶ </a>最佳实践</h2>
-<h3 id="利用构建缓存"><a class="header-anchor" href="#利用构建缓存">¶ </a>利用构建缓存</h3>
-<p>Docker 的构建过程利用了缓存机制。观察缓存效果的一个方法，就是在一个干净的 Docker 主机上构建一个新的镜像，然后再重复同样的构建。第一次构建会拉取基础镜像，并构建镜像层，构建过程需要花费一定时间；第二次构建几乎能够立即完成。这就是因为第一次构建的内容能够被缓存下来，并被后续的构建过程复用。</p>
-<h3 id="合并镜像"><a class="header-anchor" href="#合并镜像">¶ </a>合并镜像</h3>
-<p>合并镜像并非一个最佳实践，因为这种方式利弊参半<br>
-总体来说，Docker 会遵循正常的方式构建镜像，但之后会增加一个额外的步骤，将所有的内容合并到一个镜像层中。<br>
-当镜像层数太多时，合并时一个不错的优化方式。例如，当创建一个新的基础镜像，以便基于它来构建其他镜像的时候，这个基础镜像就最好被合并为一层。<br>
-缺点是，合并的镜像无法共享镜像层。这会导致存储空间的低效利用，而且 push 和 pull 操作的镜像体积更大。<br>
-执行 docker image build 命令时，可以通过增加 --squash 参数来创建一个合并的镜像。</p>
-<h3 id="使用-no-install-recommends"><a class="header-anchor" href="#使用-no-install-recommends">¶ </a>使用 no-install-recommends</h3>
-<p>在构建 Linux 镜像时，若使用的是 APT 包管理器，则应该在执行 apt-get install 命令时增加 --no-install-recommends 参数。这能够确保 APT 仅安装核心依赖（Depends 中定义）包，而不是推荐和建议的包。这样能够显著减少不必要包的下载数量。</p>
-<h3 id="不要安装-MSI-包（windows）"><a class="header-anchor" href="#不要安装-MSI-包（windows）">¶ </a>不要安装 MSI 包（windows）</h3>
-<p>在构建 Windows 镜像时，尽量避免使用 MSI 包管理器。因其对空间的利用率不高，会大幅增加镜像的体积</p>
-<h1>总结</h1>
-<ul>
-<li>
-<p>docker image build 命令会读取 Dockerfile，并将应用程序容器化。使用 -t 参数为镜像打标签，使用 -f 参数指定 Dockerfile 的路径和名称，使用 -f 参数可以指定位于任意路径下的任意名称的 Dockerfile。构建上下文是指应用文件存放的位置，可能是本地 Docker 主机上的一个目录或者一个远程 Git 库；</p>
-</li>
-<li>
-<p>Dockerfile 中的 FROM 指令用于指定要构建的镜像的基础镜像。它通常是 Dockerfile 中的第一条指令；</p>
-</li>
-<li>
-<p>Dockerfile 中的 RUN 指令用于在镜像中执行命令，这会创建新的镜像层。每个 RUN 指令创建一个新的镜像层；</p>
-</li>
-<li>
-<p>Dockerfile 中的 COPY 指令用于将文件作为一个新的层添加到镜像中。通常使用 COPY 指令将应用代码复制到镜像中；</p>
-</li>
-<li>
-<p>Dockerfile 中的 EXPOSE 指令用于记录应用程序所使用的网络端口；</p>
-</li>
-<li>
-<p>Dockerfile 中的 ENTRYPOINT 指令用于指定镜像以容器方式启动后默认运行的程序；</p>
-</li>
-<li>
-<p>其他的 Dockerfile 指令还有 LABEL，ENV，ONBUILD，HEALTHCHECK，CMD 等。</p>
-</li>
-</ul>
 ]]></content>
       <categories>
         <category>Docker</category>
