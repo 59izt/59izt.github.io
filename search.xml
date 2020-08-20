@@ -1,6 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>使用 Dockerfile 创建镜像</title>
+    <url>/2020/08/20/52-Docker-%E4%BD%BF%E7%94%A8Dockerfile%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战]</p>
+</blockquote>
+<p>Dockerfile 是一个文本格式的配置文件，用户可以使用 Dockerfile 来快速创建自定义的镜像。Dockerfile 是由一行行命令语句组成，并且支持以 # 开头的注释行。</p>
+ <a id="more"></a>
+<h1>基本结构</h1>
+<p>一般而言，Dockerfile 主体部分分为四个部分：基础镜像信息，维护者信息，镜像操作指令和容器启动时执行命令。</p>
+<p>下面给出一个简单的示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># escape=\ (bcakslash)</span></span><br><span class="line"><span class="comment"># This dockerfile use the ubuntu:xeniel image</span></span><br><span class="line"><span class="comment"># VERSION 2 - EDITION 1</span></span><br><span class="line"><span class="comment"># Author: docker_user</span></span><br><span class="line"><span class="comment"># Command format: Instruction [arguments / command] ..</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Base image to use, this must be set as the first line.</span></span><br><span class="line">FROM ubuntu:xeniel</span><br><span class="line"></span><br><span class="line"><span class="comment"># Maintainer: docker_user &lt;docker_user at email.com&gt; [@docker_user]</span></span><br><span class="line">LABEL maintainer docker_user&lt;docker_user@email.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Commands to update the image</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">"deb http://archive.ubuntu.com/ubuntu/ xeniel main universe"</span> &gt;&gt; /etc/apt/sources.list</span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y nginx</span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">"\ndaemon off;"</span> &gt;&gt; /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Commands when creating a new container</span></span><br><span class="line">CMD /usr/bin/nginx</span><br></pre></td></tr></table></figure>
+<p>首行可以通过注释来指定解析命令，后续通过注释说明镜像的相关信息。主体部分首先使用 <code>FROM</code> 指令指明所基于的镜像名称，接下来一般是使用 <code>LABEL</code> 指令说明维护者信息。后面则是镜像操作指令，例如 <code>RUN</code> 指令将对镜像执行跟随的命令。每运行一条 RUN 指令，镜像添加新的一层，并提交。最后是 <code>CMD</code> 指令，来指定运行容器时的操作指令。</p>
+<p>下面是 Docker Hub 上两个热门镜像 nginx 和 Go 的 Dockerfile 的例子，通过这两个例子。可以对 Dockerfile 结构有个基本的感知。</p>
+<ul>
+<li>第一个是在 debian:jessie 基础镜像上安装 Nginx 环境，从而创建一个新的 Nginx 镜像:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM debian:jessie</span><br><span class="line"></span><br><span class="line">LABEL maintainer lonely&lt;2350686113@qq.com&gt;</span><br><span class="line"></span><br><span class="line">ENV NGINX_VERSION 1.10.1-1~jessie</span><br><span class="line"></span><br><span class="line">RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3DBFBC641079A6ABABF5BDB27BD9BF62 \</span><br><span class="line">    &amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://nginx.org/packages/debian/ jessie nginx"</span> &gt;&gt; /etc/apt/sources.list \</span><br><span class="line">    &amp;&amp; apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install --no-install-recommends --no-install-suggests -y ca-certificates \</span><br><span class="line">    nginx=<span class="variable">$&#123;NGINX_VERSION&#125;</span> \</span><br><span class="line">    nginx-module-xslt \</span><br><span class="line">    nginx-module-geoip \</span><br><span class="line">    nginx-module-image-filter \</span><br><span class="line">    nginx-module-perl \</span><br><span class="line">    nginx-module-njs \</span><br><span class="line">    gettext-base \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># forward request and error logs to docker log collector</span></span><br><span class="line">RUN ln -sf /dev/stdout /var/<span class="built_in">log</span>/nginx/accrss.log \</span><br><span class="line">    &amp;&amp; ln -sf /dev/stderr /var/<span class="built_in">log</span>/nginx/error.log</span><br><span class="line"></span><br><span class="line">EXPOSE 80 443</span><br><span class="line"></span><br><span class="line">CMD [<span class="string">"nginx"</span>, <span class="string">"-g"</span>, <span class="string">"daemon off;"</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二个是基于 buildpack-deps:jessie-scm 基础镜像，安装 Golang 相关环境，制作一个 Go 语言的运行环境镜像：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM buildpack-deps:jessie-scm</span><br><span class="line"></span><br><span class="line"><span class="comment"># gcc for cgo</span></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends \</span><br><span class="line">    g++ \</span><br><span class="line">    gcc \</span><br><span class="line">    libc6-dev \</span><br><span class="line">    make \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span><br><span class="line"></span><br><span class="line">ENV GOLANG_VERSION 1.6.3</span><br><span class="line">ENV GOLANG_DOWNLOAD_URL https://golang.org/dl/go<span class="variable">$GOLANG_VERSION</span>.linux-amd64.tar.gz</span><br><span class="line">ENV GOLANG_DOWNLOAD_SHA256 cdde5e08530c0579255d6153b08fdb3b8e47caabbe717bc7bcd7561275a87aeb</span><br><span class="line"></span><br><span class="line">RUN curl -fsSL <span class="string">"<span class="variable">$GOLANG_DOWNLOAD_URL</span>"</span> -o golang.tar.gz \</span><br><span class="line">    &amp;&amp; <span class="built_in">echo</span> <span class="string">"<span class="variable">$GOLANG_DOWNLOAD_SHA256</span> golang.tar.gz"</span> |sha256sum -c - \</span><br><span class="line">    &amp;&amp; tar -C /usr/<span class="built_in">local</span> -xzf golang.tar.gz \</span><br><span class="line">    &amp;&amp; rm golang.tar.gz</span><br><span class="line"></span><br><span class="line">ENV GOPATH /go</span><br><span class="line">ENV PATH <span class="variable">$GOPATH</span>/bin:/usr/<span class="built_in">local</span>/go/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line">RUN mkdir -p <span class="string">"<span class="variable">$GOPATH</span>/src"</span> <span class="string">"<span class="variable">$GOPATH</span>/bin"</span> &amp;&amp; chmod -R 777 <span class="string">"<span class="variable">$GOPATH</span>"</span></span><br><span class="line"></span><br><span class="line">WORKDIR <span class="variable">$GOPATH</span></span><br><span class="line"></span><br><span class="line">COPY go-wrapper /usr/<span class="built_in">local</span>/bin/</span><br></pre></td></tr></table></figure>
+<h1>指令说明</h1>
+<p>Dockerfile 中指令的一般格式为 INSTRUCTION arguments，包括 “配置指令”（配置镜像信息）和 ”操作指令“(具体执行操作)，如下表所示：</p>
+<table border="1">
+  <tr>
+    <th>分类</th>
+    <th>指令</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td rowspan="13">配置指令</td>
+    <td>ARG</td>
+    <td>定义创建镜像过程中使用的变量</td>
+  </tr>
+  <tr>
+    <td>FROM</td>
+    <td>指定所创建镜像的基础镜像</td>
+  </tr>
+  <tr>
+    <td>LABEL</td>
+    <td>为生成的镜像添加元数据标签信息</td>
+  </tr>
+  <tr>
+    <td>EXPOSE</td>
+    <td>声明镜像内部服务监听的端口</td>
+  </tr>
+  <tr>
+    <td>ENV</td>
+    <td>指定环境变量</td>
+  </tr>
+  <tr>
+    <td>ENTRYPOINT</td>
+    <td>指定镜像的默认入口命令</td>
+  </tr>
+  <tr>
+    <td>VOLUME</td>
+    <td>创建一个数据卷挂载点</td>
+  </tr>
+  <tr>
+    <td>USER</td>
+    <td>指定运行容器时的用户名或 UID</td>
+  </tr>
+  <tr>
+    <td>WORKDIR</td>
+    <td>配置工作目录</td>
+  </tr>
+  <tr>
+    <td>ONBUILD</td>
+    <td>创建子镜像时指定自动执行得操作指令</td>
+  </tr>
+  <tr>
+    <td>STOPSIGNAL</td>
+    <td>指定退出的信号值</td>
+  </tr>
+  <tr>
+    <td>HEALTHCHECK</td>
+    <td>配置所启动容器如何进行健康检查</td>
+  </tr>
+  <tr>
+    <td>SHELL</td>
+    <td>指定默认 Shell 类型</td>
+  </tr>
+  <tr>
+    <td rowspan=4>操作指令</td>
+    <td>RUN</td>
+    <td>运行指定命令</td>
+  </tr>
+  <tr>
+    <td>CMD</td>
+    <td>启动容器时指定默认执行得命令</td>
+  </tr>
+  <tr>
+    <td>ADD</td>
+    <td>添加内容到镜像</td>
+  </tr>
+  <tr>
+    <td>COPY</td>
+    <td>复制内容到镜像</td>
+  </tr>
+</table>
+<h2 id="配置指令"><a class="header-anchor" href="#配置指令">¶ </a>配置指令</h2>
+<h3 id="ARG"><a class="header-anchor" href="#ARG">¶ </a>ARG</h3>
+<p>定义创建镜像过程中使用的变量。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ARG &lt;name&gt;[=&lt;default value&gt;]</span><br></pre></td></tr></table></figure>
+<p>在执行 docker build 时，可以通过 --build-arg[=] 来为变量赋值。当镜像编译成功后，ARG 指定的变量将不再存在（ENV指定的变量将在镜像中保留）。</p>
+<p>Docker 内置了一些镜像创建变量，用户可以直接使用而无须声明，包括 <code>HTTP_PROXY</code>，<code>HTTPS_PROXY</code>，<code>FTP_PROXY</code>，<code>NO_PROXY</code>（不区分大小写）。</p>
+<h3 id="FROM"><a class="header-anchor" href="#FROM">¶ </a>FROM</h3>
+<p>指定所创建镜像的基础镜像。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM &lt;image&gt; [AS &lt;name&gt;] 或 FROM &lt;image&gt;:&lt;tag&gt; [AS &lt;name&gt;] 或者 FROM &lt;image&gt;@&lt;digest&gt; [AS &lt;name&gt;]</span><br></pre></td></tr></table></figure>
+<p>任何 Dockerfile 中第一条指令必须为 <code>FROM</code> 指令。并且在同一个 Dockerfile 中创建多个镜像时，可以使用多个 FROM 指令（每个镜像一次）。<br>
+为了保证镜像精简，可以选用体积较小的镜像，如 <code>Alpine</code> 或 <code>Debian</code> 作为基础镜像。例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ARG VERSION=9.3</span><br><span class="line">FROM debian:<span class="variable">$&#123;VERSION&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="LABEL"><a class="header-anchor" href="#LABEL">¶ </a>LABEL</h3>
+<p><code>LABEL</code> 指令可以为生成的镜像添加元数据标签信息。这些信息可以用来辅助过滤出特定镜像。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LABEL version=<span class="string">"1.0.0-rc3"</span></span><br><span class="line">LABEL author=<span class="string">"yeasy@github"</span> date=<span class="string">"2020-01-01"</span></span><br><span class="line">LABEL description=<span class="string">"This text illustrates \</span></span><br><span class="line"><span class="string">    that label-values can span multiple lines."</span></span><br></pre></td></tr></table></figure>
+<h3 id="EXPOSE"><a class="header-anchor" href="#EXPOSE">¶ </a>EXPOSE</h3>
+<p>声明镜像内服务监听的端口<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">EXPOSE 22 80 8443</span><br></pre></td></tr></table></figure>
+<p>注意，该指令只是起到声明作用，并不会自动完成端口映射。如果要映射端口出来，在启动容器时可以使用 <code>-P</code> 参数或 <code>-p HOST_PORT:CONTAINER_PORT</code> 参数。</p>
+<h3 id="ENV"><a class="header-anchor" href="#ENV">¶ </a>ENV</h3>
+<p>指定环境变量，在镜像生成过程中会被后续 RUN 指令使用，在镜像启动的容器中也会存在。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ENV &lt;key&gt; &lt;value&gt; 或 ENV &lt;key&gt;=&lt;value&gt; ...。</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ENV APP_VERSION=1.0.0</span><br><span class="line">ENV APP_HOME=/usr/<span class="built_in">local</span>/app</span><br><span class="line">ENV PATH <span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/bin</span><br></pre></td></tr></table></figure>
+<p>ENV 指令指定的环境变量在运行时可以被覆盖掉，如 <code>docker run --env &lt;key&gt;=&lt;value&gt; built_image</code>。</p>
+<p>注意：当一条 ENV 指令中同时为多个环境变量赋值并且值也是从环境变量读取时，会为变量都赋值后再更新。如下面的指令，最终结果为 key1=value1 key2=value2:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ENV key1=value2</span><br><span class="line">ENV key1=value1 key2=<span class="variable">$&#123;key1&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="ENTRYPOINT"><a class="header-anchor" href="#ENTRYPOINT">¶ </a>ENTRYPOINT</h3>
+<p>指定镜像的默认入口命令，该入口命令会在启动容器时作为根命令执行，所有传入值作为该命令的参数。<br>
+支持两种格式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ENTRYPOINT [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]   <span class="comment"># exec 调用执行</span></span><br><span class="line">ENTRYPOINT <span class="built_in">command</span> param1 param2    <span class="comment"># shell 中执行</span></span><br></pre></td></tr></table></figure>
+<p>此时，<code>CMD</code> 指令指定值将作为根命令的参数。<br>
+每个 Dockerfile 中只能有一个 <code>ENTRYPOINT</code>，当指定多个时，只有最后一个起效。<br>
+在运行时，可以被 <code>--entrypoint</code> 参数覆盖掉，如 <code>docker run --entrypoint</code> 。</p>
+<h3 id="VOLUME"><a class="header-anchor" href="#VOLUME">¶ </a>VOLUME</h3>
+<p>创建一个数据卷挂载点<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VOLUME [<span class="string">"/data"</span>]</span><br></pre></td></tr></table></figure>
+<p>运行容器时可以从本地或者其他容器挂载数据卷。一般用来存放数据库和需要保存的数据等。</p>
+<h3 id="USER"><a class="header-anchor" href="#USER">¶ </a>USER</h3>
+<p>指定运行容器时的用户名或 UID，后续的 <code>RUN</code> 等指令也会使用指定的用户身份。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">USER daemon</span><br></pre></td></tr></table></figure>
+<p>当服务不需要管理员权限时，可以通过该命令指定运行用户，并且可以在 Dockerfile 中创建所需要的用户。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RUN groupadd -r postgres &amp;&amp; useradd --no-log-init -r -g postgres postgres</span><br></pre></td></tr></table></figure>
+<p>要临时获取管理员权限可以使用 <code>gosu</code> 命令</p>
+<h3 id="WORKDIR"><a class="header-anchor" href="#WORKDIR">¶ </a>WORKDIR</h3>
+<p>为后续的 <code>RUN</code>，<code>CMD</code>，<code>ENTRYPOINT</code> 指令配置工作目录<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WORKDIR /path/to/workdir</span><br></pre></td></tr></table></figure>
+<p>可以使用多个 <code>WORKDIR</code> 指令，后续命令如果参数是相对路径，则会基于当前命令指定的路径。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WORKDIR /a</span><br><span class="line">WORKDIR b</span><br><span class="line">WORKDIR c</span><br><span class="line">RUN <span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<p>则最终路径为 <code>/a/b/c</code>。因此，为了避免出错，推荐 <code>WORKDIR</code> 指令中只是用绝对路径。</p>
+<h3 id="ONBUILD"><a class="header-anchor" href="#ONBUILD">¶ </a>ONBUILD</h3>
+<p>指定当基于所生成镜像创建子镜像时，自动执行的操作指令。<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ONBUILD [INSTRUCTION]</span><br></pre></td></tr></table></figure>
+<p>例如，使用如下的 Dockerfile 创建父镜像 ParentImage，指定 <code>ONBUILD</code> 指令：</p>
+<ul>
+<li>Dockerfile for ParentImage</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[...]</span><br><span class="line">ONBUILD ADD . /app/src</span><br><span class="line">ONBUILD RUN /usr/<span class="built_in">local</span>/bin/python-build --dir /app/src</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>使用 docker build 命令创建子镜像 ChildImage 时（FROM ParentImage），会首先执行 ParentImage 中配置的 <code>ONBUILD</code> 指令：</p>
+<ul>
+<li>Dockerfile for ChildImage</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM ParentImage</span><br><span class="line"><span class="comment"># 等价于在 ChildImage 的 Dockerfile 中添加了 如下指令：</span></span><br><span class="line"><span class="comment"># Automatically run the following when building ChildImage。</span></span><br><span class="line">ADD . /app/src</span><br><span class="line">RUN /usr/<span class="built_in">local</span>/bin/python-build --dir /app/src</span><br></pre></td></tr></table></figure>
+<p>由于 <code>ONBUILD</code> 指令是隐式执行的，推荐在使用它的镜像标签中进行标注，例如 <code>ruby:2.1-onbuild</code>。<br>
+<code>ONBUILD</code> 指令在创建专门用于自动编译，检查等操作的基础镜像时，十分有用。</p>
+<h3 id="STOPSIGNAL"><a class="header-anchor" href="#STOPSIGNAL">¶ </a>STOPSIGNAL</h3>
+<p>指定所创建镜像启动的容器接收退出的信号值</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">STOPSIGNAL signal</span><br></pre></td></tr></table></figure>
+<h3 id="HEALTHCHECK"><a class="header-anchor" href="#HEALTHCHECK">¶ </a>HEALTHCHECK</h3>
+<p>配置所启动容器如何进行健康检查（如何判断健康与否），自 Docker 1.12 开始支持。<br>
+格式有两种：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HEALTHCHECK [OPTIONS] CMD <span class="built_in">command</span>   <span class="comment"># 根据所执行命令返回值是否为 0 来判断；</span></span><br><span class="line">HEALTHCHECK NONE    <span class="comment"># 禁止基础镜像中的健康检查</span></span><br></pre></td></tr></table></figure>
+<p>OPTIONS 支持如下参数：</p>
+<ul>
+<li>–interval=DURATION (default: 30s): 过多久检查一次；</li>
+<li>–timeout=DURATION (default: 30s): 每次检查等待结果的超时；</li>
+<li>–retries=N (default: 3): 如果失败了，重试几次才最终确定失败。</li>
+</ul>
+<h3 id="SHELL"><a class="header-anchor" href="#SHELL">¶ </a>SHELL</h3>
+<p>指定其他命令使用 <code>shell</code> 时的默认 <code>shell</code> 类型：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SHELL [<span class="string">"executable"</span>, <span class="string">"parameters"</span>]</span><br></pre></td></tr></table></figure>
+<p>默认值为 <code>[&quot;/bin/sh&quot;, &quot;-c&quot;]</code></p>
+<blockquote>
+<p>对于 Windows 系统，Shell 路径中使用了 <code>&quot;\&quot;</code> 作为分隔符，建议在 Dockerfile 开头中添加 <code># escape=</code> 来指定转义符.</p>
+</blockquote>
+<h2 id="操作指令"><a class="header-anchor" href="#操作指令">¶ </a>操作指令</h2>
+<h3 id="RUN"><a class="header-anchor" href="#RUN">¶ </a>RUN</h3>
+<p>运行指定的命令<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RUN &lt;<span class="built_in">command</span>&gt; 或 RUN [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，后者的指令会被解析为 <code>JSON</code> 数组，因此必须用双引号。前者默认将在 shell 终端中运行命令，即 <code>/bin/sh -c</code>；后者则使用 <code>exec</code> 执行，则不会启动 shell 环境。</p>
+</blockquote>
+<p>指定使用其他终端类型可以通过第二种方式实现，例如 <code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo hello&quot;]</code>。<br>
+每条 <code>RUN</code> 指令将在当前镜像基础上执行指定命令，并提交为新的镜像层。当命令较长时可以使用 <code>\</code> 来换行。例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RUN apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install -y libsnappy-dev zliblg-dev libbz2-dev \</span><br><span class="line">    &amp;&amp; rm -rf /var/cache/apt \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span><br></pre></td></tr></table></figure>
+<h3 id="CMD"><a class="header-anchor" href="#CMD">¶ </a>CMD</h3>
+<p>CMD 指令用来指定启动容器时默认执行的命令。<br>
+支持的三种格式：</p>
+<ul>
+<li><code>CMD [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code>: 相当于执行 executable param1 param2，推荐方式</li>
+<li><code>CMD command param1, param2</code>：在默认的 shell 中执行，提供给需要交互的应用；</li>
+<li><code>CMD [&quot;param1&quot;, &quot;param2&quot;]</code>: 提供给 ENTRYPOINT 的默认参数。</li>
+</ul>
+<p>每个 Dockerfile 只能有一条 <code>CMD</code> 命令。如果指定了多条命令，只有最后一条会被执行。<br>
+如果用户启动容器的时候手动指定了运行的命令（作为 <code>run</code> 命令的参数），则会覆盖掉 <code>CMD</code> 指定的命令。</p>
+<h3 id="ADD"><a class="header-anchor" href="#ADD">¶ </a>ADD</h3>
+<p>添加内容到镜像<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ADD &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+<p>该命令将复制指定的 <code>&lt;src&gt;</code> 路径下的内容到容器中的 <code>&lt;dest&gt;</code> 路径下。<br>
+其中 <code>&lt;src&gt;</code> 可以是 Dockerfile 所在目录的一个相对路径（文件或目录）；也可以是一个 <code>URL</code>；还可以是一个 <code>tar</code> 文件（自动解压为目录）。<code>&lt;dest&gt;</code> 可以是镜像内绝对路径，或者相对于工作目录 (<code>WORKDIE</code>) 的相对路径。</p>
+<p>路径支持正则格式，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ADD *.c /code/</span><br></pre></td></tr></table></figure>
+<h3 id="COPY"><a class="header-anchor" href="#COPY">¶ </a>COPY</h3>
+<p>复制内容到镜像<br>
+格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">COPY &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
+<p>复制本地主机的 <code>&lt;src&gt;</code>下内容到镜像中的 <code>&lt;dest&gt;</code> 路径下。目标路径不存在时，会自动创建。<br>
+路径同样支持正则格式。</p>
+<p><code>COPY</code> 与 <code>ADD</code> 指令功能类似，当使用本地目录为源目录时，推荐使用 <code>COPY</code>；</p>
+<h1>创建镜像</h1>
+<p>编写完 Dockerfile 之后，可以通过 <code>docker [image] build</code> 命令来创建镜像。<br>
+基本的格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker build [OPTIONS] PATH | URL | -</span><br></pre></td></tr></table></figure>
+<p>该命令将读取指定路径下（包括子目录）的 <code>Dockerfile</code>，并将该路径下所有数据作为上下文（Context）发送给 Docker 服务端。Docker 服务端在校验 Dockerfile 格式通过后，逐条执行其中定义的指令，碰到 <code>ADD</code>，<code>COPY</code> 和 <code>RUN</code> 指令会生成一层新的镜像。最终如果创建镜像成功，会返回镜像的 ID。</p>
+<p>如果上下文过大，会导致发送大量数据给服务端，延缓创建过程。因此除非是生成镜像所必须的文件，不然不要放到上下文路径下。<br>
+如果使用非上下文路径下的 Dockerfile，可以通过 <code>-f</code> 选项来指定其路径。<br>
+要指定生成镜像的标签信息，可以通过 <code>-t</code> 选项。该选项可以重复使用多次为镜像一次添加多个名称。</p>
+<p>例如，上下文路径为 <code>/tmp/docker_builder/</code>，并且希望生成的镜像标签为 <code>builder/first_image:1.0.0</code>，可以使用下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t builder/first_image:1.0.0 /tmp/docker_builder/</span><br></pre></td></tr></table></figure>
+<h2 id="命令选项"><a class="header-anchor" href="#命令选项">¶ </a>命令选项</h2>
+<p><code>docker [image] build</code> 命令支持一系列的选项，可以调整创建镜像过程的行为，如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">选项</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">–add-host list</td>
+<td style="text-align:left">添加自定义的主机名到 IP 的映射</td>
+</tr>
+<tr>
+<td style="text-align:left">–build-arg list</td>
+<td style="text-align:left">添加创建时的变量</td>
+</tr>
+<tr>
+<td style="text-align:left">–cache-from string</td>
+<td style="text-align:left">使用指定镜像作为缓存源</td>
+</tr>
+<tr>
+<td style="text-align:left">–cgroup-parent string</td>
+<td style="text-align:left">继承上层的 cgroup</td>
+</tr>
+<tr>
+<td style="text-align:left">–compress</td>
+<td style="text-align:left">使用 gzip 来压缩创建上下文数据</td>
+</tr>
+<tr>
+<td style="text-align:left">–cpu-period int</td>
+<td style="text-align:left">CFS 调度器时长</td>
+</tr>
+<tr>
+<td style="text-align:left">–cpu-quota int</td>
+<td style="text-align:left">CFS 调度器总份额</td>
+</tr>
+<tr>
+<td style="text-align:left">-c, --cpu-shares int</td>
+<td style="text-align:left">CPU 权重</td>
+</tr>
+<tr>
+<td style="text-align:left">–cpuset-cpus string</td>
+<td style="text-align:left">多核 CPU 允许使用的 CPU</td>
+</tr>
+<tr>
+<td style="text-align:left">–cpuset-mems string</td>
+<td style="text-align:left">多核 CPU 允许使用的 内存</td>
+</tr>
+<tr>
+<td style="text-align:left">–disable-content-trust</td>
+<td style="text-align:left">不进行镜像校验，默认为 true</td>
+</tr>
+<tr>
+<td style="text-align:left">-f, --file string</td>
+<td style="text-align:left">Dockerfile 文件名</td>
+</tr>
+<tr>
+<td style="text-align:left">–force-rm</td>
+<td style="text-align:left">总是删除中间过程的容器</td>
+</tr>
+<tr>
+<td style="text-align:left">–iidfile string</td>
+<td style="text-align:left">将镜像 ID 写入到文件</td>
+</tr>
+<tr>
+<td style="text-align:left">–isolation string</td>
+<td style="text-align:left">容器的隔离机制</td>
+</tr>
+<tr>
+<td style="text-align:left">–label list</td>
+<td style="text-align:left">配置镜像的元数据</td>
+</tr>
+<tr>
+<td style="text-align:left">-m, --memory bytes</td>
+<td style="text-align:left">限制使用内存量</td>
+</tr>
+<tr>
+<td style="text-align:left">–memory-swap bytes</td>
+<td style="text-align:left">限制内存和缓存的总量</td>
+</tr>
+<tr>
+<td style="text-align:left">–network string</td>
+<td style="text-align:left">指定 RUN 命令时的网络模式</td>
+</tr>
+<tr>
+<td style="text-align:left">–no-cache</td>
+<td style="text-align:left">创建镜像时不使用缓存</td>
+</tr>
+<tr>
+<td style="text-align:left">–platform string</td>
+<td style="text-align:left">指定平台类型</td>
+</tr>
+<tr>
+<td style="text-align:left">–pull</td>
+<td style="text-align:left">总是尝试获取镜像的最新版本</td>
+</tr>
+<tr>
+<td style="text-align:left">-q, --quite</td>
+<td style="text-align:left">不打印创建过程中的日志信息</td>
+</tr>
+<tr>
+<td style="text-align:left">–rm</td>
+<td style="text-align:left">创建成功后自动删除中间过程容器，默认为true</td>
+</tr>
+<tr>
+<td style="text-align:left">–security-opt strings</td>
+<td style="text-align:left">指定安全相关的选项</td>
+</tr>
+<tr>
+<td style="text-align:left">–shm-size bytes</td>
+<td style="text-align:left">/dev/shm 的大小</td>
+</tr>
+<tr>
+<td style="text-align:left">–squash</td>
+<td style="text-align:left">将新创建的多层挤压放入到一层中</td>
+</tr>
+<tr>
+<td style="text-align:left">–stream</td>
+<td style="text-align:left">持续获取创建的上下文</td>
+</tr>
+<tr>
+<td style="text-align:left">-t, --tag list</td>
+<td style="text-align:left">指定镜像的标签列表</td>
+</tr>
+<tr>
+<td style="text-align:left">–target string</td>
+<td style="text-align:left">指定创建的目标阶段</td>
+</tr>
+<tr>
+<td style="text-align:left">-ulimt ulimit</td>
+<td style="text-align:left">指定 ulimit 的配置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="选择父镜像"><a class="header-anchor" href="#选择父镜像">¶ </a>选择父镜像</h2>
+<p>大部分情况下，生成新的镜像都需要通过 FROM 指令来指定父镜像。父镜像是生成镜像的基础，会直接影响到所生成镜像大小和功能。<br>
+用户可以选择两种镜像作为父镜像：</p>
+<ul>
+<li>一种是所谓的基础镜像（baseimage）</li>
+<li>一种是普通的镜像（往往由第三方创建，基于基础镜像）</li>
+</ul>
+<p>基础镜像比较特殊，其 Dockerfile 中往往不存在 FROM 指令，或者基于 scratch 镜像（FROM scratch），者意味着其在整个镜像树中处于根的位置。</p>
+<p>下面的 Dockerfile 定义了一个简单的基础镜像，将用户提前编译好的二进制可执行文件 binary 复制到镜像中，运行容器时执行 binary 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM scratch</span><br><span class="line">ADD binary /</span><br><span class="line">CMD [<span class="string">"/binary"</span>]</span><br></pre></td></tr></table></figure>
+<p>普通镜像也可以作为父镜像来使用，包括常见的 busybox，debian，ubuntu 等。</p>
+<h2 id="使用-dockerignore-文件"><a class="header-anchor" href="#使用-dockerignore-文件">¶ </a>使用 .dockerignore 文件</h2>
+<p>可以通过 .dockerignore 文件（每一行添加一条匹配模式）来让 Docker 忽略匹配路径或文件，在创建镜像时不将无关的数据发送到服务端。</p>
+<p>例如下面的例子中包括了 6 行忽略模式（第一行为注释）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># .dockerigonre   文件中可以定义忽略模式</span></span><br><span class="line">*/temp*</span><br><span class="line">*/*/temp*</span><br><span class="line">tmp?</span><br><span class="line">~*</span><br><span class="line">Dockerfile</span><br><span class="line">!README.md</span><br></pre></td></tr></table></figure>
+<ul>
+<li>dockerignore 文件中模式语法支持 Golang 风格的路径正则格式；</li>
+<li>‘*’ 表示任意多个字符；</li>
+<li>‘?’ 表示单个字符；</li>
+<li>‘!’ 表示不匹配</li>
+</ul>
+<h2 id="多步骤创建"><a class="header-anchor" href="#多步骤创建">¶ </a>多步骤创建</h2>
+<p>自 17.05 版本开始，Docker 支持多步骤镜像创建（Multi-stage build）特性，可以精简最终生成的镜像大小、<br>
+对于需要编译的应用（如 C，Go 或 Java 语言等）来说，通常情况下至少需要准备两个环境的 Docker 镜像：</p>
+<ul>
+<li>编译环境镜像：包括完整的编译引擎，依赖库等，往往比较庞大。作用是编译应用为二进制文件；</li>
+<li>运行环境镜像：利用编译好的二进制文件，运行应用，由于不需要编译环境，体积比较小。</li>
+</ul>
+<p>使用多步骤创建，可以在保证最终生成的运行环境镜像保持精简的情况下，使用单一的 Dockerfile，降低维护复杂度。</p>
+<p>以 Go 语言应用为例：</p>
+<ul>
+<li>创建干净目录，进入到目录中，创建 main.go 文件，内容为：</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.go will output "Hello, Docker"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, Docker"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建 Dockerfile，使用 golang:1.9 镜像编译应用二进制文件为 app，使用精简的镜像 alpine:latest 作为运行环境。Dockerfile 完整内容为：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># define stage name as builder</span></span><br><span class="line">FROM golang:1.9 as builder      </span><br><span class="line">RUN mkdir -p /go/src/<span class="built_in">test</span></span><br><span class="line">WORKDIR /go/src/<span class="built_in">test</span></span><br><span class="line">COPY main.go .</span><br><span class="line">RUN CGO_ENABLED=0 GOOS=linux go build -o app .</span><br><span class="line"></span><br><span class="line"><span class="comment"># copy file from the builder stage</span></span><br><span class="line">FROM alpine:latest</span><br><span class="line">RUN apk --nocache add ca-certificates</span><br><span class="line">WORKDIR /root/</span><br><span class="line">COPY --from=builder /go/src/<span class="built_in">test</span>/app .          </span><br><span class="line">CMD [<span class="string">"./app"</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行如下命令创建镜像，并运行应用</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t lonely/<span class="built_in">test</span>-multistage:latest .</span><br><span class="line">Sending build context to Docker daemon  3.072kB</span><br><span class="line">Step 1/10 : FROM golang:1.9 as builder</span><br><span class="line">1.9: Pulling from library/golang</span><br><span class="line">...</span><br><span class="line">Successfully built d8e6f9822f93</span><br><span class="line">Successfully tagged lonely/<span class="built_in">test</span>-multistage:latest</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看生成的最终镜像：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker images</span><br><span class="line">REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">lonely/<span class="built_in">test</span>-multistage   latest              d8e6f9822f93        16 seconds ago      7.95MB</span><br></pre></td></tr></table></figure>
+<h1>最佳实践</h1>
+<p>所谓的最佳实践，就是从需求出发，来定制适合自己，高效方便的镜像。<br>
+首先，要尽量吃透每个指令的含义和执行效果，多编写一些简单的例子进行测试，弄清楚了再编写正式的 Dockerfile。此外，Docker Hub 官方仓库中提供了大量的优秀镜像和对应的 Dockerfile，可以通过阅读它们来学习如何撰写高效的 Dockerfile。</p>
+<p>在生成镜像的过程中，尝试从如下角度进行思考，完善所生成的镜像：</p>
+<ul>
+<li>精简镜像用途：尽量让每个镜像的用途都比较集中单一，避免构造大而复杂，多功能的镜像；</li>
+<li>选用合适的基础镜像：容器的核心是应用。选择过大的父镜像会造成最终生成应用镜像的臃肿，推荐使用瘦过身的应用镜像，或者较为小巧的系统镜像（如 alpine，busybox 或 debian）；</li>
+<li>提供注释和维护者信息：Dockerfile 也是一种代码，需要考虑方便后续的扩展和他人的使用；</li>
+<li>正确的使用版本号：使用明确的版本号信息，如 1.0，2.0，而非依赖于默认的 latest。通过版本号可以避免环境不一致导致的问题；</li>
+<li>减少镜像层数：如果希望所生成的镜像层数尽量少，则要尽量合并 RUN，ADD 和 COPY 指令。通常情况下，多个 RUN 指令可以合并为一条 RUN 指令；</li>
+<li>恰当使用多步骤创建：通过多步骤创建，可以将编译和运行等过程分开，保证最终生成的镜像只包括运行应用所需要的最小化环境。</li>
+<li>使用 .dockerignore 文件：使用它可以标记在执行 docker build 时忽略的路径和文件，避免发送不必要的数据内容，从而加快整个镜像的创建过程；</li>
+<li>及时删除临时文件和缓存文件：特别是在实行 apt-get 指令后，/var/cache/apt 下面会缓存一些安装包；</li>
+<li>提高生成速度：如合理使用 cache，减少内容目录下的文件，或使用 .dockerignore 文件指定等；</li>
+<li>调整合理的指令顺序：在开启 cache 的情况下，内容不变的指令尽量放在前面，这样可以尽量复用；</li>
+<li>减少外部源的干扰：如果确实要从外部引入数据，需要指定持久的地址，并带版本信息等，让他人可以复用而不出错。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Dockerfile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker 高级网络配置</title>
     <url>/2020/08/17/51-Docker-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
