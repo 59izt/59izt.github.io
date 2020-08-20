@@ -25,7 +25,7 @@
 <h1>指令说明</h1>
 <p>Dockerfile 中指令的一般格式为 INSTRUCTION arguments，包括 “配置指令”（配置镜像信息）和 ”操作指令“(具体执行操作)，如下表所示：</p>
 <table border="1">
-  <tr>
+  <tr border="1">
     <th>分类</th>
     <th>指令</th>
     <th>说明</th>
