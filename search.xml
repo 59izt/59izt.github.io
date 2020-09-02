@@ -1,13 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker 为镜像添加 SSH 服务</title>
-    <url>/2020/08/24/54-Docker-%E4%B8%BA%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0SSH%E6%9C%8D%E5%8A%A1/</url>
+    <title>Docker Web 服务于应用-Nginx</title>
+    <url>/2020/08/31/56-Docker-Web%E6%9C%8D%E5%8A%A1%E4%BA%8E%E5%BA%94%E7%94%A8-Nginx/</url>
     <content><![CDATA[<blockquote>
-<p>参考文章：[Docker 技术入门与实战]<br>
-很多时候，系统管理员都习惯通过 SSH 服务来远程登录管理服务，但是 Docker 的很多镜像时不带 SSH 服务的，那么用户怎样才能管理容器呢？<br>
-本章将具体介绍如何自行创建一个带有 SSH 服务的镜像，并详细介绍了两种创建容器的方法：基于 <code>docker commit</code> 命令创建和基于 <code>Dockerfile</code> 创建。</p>
+<p>参考文章：[Docker 技术入门与实战]</p>
 </blockquote>
+<h1>简介</h1>
+<p>Nginx 是一款功能强大的开源反向代理服务器，支持 HTTP，HTTPS，SMTP，POP3，IMAP 等协议。它也可以作为负载均衡器，HTTP 缓存或 Web 服务器。Nginx 一开始就专注于高并发和高性能的应用场景。它使用类 BSD 开源协议，支持 Linux，BSD，Mac，Solaris，AIX 等类 Unix 系统，同时也支有 Windows 上的移植版本。</p>
+<a id="more"></a>
+<p>Nginx 特性如下：</p>
+<ul>
+<li>热部署：采用 master 管理进程与 worker 工作进程的分离设计，支持热部署。在不断服务的前提下，可以直接升级版本。也可以在不停止服务的情况下修改配置文件，更换日志文件等。</li>
+<li>高并发连接：Nginx 可以轻松支持超过 100k 的并发，理论上支持的并发连接上限取决于机器内存。</li>
+<li>低内存消耗：在一般的情况下，10k 个非活跃的 HTTP Keep-Alive 连接在 Nginx 中仅消耗 2.5MB 的内存，这也是 Nginx 支持高并发连接的基础。</li>
+<li>响应快：在正常情况下，单次请求会得到更快的响应。在高峰期，Nginx 可以比其他的 Web 服务器更快地响应请求。</li>
+<li>高可靠性：Nginx 是一个高可靠性的 Web 服务器，这也是用户为什么选择 Nginx 的基本条件，现在很多的网站都在使用 Nginx，足以说明 Nginx 的可靠性。</li>
+</ul>
+<h1>使用 Docker Hub 镜像</h1>
+<p>用户可以使用 docker run 指令直接运行官方 Nginx 镜像：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 80:80 --name webserver nginx</span><br><span class="line">89de5e5f77296dc670ff8192a8b81f3cfbe5326d9bda454afef36932530b1f21</span><br></pre></td></tr></table></figure>
+<p>然后使用 docker ps 指令查看当前运行的容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES</span><br><span class="line">89de5e5f7729        nginx               <span class="string">"/docker-entrypoint.…"</span>   20 seconds ago      Up 19 seconds       0.0.0.0:80-&gt;80/tcp   webserver</span><br></pre></td></tr></table></figure>
+<p>目前 Nginx 容器已经在 0.0.0.0:80 端口上，此时可以打开浏览器访问此地址，就可以看到 Nginx 输出的页面。<br>
+1.9 版本后的镜像支持 debug 模式，镜像包含 nginx-debug，可以支持更丰富的 log 信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run --name my-nginx -v /host/path/nginx.conf:/etc/nginx/nginx.conf:ro -d nginx nginx-debug -g <span class="string">'daemon off;'</span></span><br></pre></td></tr></table></figure>
+<p>相应的 docker-compose.yml 配置如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">web:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./nginx.conf:/etc/nginx/nginx.conf:ro</span></span><br><span class="line">  <span class="attr">command:</span> <span class="string">[nginx-debug,</span> <span class="string">'g'</span><span class="string">,</span> <span class="string">'daemon off;'</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
+<h1>使用 Dockerfile 自定义镜像</h1>
+<p>首先，新建 index.html 文件</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>新建 Dockerfile 文件，内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置继承自创建的 sshd-ubuntu 镜像</span></span><br><span class="line">FROM sshd-ubuntu:dockerfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置创建者信息</span></span><br><span class="line">MAINTAINER lonely &lt;2350585113@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 nginx，设置 nginx 以非 daemon 方式启动</span></span><br><span class="line">RUN apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install -y tzdata nginx \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">    &amp;&amp; <span class="built_in">echo</span> <span class="string">"\ndaemon off;"</span> &gt;&gt; /etc/nginx/nginx.conf \</span><br><span class="line">    &amp;&amp; chown -R www-data:www-data /var/lib/nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置时区</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">"Asia/Shanghai"</span> &gt; /etc/timezone \</span><br><span class="line">    &amp;&amp; dpkg-reconfigure -f noninteractive tzdata</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加用户脚本，并设置权限</span></span><br><span class="line">ADD run.sh /run.sh</span><br><span class="line">RUN chmod 755 /*.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义可以被挂载的目录，分别是虚拟主机的挂载目录，证书目录，配置目录，和日志目录</span></span><br><span class="line">VOLUME [<span class="string">"/etc/nginx/sites-enabled"</span>, <span class="string">"/etc/nginx/certs"</span>, <span class="string">"/etc/nginx/conf.d"</span>, <span class="string">"/var/log/nginx"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工作目录</span></span><br><span class="line">WORKDIR /etc/nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输出命令</span></span><br><span class="line">CMD [<span class="string">"/run.sh"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义端口</span></span><br><span class="line">EXPOSE 80</span><br><span class="line">EXPOSE 443</span><br></pre></td></tr></table></figure>
+<p>查看 <a href="http://run.sh" target="_blank" rel="noopener">run.sh</a> 脚本文件内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat run.sh </span><br><span class="line"><span class="meta">#!bin/bash</span></span><br><span class="line">/usr/sbin/sshd &amp;</span><br><span class="line">/usr/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p>创建镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t nginx:stable .</span><br></pre></td></tr></table></figure>
+<p>测试，启动容器，查看内部的 80 端口被映射到本地的 32774 端口：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -P nginx:stable </span><br><span class="line">ec0c2c11466dc956fa452e3f3a8acc5bbd56d08f58140348ab3bb719699d5156</span><br><span class="line"></span><br><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                                                  NAMES</span><br><span class="line">ec0c2c11466d        nginx:stable        <span class="string">"/run.sh"</span>                3 seconds ago       Up 3 seconds        0.0.0.0:32775-&gt;22/tcp, 0.0.0.0:32774-&gt;80/tcp, 0.0.0.0:32773-&gt;443/tcp   gallant_cannon</span><br></pre></td></tr></table></figure>
+<p>访问本地的 32773 端口：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl 127.0.0.1:32774</span><br></pre></td></tr></table></figure>
+<p>再次看到 Nginx 的欢迎页面，说明 Nginx 已经正常启动了。</p>
+<h1>参数优化</h1>
+<p>为了能充分发挥 Nginx 的性能，用户可对系统内核参数做一些调整。下面是一份常见的适合运行 Nginx 服务器的内核优化参数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.rp_filter = 1</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 0</span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">kernel.ms-nb = 65536</span><br><span class="line">kernel.ms-ax = 65536</span><br><span class="line">kernel.shmmax = 68719476736</span><br><span class="line">kernel.shmall = 4294967296</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 6000</span><br><span class="line">net.ipv4.tcp_sack = 1</span><br><span class="line">net.ipv4.tcp_window_scaling = 1</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 4194304</span><br><span class="line">net.ipv4.tcp_wmem = 4096 16384 4194304</span><br><span class="line">net.core.wmem_default = 8388608</span><br><span class="line">net.core.rmem_default = 8388608</span><br><span class="line">net.core.wmem_max = 16777216</span><br><span class="line">net.core.rmem_max = 16777216</span><br><span class="line">net.core.netdev_max_backlog = 262144</span><br><span class="line">net.core.somaxconn = 262144</span><br><span class="line">net.ipv4.tcp_max_orphans = 3276800</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 262144</span><br><span class="line">net.ipv4.tcp_timestamps = 0</span><br><span class="line">net.ipv4.tcp_synack_retries = 1</span><br><span class="line">net.ipv4.tcp_syn_retries = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_mem = 94500000 915000000 927000000</span><br><span class="line">net.ipv4.tcp_fin_timeout = 1</span><br><span class="line">net.ipv4.tcp_keepalive_time = 30</span><br><span class="line">net.ipv4.ip_local_port_range = 1024 65000</span><br></pre></td></tr></table></figure>
+<h1>相关资源</h1>
+<p>Nginx 的相关资源如下：</p>
+<ul>
+<li>Nginx 官网：<a href="https://www.nginx.com" target="_blank" rel="noopener">https://www.nginx.com</a></li>
+<li>Nginx 官方仓库：<a href="https://github.com/nginx/nginx" target="_blank" rel="noopener">https://github.com/nginx/nginx</a></li>
+<li>Nginx 官方镜像：<a href="https://hub.docker.com/_/nginx" target="_blank" rel="noopener">https://hub.docker.com/_/nginx</a></li>
+<li>Nginx 官方镜像仓库： <a href="https://github.com/nginxinc/docker-nginx" target="_blank" rel="noopener">https://github.com/nginxinc/docker-nginx</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Dockerfile</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker Web 服务于应用-Apache</title>
+    <url>/2020/08/27/55-Docker-Web%E6%9C%8D%E5%8A%A1%E4%B8%8E%E5%BA%94%E7%94%A8-Apache/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战]</p>
+</blockquote>
+<h1>简介</h1>
+<p>Apache 是一个高稳定性的，商业级别的开源 Web 服务器，是目前世界上使用排名第一的 Web 服务器软件。由于其良好的跨平台和安全性，Apache 被广泛应用在多种平台和操作系统上。</p>
+<a id="more"></a>
+<h1>使用 Docker Hub 镜像</h1>
+<p>Docker Hub 官方提供的 Apache 镜像，并不带 PHP 环境。如果我们需要 PHP 环境支持，可以选择 PHP 镜像，并请使用含 -apache 标签的镜像，如 7.0.7-apache。如果仅需要使用 Apache 运行静态 HTML 文件，则使用默认官方镜像即可。</p>
+<ul>
+<li>编写 Dockerfile 文件，内容如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM httpd:2.4</span><br><span class="line">COPY ./public-html /usr/<span class="built_in">local</span>/apache2/htdocs/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建项目目录 public-html ，并在此目录下创建 index.html 文件。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DCOTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, Docker!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>构建自定义镜像：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t apache2-image .</span><br><span class="line">Sending build context to Docker daemon  3.584kB</span><br><span class="line">Step 1/2 : FROM httpd:2.4</span><br><span class="line">...</span><br><span class="line">Successfully built abc075da5951</span><br><span class="line">Successfully tagged apache2-image:latest</span><br></pre></td></tr></table></figure>
+<p>通过本地的 80 端口即可访问静态页面。也可以不创建自定义镜像，直接通过映射目录的方式运行 Apache 容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -it --rm --name my-apache-app -p 8080:80 -v <span class="string">"<span class="variable">$PWD</span>"</span>:/usr/<span class="built_in">local</span>/apache2/htdocs/ httpd:2.4 </span><br><span class="line">AH00558: httpd: Could not reliably determine the server<span class="string">'s fully qualified domain name, using 192.168.5.4. Set the '</span>ServerName<span class="string">' directive globally to suppress this message</span></span><br><span class="line"><span class="string">AH00558: httpd: Could not reliably determine the server'</span>s fully qualified domain name, using 192.168.5.4. Set the <span class="string">'ServerName'</span> directive globally to suppress this message</span><br><span class="line">[Wed Aug 26 05:20:35.615502 2020] [mpm_event:notice] [pid 1:tid 139637403210880] AH00489: Apache/2.4.46 (Unix) configured -- resuming normal operations</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<h1>使用自定义镜像</h1>
+<ul>
+<li>首先，创建一个 apache_ubuntu 工作目录，在其中创建 Dockerfile 文件，<a href="http://run.sh" target="_blank" rel="noopener">run.sh</a> 文件和 sample 目录：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mkdir apache_ubuntu &amp;&amp; <span class="built_in">cd</span> apache_ubuntu/</span><br><span class="line">$ touch Dockerfile run.sh</span><br><span class="line">$ mkdir sample</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下面是 Dockerfile 的内容和各个部分的说明：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置基础镜像，继承用户创建的 sshd 镜像</span></span><br><span class="line">FROM sshd-ubuntu:dockerfile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建者的基本信息</span></span><br><span class="line">MAINTAINER lonely &lt;2350686113@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 环境变量设置，所有操作都是非交互式的</span></span><br><span class="line">ENV DEBIAN_FRONTEND noninteractive</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Apache</span></span><br><span class="line"><span class="comment"># 注意这里要更改系统的时区设置，因为在 Web 应用中经常会用到时区这个系统变量，</span></span><br><span class="line"><span class="comment"># 默认 Ubuntu 的设置会让你的应用程序发生不可思议的效果哦。</span></span><br><span class="line">RUN apt-get update \</span><br><span class="line">    &amp;&amp; apt-get -yq install apache2 tzdata apt-utils\</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">    &amp;&amp; <span class="built_in">echo</span> <span class="string">"Asia/Shanghai"</span> &gt; /etc/timezone \</span><br><span class="line">    &amp;&amp; dpkg-reconfigure -f noninteractive tzdata</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加用户的脚本，并设置权限，这会覆盖之前放在这个位置的脚本</span></span><br><span class="line">ADD run.sh /run.sh</span><br><span class="line"></span><br><span class="line">RUN chmod 755 /*.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个示例的 Web 站点，删除默认安装在 apache 文件夹下面的文件，</span></span><br><span class="line"><span class="comment"># 并将用户添加的示例用软链接链接到 /var/www/html 目录下。</span></span><br><span class="line">RUN mkdir -p /var/lock/apache2 \</span><br><span class="line">    &amp;&amp; mkdir -p /var/run/apache2 \</span><br><span class="line">    &amp;&amp; mkdir -p /app \</span><br><span class="line">    &amp;&amp; rm -rf /var/www/html \</span><br><span class="line">    &amp;&amp; ln -s /app /var/www/html</span><br><span class="line"></span><br><span class="line">COPY sample/ /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 apache 相关的一些变量，在容器启动的时候可以使用 -e 参数代替：</span></span><br><span class="line">ENV APACHE_RUN_USER www-data</span><br><span class="line">ENV APACHE_RUN_GROUP www-data</span><br><span class="line">ENV APACHE_LOG_DIR /var/<span class="built_in">log</span>/apache2</span><br><span class="line">ENV APACHE_PID_FILE /var/run/apache2.pid</span><br><span class="line">ENV APACHE_RUN_DIR /var/run/apache2</span><br><span class="line">ENV APACHE_LOCK_DIR /var/lock/apache2</span><br><span class="line">ENV APACHE_SERVERADMIN admin@localhost</span><br><span class="line">ENV APACHE_SERVERNAME localhost</span><br><span class="line">ENV APACHE_DOCUMENTROOT /var/www</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开放端口</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 工作目录</span></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 入口程序</span></span><br><span class="line">CMD [<span class="string">"/run.sh"</span>]</span><br></pre></td></tr></table></figure>
+<p>以下是 sample 站点的内容输出。在 sample 目录下创建 index.html 文件，内容为：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, Docker!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://run.sh" target="_blank" rel="noopener">run.sh</a> 脚本的内容也很简单，只是启动 apache 服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat run.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> apache2 -D FOREGROUND</span><br></pre></td></tr></table></figure>
+<p>此时，apache_ubuntu 目录下面的文件结构为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ tree .</span><br><span class="line">.</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── run.sh</span><br><span class="line">└── sample</span><br><span class="line">    └── index.html</span><br><span class="line"></span><br><span class="line">1 directory, 3 files</span><br></pre></td></tr></table></figure>
+<p>下面, 开始创建 apache:ubuntu 镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t apache:ubuntu .</span><br><span class="line">Sending build context to Docker daemon  6.144kB</span><br><span class="line">...</span><br><span class="line">Removing intermediate container 873ca0c471b5</span><br><span class="line"> ---&gt; 427f8f0b7e7f</span><br><span class="line">Successfully built 427f8f0b7e7f</span><br><span class="line">Successfully tagged apache:ubuntu</span><br></pre></td></tr></table></figure>
+<p>此时镜像已经创建成功了，用户可以使用 docker images 指令查看本地新增的 apache:ubuntu 镜像：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker images</span><br><span class="line">REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">apache                   ubuntu              427f8f0b7e7f        2 minutes ago       234MB</span><br></pre></td></tr></table></figure>
+<p>接下来，使用 docker run 指令测试镜像。用户可以使用 -P 参数映射需要开放的端口（22 和 80 端口）:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -P apache:ubuntu </span><br><span class="line"></span><br><span class="line">$ docker ps -l</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                                          NAMES</span><br><span class="line">efdd94a2840e        apache:ubuntu       <span class="string">"/run.sh"</span>           11 seconds ago      Up 10 seconds       0.0.0.0:32769-&gt;22/tcp, 0.0.0.0:32768-&gt;80/tcp   quirky_noyce</span><br></pre></td></tr></table></figure>
+<p>现在在本地主机上用 curl 抓取网页来验证刚才创建的 sample 站点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl 127.0.0.1:32768</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;p&gt;Hello Docker!&lt;/p&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>下面，用户看看 Dockerfile 创建的镜像拥有继承的特性。不知道有没有细心的读者发现，Apache 镜像的 Dockerfile 中只用 EXPOSE 定义了对外开放的 80 端口，而在 docker ps 命令的返回中，却看到了新启动的容器映射了 2 个端口：22 和 80.<br>
+但实际上，当尝试使用 SSH 登录到容器时，会发现无法登录。这是因为在 <a href="http://run.sh" target="_blank" rel="noopener">run.sh</a> 脚本中并未启动 SSH 服务。这说明在使用 Dockerfile 创建镜像时，会继承父镜像的开放端口，但却不会继承启动命令。因此，需要在 <a href="http://run.sh" target="_blank" rel="noopener">run.sh</a> 脚本中添加启动 sshd 的服务启动命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat run.sh</span><br><span class="line"><span class="meta">#!/bin.bash</span></span><br><span class="line">/usr/sbin/sshd &amp;</span><br><span class="line"><span class="built_in">exec</span> apache2 -D FOREGROUND</span><br></pre></td></tr></table></figure>
+<p>再次创建镜像：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker build -t apache:ubuntu .</span><br></pre></td></tr></table></figure>
+<p>这次创建的镜像，将默认同时启动 SSH 和 Apache 服务。<br>
+下面，看看如何映射本地目录。用户可以通过映射本地目录的方式，来指定容器内 Apache 服务响应的内容，例如，映射本地主机上当前目录下的 www 目录到容器内的 /var/www 目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -i -d -p 80:80 -p 103:22 -e APACHE_SERVERNAME=<span class="built_in">test</span> -v <span class="string">"<span class="variable">$(pwd)</span>"</span>/www:/var/www/html:ro apache:ubuntu</span><br></pre></td></tr></table></figure>
+<p>在当前目录内创建 www 目录，并放上自定义的页面 index.html, 内容为：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//IETF//DTD HTML 2.0//EN"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hi Docker<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hi Docker !<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is the first day I meet the new world.<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>How are you?<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span>&gt;</span>Apache/2.4.7 (Ubuntu) Server at 127.0.0.1 Port 80<span class="tag">&lt;/<span class="name">address</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在本地主机上可访问测试容器提供的 Web 服务，查看获取内容为新配置的 index.html 页面信息。</p>
+<h1>相关资源</h1>
+<p>Apache 的相关资源如下：</p>
+<ul>
+<li>Apache 官网: <a href="https://httpd.apache.org/" target="_blank" rel="noopener">https://httpd.apache.org/</a></li>
+<li>Apache 官方仓库：<a href="https://github.com/apache/httpd" target="_blank" rel="noopener">https://github.com/apache/httpd</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Dockerfile</tag>
+        <tag>Apache</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 为镜像添加 SSH 服务</title>
+    <url>/2020/08/27/54-Docker-%E4%B8%BA%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0SSH%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战]</p>
+</blockquote>
+<p>很多时候，系统管理员都习惯通过 SSH 服务来远程登录管理服务，但是 Docker 的很多镜像时不带 SSH 服务的，那么用户怎样才能管理容器呢？<br>
+本章将具体介绍如何自行创建一个带有 SSH 服务的镜像，并详细介绍了两种创建容器的方法：基于 <code>docker commit</code> 命令创建和基于 <code>Dockerfile</code> 创建。</p>
 <a id="more"></a>
 <h1>基于 commit 命令创建</h1>
 <p>Docker 提供了 <code>docker commit</code> 命令，支持用户提交自己对定制容器的修改，并生成新的镜像。命令格式为：</p>
@@ -78,7 +213,7 @@
 <p>下面使用刚才创建的 sshd-ubuntu:dockerfile 镜像来运行一个容器，直接启动镜像，映射容器的 22 端口到本地的 10122 端口：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 10122:22 sshd-ubuntu:dockerfile </span><br><span class="line">541e893a8ff49da2673439dc635b3fc5c747bc28dd0de522cde9883baf04c425</span><br><span class="line"></span><br><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS              PORTS                   NAMES</span><br><span class="line">541e893a8ff4        sshd-ubuntu:dockerfile   <span class="string">"/run.sh"</span>           13 seconds ago      Up 12 seconds       0.0.0.0:10122-&gt;22/tcp   inspiring_matsumoto</span><br></pre></td></tr></table></figure>
 <p>在宿主机上新打开一个终端，连接到新建的容器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh 172.17.0.7 -p 10122</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh root@172.17.0.7</span><br><span class="line">The authenticity of host <span class="string">'172.17.0.2 (172.17.0.2)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:Aec8enX5U93sqZXgo4EyKD0A+6EO8Uj5GqgIg8rGagc.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is MD5:53:d8:c1:6e:2f:f0:16:22:1a:98:95:3e:a0:58:14:b9.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">root@b566ac402543:~#</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Docker</category>
