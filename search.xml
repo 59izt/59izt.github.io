@@ -1,23 +1,617 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Django 入门学习摘要一</title>
-    <url>/2020/10/17/58-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/</url>
+    <title>HTML 基础学习(一)</title>
+    <url>/2020/10/22/59-HTML-%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0(%E4%B8%80)/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：<a href="https://www.w3school.com.cn/html/" target="_blank" rel="noopener">HTML 学习</a></p>
+</blockquote>
+<h1>简介</h1>
+<h2 id="什么是-HTML"><a class="header-anchor" href="#什么是-HTML">¶ </a>什么是 HTML</h2>
+<p>HTML 是用来描述网页的一种语言：</p>
+<a id="more"></a>
+<ul>
+<li>HTML 指的是<code>超文本标记语言</code>（Hyper Text Markup Language）；</li>
+<li>HTML 不是一种编程语言，而是一种<code>标记语言</code>（markup language）；</li>
+<li>标记语言是一套<code>标记标签</code>（markup tag）</li>
+<li>HTML 使用<code>标记标签</code>来描述网页。</li>
+</ul>
+<p> </p>
+<h1>HTML 标签</h1>
+<p>HTML 标记标签通常被称为 HTML 标签（HTML tag）</p>
+<ul>
+<li>HTML 标签是由<code>尖括号</code>包围的关键词，比如 <code>&lt;html&gt;</code>;</li>
+<li>HTML 标签通常是成对出现的，比如： <code>&lt;b&gt;</code> 和 <code>&lt;/b&gt;</code>;</li>
+<li>标签对中的的第一个标签是<code>开始标签</code>，的二个标签是<code>结束标签</code>；</li>
+<li>开始和结束标签也被称为<code>开放标签</code>和<code>闭合标签</code>。</li>
+</ul>
+<h2 id="基本的-HTML-标签"><a class="header-anchor" href="#基本的-HTML-标签">¶ </a>基本的 HTML 标签</h2>
+<ul>
+<li>HTML 标题 <code>&lt;h1&gt; - &lt;h6&gt;</code><br>
+HTML 标题是通过 <code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> 等标签进行定义的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>This is a heading<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML 段落 <code>&lt;p&gt;</code><br>
+HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is another paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML 连接 <code>&lt;a&gt;</code><br>
+HTML 连接是通过 <code>&lt;a&gt;</code> 标签进行定义的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://www.w3school.com.cn"</span>&gt;</span>This is a link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML 图像 <code>&lt;imag&gt;</code><br>
+HTML 图像是通过 <code>&lt;img&gt;</code> 标签进行定义的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"w3school.jpg"</span> <span class="attr">width</span>=<span class="string">"104"</span> <span class="attr">height</span>=<span class="string">"142"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p> </p>
+<h1>HTML 元素</h1>
+<p>HTML 元素指的是从开始标签到结束标签的所有代码。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">开始标签</th>
+<th style="text-align:center">元素内容</th>
+<th style="text-align:center">结束标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;p&gt;</code></td>
+<td style="text-align:center">This is a paragraph</td>
+<td style="text-align:center"><code>&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;a href=&quot;default.html&quot; &gt;</code></td>
+<td style="text-align:center">This is link</td>
+<td style="text-align:center"><code>&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;br/&gt;</code></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="HTML-元素语法"><a class="header-anchor" href="#HTML-元素语法">¶ </a>HTML 元素语法</h2>
+<ul>
+<li>HTML 元素以开始标签起始;</li>
+<li>HTML 元素以结束标签终止;</li>
+<li>元素的内容是开始标签与结束标签之间的内容;</li>
+<li>某些 HTML 元素具有<code>空内容</code>（empty content）;</li>
+<li>空元素在<code>开始标签中进行关闭</code>（以开始标签的结束而结束）</li>
+<li>大多数 HTML 元素可拥有<code>属性</code>。</li>
+</ul>
+<h2 id="嵌套的-HTML-元素"><a class="header-anchor" href="#嵌套的-HTML-元素">¶ </a>嵌套的 HTML 元素</h2>
+<p>大多数 HTML 元素是可以嵌套的。HTML 文档由嵌套的 HTML 元素构成。</p>
+<ul>
+<li>HTML 文档实例：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is my first paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="空的-HTML-元素"><a class="header-anchor" href="#空的-HTML-元素">¶ </a>空的 HTML 元素</h2>
+<p>没有内容的 HTML 元素被称为空元素。空元素是在开始标签中关闭的。<br>
+<code>&lt;br&gt;</code> 就是没有关闭标签的空元素（<code>&lt;br&gt;</code> 标签定义换行）。</p>
+<p>在 XHTML，XML 以及未来版本的 HTML 中，所有的元素都必须被关闭。<br>
+在开始标签中添加斜杠，比如 <code>&lt;br /&gt;</code>，是关闭空元素的正确方法，HTML，XHTML 和 XML 都接收这种方式。</p>
+<h2 id="HTML-提示："><a class="header-anchor" href="#HTML-提示：">¶ </a>HTML 提示：</h2>
+<h3 id="使用小写标签"><a class="header-anchor" href="#使用小写标签">¶ </a>使用小写标签</h3>
+<p>HTML 标签对大小写不敏感：<code>&lt;P&gt;</code> 等同于 <code>&lt;p&gt;</code>。许多网站都使用大写的 HTML 标签。<br>
+但是万维网联盟（W3C）在 HTML4 中推荐使用小写，而未来（X)HTML 版本中强制使用小写。</p>
+<p> </p>
+<h1>HTML 属性</h1>
+<p>HTML 标签可以拥有属性。属性提供了有关 HTML 元素的更多的信息。属性总是以名称/值对的形式出现，比如：name=“value”。<br>
+属性总是在 HTML 元素的开始标签中规定。</p>
+<h2 id="属性实例"><a class="header-anchor" href="#属性实例">¶ </a>属性实例</h2>
+<p>HTML 链接由 <code>&lt;a&gt;</code> 标签定义。链接的地址在 href 属性中指定：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.w3school.com.cn"</span>&gt;</span>This is a link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML-提示：-v2"><a class="header-anchor" href="#HTML-提示：-v2">¶ </a>HTML 提示：</h2>
+<h3 id="使用小写属性"><a class="header-anchor" href="#使用小写属性">¶ </a>使用小写属性</h3>
+<p>属性和属性值对大小写不敏感。不过万维网联盟在其 HTML 4 推荐标准中推荐小写的属性/属性值。而新版本的(X)HTML 要求使用小写属性。</p>
+<h3 id="始终为属性值添加引号"><a class="header-anchor" href="#始终为属性值添加引号">¶ </a>始终为属性值添加引号</h3>
+<p>属性值应该始终被包括在引号内。双引号是最常用的，不过使用单引号也没问题。<br>
+在某些个别情况下，比如属性值本身就含有双引号，那么你必须使用单引号，例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">name='Bill "HelloWorld" Gates'</span><br></pre></td></tr></table></figure>
+<h2 id="HTML-属性值参考手册"><a class="header-anchor" href="#HTML-属性值参考手册">¶ </a>HTML 属性值参考手册</h2>
+<p>完整的 HTML 参考手册提供了每个 HTML 元素可使用的合法属性的完整列表：<br>
+<a href="https://www.w3school.com.cn/tags/index.asp" target="_blank" rel="noopener">完整的 HTML 参考手册</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;!-- ... --&gt;</code></td>
+<td style="text-align:left">定义注释</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;!DOCTYPE&gt;</code></td>
+<td style="text-align:left">定义文档类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;a&gt;</code></td>
+<td style="text-align:left">定义链接</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;abbr&gt;</code></td>
+<td style="text-align:left">定义缩写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;acronym&gt;</code></td>
+<td style="text-align:left">定义只取首字母的缩写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;address&gt;</code></td>
+<td style="text-align:left">定义文档作者或者拥有者的联系信息</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;applet&gt;</code></td>
+<td style="text-align:left"><code>不赞成使用</code>，定义嵌入的 applet</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;area&gt;</code></td>
+<td style="text-align:left">定义图像映射内部的区域</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;article&gt;</code></td>
+<td style="text-align:left">定义文章</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;aside&gt;</code></td>
+<td style="text-align:left">定义页面内容之外的内容</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;audio&gt;</code></td>
+<td style="text-align:left">定义声音内容</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;b&gt;</code></td>
+<td style="text-align:left">定义粗体字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;base&gt;</code></td>
+<td style="text-align:left">定义页面中所有链接的默认地址或默认目标</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;basefont&gt;</code></td>
+<td style="text-align:left"><code>不赞成使用</code>，定义页面中文本的默认字体，颜色或尺寸</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;bdi&gt;</code></td>
+<td style="text-align:left">定义文字的文本方向，使其脱离周围文本的方向设置</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;bdo&gt;</code></td>
+<td style="text-align:left">定义文字方向</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;big&gt;</code></td>
+<td style="text-align:left">定义大号文本</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;blockquote&gt;</code></td>
+<td style="text-align:left">定义长的引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;body&gt;</code></td>
+<td style="text-align:left">定义文档的主体</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;br&gt;</code></td>
+<td style="text-align:left">定义简单的折行</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;button&gt;</code></td>
+<td style="text-align:left">定义按钮</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;canvas&gt;</code></td>
+<td style="text-align:left">定义图形</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;caption&gt;</code></td>
+<td style="text-align:left">定义表格标题</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;center&gt;</code></td>
+<td style="text-align:left"><code>不赞成使用</code>，定义居中文本</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;cite&gt;</code></td>
+<td style="text-align:left">定义引用</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>下面列出了适用于大多数 HTML 元素的属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">值</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">class</td>
+<td style="text-align:center">classname</td>
+<td style="text-align:left">规则元素的类名</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">id</td>
+<td style="text-align:left">规定元素的唯一 id</td>
+</tr>
+<tr>
+<td style="text-align:center">style</td>
+<td style="text-align:center">style_definition</td>
+<td style="text-align:left">规定元素的行内样式</td>
+</tr>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:center">text</td>
+<td style="text-align:left">规定元素的额外信息（可在工具提示中显示）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="HTML-全局属性"><a class="header-anchor" href="#HTML-全局属性">¶ </a>HTML 全局属性</h2>
+<p>HTML 属性赋予元素意义和语境。下面的全局属性可用于任何 HTML 元素：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">accesskey</td>
+<td style="text-align:left">规定激活元素的快捷键</td>
+</tr>
+<tr>
+<td style="text-align:center">class</td>
+<td style="text-align:left">规定元素的一个或多个类名</td>
+</tr>
+<tr>
+<td style="text-align:center">contenteditable</td>
+<td style="text-align:left">规定元素内容是否可编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">contextmenu</td>
+<td style="text-align:left">规定元素的上下文菜单。上下文菜单在用户点击元素时显式</td>
+</tr>
+<tr>
+<td style="text-align:center">data-*</td>
+<td style="text-align:left">用于存储页面或应用程序的私有定制数据</td>
+</tr>
+<tr>
+<td style="text-align:center">dir</td>
+<td style="text-align:left">规定元素中内容的文本方向</td>
+</tr>
+<tr>
+<td style="text-align:center">draggable</td>
+<td style="text-align:left">规定元素是否可拖动</td>
+</tr>
+<tr>
+<td style="text-align:center">dropzone</td>
+<td style="text-align:left">规定在拖动被拖动数据时是否进行复制，移动或链接</td>
+</tr>
+<tr>
+<td style="text-align:center">hidden</td>
+<td style="text-align:left">规定元素仍未或不再相关</td>
+</tr>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:left">规定元素的唯一 ID</td>
+</tr>
+<tr>
+<td style="text-align:center">lang</td>
+<td style="text-align:left">规定元素内容的语言</td>
+</tr>
+<tr>
+<td style="text-align:center">spellcheck</td>
+<td style="text-align:left">规定是否对元素进行拼写和语法检查</td>
+</tr>
+<tr>
+<td style="text-align:center">style</td>
+<td style="text-align:left">规定元素的行内 CSS 样式</td>
+</tr>
+<tr>
+<td style="text-align:center">tabindex</td>
+<td style="text-align:left">规定元素的 tab 键次序</td>
+</tr>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:left">规定有关元素的额外信息</td>
+</tr>
+<tr>
+<td style="text-align:center">translate</td>
+<td style="text-align:left">规定是否应该翻译元素的内容</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h1>文本格式化</h1>
+<h2 id="文本格式化标签"><a class="header-anchor" href="#文本格式化标签">¶ </a>文本格式化标签</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;b&gt;</code></td>
+<td style="text-align:left">定义粗体文字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;big&gt;</code></td>
+<td style="text-align:left">定义大号字体</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;em&gt;</code></td>
+<td style="text-align:left">定义着重文字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;i&gt;</code></td>
+<td style="text-align:left">定义斜体字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;small&gt;</code></td>
+<td style="text-align:left">定义小号字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;strong&gt;</code></td>
+<td style="text-align:left">定义加重语气</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;sub&gt;</code></td>
+<td style="text-align:left">定义下标字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;sup&gt;</code></td>
+<td style="text-align:left">定义上标字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;ins&gt;</code></td>
+<td style="text-align:left">定义插入字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;del&gt;</code></td>
+<td style="text-align:left">定义删除字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;s&gt;</code></td>
+<td style="text-align:left">不赞成使用，使用 <code>&lt;del&gt;</code> 代替</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;strike&gt;</code></td>
+<td style="text-align:left">不赞成使用，使用 <code>&lt;del&gt;</code> 代替</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;u&gt;</code></td>
+<td style="text-align:left">不赞成使用，使用样式（style） 代替</td>
+</tr>
+</tbody>
+</table>
+<h2 id="计算机输出标签"><a class="header-anchor" href="#计算机输出标签">¶ </a>计算机输出标签</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;code&gt;</code></td>
+<td style="text-align:left">定义计算机代码</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;kbd&gt;</code></td>
+<td style="text-align:left">定义键盘码</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;samp&gt;</code></td>
+<td style="text-align:left">定义计算机代码样本</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;tt&gt;</code></td>
+<td style="text-align:left">定义打字机代码</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;var&gt;</code></td>
+<td style="text-align:left">定义变量</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;pre&gt;</code></td>
+<td style="text-align:left">定义预格式文本</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;listing&gt;</code></td>
+<td style="text-align:left">不赞成使用，使用 <code>&lt;pre&gt;</code> 代替</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;plaintext&gt;</code></td>
+<td style="text-align:left">不赞成使用 使用 <code>&lt;pre&gt;</code> 代替</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;xmp&gt;</code></td>
+<td style="text-align:left">不赞成使用，使用 <code>&lt;pre&gt;</code> 代替</td>
+</tr>
+</tbody>
+</table>
+<h2 id="引用，引用和术语定义"><a class="header-anchor" href="#引用，引用和术语定义">¶ </a>引用，引用和术语定义</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;abbr&gt;</code></td>
+<td style="text-align:left">定义缩写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;acronym&gt;</code></td>
+<td style="text-align:left">定义首字母缩写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;adddress&gt;</code></td>
+<td style="text-align:left">定义地址</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;bdo&gt;</code></td>
+<td style="text-align:left">定义文字方向</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;blockquote&gt;</code></td>
+<td style="text-align:left">定义长的引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;q&gt;</code></td>
+<td style="text-align:left">定义短的引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;cite&gt;</code></td>
+<td style="text-align:left">定义引用，引证</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;dfn&gt;</code></td>
+<td style="text-align:left">定义一个定义项目</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h1>HTML 样式</h1>
+<h2 id="外部样式表"><a class="header-anchor" href="#外部样式表">¶ </a>外部样式表</h2>
+<p>当样式需要被应用到很多页面的时候，外部样式表将是理想的选择。使用外部样式表，你就可以通过更改一个文件来改变整个站点的外观。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"mysite.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="内部样式表"><a class="header-anchor" href="#内部样式表">¶ </a>内部样式表</h2>
+<p>当单个文件需要特别样式时，就可以使用内部样式表。你可以在 head 部分通过 <code>&lt;style&gt;</code> 标签定义内部样式表。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-color</span>: red&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>: <span class="number">20px</span>&#125;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="内联样式表"><a class="header-anchor" href="#内联样式表">¶ </a>内联样式表</h2>
+<p>当特殊的样式需要应用到个别元素时，就可以使用内联样式。 使用内联样式的方法是在相关的标签中使用样式属性。样式属性可以包含任何 CSS 属性。以下实例显示出如何改变段落的颜色和左外边距。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"color: red; margin-left: 20px"</span>&gt;</span></span><br><span class="line">This is a paragraph</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="样式定义标签说明"><a class="header-anchor" href="#样式定义标签说明">¶ </a>样式定义标签说明</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&lt;style&gt;</code></td>
+<td style="text-align:left">定义样式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;link&gt;</code></td>
+<td style="text-align:left">定义资源引用</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;div&gt;</code></td>
+<td style="text-align:left">定义文档中的节或区域（块级）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;span&gt;</code></td>
+<td style="text-align:left">定义文档中的行内的小块或区域</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;font&gt;</code></td>
+<td style="text-align:left">规定文本的字体，字体尺寸，字体颜色。不赞成使用，请使用样式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;basefont&gt;</code></td>
+<td style="text-align:left">定义基准字体，不赞成使用，请使用样式</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;center&gt;</code></td>
+<td style="text-align:left">对文本进行水平居中，不赞成使用，请使用样式</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<h1>HTML 超链接</h1>
+<p>超链接可以是一个字，一个词，或者一组词，也可以是一幅图像，你可以点击这些内容来跳转到新的文档文档或者当前文档中的某个部分。</p>
+]]></content>
+      <categories>
+        <category>HTML</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>WEB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django 入门学习（一）</title>
+    <url>/2020/10/17/58-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/</url>
     <content><![CDATA[<blockquote>
 <p>参考文章：<a href="https://docs.djangoproject.com/zh-hans/3.1/intro/" target="_blank" rel="noopener">Django 3.1 官方教程</a></p>
 </blockquote>
-<h1>快速安装指南</h1>
+<h1>快速安装指南(环境部署)</h1>
 <p>主要分以下步骤：</p>
 <ul>
 <li>安装 Python 3.x.x（Python 3.8.6）</li>
 <li>安装 Django（Django 3.1）</li>
-<li>设置数据库（MySQL 8.0.21）</li>
 </ul>
 <a id="more"></a>
-<h2 id="安装-Python-和-Django"><a class="header-anchor" href="#安装-Python-和-Django">¶ </a>安装 Python 和 Django</h2>
-<p>安装 Python 使用 <code>pyenv install -v 3.8.6</code> 安装即可，安装好 Python 后，使用 <code>pip install django</code> 即可自动安装最新版的 Django；<br>
-要想设置 Django 使用 MySQL 引擎，需要安装 mysqlclient，此处也是使用 <code>pip install mysqlclient</code> 安装；</p>
-<p>安装 mysqlclient 过程可能遇到的问题：</p>
+<h2 id="安装-Python"><a class="header-anchor" href="#安装-Python">¶ </a>安装 Python</h2>
+<p>安装 Python 使用 <code>pyenv</code> 安装即可。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pyenv install -v 3.8.6</span><br></pre></td></tr></table></figure>
+<h2 id="创建-django-项目虚拟环境"><a class="header-anchor" href="#创建-django-项目虚拟环境">¶ </a>创建 django 项目虚拟环境</h2>
+<p>关于项目虚拟环境，这里使用 pyenv 的插件 pyenv-virtualenv 管理，具体的安装方式此处略过；</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pyenv virtualenv 3.8.6 django</span><br></pre></td></tr></table></figure>
+<h2 id="切换到-django-环境，安装-Django"><a class="header-anchor" href="#切换到-django-环境，安装-Django">¶ </a>切换到 django 环境，安装 Django</h2>
+<p>使用 <code>pip install django</code> 即可自动安装最新版的 Django；</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pyenv active django</span><br><span class="line">pip install django</span><br></pre></td></tr></table></figure>
+<h1>常用操作指令</h1>
+<h2 id="创建项目"><a class="header-anchor" href="#创建项目">¶ </a>创建项目</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
+<h2 id="启动项目"><a class="header-anchor" href="#启动项目">¶ </a>启动项目</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<h2 id="创建应用"><a class="header-anchor" href="#创建应用">¶ </a>创建应用</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py startapp polls</span><br></pre></td></tr></table></figure>
+<h2 id="创建模型迁移"><a class="header-anchor" href="#创建模型迁移">¶ </a>创建模型迁移</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+<h2 id="查看迁移SQL语句"><a class="header-anchor" href="#查看迁移SQL语句">¶ </a>查看迁移SQL语句</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py sqlmigrate polls 0001</span><br></pre></td></tr></table></figure>
+<h2 id="执行迁移SQL语句"><a class="header-anchor" href="#执行迁移SQL语句">¶ </a>执行迁移SQL语句</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage migrate</span><br></pre></td></tr></table></figure>
+<h2 id="创建管理员账号"><a class="header-anchor" href="#创建管理员账号">¶ </a>创建管理员账号</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
+<h1>项目目录及文件说明</h1>
+<p>在 Django 的哲学中，有两个重要的概念：<code>Project</code> 和 <code>App</code></p>
+<ul>
+<li>Project: 是配置和应用程序的集合。一个项目可以由多个应用程序或一个应用程序组成。如果没有一个 Project，就无法运行 Django 应用程序；</li>
+<li>App: 是一个可以完成某件事情的 Web 应用程序。一个应用程序通常由一组 models，views，templates，tests 组成；</li>
+</ul>
+<h1>项目 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 内容说明</h1>
+<p><code>mysite/settings.py</code> 是包含了 Django 项目设置的 Python 模块</p>
+<h2 id="应用-INSTALLED-APPS-设置项"><a class="header-anchor" href="#应用-INSTALLED-APPS-设置项">¶ </a>应用 INSTALLED_APPS 设置项</h2>
+<p>这个设置项包括了会在项目中启用的所有 Django 应用。通常，INSTALLED_APPS 默认包括了以下 Django 的自带应用：</p>
+<ul>
+<li>django.contrib.admin: 管理员站点；</li>
+<li>django.contrib.auth: 认证授权系统；</li>
+<li>django.contrib.contenttypes: 内容类型框架；</li>
+<li>django.contrib.sessions: 会话框架；</li>
+<li>django.contrib.messages: 消息框架；</li>
+<li>django.contrib.staticfiles: 管理静态文件的框架；</li>
+</ul>
+<p>这些应用被默认启用时为了给常规项目提供方便。</p>
+<h2 id="数据库-DATABASES-设置项"><a class="header-anchor" href="#数据库-DATABASES-设置项">¶ </a>数据库 DATABASES 设置项</h2>
+<p>要想设置 Django 使用 MySQL 引擎，需要安装 <code>mysqlclient</code>，此处也是使用 <code>pip</code> 安装；</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install mysqlclient</span><br></pre></td></tr></table></figure>
+<h3 id="安装-mysqlclient-过程可能遇到的问题："><a class="header-anchor" href="#安装-mysqlclient-过程可能遇到的问题：">¶ </a>安装 mysqlclient 过程可能遇到的问题：</h3>
 <ul>
 <li>找不到 my_config 文件：</li>
 </ul>
@@ -26,18 +620,17 @@
 <li>找不到 _ctypes 模块</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># CentOS 系统</span></span><br><span class="line">yum install libffi-devel</span><br><span class="line"><span class="comment"># Ubuntu 系统</span></span><br><span class="line">sudo apt-get install libffi-dev</span><br></pre></td></tr></table></figure>
-<h2 id="设置数据库使用-MySQL"><a class="header-anchor" href="#设置数据库使用-MySQL">¶ </a>设置数据库使用 MySQL</h2>
+<h3 id="设置数据库使用-MySQL"><a class="header-anchor" href="#设置数据库使用-MySQL">¶ </a>设置数据库使用 MySQL</h3>
 <ul>
 <li>配置项目使用 MySQL 数据库，项目目录下的 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 文件</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'mysite'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'wanwu'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'xxxxxx'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>常用操作</h1>
-<h2 id="创建项目"><a class="header-anchor" href="#创建项目">¶ </a>创建项目</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
-<h2 id="启动项目"><a class="header-anchor" href="#启动项目">¶ </a>启动项目</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
-<h2 id="创建应用"><a class="header-anchor" href="#创建应用">¶ </a>创建应用</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python manage.py startapp polls</span><br></pre></td></tr></table></figure>]]></content>
+<h3 id="Django-中与数据库有关的命令"><a class="header-anchor" href="#Django-中与数据库有关的命令">¶ </a>Django 中与数据库有关的命令</h3>
+<ul>
+<li>migrate: 在数据库中创建定义的模型的数据表；</li>
+<li>makemigrations: 为模型的变更生成迁移文件；</li>
+</ul>
+]]></content>
       <categories>
         <category>Django</category>
       </categories>
