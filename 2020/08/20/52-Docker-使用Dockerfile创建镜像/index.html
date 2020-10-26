@@ -16,7 +16,7 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">指令说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置指令"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 配置指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARG"><span class="toc-number">2.1.1.</span> <span class="toc-text">¶ ARG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FROM"><span class="toc-number">2.1.2.</span> <span class="toc-text">¶ FROM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LABEL"><span class="toc-number">2.1.3.</span> <span class="toc-text">¶ LABEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXPOSE"><span class="toc-number">2.1.4.</span> <span class="toc-text">¶ EXPOSE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENV"><span class="toc-number">2.1.5.</span> <span class="toc-text">¶ ENV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENTRYPOINT"><span class="toc-number">2.1.6.</span> <span class="toc-text">¶ ENTRYPOINT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VOLUME"><span class="toc-number">2.1.7.</span> <span class="toc-text">¶ VOLUME</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USER"><span class="toc-number">2.1.8.</span> <span class="toc-text">¶ USER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WORKDIR"><span class="toc-number">2.1.9.</span> <span class="toc-text">¶ WORKDIR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ONBUILD"><span class="toc-number">2.1.10.</span> <span class="toc-text">¶ ONBUILD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STOPSIGNAL"><span class="toc-number">2.1.11.</span> <span class="toc-text">¶ STOPSIGNAL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEALTHCHECK"><span class="toc-number">2.1.12.</span> <span class="toc-text">¶ HEALTHCHECK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHELL"><span class="toc-number">2.1.13.</span> <span class="toc-text">¶ SHELL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作指令"><span class="toc-number">2.2.</span> <span class="toc-text">¶ 操作指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RUN"><span class="toc-number">2.2.1.</span> <span class="toc-text">¶ RUN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD"><span class="toc-number">2.2.2.</span> <span class="toc-text">¶ CMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ADD"><span class="toc-number">2.2.3.</span> <span class="toc-text">¶ ADD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COPY"><span class="toc-number">2.2.4.</span> <span class="toc-text">¶ COPY</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">创建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令选项"><span class="toc-number">3.1.</span> <span class="toc-text">¶ 命令选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择父镜像"><span class="toc-number">3.2.</span> <span class="toc-text">¶ 选择父镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-dockerignore-文件"><span class="toc-number">3.3.</span> <span class="toc-text">¶ 使用 .dockerignore 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多步骤创建"><span class="toc-number">3.4.</span> <span class="toc-text">¶ 多步骤创建</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">最佳实践</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color0"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">60</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">50</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">16</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">使用 Dockerfile 创建镜像</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-08-20 | 更新于 2020-08-20</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Docker/">Docker</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Docker/">Docker</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Dockerfile/">Dockerfile</a></div></div></div><div class="main-content"><blockquote>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">指令说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置指令"><span class="toc-number">2.1.</span> <span class="toc-text">&amp;sect;配置指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARG"><span class="toc-number">2.1.1.</span> <span class="toc-text">&amp;sect;ARG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FROM"><span class="toc-number">2.1.2.</span> <span class="toc-text">&amp;sect;FROM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LABEL"><span class="toc-number">2.1.3.</span> <span class="toc-text">&amp;sect;LABEL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXPOSE"><span class="toc-number">2.1.4.</span> <span class="toc-text">&amp;sect;EXPOSE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENV"><span class="toc-number">2.1.5.</span> <span class="toc-text">&amp;sect;ENV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENTRYPOINT"><span class="toc-number">2.1.6.</span> <span class="toc-text">&amp;sect;ENTRYPOINT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VOLUME"><span class="toc-number">2.1.7.</span> <span class="toc-text">&amp;sect;VOLUME</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USER"><span class="toc-number">2.1.8.</span> <span class="toc-text">&amp;sect;USER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WORKDIR"><span class="toc-number">2.1.9.</span> <span class="toc-text">&amp;sect;WORKDIR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ONBUILD"><span class="toc-number">2.1.10.</span> <span class="toc-text">&amp;sect;ONBUILD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STOPSIGNAL"><span class="toc-number">2.1.11.</span> <span class="toc-text">&amp;sect;STOPSIGNAL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEALTHCHECK"><span class="toc-number">2.1.12.</span> <span class="toc-text">&amp;sect;HEALTHCHECK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHELL"><span class="toc-number">2.1.13.</span> <span class="toc-text">&amp;sect;SHELL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作指令"><span class="toc-number">2.2.</span> <span class="toc-text">&amp;sect;操作指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RUN"><span class="toc-number">2.2.1.</span> <span class="toc-text">&amp;sect;RUN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD"><span class="toc-number">2.2.2.</span> <span class="toc-text">&amp;sect;CMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ADD"><span class="toc-number">2.2.3.</span> <span class="toc-text">&amp;sect;ADD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#COPY"><span class="toc-number">2.2.4.</span> <span class="toc-text">&amp;sect;COPY</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">创建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令选项"><span class="toc-number">3.1.</span> <span class="toc-text">&amp;sect;命令选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择父镜像"><span class="toc-number">3.2.</span> <span class="toc-text">&amp;sect;选择父镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-dockerignore-文件"><span class="toc-number">3.3.</span> <span class="toc-text">&amp;sect;使用 .dockerignore 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多步骤创建"><span class="toc-number">3.4.</span> <span class="toc-text">&amp;sect;多步骤创建</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">最佳实践</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color6"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">60</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">50</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">16</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">使用 Dockerfile 创建镜像</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-08-20 | 更新于 2020-08-20</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Docker/">Docker</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Docker/">Docker</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Dockerfile/">Dockerfile</a></div></div></div><div class="main-content"><blockquote>
 <p>参考文章：[Docker 技术入门与实战]</p>
 </blockquote>
 <p>Dockerfile 是一个文本格式的配置文件，用户可以使用 Dockerfile 来快速创建自定义的镜像。Dockerfile 是由一行行命令语句组成，并且支持以 # 开头的注释行。</p>
@@ -114,34 +114,34 @@ if (isPassword) {
     <td>复制内容到镜像</td>
   </tr>
 </table>
-<h2 id="配置指令"><a class="header-anchor" href="#配置指令">¶ </a>配置指令</h2>
-<h3 id="ARG"><a class="header-anchor" href="#ARG">¶ </a>ARG</h3>
+<h2 id="配置指令"><a class="header-anchor" href="#配置指令">&amp;sect;</a>配置指令</h2>
+<h3 id="ARG"><a class="header-anchor" href="#ARG">&amp;sect;</a>ARG</h3>
 <p>定义创建镜像过程中使用的变量。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ARG &lt;name&gt;[=&lt;default value&gt;]</span><br></pre></td></tr></table></figure>
 <p>在执行 docker build 时，可以通过 --build-arg[=] 来为变量赋值。当镜像编译成功后，ARG 指定的变量将不再存在（ENV指定的变量将在镜像中保留）。</p>
 <p>Docker 内置了一些镜像创建变量，用户可以直接使用而无须声明，包括 <code>HTTP_PROXY</code>，<code>HTTPS_PROXY</code>，<code>FTP_PROXY</code>，<code>NO_PROXY</code>（不区分大小写）。</p>
-<h3 id="FROM"><a class="header-anchor" href="#FROM">¶ </a>FROM</h3>
+<h3 id="FROM"><a class="header-anchor" href="#FROM">&amp;sect;</a>FROM</h3>
 <p>指定所创建镜像的基础镜像。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FROM &lt;image&gt; [AS &lt;name&gt;] 或 FROM &lt;image&gt;:&lt;tag&gt; [AS &lt;name&gt;] 或者 FROM &lt;image&gt;@&lt;digest&gt; [AS &lt;name&gt;]</span><br></pre></td></tr></table></figure>
 <p>任何 Dockerfile 中第一条指令必须为 <code>FROM</code> 指令。并且在同一个 Dockerfile 中创建多个镜像时，可以使用多个 FROM 指令（每个镜像一次）。<br>
 为了保证镜像精简，可以选用体积较小的镜像，如 <code>Alpine</code> 或 <code>Debian</code> 作为基础镜像。例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ARG VERSION=9.3</span><br><span class="line">FROM debian:<span class="variable">$&#123;VERSION&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="LABEL"><a class="header-anchor" href="#LABEL">¶ </a>LABEL</h3>
+<h3 id="LABEL"><a class="header-anchor" href="#LABEL">&amp;sect;</a>LABEL</h3>
 <p><code>LABEL</code> 指令可以为生成的镜像添加元数据标签信息。这些信息可以用来辅助过滤出特定镜像。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</span><br></pre></td></tr></table></figure>
 <p>例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LABEL version=<span class="string">"1.0.0-rc3"</span></span><br><span class="line">LABEL author=<span class="string">"yeasy@github"</span> date=<span class="string">"2020-01-01"</span></span><br><span class="line">LABEL description=<span class="string">"This text illustrates \</span></span><br><span class="line"><span class="string">    that label-values can span multiple lines."</span></span><br></pre></td></tr></table></figure>
-<h3 id="EXPOSE"><a class="header-anchor" href="#EXPOSE">¶ </a>EXPOSE</h3>
+<h3 id="EXPOSE"><a class="header-anchor" href="#EXPOSE">&amp;sect;</a>EXPOSE</h3>
 <p>声明镜像内服务监听的端口<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</span><br></pre></td></tr></table></figure>
 <p>例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE 22 80 8443</span><br></pre></td></tr></table></figure>
 <p>注意，该指令只是起到声明作用，并不会自动完成端口映射。如果要映射端口出来，在启动容器时可以使用 <code>-P</code> 参数或 <code>-p HOST_PORT:CONTAINER_PORT</code> 参数。</p>
-<h3 id="ENV"><a class="header-anchor" href="#ENV">¶ </a>ENV</h3>
+<h3 id="ENV"><a class="header-anchor" href="#ENV">&amp;sect;</a>ENV</h3>
 <p>指定环境变量，在镜像生成过程中会被后续 RUN 指令使用，在镜像启动的容器中也会存在。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENV &lt;key&gt; &lt;value&gt; 或 ENV &lt;key&gt;=&lt;value&gt; ...。</span><br></pre></td></tr></table></figure>
@@ -150,19 +150,19 @@ if (isPassword) {
 <p>ENV 指令指定的环境变量在运行时可以被覆盖掉，如 <code>docker run --env &lt;key&gt;=&lt;value&gt; built_image</code>。</p>
 <p>注意：当一条 ENV 指令中同时为多个环境变量赋值并且值也是从环境变量读取时，会为变量都赋值后再更新。如下面的指令，最终结果为 key1=value1 key2=value2:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENV key1=value2</span><br><span class="line">ENV key1=value1 key2=<span class="variable">$&#123;key1&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="ENTRYPOINT"><a class="header-anchor" href="#ENTRYPOINT">¶ </a>ENTRYPOINT</h3>
+<h3 id="ENTRYPOINT"><a class="header-anchor" href="#ENTRYPOINT">&amp;sect;</a>ENTRYPOINT</h3>
 <p>指定镜像的默认入口命令，该入口命令会在启动容器时作为根命令执行，所有传入值作为该命令的参数。<br>
 支持两种格式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]   <span class="comment"># exec 调用执行</span></span><br><span class="line">ENTRYPOINT <span class="built_in">command</span> param1 param2    <span class="comment"># shell 中执行</span></span><br></pre></td></tr></table></figure>
 <p>此时，<code>CMD</code> 指令指定值将作为根命令的参数。<br>
 每个 Dockerfile 中只能有一个 <code>ENTRYPOINT</code>，当指定多个时，只有最后一个起效。<br>
 在运行时，可以被 <code>--entrypoint</code> 参数覆盖掉，如 <code>docker run --entrypoint</code> 。</p>
-<h3 id="VOLUME"><a class="header-anchor" href="#VOLUME">¶ </a>VOLUME</h3>
+<h3 id="VOLUME"><a class="header-anchor" href="#VOLUME">&amp;sect;</a>VOLUME</h3>
 <p>创建一个数据卷挂载点<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [<span class="string">"/data"</span>]</span><br></pre></td></tr></table></figure>
 <p>运行容器时可以从本地或者其他容器挂载数据卷。一般用来存放数据库和需要保存的数据等。</p>
-<h3 id="USER"><a class="header-anchor" href="#USER">¶ </a>USER</h3>
+<h3 id="USER"><a class="header-anchor" href="#USER">&amp;sect;</a>USER</h3>
 <p>指定运行容器时的用户名或 UID，后续的 <code>RUN</code> 等指令也会使用指定的用户身份。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER daemon</span><br></pre></td></tr></table></figure>
@@ -170,7 +170,7 @@ if (isPassword) {
 <p>例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN groupadd -r postgres &amp;&amp; useradd --no-log-init -r -g postgres postgres</span><br></pre></td></tr></table></figure>
 <p>要临时获取管理员权限可以使用 <code>gosu</code> 命令</p>
-<h3 id="WORKDIR"><a class="header-anchor" href="#WORKDIR">¶ </a>WORKDIR</h3>
+<h3 id="WORKDIR"><a class="header-anchor" href="#WORKDIR">&amp;sect;</a>WORKDIR</h3>
 <p>为后续的 <code>RUN</code>，<code>CMD</code>，<code>ENTRYPOINT</code> 指令配置工作目录<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /path/to/workdir</span><br></pre></td></tr></table></figure>
@@ -178,7 +178,7 @@ if (isPassword) {
 <p>例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /a</span><br><span class="line">WORKDIR b</span><br><span class="line">WORKDIR c</span><br><span class="line">RUN <span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
 <p>则最终路径为 <code>/a/b/c</code>。因此，为了避免出错，推荐 <code>WORKDIR</code> 指令中只是用绝对路径。</p>
-<h3 id="ONBUILD"><a class="header-anchor" href="#ONBUILD">¶ </a>ONBUILD</h3>
+<h3 id="ONBUILD"><a class="header-anchor" href="#ONBUILD">&amp;sect;</a>ONBUILD</h3>
 <p>指定当基于所生成镜像创建子镜像时，自动执行的操作指令。<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONBUILD [INSTRUCTION]</span><br></pre></td></tr></table></figure>
@@ -194,10 +194,10 @@ if (isPassword) {
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM ParentImage</span><br><span class="line"><span class="comment"># 等价于在 ChildImage 的 Dockerfile 中添加了 如下指令：</span></span><br><span class="line"><span class="comment"># Automatically run the following when building ChildImage。</span></span><br><span class="line">ADD . /app/src</span><br><span class="line">RUN /usr/<span class="built_in">local</span>/bin/python-build --dir /app/src</span><br></pre></td></tr></table></figure>
 <p>由于 <code>ONBUILD</code> 指令是隐式执行的，推荐在使用它的镜像标签中进行标注，例如 <code>ruby:2.1-onbuild</code>。<br>
 <code>ONBUILD</code> 指令在创建专门用于自动编译，检查等操作的基础镜像时，十分有用。</p>
-<h3 id="STOPSIGNAL"><a class="header-anchor" href="#STOPSIGNAL">¶ </a>STOPSIGNAL</h3>
+<h3 id="STOPSIGNAL"><a class="header-anchor" href="#STOPSIGNAL">&amp;sect;</a>STOPSIGNAL</h3>
 <p>指定所创建镜像启动的容器接收退出的信号值</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STOPSIGNAL signal</span><br></pre></td></tr></table></figure>
-<h3 id="HEALTHCHECK"><a class="header-anchor" href="#HEALTHCHECK">¶ </a>HEALTHCHECK</h3>
+<h3 id="HEALTHCHECK"><a class="header-anchor" href="#HEALTHCHECK">&amp;sect;</a>HEALTHCHECK</h3>
 <p>配置所启动容器如何进行健康检查（如何判断健康与否），自 Docker 1.12 开始支持。<br>
 格式有两种：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HEALTHCHECK [OPTIONS] CMD <span class="built_in">command</span>   <span class="comment"># 根据所执行命令返回值是否为 0 来判断；</span></span><br><span class="line">HEALTHCHECK NONE    <span class="comment"># 禁止基础镜像中的健康检查</span></span><br></pre></td></tr></table></figure>
@@ -207,15 +207,15 @@ if (isPassword) {
 <li>–timeout=DURATION (default: 30s): 每次检查等待结果的超时；</li>
 <li>–retries=N (default: 3): 如果失败了，重试几次才最终确定失败。</li>
 </ul>
-<h3 id="SHELL"><a class="header-anchor" href="#SHELL">¶ </a>SHELL</h3>
+<h3 id="SHELL"><a class="header-anchor" href="#SHELL">&amp;sect;</a>SHELL</h3>
 <p>指定其他命令使用 <code>shell</code> 时的默认 <code>shell</code> 类型：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHELL [<span class="string">"executable"</span>, <span class="string">"parameters"</span>]</span><br></pre></td></tr></table></figure>
 <p>默认值为 <code>[&quot;/bin/sh&quot;, &quot;-c&quot;]</code></p>
 <blockquote>
 <p>对于 Windows 系统，Shell 路径中使用了 <code>&quot;\&quot;</code> 作为分隔符，建议在 Dockerfile 开头中添加 <code># escape=</code> 来指定转义符.</p>
 </blockquote>
-<h2 id="操作指令"><a class="header-anchor" href="#操作指令">¶ </a>操作指令</h2>
-<h3 id="RUN"><a class="header-anchor" href="#RUN">¶ </a>RUN</h3>
+<h2 id="操作指令"><a class="header-anchor" href="#操作指令">&amp;sect;</a>操作指令</h2>
+<h3 id="RUN"><a class="header-anchor" href="#RUN">&amp;sect;</a>RUN</h3>
 <p>运行指定的命令<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN &lt;<span class="built_in">command</span>&gt; 或 RUN [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]</span><br></pre></td></tr></table></figure>
@@ -225,7 +225,7 @@ if (isPassword) {
 <p>指定使用其他终端类型可以通过第二种方式实现，例如 <code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo hello&quot;]</code>。<br>
 每条 <code>RUN</code> 指令将在当前镜像基础上执行指定命令，并提交为新的镜像层。当命令较长时可以使用 <code>\</code> 来换行。例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RUN apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install -y libsnappy-dev zliblg-dev libbz2-dev \</span><br><span class="line">    &amp;&amp; rm -rf /var/cache/apt \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span><br></pre></td></tr></table></figure>
-<h3 id="CMD"><a class="header-anchor" href="#CMD">¶ </a>CMD</h3>
+<h3 id="CMD"><a class="header-anchor" href="#CMD">&amp;sect;</a>CMD</h3>
 <p>CMD 指令用来指定启动容器时默认执行的命令。<br>
 支持的三种格式：</p>
 <ul>
@@ -235,7 +235,7 @@ if (isPassword) {
 </ul>
 <p>每个 Dockerfile 只能有一条 <code>CMD</code> 命令。如果指定了多条命令，只有最后一条会被执行。<br>
 如果用户启动容器的时候手动指定了运行的命令（作为 <code>run</code> 命令的参数），则会覆盖掉 <code>CMD</code> 指定的命令。</p>
-<h3 id="ADD"><a class="header-anchor" href="#ADD">¶ </a>ADD</h3>
+<h3 id="ADD"><a class="header-anchor" href="#ADD">&amp;sect;</a>ADD</h3>
 <p>添加内容到镜像<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADD &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
@@ -243,7 +243,7 @@ if (isPassword) {
 其中 <code>&lt;src&gt;</code> 可以是 Dockerfile 所在目录的一个相对路径（文件或目录）；也可以是一个 <code>URL</code>；还可以是一个 <code>tar</code> 文件（自动解压为目录）。<code>&lt;dest&gt;</code> 可以是镜像内绝对路径，或者相对于工作目录 (<code>WORKDIE</code>) 的相对路径。</p>
 <p>路径支持正则格式，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ADD *.c /code/</span><br></pre></td></tr></table></figure>
-<h3 id="COPY"><a class="header-anchor" href="#COPY">¶ </a>COPY</h3>
+<h3 id="COPY"><a class="header-anchor" href="#COPY">&amp;sect;</a>COPY</h3>
 <p>复制内容到镜像<br>
 格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COPY &lt;src&gt; &lt;dest&gt;</span><br></pre></td></tr></table></figure>
@@ -260,7 +260,7 @@ if (isPassword) {
 要指定生成镜像的标签信息，可以通过 <code>-t</code> 选项。该选项可以重复使用多次为镜像一次添加多个名称。</p>
 <p>例如，上下文路径为 <code>/tmp/docker_builder/</code>，并且希望生成的镜像标签为 <code>builder/first_image:1.0.0</code>，可以使用下面的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t builder/first_image:1.0.0 /tmp/docker_builder/</span><br></pre></td></tr></table></figure>
-<h2 id="命令选项"><a class="header-anchor" href="#命令选项">¶ </a>命令选项</h2>
+<h2 id="命令选项"><a class="header-anchor" href="#命令选项">&amp;sect;</a>命令选项</h2>
 <p><code>docker [image] build</code> 命令支持一系列的选项，可以调整创建镜像过程的行为，如下表：</p>
 <table>
 <thead>
@@ -396,7 +396,7 @@ if (isPassword) {
 </tr>
 </tbody>
 </table>
-<h2 id="选择父镜像"><a class="header-anchor" href="#选择父镜像">¶ </a>选择父镜像</h2>
+<h2 id="选择父镜像"><a class="header-anchor" href="#选择父镜像">&amp;sect;</a>选择父镜像</h2>
 <p>大部分情况下，生成新的镜像都需要通过 FROM 指令来指定父镜像。父镜像是生成镜像的基础，会直接影响到所生成镜像大小和功能。<br>
 用户可以选择两种镜像作为父镜像：</p>
 <ul>
@@ -407,7 +407,7 @@ if (isPassword) {
 <p>下面的 Dockerfile 定义了一个简单的基础镜像，将用户提前编译好的二进制可执行文件 binary 复制到镜像中，运行容器时执行 binary 命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM scratch</span><br><span class="line">ADD binary /</span><br><span class="line">CMD [<span class="string">"/binary"</span>]</span><br></pre></td></tr></table></figure>
 <p>普通镜像也可以作为父镜像来使用，包括常见的 busybox，debian，ubuntu 等。</p>
-<h2 id="使用-dockerignore-文件"><a class="header-anchor" href="#使用-dockerignore-文件">¶ </a>使用 .dockerignore 文件</h2>
+<h2 id="使用-dockerignore-文件"><a class="header-anchor" href="#使用-dockerignore-文件">&amp;sect;</a>使用 .dockerignore 文件</h2>
 <p>可以通过 .dockerignore 文件（每一行添加一条匹配模式）来让 Docker 忽略匹配路径或文件，在创建镜像时不将无关的数据发送到服务端。</p>
 <p>例如下面的例子中包括了 6 行忽略模式（第一行为注释）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .dockerigonre   文件中可以定义忽略模式</span></span><br><span class="line">*/temp*</span><br><span class="line">*/*/temp*</span><br><span class="line">tmp?</span><br><span class="line">~*</span><br><span class="line">Dockerfile</span><br><span class="line">!README.md</span><br></pre></td></tr></table></figure>
@@ -417,7 +417,7 @@ if (isPassword) {
 <li>‘?’ 表示单个字符；</li>
 <li>‘!’ 表示不匹配</li>
 </ul>
-<h2 id="多步骤创建"><a class="header-anchor" href="#多步骤创建">¶ </a>多步骤创建</h2>
+<h2 id="多步骤创建"><a class="header-anchor" href="#多步骤创建">&amp;sect;</a>多步骤创建</h2>
 <p>自 17.05 版本开始，Docker 支持多步骤镜像创建（Multi-stage build）特性，可以精简最终生成的镜像大小、<br>
 对于需要编译的应用（如 C，Go 或 Java 语言等）来说，通常情况下至少需要准备两个环境的 Docker 镜像：</p>
 <ul>

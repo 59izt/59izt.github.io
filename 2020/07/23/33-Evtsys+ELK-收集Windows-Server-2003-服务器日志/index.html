@@ -16,7 +16,7 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">安装开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置-JDK"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 安装配置 JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Elasticsearch"><span class="toc-number">2.2.</span> <span class="toc-text">¶ 安装 Elasticsearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Logstash"><span class="toc-number">2.3.</span> <span class="toc-text">¶ 安装 Logstash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Kibana"><span class="toc-number">2.4.</span> <span class="toc-text">¶ 安装 Kibana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Evtsys"><span class="toc-number">2.5.</span> <span class="toc-text">¶ 安装 Evtsys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Evtsys-cfg-配置文件配置说明"><span class="toc-number">2.5.1.</span> <span class="toc-text">¶ Evtsys.cfg 配置文件配置说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kibana-配置索引"><span class="toc-number">2.6.</span> <span class="toc-text">¶ Kibana 配置索引</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color4"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color10"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">60</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">50</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">16</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Windows Server 2003 服务器日志收集方法</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-07-23 | 更新于 2020-07-23</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/ELK/">ELK</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Evtsys/">Evtsys</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/ELK/">ELK</a></div></div></div><div class="main-content"><blockquote>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">安装开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置-JDK"><span class="toc-number">2.1.</span> <span class="toc-text">&amp;sect;安装配置 JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Elasticsearch"><span class="toc-number">2.2.</span> <span class="toc-text">&amp;sect;安装 Elasticsearch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Logstash"><span class="toc-number">2.3.</span> <span class="toc-text">&amp;sect;安装 Logstash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Kibana"><span class="toc-number">2.4.</span> <span class="toc-text">&amp;sect;安装 Kibana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Evtsys"><span class="toc-number">2.5.</span> <span class="toc-text">&amp;sect;安装 Evtsys</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Evtsys-cfg-配置文件配置说明"><span class="toc-number">2.5.1.</span> <span class="toc-text">&amp;sect;Evtsys.cfg 配置文件配置说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kibana-配置索引"><span class="toc-number">2.6.</span> <span class="toc-text">&amp;sect;Kibana 配置索引</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color7"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">60</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">50</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">16</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Windows Server 2003 服务器日志收集方法</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-07-23 | 更新于 2020-07-23</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/ELK/">ELK</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Evtsys/">Evtsys</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/ELK/">ELK</a></div></div></div><div class="main-content"><blockquote>
 <p>说明：由于 winlogbeat 不支持在 Windows Server 2003 系统上运行，所以才使用 Evtsys 替代 Winlogbeat；Evtsys 可以将 Windows 日志转换成 syslog，然后发送到日志服务器；更多说明请参考 <a href="https://code.google.com/archive/p/eventlog-to-syslog/" target="_blank" rel="noopener">Evtsys 官网</a>。</p>
 </blockquote>
 <a id="more"></a>
@@ -81,7 +81,7 @@ if (isPassword) {
 <p>JDK 环境：因为最新版本 ELasticsearch 最低需要 jdk 11 版本，固这里采用 jdk-11.0.7</p>
 </blockquote>
 <h1>安装开始</h1>
-<h2 id="安装配置-JDK"><a class="header-anchor" href="#安装配置-JDK">¶ </a>安装配置 JDK</h2>
+<h2 id="安装配置-JDK"><a class="header-anchor" href="#安装配置-JDK">&amp;sect;</a>安装配置 JDK</h2>
 <p>在所有的 Linux 服务器上安装配置 jdk-11.0.7 环境，安装步骤如下：</p>
 <ul>
 <li>解压 jdk 软件包</li>
@@ -96,7 +96,7 @@ if (isPassword) {
 <li>刷新 <a href="http://java.sh" target="_blank" rel="noopener">java.sh</a> 配置文件，验证 Java 环境</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># java -version</span></span><br><span class="line">java version <span class="string">"11.0.7"</span> 2020-04-14 LTS</span><br><span class="line">Java(TM) SE Runtime Environment 18.9 (build 11.0.7+8-LTS)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.7+8-LTS, mixed mode)</span><br></pre></td></tr></table></figure>
-<h2 id="安装-Elasticsearch"><a class="header-anchor" href="#安装-Elasticsearch">¶ </a>安装 Elasticsearch</h2>
+<h2 id="安装-Elasticsearch"><a class="header-anchor" href="#安装-Elasticsearch">&amp;sect;</a>安装 Elasticsearch</h2>
 <p>在主机 Elasticsearch1，Elasticsearch2，Elasticsearch3 上安装 Elasticsearch，具体步骤如下：</p>
 <ul>
 <li>解压 elasticsearch 软件包</li>
@@ -133,7 +133,7 @@ if (isPassword) {
 <blockquote>
 <p>Elasticsearch 集群安装到此为止</p>
 </blockquote>
-<h2 id="安装-Logstash"><a class="header-anchor" href="#安装-Logstash">¶ </a>安装 Logstash</h2>
+<h2 id="安装-Logstash"><a class="header-anchor" href="#安装-Logstash">&amp;sect;</a>安装 Logstash</h2>
 <p>在 Logstash 主机上安装 logstash，具体的步骤如下：</p>
 <ul>
 <li>解压软件包</li>
@@ -154,7 +154,7 @@ if (isPassword) {
 <blockquote>
 <p>Logstash 的安装到此为止</p>
 </blockquote>
-<h2 id="安装-Kibana"><a class="header-anchor" href="#安装-Kibana">¶ </a>安装 Kibana</h2>
+<h2 id="安装-Kibana"><a class="header-anchor" href="#安装-Kibana">&amp;sect;</a>安装 Kibana</h2>
 <p>Kibana 的安装比较简单，kibana 不需要 jdk 环境的支持；具体的安装步骤如下：</p>
 <ul>
 <li>解压软件包</li>
@@ -179,7 +179,7 @@ if (isPassword) {
 <blockquote>
 <p>Kibana 的安装到此为主</p>
 </blockquote>
-<h2 id="安装-Evtsys"><a class="header-anchor" href="#安装-Evtsys">¶ </a>安装 Evtsys</h2>
+<h2 id="安装-Evtsys"><a class="header-anchor" href="#安装-Evtsys">&amp;sect;</a>安装 Evtsys</h2>
 <p>在 windows Server 2003 R2 系统上安装 Evtsys 软件，具体的步骤如下：</p>
 <ul>
 <li>
@@ -206,7 +206,7 @@ if (isPassword) {
 <blockquote>
 <p>Evtsys 安装到此结束</p>
 </blockquote>
-<h3 id="Evtsys-cfg-配置文件配置说明"><a class="header-anchor" href="#Evtsys-cfg-配置文件配置说明">¶ </a>Evtsys.cfg 配置文件配置说明</h3>
+<h3 id="Evtsys-cfg-配置文件配置说明"><a class="header-anchor" href="#Evtsys-cfg-配置文件配置说明">&amp;sect;</a>Evtsys.cfg 配置文件配置说明</h3>
 <p>此处内容来自 <a href="https://isc.sans.edu/forums/diary/Monitoring+Windows+Networks+Using+Syslog+Part+One/17342/" target="_blank" rel="noopener">https://isc.sans.edu/forums/diary/Monitoring+Windows+Networks+Using+Syslog+Part+One/17342/</a></p>
 <p>evtsys.cfg的基本版本可以在 Github（<a href="http://goo.gl/79spGK%EF%BC%89%E4%B8%8A%E6%89%BE%E5%88%B0%E3%80%82%E6%AD%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%80%82%E7%94%A8%E4%BA%8EWindows" target="_blank" rel="noopener">http://goo.gl/79spGK）上找到。此配置文件适用于Windows</a> 7及更高版本。使用之前，请将该文件重命名为 Evtsys.cfg。该文件使用XPATH作为过滤器，这使得创建新过滤器变得容易。这是创建自己的快速方法。</p>
 <ol>
@@ -227,7 +227,7 @@ if (isPassword) {
 </li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XPath:Microsoft-Windows-Windows Defender/Operational:<span class="tag">&lt;<span class="name">Select</span> <span class="attr">Path</span>=<span class="string">”Microsoft-Windows-Windows</span> <span class="attr">Defender</span>/<span class="attr">Operational</span>\”&gt;</span>*[System[(EventID=1005 or EventID=1006 or EventID=1010 or EventID=1012 or EventID=1014 or EventID=2001 or EventID=2003 or EventID=2004 or EventID=3002 or EventID=5008)]]<span class="tag">&lt;/<span class="name">Select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Kibana-配置索引"><a class="header-anchor" href="#Kibana-配置索引">¶ </a>Kibana 配置索引</h2>
+<h2 id="Kibana-配置索引"><a class="header-anchor" href="#Kibana-配置索引">&amp;sect;</a>Kibana 配置索引</h2>
 <ul>
 <li>
 <p>打开浏览器，访问 172.16.68.18:5601，点击 “Management”，选择 “索引模式”, 然后点击 “创建索引模式”，如下图所示<br>
