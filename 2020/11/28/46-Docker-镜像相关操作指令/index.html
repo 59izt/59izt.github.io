@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Docker 镜像相关操作指令"><meta name="keywords" content="Docker,Image"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Docker 镜像相关操作指令【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">获取镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#从官方拉取镜像"><span class="toc-number">1.1.</span> <span class="toc-text">§从官方拉取镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从非官方仓库拉取镜像"><span class="toc-number">1.2.</span> <span class="toc-text">§从非官方仓库拉取镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从第三方镜像仓库服务获取镜像"><span class="toc-number">1.3.</span> <span class="toc-text">§从第三方镜像仓库服务获取镜像</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">为镜像打标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">镜像过滤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">搜索镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-CLI-方式搜索-Docker-Hub"><span class="toc-number">4.1.</span> <span class="toc-text">§通过 CLI 方式搜索 Docker Hub</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">5.</span> <span class="toc-text">查看镜像分层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">6.</span> <span class="toc-text">根据摘要拉取镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">7.</span> <span class="toc-text">删除镜像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color4"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color6"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">75</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">61</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">18</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Docker 镜像相关操作指令</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-11-28 | 更新于 2020-11-28</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Docker/">Docker</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Docker/">Docker</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Image/">Image</a></div></div></div><div class="main-content"><blockquote>
+<p>参考文章：[深入浅出 Docker]</p>
+</blockquote>
+<h1>获取镜像</h1>
+<h2 id="从官方拉取镜像"><a class="header-anchor" href="#从官方拉取镜像">§</a>从官方拉取镜像</h2>
+<p>只要给出镜像的名字和标签，就能在官方仓库中定位一个镜像（采用 “:” 分隔）。从官方仓库拉取镜像时，docker image pull 命令的格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image pull &lt;repository&gt;:&lt;tag&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>示例：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker image pull alpine:latest</span><br><span class="line">docker image pull ubuntu:latest</span><br></pre></td></tr></table></figure>
+<h2 id="从非官方仓库拉取镜像"><a class="header-anchor" href="#从非官方仓库拉取镜像">§</a>从非官方仓库拉取镜像</h2>
+<p>从非官方仓库拉取镜像也是类似的，只需要在仓库名称前面加上 Docker Hub 的用户名或者组织名称。下面的示例展示了如何从 tu-demo 仓库中拉取 v2 这个镜像，其中镜像的拥有者是 Docker Hub 账户 nigelpoulton，一个不应该被信任的账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker image pull nigelpoulton/tu-demo:v2</span><br><span class="line"><span class="comment"># 该命令会从以 Docker Hub 账号 nigelpoulton 为命名空间的 tu-demo 库中下载标签为 v2 的镜像。</span></span><br></pre></td></tr></table></figure>
+<h2 id="从第三方镜像仓库服务获取镜像"><a class="header-anchor" href="#从第三方镜像仓库服务获取镜像">§</a>从第三方镜像仓库服务获取镜像</h2>
+<p>如果希望从第三方镜像仓库服务获取镜像（非 Docker Hub），则需要在镜像仓库名称前加上第三方镜像仓库服务的 DNS 名称。</p>
+<ul>
+<li>假设上面的示例中的镜像位于 Google 容器镜像仓库服务（GCR）中，则需要在仓库名称前面加上 <a href="http://gcr.io" target="_blank" rel="noopener">gcr.io</a>，如下所示：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image pull gcr.io/nigelpoulton/tu-demo:v2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>前提是需要拥有第三方镜像仓库服务的账户，并在拉取镜像前完成登录。</p>
+</blockquote>
+<h1>为镜像打标签</h1>
+<p>关于镜像有一点不得不提，一个镜像可以根据用户的需要设置多个标签。</p>
+<h1>镜像过滤</h1>
+<p>Docker 提供 <code>--filter</code> 参数来过滤 <code>docker image ls</code> 命令返回的镜像列表内容。</p>
+<ul>
+<li>下面的示例只会返回悬虚（dangling）镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls --filter dangling=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>Docker 目前支持如下的过滤：</p>
+<ul>
+<li>dangling: 可以指定 true 或者 false，仅返回悬虚镜像（true），或者非悬虚镜像（false）</li>
+<li>before: 需要镜像名称或者 ID 作为参数，返回在之前被创建的全部镜像</li>
+<li>since: 与 before 类似，不过返回的是指定镜像之后创建的全部镜像</li>
+<li>label: 根据标注（label）的名称或值，对镜像进行过滤。docker image ls 命令输出中不显示标注内容</li>
+</ul>
+<p>其他的过滤方式可以使用 <code>reference</code><br>
+下面就是使用 reference 完成过滤并且仅显示标签为 latest 的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker image ls --filter reference=<span class="string">"*:latest"</span></span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              a24bb4013296        7 weeks ago         5.57MB</span><br><span class="line">ubuntu              latest              1d622ef86b13        2 months ago        73.9MB</span><br><span class="line">hello-world         latest              bf756fb1ae65        6 months ago        13.3kB</span><br></pre></td></tr></table></figure>
+<p>也可以使用 <code>--format</code> 参数来通过 Go 模板对输出内容进行格式化。<br>
+例如，下面的指令将只返回 Docker 主机上镜像的大小属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker image ls --format <span class="string">"&#123;&#123;.Size&#125;&#125;"</span></span><br><span class="line">5.57MB</span><br><span class="line">73.9MB</span><br><span class="line">104MB</span><br><span class="line">104MB</span><br><span class="line">104MB</span><br><span class="line">13.3kB</span><br></pre></td></tr></table></figure>
+<p>使用下面的命令返回全部镜像，但是只显示仓库，标签和大小信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls --format <span class="string">"&#123;&#123;.Repository&#125;&#125;: &#123;&#123;.Tag&#125;&#125;: &#123;&#123;.Size&#125;&#125;"</span></span><br><span class="line">alpine: latest: 5.57MB</span><br><span class="line">ubuntu: latest: 73.9MB</span><br><span class="line">nigelpoulton/tu-demo: latest: 104MB</span><br><span class="line">nigelpoulton/tu-demo: v2: 104MB</span><br><span class="line">nigelpoulton/tu-demo: v1: 104MB</span><br><span class="line">hello-world: latest: 13.3kB</span><br></pre></td></tr></table></figure>
+<h1>搜索镜像</h1>
+<h2 id="通过-CLI-方式搜索-Docker-Hub"><a class="header-anchor" href="#通过-CLI-方式搜索-Docker-Hub">§</a>通过 CLI 方式搜索 Docker Hub</h2>
+<p>docker search 命令允许通过 CLI 的方式搜索 Docker Hub。可以通过 “NAME” 字段的内容进行匹配，并且基于返回的内容中任意列的值进行过滤。</p>
+<p>简单模式下，该命令会搜索所有 <code>NAME</code> 字段中包含特定字符串的仓库。</p>
+<ul>
+<li>例如，下面的命令会查找所有 NAME 包含 nigelpoulton 的仓库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search nigelpoulton</span><br></pre></td></tr></table></figure>
+<p>“NAME” 字段是仓库名称，包含了 Docker ID，或者非官方仓库的组织名称。</p>
+<ul>
+<li>例如，下面的命令会列出所有仓库名称中包含 “alpine” 的镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search alpine</span><br></pre></td></tr></table></figure>
+<p>上面返回的镜像中，既有官方的也有非官方的。可以使用 <code>--filter &quot;is-official=true&quot;</code>，使命令返回内容只显示官方镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search alpine --filter <span class="string">"is-official=true"</span></span><br></pre></td></tr></table></figure>
+<p>只查找自动创建的仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search alpine --filter <span class="string">"is-automated=true"</span></span><br></pre></td></tr></table></figure>
+<p>关于 docker search 需要注意的最后一点是，默认情况下，Docker 只返回 25行结果。但是可以指定 --limit 参数来增加返回内容行数，最多为 100 行。</p>
+<h1>查看镜像分层</h1>
+<p>Docker 镜像是由一些松耦合的只读镜像层组成。Docker 负责堆叠这些镜像层，并且将它们表示为单个统一的对象。<br>
+有多种方式可以查看和检查狗层某个镜像的分层，第一种是 <code>docker pull</code> 镜像时，会显示所有的镜像层</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker image pull ubuntu:latest</span><br><span class="line">latest: Pulling from library/ubuntu</span><br><span class="line">692c352adcf2: Pull complete </span><br><span class="line">97058a342707: Pull complete </span><br><span class="line">2821b8e766f4: Pull complete </span><br><span class="line">4e643cc37772: Pull complete </span><br><span class="line">Digest: sha256:55cd38b70425947db71112eb5dddfa3aa3e3ce307754a3df2269069d2278ce47</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> ubuntu:latest</span><br><span class="line">docker.io/library/ubuntu:latest</span><br></pre></td></tr></table></figure>
+<p>在上面输出内容中，以 Pull complete 结尾的每一行都代表了镜像中某个被拉取的镜像层。</p>
+<ul>
+<li>另一种查看镜像分层的方式是通过 <code>docker image inspect</code> 命令。如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ docker image inspect ubuntu:latest</span><br><span class="line">[</span><br><span class="line">    ......</span><br><span class="line">    <span class="string">"RootFS"</span>: &#123;</span><br><span class="line">            <span class="string">"Type"</span>: <span class="string">"layers"</span>,</span><br><span class="line">            <span class="string">"Layers"</span>: [</span><br><span class="line">                <span class="string">"sha256:d22cfd6a8b16689838c570b91794ed18acc752a08a10bce891cc64acc1533b3f"</span>,</span><br><span class="line">                <span class="string">"sha256:132bcd1e0eb5c706a017ff058b68d76c24f66f84120c51c7662de074a98cbe7a"</span>,</span><br><span class="line">                <span class="string">"sha256:cf0f3facc4a307e4c36e346ddb777a73e576393575043e89d2ea536b693c3ff5"</span>,</span><br><span class="line">                <span class="string">"sha256:544a70a875fc8e410b8a1389bf912e9536cf8167cbbfc1457bba355d5b7ce5c4"</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">    ....</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>docker history 命令显示了镜像的构建历史记录，但其实并不是严格意义上的镜像分层。例如，有些 Dockerfile中的指令并不会创建新的镜像层，比如 ENV，EXPOSE，CMD 以及 ENTRYPOINT，不过这些命令会在镜像中添加元数据。</p>
+<h1>根据摘要拉取镜像</h1>
+<p>Docker 1.10 中引入了新的内容寻址存储模型。作为模型的一部分，每一个镜像现在都有一个基于其内容的密码散列值。为了讨论方便，这里使用摘要代指这个散列值。<br>
+每次拉取镜像，摘要都会作为 docker image pull 命令返回代码的一部分。只需要在 docker image ls 命令之后添加 --digests 参数即可在本地查看镜像摘要。如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls --digests alpine</span><br><span class="line">REPOSITORY          TAG                 DIGEST                                                                    IMAGE ID            CREATED             SIZE</span><br><span class="line">alpine              latest              sha256:185518070...dfe321   a24bb4013296        7 weeks ago         5.57MB</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过摘要进行拉取镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image pull alpine@sha256:185518070...dfe321</span><br></pre></td></tr></table></figure>
+<h1>删除镜像</h1>
+<ul>
+<li>通过镜像 ID 来删除</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image rm &lt;image id&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除某 Docker 主机上全部镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image rm $(docker image ls -q) -f</span><br></pre></td></tr></table></figure>
+<h1>总结</h1>
+<ul>
+<li>docker image pull: 下载镜像</li>
+<li>docker image ls: 列出本地 Docker 主机上的镜像</li>
+<li>docker image inspect: 查看镜像的详细信息</li>
+<li>docker imahe rm: 删除镜像</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2020/11/28/46-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/">https://blog.59izt.com/2020/11/28/46-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/11/28/65-Django-%E8%A1%A8%E5%8D%95%E5%90%8E%E5%8F%B0%E4%B8%8E%E6%B5%8B%E8%AF%95/"><i class="fas fa-angle-left">&nbsp;</i><span>Django 入门基础（Form&amp;Admin&amp;Test）</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/11/28/67-Jenkins-REST-API-%E4%BD%BF%E7%94%A8/"><span>Jenkins REST API 使用讲解</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2020 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

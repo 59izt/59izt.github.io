@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="自动化软件发布工作流(一)"><meta name="keywords" content="Jenkins,GitLab"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>自动化软件发布工作流(一)【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">示例项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#编写示例代码"><span class="toc-number">1.1.</span> <span class="toc-text">§编写示例代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译项目"><span class="toc-number">1.2.</span> <span class="toc-text">§编译项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手工运行"><span class="toc-number">1.3.</span> <span class="toc-text">§手工运行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">使用 GitLab 保存源代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立用户和项目组"><span class="toc-number">2.1.</span> <span class="toc-text">§建立用户和项目组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建立项目"><span class="toc-number">2.2.</span> <span class="toc-text">§建立项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将本地代码推送到-GitLab-中"><span class="toc-number">2.3.</span> <span class="toc-text">§将本地代码推送到 GitLab 中</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">使用 Jenkins 编译项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Docker-版的-Jenkins"><span class="toc-number">3.1.</span> <span class="toc-text">§使用 Docker 版的 Jenkins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正式使用-Jenkins-的方法"><span class="toc-number">3.2.</span> <span class="toc-text">§正式使用 Jenkins 的方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">使用 Nginx 作为软件仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-和-nginx-服务器之间的免密登录"><span class="toc-number">4.1.</span> <span class="toc-text">§Jenkins 和 nginx 服务器之间的免密登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-nginx-服务器"><span class="toc-number">4.2.</span> <span class="toc-text">§安装 nginx 服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-jenkins-插件"><span class="toc-number">4.3.</span> <span class="toc-text">§安装 jenkins 插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-Jenkins-Pipeline"><span class="toc-number">4.4.</span> <span class="toc-text">§配置 Jenkins Pipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证"><span class="toc-number">4.5.</span> <span class="toc-text">§验证</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">75</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">61</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">18</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">自动化软件发布工作流(一)</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2020-11-28 | 更新于 2020-11-28</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Manabe/">Manabe</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Jenkins/">Jenkins</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/GitLab/">GitLab</a></div></div></div><div class="main-content"><blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<p>软件自动化发布，是建立在手工软件发布很成熟的基础之上的，并且是对公司的软件包结构，服务器操作系统标准化之后形成的。相对于手工部署，自动化软件部署效率更高，操作更标准化，节约人力物力，并且可以记录每一次的发布细节。所以它的技能要求更高，要求系统开发人员不但要懂运维，还要懂开发。</p>
+<a id="more"></a>
+<p>以下是自动化软件发布系统 Manabe 的工作流：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/09/BHQfIO.png" width="800" alt="Manabe 架构图"/></p>
+<p>当程序员将代码上传到 GitLab 之后，通过 在 Manabe 中新建一个 发布单，并编译此发布单，Manabe 就会通过 Jenkins 的 API，远程地从 GitLab 上拉取指定代码，并编译成软件包，上传到 Nginx 软件仓库中。<br>
+当需要发布的时候，Manabe 将通过 SaltStack 组件远程执行脚本，命令指定的服务器从 Nginx 仓库拉取指定版本的软件包，并实现每个服务器上的软件包的备份，更新，部署，服务启停等标准操作。</p>
+<h1>示例项目</h1>
+<p>在本节，我们设计一个简单的示例代码，后面将会使用这个代码演示自动化软件发布的各个方面</p>
+<h2 id="编写示例代码"><a class="header-anchor" href="#编写示例代码">§</a>编写示例代码</h2>
+<p>在本示例中，我们使用 STS(Spring Tool Suite) 来开发这个应用。我们的示例是一个 maven 项目，这里只讲解主要的实现代码。<br>
+文件结构如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">javademo</span><br><span class="line">├── config</span><br><span class="line">│   ├── application-prd.properties</span><br><span class="line">│   └── application-test.properties</span><br><span class="line">├── pom.xml</span><br><span class="line">├── src</span><br><span class="line">│   └── main</span><br><span class="line">│       └── java</span><br><span class="line">│           └── com</span><br><span class="line">│               └── example</span><br><span class="line">│                   └── javademo</span><br><span class="line">│                       └── App.java</span><br><span class="line">└── target.rar</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Pom.xml 的文件内容如下：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>                                                                     </span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javademo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>javademo<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：</p>
+<ul>
+<li>第10行，指明我们生成的软件包为 jar 包；</li>
+<li>第18~22行，指明我们使用的 spring-boot 版本为 2.3.5；</li>
+<li>第24~27行，指明使用了一个依赖 starter:spring-boot-starter-web;</li>
+<li>第32~34行，spring-boot-maven-plugin 这个编译插件，是为了解决单独运行 jar 时的 MANIFEST 错误问题；</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>App.java 的内容如下：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.javademo;                                                                                                                                                </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.EnableAutoConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.env&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String env;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.db&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String db; </span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"env:"</span> + env + <span class="string">" /hello, db:"</span> + db; </span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication.run(App<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;   </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：</p>
+<ul>
+<li>第11行，为了极致精简，我们将 controller 也写到了 main 函数的主文件中；</li>
+<li>第15~19行，使用了 @Value 注解，来读取配置文件中的变量。而配置文件，我们放在项目根目录的 config 目录中，在部署时，需要将 config 文件夹和 jar 软件放在同一个目录下，才能正常读取配置；</li>
+<li>第21~25行，定义了一个 uri:/hello。它会将 env 变量名称和 db 变量名称显示出来；</li>
+</ul>
+</blockquote>
+<ol start="3">
+<li>config 文件夹下包括两个文件，application-test.properties 和 application-prd.properties，文件都是与环境相关的。内容如下：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># application-prd.properties</span></span><br><span class="line">test.env = <span class="string">'PRD'</span></span><br><span class="line">test.db = <span class="string">'PRD DATABASE'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># application-test.properties</span></span><br><span class="line">test.env = <span class="string">'TEST'</span></span><br><span class="line">test.db = <span class="string">'TEST DATABASE'</span></span><br></pre></td></tr></table></figure>
+<p> </p>
+<h2 id="编译项目"><a class="header-anchor" href="#编译项目">§</a>编译项目</h2>
+<p>在测试项目可以运行后，使用 maven 命令，生成可执行的 jar 包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package -Dmaven.test.skip = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>也可以在 STS 中，右击 pom.xml 文件进行编译。</p>
+<p> </p>
+<h2 id="手工运行"><a class="header-anchor" href="#手工运行">§</a>手工运行</h2>
+<p>在得到 jar 软件包和 配置文件后，可以先进行手工安装测试，将 javademo-0.0.1-SNAPSHOT.jar 软件包和 config 目录转移到一个单独目录下，然后执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar javademo-0.0.1-SNAPSHOT.jar --spring.profiles.active=<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>如无意外，将会看到如下所示界面：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/10/BqzWM4.png" width="800" alt="java 运行截图"></p>
+<p>启动浏览器，访问网址 <a href="http://127.0.0.1:8080/hello%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%A6%82%E4%B8%8B%E6%89%80%E7%A4%BA%E8%BE%93%E5%87%BA" target="_blank" rel="noopener">http://127.0.0.1:8080/hello，可以看到如下所示输出</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env:<span class="string">'TEST'</span> /hello, db:<span class="string">'TEST DATABASE'</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，由于我们启动时指定了 test 环境，所以显示的是 test 的变量；</p>
+<h1>使用 GitLab 保存源代码</h1>
+<p>GitLab 的安装和使用，可以去网上查找相关的资料，此处直接演示如何将上面的代码存入 GitLab 中；</p>
+<h2 id="建立用户和项目组"><a class="header-anchor" href="#建立用户和项目组">§</a>建立用户和项目组</h2>
+<p>在 GitLab，首先建立一个 Jenkins 用户，新建一个 ZEP-BACKEND 项目组。然后将这个用户放入项目组，用这个用户来打通 GitLab 和 Jenkins 之间的互信，Jenkins 使用这个用户从 GitLab 中拉取代码进行编译。</p>
+<ol>
+<li>
+<p>使用管理员登录 GitLab中，单击用户头像，选择 <code>Settings</code>，进入系统设置，点击顶部的一个扳手图标（<code>Admin Area</code>），进入管理界面;</p>
+</li>
+<li>
+<p>点击右侧窗口中的 New user，选择创建用户，输入必填项，建立 jenkins 用户，如下：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/10/BLnjOI.png" width="800" alt="gitlab 创建用户"></p>
+</li>
+<li>
+<p>在 GitLab 的正常使用用，为了安全起见，所有后台管理增加的用户，都是通过邮件发送给对方，让对方通过邮箱中的链接，来更新用户密码；由于我们测试时没有使用邮箱验证，所以直接通过 <code>Create user</code> 按钮中的 users 链接进入用户管理界面，更改 jenkins 用户密码；</p>
+</li>
+<li>
+<p>建立好用户之后，开始建立项目组。单击页面顶部的加号(<code>&quot;+&quot;</code>)图标，在下拉菜单中选择 <code>Group</code>;</p>
+</li>
+<li>
+<p>在建立项目组的界面里，输入 ZEP-BACKEND 项目组信息，在 <code>Visibility Level</code> 中选择 <code>Private</code>，表示这个项目只有项目组里的用户才能浏览或者更新代码，而不是任何人都有权限。然后单击 <code>Create group</code> 按钮保存；</p>
+</li>
+<li>
+<p>项目组建好后，下面将 jenkins 用户加入到 ZEP-BACKEND 项目组，至此，完成了第一步的操作。jenkins 用户自动拥有了 ZEP-BACKEND项目组下所有项目的权限；</p>
+</li>
+<li>
+<p>同样按照上面的操作，建立 ZEP-FRONT，ABC-BACKEND，ABC-FRONT 项目，并将 jenkins 用户加入到这些项目组中。</p>
+</li>
+</ol>
+<p> </p>
+<h2 id="建立项目"><a class="header-anchor" href="#建立项目">§</a>建立项目</h2>
+<p>接着需要在 ZEP-BACKEND 项目组中新建一个 ZEP-BACKEND-JAVA 项目，这个项目就是在上一节的示例代码。操作如下：</p>
+<ol>
+<li>在首页右上角，单击 New Project 按钮，输入相关信息，注意，在 GitLab 服务器地址后，需要选择 ZEP-BACKEND 这个项目组，同样，在 Visibility Level 中，选择 Private 选项，允许项目组成员进入，然后单击 create Project 按钮，就建立了 ZEP-BACKEND-JAVA 项目；</li>
+<li>建立好项目后，当我们进入 GitLab 界面，选顶部 <code>Projects</code> --&gt; <code>Your projects</code> 时，能看到自己的项目，表示已经建好此项目；</li>
+<li>当进入 ZEP-BACKEND-JAVA 项目右边导航，在 settings 设置下的 member 成员列表总查看用户时，会发现，我们的 Jenkins 已在其名单中了。</li>
+</ol>
+<p>除了将用户加入项目组，让用户在整个项目组有权限之外，GitLab 为了灵活管理用户，还在每个项目的 member 管理页面，单独设置了增加用户的功能。值得注意的是，在单个项目下增加用户，其权限仅存在于本项目，而不会扩展到整个项目组。</p>
+<p> </p>
+<h2 id="将本地代码推送到-GitLab-中"><a class="header-anchor" href="#将本地代码推送到-GitLab-中">§</a>将本地代码推送到 GitLab 中</h2>
+<ol>
+<li>获取 ZEP-BACKEND-JAVA 的 GitLab 地址，在本示例中，git 地址为：<a href="http://gitlab.59izt.com/zep-backend/zep-backend-java.git" target="_blank" rel="noopener">http://gitlab.59izt.com/zep-backend/zep-backend-java.git</a></li>
+<li>在本地计算机上选定一目录作为 Git 目录，然后输入以下命令将此代码仓库克隆到本地。如果有用户名和密码方面的问题，可以在 Git 地址中引入用户名，如：<a href="http://jenkins@gitlab.59izt.com/zep-backend/zep-backend-java.git%E3%80%82%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0" target="_blank" rel="noopener">http://jenkins@gitlab.59izt.com/zep-backend/zep-backend-java.git。输入密码，就可以得到</a> git 代码的本地备份了。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> http://jenkins@120.48.5.173:5981/zep-backend/zep-backend-java.git</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>将上一小节的 javademo 代码拷贝到 zep-backend-java 文件夹，然后新建 <a href="http://README.md" target="_blank" rel="noopener">README.md</a> 文件，添加项目说明；</li>
+<li>执行 以下命令，将代码提交到 GitLab：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加文件到本地 Git 仓库 </span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用变更到本地 Git</span></span><br><span class="line">git commit -m <span class="string">"project init"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传代码到远程仓库</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>提交成功后，进入 GitLab，就可以验证提交的代码，如下：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/11/BXZ6W4.png" width="800" alt="Image"></li>
+</ol>
+<p> </p>
+<h1>使用 Jenkins 编译项目</h1>
+<h2 id="使用-Docker-版的-Jenkins"><a class="header-anchor" href="#使用-Docker-版的-Jenkins">§</a>使用 Docker 版的 Jenkins</h2>
+<p>因为 Docker 版的 Jenkins 本身没有集成 Maven 软件，所以在制作一些 Java 项目时，Maven 命令就会出错。这里先是在宿主机上安装好 Maven 程序，再将宿主机的 Maven 挂载进容器（-v /usr/local/maven:/usr/local/maven）. Docker 命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -p 8080:8080 -v /jenkins-data:/var/jenkins_home -v /usr/<span class="built_in">local</span>/maven:/usr/<span class="built_in">local</span>/maven --name=<span class="string">'jenkins'</span> jenkins/jenkins:2.141-alpine</span><br></pre></td></tr></table></figure>
+<h2 id="正式使用-Jenkins-的方法"><a class="header-anchor" href="#正式使用-Jenkins-的方法">§</a>正式使用 Jenkins 的方法</h2>
+<ol>
+<li>
+<p>使用管理员登录 Jenkins，建立流水线型任务，名为 ZEP-BACKEND-JAVA，如下：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/11/BXhyqO.png" width="800" alt="Image"></p>
+</li>
+<li>
+<p>后期要使用 Manabe 通过 Jenkins API 传过来的参数进行构建，使用的参数如下：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Git_url</td>
+<td style="text-align:center">Git 地址</td>
+<td style="text-align:left"><a href="http://gitlab.59izt.com/ZEP-BACKEND/ZER-BACKEND-JAVA.git" target="_blank" rel="noopener">http://gitlab.59izt.com/ZEP-BACKEND/ZER-BACKEND-JAVA.git</a></td>
+</tr>
+<tr>
+<td style="text-align:center">branch_build</td>
+<td style="text-align:center">编译版本</td>
+<td style="text-align:left">master</td>
+</tr>
+<tr>
+<td style="text-align:center">package_name</td>
+<td style="text-align:center">软件包名</td>
+<td style="text-align:left">javademo-1.0.jar</td>
+</tr>
+<tr>
+<td style="text-align:center">Zip_package_name</td>
+<td style="text-align:center">压缩包名</td>
+<td style="text-align:left">javademo-1.0.tar.gz</td>
+</tr>
+<tr>
+<td style="text-align:center">app_name</td>
+<td style="text-align:center">应用名称</td>
+<td style="text-align:left">ZEP-BACKEND-JAVA</td>
+</tr>
+<tr>
+<td style="text-align:center">deploy_version</td>
+<td style="text-align:center">发布单号</td>
+<td style="text-align:left">deploy_version</td>
+</tr>
+<tr>
+<td style="text-align:center">dir_build_file</td>
+<td style="text-align:center">编译目录</td>
+<td style="text-align:left">javademo</td>
+</tr>
+</tbody>
+</table>
+<p>在上面的参数设计中，我们争取让其适用于不同语言的项目，如果这个目标达不成，至少要让其适用于相同语言的项目，也至少需要对同一个语言，生成同一种软件包（war 包或 jar 包）的项目适用。绝对不可取的是，对公司每一个项目，都建立一个 Pipeline 流水线任务，这样的任务，对现实没有一定的抽象度，标准化程序不高，一有变动，就会涉及巨大的工作量。我们宁愿设计一个不用的参数，也不要在需要灵活性时，发现没有参数可用。</p>
+<p>在 jenkins 的设置如下所示：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/11/BX4ZS1.png" width="800" alt="image"></p>
+<ol start="3">
+<li>最重要的步骤就是制作 Pipeline。我们使用的脚本如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        node &#123; label &quot;master&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&#39;Prepare Git Code&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &quot;Perparing beging..&quot;</span><br><span class="line">                sh &quot;rm -rf $&#123;WORKSPACE&#125;&#x2F;*&quot;</span><br><span class="line">                git branch: &#39;$&#123;branch_build&#125;&#39;,</span><br><span class="line">                credentialsId: &#39;gitlab_jenkins&#39;,</span><br><span class="line">                url: &#39;$&#123;git_url&#125;&#39;</span><br><span class="line">                echo &#39;Prepare end..&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;Build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;WORKSPACE&#125;&#x2F;$&#123;dir_build_file&#125;&quot;) &#123;</span><br><span class="line">                    echo &#39;Build begin..&#39;</span><br><span class="line">                    sh &#39;&#x2F;usr&#x2F;local&#x2F;maven&#x2F;maven-3.6.3&#x2F;bin&#x2F;mvn package -Dmaven.test.skip&#x3D;true&#39;</span><br><span class="line">                    sh &quot;cp target&#x2F;$&#123;package_name&#125; .&#x2F;$&#123;package_name&#125;&quot;</span><br><span class="line">                    sh &quot;tar -zcvf $&#123;zip_package_name&#125; $&#123;package_name&#125; config&#x2F;&quot;</span><br><span class="line">                    echo &#39;Build end..&#39;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;Test&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &#39;Testing...&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;scp package to nginx&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &#39;scp nginx begin..&#39;</span><br><span class="line">                echo &#39;scp nginx end..&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Pipeline 解释：</p>
+<ul>
+<li>第3行，<code>label &quot;master&quot;</code> 表示使用主节点编译；</li>
+<li>第9行，${WORKSPACE} 这种不是我们明显传入的变量，就是系统内置的一些变量；</li>
+<li>第11行，credentialsId: ‘gitlab_jenkins’, 这里传入jenkins 用户的 id;(需要先新建一个 jenkins 用户与 gitlab 通信)</li>
+<li>第12行，${git_url} 这种类似 shell 的变量插值，正是我们传递给 Jenkins 的变量；</li>
+<li>第23行，因为我们的软件包包含配置文件，所以用 tar 将软件和配置压缩起来；</li>
+<li>第18行， dir(&quot;${WORKSPACE}/${dir_build_file}&quot;) 这样的语法，表示的是 cd 到某个目录；</li>
+<li>最后一个 stage，由于前面还没有讲到 nginx 服务器，所以没有将软件包做进一步的传送，只是简单的进行了 echo 输出。后面再回来完善此脚本；</li>
+</ul>
+</blockquote>
+<p style="color:red">sh "cp target/${package_name} ./${package_name}" 这里需要注意，后面的路径不能直接写 ./，必须写成 ./${package_name}</p>
+<ol start="4">
+<li>
+<p>接着，进行一次模拟手工，单击 Jenkins web 界面左边的 Build with Parameters 进行编译。如下所示：<br>
+<br /><img src="https://s1.ax1x.com/2020/11/11/BXxIl8.png" width="800" alt="image"></p>
+</li>
+<li>
+<p>如果是第一次编译，maven 会从远程拉取 jar 包，这一过程很费时间，所以需要长时间等待，第一次拉取得到的 jar 包都会缓存在 maven 在本地的一个临时目录仓库下。下一次如果版本没有更新，就不会再次进行远程拉取了；</p>
+</li>
+<li>
+<p>当编译完成之后，软件包就生成了。同时在 jenkins 的前端也提供了图表，用于显示编译的进度和时间。</p>
+</li>
+</ol>
+<p> </p>
+<h1>使用 Nginx 作为软件仓库</h1>
+<p>将 jenkins 中编译生成的软件包传递到 nginx 服务器上，大致要经过以下几个步骤：</p>
+<ol>
+<li>首先打通 jenkins 和 nginx 服务器之间的 ssh 免密码登录；</li>
+<li>在服务器上安装好 nginx，定义好服务根目录，并设置目录浏览权限；</li>
+<li>jenkins 中安装对应的传送软件的插件，将 ssh 免密生成的 rsa 私钥设置在 jenkins 系统里；</li>
+<li>完成 jenkins 的 Pipeline 最后部分的编写，通过测试即可。</li>
+</ol>
+<p> </p>
+<h2 id="Jenkins-和-nginx-服务器之间的免密登录"><a class="header-anchor" href="#Jenkins-和-nginx-服务器之间的免密登录">§</a>Jenkins 和 nginx 服务器之间的免密登录</h2>
+<p>假设 jenkins 服务器的 IP 为 192.168.200.15，nginx 服务器的 IP为 192.168.200.17；</p>
+<ol>
+<li>登录 jenkins 服务器，在 root 用户目录下执行如下命令，生成 rsa 算法的公钥和私钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在 jenkins 上，执行以下命令将公钥传送到 nginx 服务器上</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i .ssh/id_rsa.pub root@192.168.200.17</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>现在我们将 jenkins 上的 RSA 私钥内容拷贝出来，因为在 jenkins 的 SSH Agent 插件设置时需要用到；</li>
+</ol>
+<p> </p>
+<h2 id="安装-nginx-服务器"><a class="header-anchor" href="#安装-nginx-服务器">§</a>安装 nginx 服务器</h2>
+<p>安装 nginx 有两种方式，yum 或 源码编译，这里为，编译安装请自行百度，以下使用 yum 安装；</p>
+<ol>
+<li>登录 nginx 服务器，执行以下命令，在 yum 仓库里增加 epel 仓库</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>运行以下命令，安装 nginx</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在 nginx 服务器上创建软件存放目录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/wwwroot/packages.59izt.com/packages</span><br><span class="line">chown -R www.www /data/wwwroot/packages.59izt.com/packages</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>修改 nginx 配置文件，在 server 区块中增加以下代码如下：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root /data/wwwroot/packages.59izt.com;</span><br><span class="line">index index.html index.htm index.php;</span><br><span class="line"><span class="comment">#error_page 404 /404.html;</span></span><br><span class="line"><span class="comment">#error_page 502 /502.html;</span></span><br><span class="line"></span><br><span class="line">location /packages/ &#123;</span><br><span class="line">      <span class="built_in">alias</span> /data/wwwroot/packages.59izt.com/packages/;</span><br><span class="line">      autoindex on;     <span class="comment"># 开启目录浏览</span></span><br><span class="line">      autoindex_format html;    <span class="comment"># 以 HTML 风格将目录展示在浏览器中</span></span><br><span class="line">      autoindex_exact_size off; <span class="comment"># 切换为 off 后，以可读的方式显示文件大小</span></span><br><span class="line">      autoindex_localtime on;   <span class="comment"># 以服务器的文件时间作为显示的时间</span></span><br><span class="line">      charset utf-8,gbk;        <span class="comment"># 展示中文文件名</span></span><br><span class="line">    &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>重启 nginx 服务，删除 /data/wwwroot/packages.59izt.com/packages/ 目录下除 packages 以外的所有文件；</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>浏览器测试访问 <a href="http://192.168.200.17/packages/%EF%BC%8C%E6%95%88%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A" target="_blank" rel="noopener">http://192.168.200.17/packages/，效果如下：</a><br>
+<br /><img src="https://s3.ax1x.com/2020/11/12/BxBghV.png" width="800" alt="image"></li>
+</ol>
+<p> </p>
+<h2 id="安装-jenkins-插件"><a class="header-anchor" href="#安装-jenkins-插件">§</a>安装 jenkins 插件</h2>
+<ol>
+<li>以管理员身份登录 jenkins，在<code>系统管理</code> --&gt; <code>插件管理</code> 的<code>可选插件</code>中，勾选 <code>SSH Agent Plugin</code> 插件进行安装；</li>
+<li>由于 SSH Agent Plugin 需要做安全登录验证，所以需要先设置好凭据。在 jenkin 系统里，依次点击 <code>凭据</code> --&gt; <code>系统</code> --&gt; <code>全局凭证</code> --&gt; <code>新建</code>,即可新建一个凭据；</li>
+</ol>
+<p> </p>
+<h2 id="配置-Jenkins-Pipeline"><a class="header-anchor" href="#配置-Jenkins-Pipeline">§</a>配置 Jenkins Pipeline</h2>
+<p>根据前面的配置参数，可以完成前面未完成的 Pipeline 配置了.<br>
+ZEP-BACKEND-JAVA 的 Pipeline 全部内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123;</span><br><span class="line">        node &#123; label &quot;master&quot; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    environment&#123;</span><br><span class="line">        PATH&#x3D;&quot;&#x2F;bin:&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk-9.0.4&#x2F;bin&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&#39;Prepare Git Code&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &quot;Perparing beging..&quot;</span><br><span class="line">                sh &quot;rm -rf $&#123;WORKSPACE&#125;&#x2F;*&quot;</span><br><span class="line">                git branch: &#39;$&#123;branch_build&#125;&#39;,</span><br><span class="line">                credentialsId: &#39;a809388f-343d-400a-a4b0-6277be8f0d9f&#39;,</span><br><span class="line">                url: &#39;$&#123;git_url&#125;&#39;</span><br><span class="line">                echo &#39;Prepare end..&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;Build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;WORKSPACE&#125;&#x2F;$&#123;dir_build_file&#125;&quot;) &#123;</span><br><span class="line">                    echo &#39;Build begin..&#39;</span><br><span class="line">                    sh &#39;&#x2F;usr&#x2F;local&#x2F;maven&#x2F;maven-3.6.3&#x2F;bin&#x2F;mvn package -Dmaven.test.skip&#x3D;true&#39;</span><br><span class="line">                    sh &quot;cp target&#x2F;$&#123;package_name&#125; .&#x2F;$&#123;package_name&#125;&quot;</span><br><span class="line">                    sh &quot;tar -zcvf $&#123;zip_package_name&#125; $&#123;package_name&#125; config&#x2F;&quot;</span><br><span class="line">                    echo &#39;Build end..&#39;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#39;scp package to nginx&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;WORKSPACE&#125;&#x2F;$&#123;dir_build_file&#125;&quot;)&#123;</span><br><span class="line">                    echo &#39;scp nginx begin..&#39;</span><br><span class="line">                    sshagent(credentials: [&#39;nginx_root_rsa&#39;])&#123;</span><br><span class="line">                        sh &quot;ssh -o StrictHostKeyChecking&#x3D;no -l root 192.168.200.17 mkdir -p &#x2F;data&#x2F;wwwroot&#x2F;packages.59izt.com&#x2F;packages&#x2F;$&#123;app_name&#125;&#x2F;$&#123;deploy_version&#125;&quot;</span><br><span class="line">                        sh &quot;scp $&#123;zip_package_name&#125; root@192.168.200.17:&#x2F;data&#x2F;wwwroot&#x2F;packages.59izt.com&#x2F;packages&#x2F;$&#123;app_name&#125;&#x2F;$&#123;deploy_version&#125;&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                    echo &#39;scp nginx end..&#39;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="验证"><a class="header-anchor" href="#验证">§</a>验证</h2>
+<p>配置告一段落，现在将流程串联起来，实操一次：</p>
+<ol>
+<li>
+<p>在 Jenkins 的 ZEP-BACKEND-JAVA 任务中，单击 Build with Parameters，输入如下所示：<br>
+<br /><img src="https://s3.ax1x.com/2020/11/12/BzQ8EQ.png" width="800" alt="image"></p>
+</li>
+<li>
+<p>单击开始构建按钮，Jenkins 会按照我们的设置，从 Git 按代码编译 jar 包，并且上传到 Nginx；</p>
+</li>
+<li>
+<p>查看控制台输出，证明 scp 命令完成。</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[Pipeline] &#123; (scp package to nginx)</span><br><span class="line">[Pipeline] dir</span><br><span class="line">Running <span class="keyword">in</span> /root/.jenkins/workspace/ZEP-BACKEND-JAVA/javademo</span><br><span class="line">[Pipeline] &#123;</span><br><span class="line">[Pipeline] <span class="built_in">echo</span></span><br><span class="line">scp nginx begin..</span><br><span class="line">[Pipeline] sshagent</span><br><span class="line">[ssh-agent] Using credentials root (connect nginx server)</span><br><span class="line">[ssh-agent] Looking <span class="keyword">for</span> ssh-agent implementation...</span><br><span class="line">[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)</span><br><span class="line">$ ssh-agent</span><br><span class="line">SSH_AUTH_SOCK=/tmp/ssh-MJ2l0CYO0Hk0/agent.7596</span><br><span class="line">SSH_AGENT_PID=7599</span><br><span class="line">Running ssh-add (<span class="built_in">command</span> line suppressed)</span><br><span class="line">Identity added: /root/.jenkins/workspace/ZEP-BACKEND-JAVA/javademo@tmp/private_key_2811079941907552391.key (/root/.jenkins/workspace/ZEP-BACKEND-JAVA/javademo@tmp/private_key_2811079941907552391.key)</span><br><span class="line">[ssh-agent] Started.</span><br><span class="line">[Pipeline] &#123;</span><br><span class="line">[Pipeline] sh</span><br><span class="line">+ ssh -o StrictHostKeyChecking=no -l root 192.168.200.17 mkdir -p /data/wwwroot/packages.59izt.com/packages/ZEP-BACKEND-JAVA/2020-1112-1725-37XZ</span><br><span class="line">[Pipeline] sh</span><br><span class="line">+ scp javademo-1.0.tar.gz root@192.168.200.17:/data/wwwroot/packages.59izt.com/packages/ZEP-BACKEND-JAVA/2020-1112-1725-37XZ</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">$ ssh-agent -k</span><br><span class="line"><span class="built_in">unset</span> SSH_AUTH_SOCK;</span><br><span class="line"><span class="built_in">unset</span> SSH_AGENT_PID;</span><br><span class="line"><span class="built_in">echo</span> Agent pid 7599 killed;</span><br><span class="line">[ssh-agent] Stopped.</span><br><span class="line">[Pipeline] // sshagent</span><br><span class="line">[Pipeline] <span class="built_in">echo</span></span><br><span class="line">scp nginx end..</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // dir</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // stage</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // withEnv</span><br><span class="line">[Pipeline] &#125;</span><br><span class="line">[Pipeline] // node</span><br><span class="line">[Pipeline] End of Pipeline</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>访问网址 <code>http://192.168.200.17/packages/ZEP-BACKEND-JAVA/2020-1112-1725-37XZ/</code>，可以看到软件包已经放到了正确的目录下。</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2020/11/28/66-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/">https://blog.59izt.com/2020/11/28/66-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/11/28/64-Django-ORM-%E6%93%8D%E4%BD%9C%E5%85%A5%E9%97%A8/"><i class="fas fa-angle-left">&nbsp;</i><span>Django 入门基础（ORM）</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2020/11/28/62-Django-URL&amp;Template-%E5%85%A5%E9%97%A8/"><span>Django 入门基础（URL&amp;Templates）</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2020 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
