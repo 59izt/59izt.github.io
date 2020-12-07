@@ -1,7 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>用户注册登录及密码管理-用户管理简介</title>
+    <title>用户注册登录及密码管理-Django 权限功能</title>
+    <url>/2020/12/07/77-%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95%E5%8F%8A%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86-2/</url>
+    <content><![CDATA[<blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<h2 id="Django-权限功能"><a class="header-anchor" href="#Django-权限功能">¶ </a>Django 权限功能</h2>
+<p>完善的权限机制能够管理用户操作的内容，控制页面的显示内容及菜单，也能使 API 更加安全和灵活；用好权限机制，能让我们开发的系统更加强大和健壮。因此，基于 Django 的开发，学习 Django 权限机制时非常必要的。</p>
+<a id="more"></a>
+<h3 id="权限管理简介"><a class="header-anchor" href="#权限管理简介">¶ </a>权限管理简介</h3>
+<p>Django 用 <code>User</code>，<code>Group</code> 和 <code>Permission</code> 完成了权限管理机制，这个权限机制是将属于 <code>Model</code> 的某个 <code>Permission</code> 赋予 <code>User</code> 或 <code>Group</code>，可以理解为全局的权限，即如果用户1对数据模型(Model)1 有可写权限，那么用户1 能修改 Model 1 的所有实例（objects）。Group 的权限也是如此，如果 Group 1 赋予 Model 1 的可写权限，则隶属于 Group 1 的所有用户，都可以修改 Model 1 的所有实例。</p>
+<p>这种权限机制只能解决一些简单的需求，而大部分应用场景下，需要更细分的权限机制。以 BBS 系统为例，BBS 系统的用户可以分为系统管理员，发帖用户和匿名用户多个用户组；系统管理员具有查看，修改和删除 BBS 的所有帖子的权限，具体 BBS 的管理员可以管理自己所属 BBS 的所有帖子，发帖用户只能修改和删除自己的帖子，而匿名用户则只有阅读权限。系统管理员和匿名用户的权限，可以用全局权限做控制，而对于具体 BBS 管理员和发帖用户，全局权限无法满足要求，仅通过全局权限，要么允许发帖用户编辑不属于自己的帖子，要么让发帖用户连自己的帖子都无法修改。</p>
+<p>上述的应用场景，Django 自带的权限机制无法满足需求，需要引入另一种更细的权限机制：<code>对象权限（object permission）</code>。针对每一条数据库记录，都能进行精细的权限控制。</p>
+<p>Django 其实包含了 <code>object permission</code> 的框架，但没有具体实现，<code>object permission</code> 需要借助一些第三方模板来实现。<br>
+但在调用了网络上常用的权限管理模块以及别人的实现方案之后，还是发现这些方案并不适合我们的自动化发布系统。因为这些实现方案，要么是基于菜单的显示隐藏，要么是基于 URL 的路由名称，要么是写实际代码时，提前定义好权限分组。这样一来，灵活度不够，不能进行 web 界面管理。所以，在本书中，我们自己也实现了一种特定的权限方案。</p>
+<p>但是，学习并理解 Django 内置权限方案及了解对象权限，仍然是学习 Django 必不可少的内容。</p>
+<p>Django 用 <code>Permission</code> 对象存储权限项，每个 Model 默认都有三个 Permission，即 <code>Add MOdel</code>，<code>Change Model</code> 和 <code>Delete Model</code>。<br>
+例如，定义一个 topic Model，定义好 topic 之后，会自动创建相应的三个 Permission: <code>add_topic</code>, <code>change_topic</code> 和 <code>delete_topic</code>。Django 还允许自定义 Permission，例如可以为 Topic 创建新的权限项: <code>start_topic</code> 等。</p>
+<p>每个 Permission 都是 <code>django.contrib.auth.permission</code> 类型的实例，该类型包含三个字段：<code>name</code>,<code>codename</code> 和 <code>content_type</code>，其中 <code>content_type</code> 反映了 Permission 属于哪个 Model；<code>codename</code> 就是权限标识，在代码逻辑中检查权限时要使用；<code>name</code> 是 Permission 在描述显示时会用到。</p>
+<p>需要注意的是，Permission 总是与 Model 对应的，如果一个 Object 不是 Model 的实例，就无法为它创建/分配权限。<br>
+在 Django 进行权限管理时，引入了一个名为 <code>ContentType</code> 的数据表，这个表，是在前面讲解 <code>INSTALLED_APPS</code> 时引入的。Permission 模型中设置了一个队 <code>ContentType</code> 的外键，这意味着每一个 Permission 的实例都具有关于一个 <code>ContentType</code> 的 ID 作为外键，而 <code>ContentType</code> 的 ID 恰恰代表着一个 Model。所以 Django ContentType 是由 Django 框架提供的一个核心功能，它对当前项目中所有基于 Django 驱动的 Model 提供了更高层次的抽象接口。</p>
+<p>由于默认为 Model 生成的三个权限，不能很好的演示 Django 权限的全面操作，所以下面我们会以自定义权限来讲解基于用户和用户组的权限。</p>
+<h3 id="用户权限"><a class="header-anchor" href="#用户权限">¶ </a>用户权限</h3>
+<p>假如在 Django 项目里有一个 App 应用名为 bbs，其 <code>models.py</code> 里有一个 Model，并做了自定义权限：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Topic</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        permissions = (</span><br><span class="line">            (<span class="string">'reply_topic'</span>, <span class="string">'Can reply topic'</span>),</span><br><span class="line">            (<span class="string">'close_topic'</span>, <span class="string">'Can close a topic'</span>),</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<p>那么我们就可以用如下代码来创建者两个权限：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.auth.models <span class="keyword">import</span> Group, Permission</span><br><span class="line"><span class="keyword">from</span> django.contrib.contenttypes.models <span class="keyword">import</span> ContentType</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">content_type_topic = ContentType.objects.get(app_label=<span class="string">'bbs'</span>, model=<span class="string">'Topic'</span>)</span><br><span class="line">permission_reply = Permission.objects.create(codename=<span class="string">'reply_topic'</span>,</span><br><span class="line">                                             name=<span class="string">'Can reply topic'</span>,</span><br><span class="line">                                             content_type=content_type_topic)</span><br><span class="line">permission_close = Permission.objects.create(codename=<span class="string">'close_topic'</span>,</span><br><span class="line">                                             name=<span class="string">'Can close a topic'</span>,</span><br><span class="line">                                             content_type=Content_type_topic)</span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>name：必填，小于 50 个字符；</li>
+<li>content_type：必填，一个指向 django_content_type 数据库表，对于每一个 Django 模型，在这个表里都有一个记录对应；</li>
+<li>codename：必填，小于 100 个字符。</li>
+</ul>
+<p>通过以下代码片段，就可以为用户这两个权限赋权：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user.user_permissions.add(permission_reply, permission_close)</span><br></pre></td></tr></table></figure>
+<p>通过以下代码，清空用户指定权限：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user.user_permissions.delete(permission)</span><br></pre></td></tr></table></figure>
+<p>通过以下代码片段，清空用户所有权限：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user.user_permissions.clear()</span><br></pre></td></tr></table></figure>
+<p>使用以下代码片段，判断用户是否拥有权限</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user.has_perm(bbs.permission_reply)</span><br><span class="line">user.has_perm(bbs.permission_close)</span><br></pre></td></tr></table></figure>
+<p><code>permission_required</code> 修饰器可以代替 <code>has_perm</code> 并在用户没有相应权限时重定向到登录页或者抛出异常</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># permission_required(perm[, login_url=None, raise_exception=False])</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@permission_required('bbs.permission_reply')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reply_topic</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>在模板中，我们也可以方便地使用用户权限来控制前端显示的内容</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if perms.bbs %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> You have permission to do something in the bbs app. <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% if perms.bbs.topic_reply %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span> You can reply this topic! <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    &#123;% if perms.bbs.topic_close %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span> You can close this topic! <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> You don't have permission to do anything in the bbs app. <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用户组赋权"><a class="header-anchor" href="#用户组赋权">¶ </a>用户组赋权</h3>
+<p>基于用户组的权限管理与用户的权限管理类似。仍以上一小节的自定义权限为例进行讲解。<br>
+通过以下代码片段，就可以为用户组给这两个权限赋权</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">group.permissions.add(permission_reply, permission_close)</span><br></pre></td></tr></table></figure>
+<p>通过以下代码片段，删除用户组指定的权限</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">group.permissions.remove(permission_reply, permission_close)</span><br></pre></td></tr></table></figure>
+<p>通过以下代码片段，清空用户组所有权限</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">group.permissions.clear()</span><br></pre></td></tr></table></figure>
+<p>使用以下代码片段，判断用户是否拥有权限</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">group.has_perm(<span class="string">'bbs.permission_reply'</span>)</span><br><span class="line">group.has_perm(<span class="string">'bbs.permission_close'</span>)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Manabe</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用户注册登录及密码管理-用户管理</title>
     <url>/2020/12/05/76-%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95%E5%8F%8A%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86-1/</url>
     <content><![CDATA[<blockquote>
 <p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
