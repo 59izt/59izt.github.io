@@ -1,8 +1,1026 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker 配置私有仓库</title>
-    <url>/2020/12/21/89-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</url>
+    <title>Harbor 管理与维护</title>
+    <url>/2020/12/31/94-Harbor-%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BB%B4%E6%8A%A4/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://goharbor.io/docs/2.1.0/administration/" target="_blank" rel="noopener">Harbor Administration</a></p>
+<h2 id="Harbor-管理与维护"><a class="header-anchor" href="#Harbor-管理与维护">¶ </a>Harbor 管理与维护</h2>
+<p>本节介绍部署后如何配置和维护Harbor。这些操作由 Harbor 系统管理员执行。 Harbor 系统管理员执行应用于整个 Harbor 实例的全局配置操作。</p>
+<a id="more"></a>
+<p>Harbor 管理员执行的操作如下：</p>
+<ul>
+<li>选择数据库，LDAP/AD 或者基于 OIDC 的身份验证。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/configure-authentication/" target="_blank" rel="noopener">配置身份验证</a></li>
+<li>以数据库身份验证模式下添加用户，并将系统管理员角色分配给其他用户。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/managing-users/" target="_blank" rel="noopener">管理用户</a></li>
+<li>配置全局设置，例如配置电子邮件服务器，将 Registry 设置为只读模式，以及限制谁可以创建项目，有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/general-settings/" target="_blank" rel="noopener">配置全局设置</a></li>
+<li>将资源配额应用于项目，有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/configure-project-quotas/" target="_blank" rel="noopener">配置项目配额</a></li>
+<li>在 Harbor 和另一个 Harbor 实例或第三方复制目标之间设置 images Replication。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/configuring-replication/" target="_blank" rel="noopener">配置 Replication</a></li>
+<li>设置漏洞扫描程序，以检查 Registry 中的镜像是否存在 CVE 漏洞。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/vulnerability-scanning/" target="_blank" rel="noopener">漏洞扫描</a></li>
+<li>执行垃圾收集，从 Harbor 中删除不必要的数据。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/garbage-collection/" target="_blank" rel="noopener">垃圾回收</a></li>
+<li>升级 Harbor 版本。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/upgrade/" target="_blank" rel="noopener">升级 Harbor</a></li>
+<li>设置 P2P 预热提供程序实例，以将指定的 image 预热到 P2P 网络中。有关信息参考 <a href="https://goharbor.io/docs/2.1.0/administration/p2p-preheat/" target="_blank" rel="noopener">P2P 预热</a></li>
+</ul>
+<h2 id="配置身份验证"><a class="header-anchor" href="#配置身份验证">¶ </a>配置身份验证</h2>
+<p>Harbor 支持用于验证用户和管理用户帐户的不同模式。部署Harbor后，应立即选择一种身份验证模式。如果在 Harbor 数据库中创建用户帐户，Harbor 将锁定在数据库模式下。创建本地用户后，您将无法更改为其他身份验证模式。</p>
+<h3 id="配置数据库认证方式"><a class="header-anchor" href="#配置数据库认证方式">¶ </a>配置数据库认证方式</h3>
+<p>在数据库身份验证模式下，用户帐户存储在本地数据库中。默认情况下，只有Harbor系统管理员可以创建用户帐户以将用户添加到 Harbor 。您可以选择配置Harbor 允许自我注册。</p>
+<h4 id="选择身份认证模式"><a class="header-anchor" href="#选择身份认证模式">¶ </a>选择身份认证模式</h4>
+<ol>
+<li>使用具有 Harbor 系统管理员特权的帐户登录到 Harbor；</li>
+<li>选择 <code>系统管理</code> --&gt; <code>配置管理</code> --&gt; <code>认证模式</code>；</li>
+<li>将 <code>认证模式</code> 设置为 <code>数据库</code>；</li>
+<li>勾选 <code>允许自注册</code>（可选）。</li>
+<li>点击保存。</li>
+</ol>
+<h4 id="创建用户"><a class="header-anchor" href="#创建用户">¶ </a>创建用户</h4>
+<ol>
+<li>进入 <code>系统管理</code> --&gt; <code>用户管理</code>，点击创建用户，输入必填信息，点击确定;<br>
+<img src="https://s3.ax1x.com/2020/12/30/rqIu3d.png" alt="avatar"></li>
+</ol>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<ul>
+<li>用户名在 harbor 中必须是唯一的；</li>
+<li>电子邮件地址用于密码恢复；</li>
+<li>密码必须至少包含8个字符，其中1个小写字母，1个大写字母和1个数字字符。</li>
+</ul>
+<h3 id="配置-LADP-AD-认证模式"><a class="header-anchor" href="#配置-LADP-AD-认证模式">¶ </a>配置 LADP/AD 认证模式</h3>
+<p>参考文档 <a href="https://goharbor.io/docs/2.1.0/administration/configure-authentication/ldap-auth/" target="_blank" rel="noopener">Configure LDAP/Active Directory Authentication</a></p>
+<h3 id="配置-OIDC-认证模式"><a class="header-anchor" href="#配置-OIDC-认证模式">¶ </a>配置 OIDC 认证模式</h3>
+<p>参考文档 <a href="https://goharbor.io/docs/2.1.0/administration/configure-authentication/oidc-auth/" target="_blank" rel="noopener">Configure OIDC Provider Authentication</a></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Harbor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Harbor 配置文件参数说明</title>
+    <url>/2020/12/31/93-Harbor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文档 <a href="https://github.com/goharbor/website/blob/release-2.1.0/docs/install-config/configure-yml-file.md" target="_blank" rel="noopener">Harbor 配置文件说明</a></p>
+</blockquote>
+<h2 id="Harbor-配置文件"><a class="header-anchor" href="#Harbor-配置文件">¶ </a>Harbor 配置文件</h2>
+<p>Harbor 的配置文件中配置参数由必须参数以及可选参数两部分组成，您可以在 <code>harbor.yml</code> 文件中为 Harbor 设置系统级别参数。这些参数在您运行<code>install.sh</code> 脚本以安装或重新配置 Harbor 时生效。</p>
+<a id="more"></a>
+<h3 id="必须参数"><a class="header-anchor" href="#必须参数">¶ </a>必须参数</h3>
+<p>Harbor 不附带任何证书。在1.9.x 及以下版本中，默认情况下，Harbor 使用 HTTP 服务 registry 请求。这仅在有空隙的测试或开发环境中可接受。在生产环境中，请始终使用 HTTPS。如果您启用 <code>Content Trust with Notary</code> 来正确签名所有 image，则必须使用 HTTPS。</p>
+<p>您可以使用由受信任的第三方CA签名的证书，也可以使用自签名证书。有关如何创建CA以及如何使用CA签署服务器证书和客户端证书的信息，请参阅 <a href="https://github.com/goharbor/website/blob/release-2.1.0/docs/install-config/configure-https.md" target="_blank" rel="noopener">使用HTTPS访问配置Harbor</a>。</p>
+<p>下表列出了部署 Harbor 时必须设置的参数。默认情况下，harbor.yml 文件中的所有必需参数均未注释。可选参数用＃注释。</p>
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>子参数</th>
+            <th>说明和附加参数</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>hostname</td>
+            <td>None</td>
+            <td>指定要在其上部署 Harbor 的目标主机IP地址或标准域名（FQDN）。这是您访问 Harbor Portal 和 registry server 的地址。
+                例如：192.168.1.10 或 reg.yourdomain.com。注册表服务必须可供外部客户端访问，因此请勿将 localhost，127.0.0.1 或 0.0.0.0 指定为 hostname。
+            </td>
+        </tr>
+        <tr rowspan=2>
+            <td>http</td>
+            <td></td>
+            <td>不要在生产环境中使用HTTP。仅在没有外部互联网连接的空白测试或开发环境中，才可以使用HTTP。
+            在没有空隙的环境中使用HTTP会使您遭受中间人攻击。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>port</td>
+            <td>用于 Harbor 门户和 Docker 命令的 HTTP 的端口号。默认值为80。</td>
+        </tr>
+        <tr rowspan=4>
+            <td>https</td>
+            <td></td>
+            <td>使用HTTPS访问 Harbor Portal 和令牌/通知服务。始终在生产环境和没有空隙的环境中使用 HTTPS。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>port</td>
+            <td>用于Harbor门户和Docker命令的HTTPS的端口号。默认值为443。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>certificate</td>
+            <td>SSL证书的路径。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>private_key</td>
+            <td>SSL密钥的路径</td>
+        </tr>
+        <tr rowspan=3>
+            <td>internal_tls</td>
+            <td></td>
+            <td>使用 HTTPS 在 Harbor 组件之间进行通信</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>enabled</td>
+            <td>将此标志设置为 true 表示启用内部 tls</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>dir</td>
+            <td>包含内部证书和密钥的目录的路径</td>
+        </tr>
+        <tr>
+            <td>harbor_admin_password</td>
+            <td>None</td>
+            <td>为 Harbor 系统管理员设置一个初始密码。仅在首次启动登录 Harbor 时使用此密码。
+            在后续登录时，此设置将被忽略，并且管理员密码在 Harbor Portal 中设置。
+            默认的用户名和密码为 `admin` 和 `Harbor12345` 。</td>
+        </tr>
+        <tr rowspan=4>
+            <td>database</td>
+            <td></td>
+            <td>使用本地 PostgreSQL数据库。您可以选择配置外部数据库，在这种情况下，可以禁用此选项。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>password</td>
+            <td>设置本地数据库的 root 密码。您必须为生产部署更改此密码。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>max_idle_conns</td>
+            <td>空闲连接池中的最大连接数。如果设置为<= 0，则不保留空闲连接。
+            默认值为50。如果未配置，则值为2。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>max_open_conns</td>
+            <td>与数据库的最大打开连接数。如果<= 0，则打开的连接数没有限制。到Harbor数据库的最大连接数的默认值为100。
+            如果未配置，则值为0。</td>
+        </tr>
+        <tr>
+            <td>data_volume</td>
+            <td>None</td>
+            <td>目标主机上用于存储 Harbor 数据的位置。即使删除或重新创建 Harbor 的容器，此数据也保持不变。
+            您可以选择配置外部存储，在这种情况下，请禁用此选项并启用 storage_service。默认值为 /data。</td>
+        </tr>
+        <tr>
+            <td>clair</td>
+            <td>updaters_interval</td>
+            <td>设置 Clair 更新的时间间隔（以小时为单位）。设置为0以禁用更新。默认值为12小时。</td>
+        </tr>
+        <tr rowspan=5>
+            <td>trivy</td>
+            <td></td>
+            <td>配置Trivy扫描仪</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ignore_unfixed</td>
+            <td>将标志设置为 true 以仅显示固定的漏洞。默认值为 false</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>skip_update</td>
+            <td>您可能想要在测试或 CI/CD 环境中启用此标志，以避免 GitHub 速率限制问题。
+            如果启用了该标志，则必须手动下载 `trivy.db` 文件并将其安装在容器中的 `/home/scanner/.cache/trivy/db/trivy.db` 路径中。默认值为false</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>insecure</td>
+            <td>将标志设置为 true 以跳过验证 registry 证书。默认值为 false</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>github_token</td>
+            <td>设置 GitHub 访问令牌以下载 Trivy DB。 Trivy DB由 Trivy 从 GitHub 发布页面下载。
+            从GitHub进行的匿名下载每小时受到60个请求的限制。通常，这样的速率限制对于生产操作是足够的。
+            如果由于某种原因还不够，您可以通过指定 GitHub 访问令牌将速率限制提高到每小时5000个请求。
+            有关GitHub速率限制的更多详细信息，请参阅https://developer.github.com/v3/#rate-limiting。
+            您可以按照 https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line 中的说明创建GitHub令牌</td>
+        </tr>
+        <tr>
+            <td>jobservice</td>
+            <td>max_job_workers</td>
+            <td>作业服务中最大复制 worker 数。对于每个 image 复制作业，worker 会将存储库的所有 tags 同步到远程目标。
+            增加此数目将允许系统中进行更多并发复制作业。但是，由于每个 worker 都会消耗一定数量的网络/CPU/IO资源，
+            因此请根据主机的硬件资源来设置此属性的值。预设值为10。</td>
+        </tr>
+        <tr>
+            <td>notification</td>
+            <td>webhook_job_max_retry</td>
+            <td>设置Web挂钩作业的最大重试次数。预设值为10。</td>
+        </tr>
+        <tr>
+            <td>chart</td>
+            <td>absolute_url</td>
+            <td>设置为 enabled 时 Chart 使用绝对URL。设置为 disabled 时 Chart 使用相对URL。</td>
+        </tr>
+        <tr rowspan=4>
+            <td>log</td>
+            <td></td>
+            <td>配置日志记录。 Harbor 使用 `rsyslog` 来收集每个容器的日志。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>level</td>
+            <td>将日志记录级别设置为 debug，info，warning，error 或 fatal。默认值为 info。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>local</td>
+            <td>设置日志保留参数： 
+            <li>rotation_count：删除日志文件之前，将日志文件轮换rotate_count次。
+            如果count为0，则将删除旧版本，而不是旋转旧版本。默认值为50。 </li>
+            <li>rotation_size：仅当日志文件的大小大于rotate_size字节时，才对它们进行旋转。 
+            k表示千字节，M表示兆字节，G表示千兆字节。 100、100k，100M和100G均为有效值。默认值为200M。 </li>
+            <li>location：设置存储日志的目录。缺省值为 /var/log/harbor。</li></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>external_endpoint</td>
+            <td>启用此选项可将日志转发到syslog服务器。 
+            <li>protocol：syslog服务器的传输协议。默认为TCP。 </li>
+            <li>host：系统日志服务器的URL。 port：syslog服务器侦听的端口</li></td>
+        </tr>
+        <tr rowspan=4>
+            <td>proxy</td>
+            <td></td>
+            <td>配置 Clair，jobservice 和 Harbor 使用的代理。如果不需要代理，请留空。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>http_proxy</td>
+            <td>配置 HTTP 代理，例如 http://my.proxy.com:3128。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>https_proxy</td>
+            <td>配置 HTTPS 代理，例如 http://my.proxy.com:3128。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>no_proxy</td>
+            <td>配置何时不使用代理，例如 127.0.0.1，localhost，core，registry。</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="可选参数"><a class="header-anchor" href="#可选参数">¶ </a>可选参数</h3>
+<p>下表列出了其他可选参数，您可以设置这些参数，以配置超出最低必需设置的 Harbo 部署。要启用设置，必须通过删除前面的＃字符，以在 harbor.yml 中取消注释。</p>
+<table>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>子参数</th>
+            <th>说明和附加参数</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>external_url</td>
+            <td>None</td>
+            <td>启用此选项以使用外部代理。启用后，将不再使用主机名。</td>
+        </tr>
+        <tr rowspan=4>
+            <td>storage_service</td>
+            <td></td>
+            <td>默认情况下，Harbor将 images 和 chart 存储在本地文件系统上。在生产环境中，
+            您可能要使用另一个存储后端而不是本地文件系统。
+            下面列出的参数是注册表的配置。有关如何配置其他后端的更多信息，请参见下面的“配置存储后端”。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ca_bundle</td>
+            <td>定制根CA证书的路径，该路径已注入 registry 和 chart repository 容器的信任存储中。
+            如果内部存储使用自签名证书，通常需要这样做。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>filesystem</td>
+            <td>默认为文件系统，但是您可以设置 azure，gcs，s3，swift和oss。
+            有关如何配置其他后端的信息，请参阅下面的配置存储后端。
+            设置 maxthreads 以将线程数限制为外部提供程序。默认值为100。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>redirect</td>
+            <td>当您想禁用 registry 重定向时将 disable 设置为true</td>
+        </tr>
+        <tr rowspan=5>
+            <td>external_database</td>
+            <td></td>
+            <td>如果禁用本地数据库选项，请配置外部数据库设置。当前，Harbor仅支持PostgreSQL数据库。
+            您必须为 Harbor core，Clair，Notary server 和 Notary signer 创建四个数据库。
+            这些表格在Harbor启动时自动生成。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>harbor</td>
+            <td>配置用于 harbor 数据的外部数据库。
+            <li>host：Harbor数据库的主机名。</li>
+            <li>port：数据库端口。</li> 
+            <li>db_name：数据库名称。</li> 
+            <li>username：连接到核心Harbor数据库的用户名。</li> 
+            <li>password：您在用户名中设置的帐户的密码。</li> 
+            <li>ssl_mode：启用SSL模式。</li> 
+            <li>max_idle_conns：空闲连接池中的最大连接数。如果<= 0，则不保留任何空闲连接。预设值为2。 </li>
+            <li>max_open_conns：与数据库的最大打开连接数。如果<= 0，则打开的连接数没有限制。默认值为0。</li></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>clair</td>
+            <td>配置用于 Clair 数据的外部数据库。
+            <li>host：Cliar 数据库的主机名。</li>
+            <li>port：数据库端口。</li> 
+            <li>db_name：数据库名称。</li> 
+            <li>username：连接到 Cliar 数据库的用户名。</li> 
+            <li>password：您在用户名中设置的帐户的密码。</li> 
+            <li>ssl_mode：启用SSL模式。</li> 
+        </tr>
+        <tr>
+            <td></td>
+            <td>notary_signer</td>
+            <td>配置用于 Notary signer 数据的外部数据库。
+            <li>host：Notary signer 数据库的主机名。</li>
+            <li>port：数据库端口。</li> 
+            <li>db_name：数据库名称。</li> 
+            <li>username：连接到 Notary signer 数据库的用户名。</li> 
+            <li>password：您在用户名中设置的帐户的密码。</li> 
+            <li>ssl_mode：启用SSL模式。</li> 
+        </tr>
+        <tr>
+            <td></td>
+            <td>notary_server</td>
+            <td>配置用于 Notary server 数据的外部数据库。
+            <li>host：Notary server 数据库的主机名。</li>
+            <li>port：数据库端口。</li> 
+            <li>db_name：数据库名称。</li> 
+            <li>username：连接到 Notary server 数据库的用户名。</li> 
+            <li>password：您在用户名中设置的帐户的密码。</li> 
+            <li>ssl_mode：启用SSL模式。</li> 
+        </tr>
+        <tr rowspan=9>
+            <td>external_redis</td>
+            <td></td>
+            <td>配置外部Redis实例</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>host</td>
+            <td>外部 Redis 实例的 redis_host:redis_port。如果使用的是Sentinel模式，
+            则此部分应为 host_sentinel1:port_sentinel1，host_sentinel2:port_sentinel2</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>sentinel_master_set</td>
+            <td>仅在使用Sentinel模式时进行设置</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>password</td>
+            <td>连接外部Redis实例的密码。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>registry_db_index</td>
+            <td>Harbor registry的数据库索引。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>jobservice_db_index</td>
+            <td>Jobservice的数据库索引。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>chartmuseum_db_index</td>
+            <td>Chart museum 的数据库索引。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>clair_db_index</td>
+            <td>Clair 适配器的数据库索引。</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>trivy_db_index</td>
+            <td>Trivy 适配器的数据库索引。</td>
+        </tr>
+    </tbody>
+</table>
+<p>注意: <code>harbour.yml</code> 文件包含用于配置UAA CA证书的选项。不建议使用此身份验证模式，也没有记录此模式。</p>
+<h2 id="配置存储后端"><a class="header-anchor" href="#配置存储后端">¶ </a>配置存储后端</h2>
+<p>默认情况下，Harbor 将本地存储用于 registry，但是您可以选择配置 storage_service 设置，以便 Harbor 使用外部存储。<br>
+有关如何为不同的存储提供程序配置 registry 的存储后端的信息，请参阅Docker文档中的 <a href="https://docs.docker.com/registry/configuration/#storage" target="_blank" rel="noopener">注册表配置参考</a>。例如，如果您使用Openstack Swift作为存储后端，则参数可能类似于以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">storage_service:</span></span><br><span class="line">  <span class="attr">ca_bundle:</span></span><br><span class="line">  <span class="attr">swift:</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">admin</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">ADMIN_PASS</span></span><br><span class="line">    <span class="attr">authurl:</span> <span class="string">http://keystone_addr:35357/v3/auth</span></span><br><span class="line">    <span class="attr">tenant:</span> <span class="string">admin</span></span><br><span class="line">    <span class="attr">domain:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">region:</span> <span class="string">regionOne</span></span><br><span class="line">    <span class="attr">container:</span> <span class="string">docker_images"</span></span><br><span class="line">  <span class="attr">redirect:</span></span><br><span class="line">    <span class="attr">disable:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Harbor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker Compose 学习</title>
+    <url>/2020/12/31/95-Docker-Compose-%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>参考文档: <a href="http://c.biancheng.net/view/3170.html" target="_blank" rel="noopener">Docker Compose 是什么</a></p>
+<h2 id="Docker-Compose-是什么"><a class="header-anchor" href="#Docker-Compose-是什么">¶ </a>Docker Compose 是什么</h2>
+<p><code>Docker Compose</code> 与 <code>Docker stack</code> 非常类似。它能够在 Docker 节点上，以单引擎模式进行多容器应用的部署和维护。</p>
+<a id="more"></a>
+<p>多数的现代应用通过多个更小的服务互相协同来组成一个完整可用的应用。比如一个简单的示例应用可能由下面4个服务组成。</p>
+<ul>
+<li>web 前端；</li>
+<li>订单管理；</li>
+<li>品类管理；</li>
+<li>后台数据库。</li>
+</ul>
+<p>将以上服务组织在一起，就是一个可用的应用。<br>
+部署和管理繁多的服务是困难的。而这正是 <code>Docker Compose</code> 要解决的问题。</p>
+<p><code>Docker Compose</code> 并不是通过脚本和各种冗长的 <code>docker</code> 命令来将应用组件组织起来，而是通过一个声明式的配置文件描述整个应用，从而使用一条命令完成部署。<br>
+应用部署成功后，还可以通过一系列简单的命令实现对其完整声明周期的管理。甚至，配置文件还可以置于版本控制系统中进行存储和管理。</p>
+<h2 id="Docker-Compose-的背景"><a class="header-anchor" href="#Docker-Compose-的背景">¶ </a>Docker Compose 的背景</h2>
+<p>Docker Compose 的前身是 <code>Fig</code>。<code>Fig</code> 是一个基于 Docker 的 Python 工具，允许用户基于一个 YAML 文件定义多容器应用，从而可以使用 <code>fig</code> 命令行工具进行应用的部署。<code>fig</code> 还可以对应用的全生命周期进行管理。<br>
+内部实现上，Fig 会解析 YAML 文件，并通过 Docker API 进行应用的部署和管理。</p>
+<h2 id="Docker-Compose-的安装"><a class="header-anchor" href="#Docker-Compose-的安装">¶ </a>Docker Compose 的安装</h2>
+<p>Docker Compose 可用于多种平台。此处基于 Linux 平台进行介绍。在 Linux 上安装 Docker Compose 可以使用系统软件包管理工具(yum)，或者 Python 包管理工具(pip) 进行安装，也可以直接下载 <code>docker-compose</code> 二进制文件，然后添加执行权限，并在系统环境变量中进行声明即可。</p>
+<ol>
+<li>
+<p>使用 系统软件包管理用户已安装</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 Python 包管理工具安装</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用下载二进制文件的方式安装</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 前往 https://github.com/docker/compose/releases 地址下载压缩包</span></span><br><span class="line"><span class="comment"># 2. 解压文件到 PATH 环境变量包含的路径下，此处以 /usr/local/bin 为例</span></span><br><span class="line"><span class="comment"># 3. 给二进制文件添加执行权限</span></span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"><span class="comment"># 4. 检查安装情况以及版本</span></span><br><span class="line">docker-compose --version</span><br><span class="line">docker-compose version 1.18.0, build 8dd22a9</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Docker-Compose-应用配置文件"><a class="header-anchor" href="#Docker-Compose-应用配置文件">¶ </a>Docker Compose 应用配置文件</h2>
+<p>Docker Compose 使用 YAML 文件来定义多服务的应用。YAML 是 JSON 的一个子集，因此也可以使用 JSON。<br>
+Docker Compose默认使用全文件名 <code>docker-compose.yml</code>。当然，也可以使用 <code>-f</code> 参数指定具体的文件。</p>
+<p>如下是一个简单的 Compose 文件的示例，它定义了一个包含两个服务（web-fe 和 redis）的小型 Flask 应用。这是一个能够对访问者进行计数并将其保存到 Redis 的简单的 web 服务。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3.5"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">web-fe:</span></span><br><span class="line">        <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">        <span class="attr">command:</span> <span class="string">python</span> <span class="string">app.py</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">target:</span> <span class="number">5000</span></span><br><span class="line">              <span class="attr">published:</span> <span class="number">5000</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">counter-net</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">volume</span></span><br><span class="line">              <span class="attr">source:</span> <span class="string">counter-vol</span></span><br><span class="line">              <span class="attr">target:</span> <span class="string">/code</span></span><br><span class="line">    <span class="attr">redis:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">"redis:alpine"</span></span><br><span class="line">        <span class="attr">networks:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">counter-net</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">    <span class="attr">counter-net:</span></span><br><span class="line"><span class="attr">volumes:</span> </span><br><span class="line">    <span class="attr">counter-vol:</span></span><br></pre></td></tr></table></figure>
+<p>在深入研究之前粗略观察文件基本结构，首先可以观察到，它包含4个一级 key: <code>version</code>, <code>services</code>, <code>networks</code>, <code>volumes</code>。</p>
+<ol>
+<li>
+<p><code>version</code> 是必须指定的，而且总是位于文件的第一行。它定义了 Compose 文件格式（主要是 API）的版本。</p>
+<blockquote>
+<p>注意，version 并非定义 Docker Compose 或 Docker 引擎的版本号。示例中 Compose 文件将使用版本 3 及以上的版本。</p>
+</blockquote>
+</li>
+<li>
+<p><code>services</code> 用于定义不同的应用服务。上面的例子定义了两个服务：一个名为 web-fe 的 web 前端服务以及一个名为 redis 的内存数据库服务。Docker Compose 会将每个服务部署在各自的容器中。</p>
+</li>
+<li>
+<p><code>networks</code> 用于指引 Docker 创建新的网络。默认情况下，Docker Compose 会创建 <code>bridge</code> 网络。这是一种单主机网络，只能够实现同一主机上容器的连接。当然，也可以使用 <code>driver</code> 属性来指定不同的网络类型。</p>
+<p>下面的代码可以用来创建一个名为 <code>over-net</code> 的 Overlay 网络，允许独立的容器连接到该网络上。</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">networks:</span></span><br><span class="line">    <span class="attr">over-net:</span></span><br><span class="line">        <span class="attr">driver:</span> <span class="string">overlay</span></span><br><span class="line">        <span class="attr">attachable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>volumes</code> 用于指引 Docker 来创建新的卷。</p>
+</li>
+</ol>
+<p>上面例子中的 Compose 文件使用的是 v3.5 版本的格式，定义了两个服务，一个名为 <code>counter-net</code> 的网络和一个名为 <code>counter-vol</code> 的卷。</p>
+<p>更多的信息在 <code>services</code> 中，下面仔细分析一下：</p>
+<p>Compose 文件中的 <code>services</code> 部分定义了两个二级 key: <code>web-fe</code> 和 <code>redis</code>，它们各自定义了一个应用程序服务。需要明确的是，Docker Compose 会将每个服务部署为一个容器，并且会使用 key 作为容器名字的一部分。<br>
+本例中定义了两个 key：web-fe 和 redis。因此 Docker Compose 会部署两个容器，一个容器的名字中会包含 <code>web-fe</code>，而另一个会包含 <code>redis</code>。</p>
+<h3 id="web-fe-的服务定义中，包含如下指令："><a class="header-anchor" href="#web-fe-的服务定义中，包含如下指令：">¶ </a>web-fe 的服务定义中，包含如下指令：</h3>
+<h4 id="build"><a class="header-anchor" href="#build">¶ </a>build</h4>
+<p>指定 Docker 基于当前目录 (<code>.</code>) 下的 Dockerfile 中定义的指令来构建一个新镜像。该镜像会被用于启动该服务的容器</p>
+<h4 id="command"><a class="header-anchor" href="#command">¶ </a>command</h4>
+<p><code>python app.py</code> 指定 Docker 在容器中执行名为 <code>app.py</code> 的 Python 脚本作为主程序。因此镜像中必须包含 <code>app.py</code> 文件以及 Python，这一点在 Dockerfile 中可以得到满足。</p>
+<h4 id="ports"><a class="header-anchor" href="#ports">¶ </a>ports</h4>
+<p>指定 Docker 容器内 (<code>- target</code>) 的 5000 端口映射到主机 (<code>published</code>) 的 5000 端口。这意味着发送到 Docker 主机 5000 端口的流量会被转发到容器的 5000 端口。容器中的应用监听端口 5000.</p>
+<h4 id="networks"><a class="header-anchor" href="#networks">¶ </a>networks</h4>
+<p>使得 Docker 可以将服务连接到指定的网络上。这个网络应该是已经存在的，或者是在 <code>networks</code> 一级 key 中定义的网络。<br>
+对于 Overlay 网络来说，它还需要定义一个 <code>attachable</code> 标志，这样独立的容器才可以连接上它（这时 Docker Compose 会部署独立的容器而不是 Docker 服务）.</p>
+<h4 id="volumes"><a class="header-anchor" href="#volumes">¶ </a>volumes</h4>
+<p>指定 Docker 将 <code>counter-vol</code> 卷（<code>source:</code>） 挂载到容器内的 <code>/code</code>（<code>target:</code>）。<br>
+<code>counter-vol</code> 卷应该是已经存在的，或者是在文件下方的 <code>volumes</code> 一级 key 中定义的。</p>
+<p>综上，Docker Compose 会调用 Docker 来为 <code>web-fe</code> 服务部署一个独立的容器。该容器基于与 Compose 文件位于同一目录下的 Dockerfile 构建的镜像。<br>
+基于该镜像启动的容器会运行 <code>app.py</code> 作为其主程序，将 5000 端口暴露给宿主机，连接到 <code>counter-net</code> 网络上，并挂载一个卷到 <code>/code</code>。</p>
+<p>从技术上将，本例并不需要配置 <code>command: python app.py</code>。因为镜像的 Dockerfile 已经将 <code>python app.py</code> 定义为了默认的启动程序。但是，本例主要是为了展示其如何执行，因此也可用于覆盖 Dockerfile 中配置的 <code>CMD</code> 指令。</p>
+<h3 id="redis-服务的定义相对简单"><a class="header-anchor" href="#redis-服务的定义相对简单">¶ </a>redis 服务的定义相对简单</h3>
+<h4 id="image"><a class="header-anchor" href="#image">¶ </a>image</h4>
+<p><code>redis:alpine</code> 使 Docker 可以基于 <code>redis:alpine</code> 镜像启动一个独立的名为 <code>redis</code> 的容器。这个镜像会被从 Docker Hub 上拉取下来。</p>
+<h4 id="networks-v2"><a class="header-anchor" href="#networks-v2">¶ </a>networks</h4>
+<p>配置 <code>redis</code> 容器连接到 <code>counter-net</code> 网络。由于两个服务都连接到 <code>counter-net</code> 网络，因此它们可以通过名称解析到对方的地址。</p>
+<h2 id="Docker-Compose-部署应用"><a class="header-anchor" href="#Docker-Compose-部署应用">¶ </a>Docker Compose 部署应用</h2>
+<p>下面将实际部署 Compose 文件中定义的应用。</p>
+<ol>
+<li>
+<p>将代码下载到本地</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://gitee.com/lonely0422/counter-app.git</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>进入 <code>counter-app</code> 目录中，检查文件是否存在</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls</span><br><span class="line">app.py  docker-compose.yml  Dockerfile  README.md  requirements.txt</span><br></pre></td></tr></table></figure>
+<p>简单介绍这几个文件：</p>
+<ul>
+<li><code>app.py</code>: 是应用程序代码（一个 flask 应用）</li>
+<li><code>docker-compose.yml</code>: 是 Compose 文件，其中定义了 Docker 如何部署应用</li>
+<li><code>Dockerfile</code>: 定义了如何构建 web-fe 服务所使用的镜像</li>
+<li><code>requirements.txt</code>: 列出了应用所依赖的 Python 包</li>
+</ul>
+</li>
+<li>
+<p>下面使用 Docker Compose 将应用启动起来。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose up &amp;</span><br><span class="line">Creating network <span class="string">"counter-app_counter-net"</span> with the default driver</span><br><span class="line">Creating volume <span class="string">"counter-app_counter-vol"</span> with default driver</span><br><span class="line">...</span><br><span class="line">web-fe_1  |  * Serving Flask app <span class="string">"app"</span> (lazy loading)</span><br><span class="line">web-fe_1  |  * Environment: production</span><br><span class="line">web-fe_1  |    WARNING: This is a development server. Do not use it <span class="keyword">in</span> a production deployment.</span><br><span class="line">web-fe_1  |    Use a production WSGI server instead.</span><br><span class="line">web-fe_1  |  * Debug mode: on</span><br><span class="line">web-fe_1  |  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)</span><br><span class="line">web-fe_1  |  * Restarting with <span class="built_in">stat</span></span><br><span class="line">web-fe_1  |  * Debugger is active!</span><br><span class="line">web-fe_1  |  * Debugger PIN: 336-223-227</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>启动应用将花费一点时间，其输出也非常详尽。下面我们讲解一下 <code>docker-compose</code> 命令。<br>
+常用的启动一个 Compose 应用（通过 Compose 文件定义的多容器应用称为 Compose 应用）的方式就是 <code>docker-compose up</code> 命令。它会构建所需的镜像，创建网络和卷，并且动容器。</p>
+<p>默认情况下，<code>docker-compose up</code> 会查找名为 <code>docker-compose.yml</code> 或者 <code>docker-compose.yaml</code> 的 Compose 文件。如果 Compose 文件是其他文件名，则需要通过 <code>-f</code> 参数来指定。如下命令会基于名为 <code>prod-equus-bass.yml</code> 的 Compose 文件部署应用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose -f prod-equus-bass.yml up</span><br></pre></td></tr></table></figure>
+<p>使用 <code>-d</code> 参数在后台启动应用也是常见的用法，代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">docker-compose -f prod-equus-bass.yml up -d</span><br></pre></td></tr></table></figure>
+<p>前面的示例命令在前台启动应用（没有使用 <code>-d</code> 参数），但是使用了 <code>&amp;</code> 将终端窗口返回。这种用法不太正规，所有的日志还是会直接输出到我们后续可能会用的终端窗口上。</p>
+<h2 id="docker-compose-常用命令"><a class="header-anchor" href="#docker-compose-常用命令">¶ </a>docker-compose 常用命令</h2>
+<p>上面已经将应用成功的部署好了，下面介绍一下如何使用 Docker Compose 启动停止和删除应用，以及获取应用的状态。并且还会演示如何使用挂载的卷来实现对 web 前端的更新</p>
+<h3 id="启动应用-up"><a class="header-anchor" href="#启动应用-up">¶ </a>启动应用 up</h3>
+<p>启动应用详细的用法参考上一节所讲内容</p>
+<h3 id="查看应用状态-ps"><a class="header-anchor" href="#查看应用状态-ps">¶ </a>查看应用状态 ps</h3>
+<p>查看应用的状态可以使用 <code>docker-compose ps</code> 子命令，输出中会显示容器名称，其中运行的 <code>Command</code>，当前状态以及监听的网络端口。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker-compose -f Docker_compose/counter-app/docker-compose.yml ps</span></span><br><span class="line">        Name                      Command               State           Ports         </span><br><span class="line">--------------------------------------------------------------------------------------</span><br><span class="line">counter-app_redis_1    docker-entrypoint.sh redis ...   Up      6379/tcp              </span><br><span class="line">counter-app_web-fe_1   python app.py                    Up      0.0.0.0:5000-&gt;5000/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者直接进入应用项目 docker-compose.yml 文件所在目录，执行 docker-compose ps</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看应用各个服务（容器）运行的进程-top"><a class="header-anchor" href="#查看应用各个服务（容器）运行的进程-top">¶ </a>查看应用各个服务（容器）运行的进程 top</h3>
+<p>使用 <code>docker-compose top</code> 命令列出各个服务（容器）内运行的进程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose top</span><br><span class="line">counter-app_redis_1</span><br><span class="line">  UID      PID    PPID    C   STIME   TTY     TIME         CMD     </span><br><span class="line">-------------------------------------------------------------------</span><br><span class="line">polkitd   27208   27164   0   18:35   ?     00:00:24   redis-server</span><br><span class="line"></span><br><span class="line">counter-app_web-fe_1</span><br><span class="line">UID     PID    PPID    C   STIME   TTY     TIME                    CMD                </span><br><span class="line">--------------------------------------------------------------------------------------</span><br><span class="line">root   27218   27182   0   18:35   ?     00:00:00   python app.py                     </span><br><span class="line">root   27328   27218   0   18:35   ?     00:00:41   /usr/<span class="built_in">local</span>/bin/python /code/app.py</span><br></pre></td></tr></table></figure>
+<p>其中 PID 编号是在 Docker 主机上（而不是容器内）的进程 ID。</p>
+<h3 id="停止应用-stop"><a class="header-anchor" href="#停止应用-stop">¶ </a>停止应用 stop</h3>
+<p>使用 <code>docker-compose stop</code> 命令会停止应用，但并不会删除资源，然后再次运行 <code>docker-compose ps</code> 查看状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker-compose stop</span></span><br><span class="line">Stopping counter-app_redis_1  ... <span class="keyword">done</span></span><br><span class="line">Stopping counter-app_web-fe_1 ... <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker-compose ps</span></span><br><span class="line">        Name                      Command               State    Ports</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">counter-app_redis_1    docker-entrypoint.sh redis ...   Exit 0        </span><br><span class="line">counter-app_web-fe_1   python app.py                    Exit 0</span><br></pre></td></tr></table></figure>
+<p>可以看到，停止 Compose 应用并不会在系统中删除对应用的定义，而是仅将应用的容器停止。这一点可以使用 <code>docker container ls -a</code> 命令进行验证。</p>
+<h3 id="删除应用-rm"><a class="header-anchor" href="#删除应用-rm">¶ </a>删除应用 rm</h3>
+<p>对于已停止的 Compose 应用可以使用 <code>docker-compose rm</code> 命令来删除。这会删除应用相关的容器和网络，但是不会删除卷和镜像。当然，也不会删除应用源码。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker-compose rm</span></span><br><span class="line">Going to remove counter-app_redis_1, counter-app_web-fe_1</span><br><span class="line">Are you sure? [yN] y</span><br><span class="line">Removing counter-app_redis_1  ... <span class="keyword">done</span></span><br><span class="line">Removing counter-app_web-fe_1 ... <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启应用-restart"><a class="header-anchor" href="#重启应用-restart">¶ </a>重启应用 restart</h3>
+<p>使用 <code>docker-compose restart</code> 命令可以重启应用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker-compose restart</span></span><br><span class="line">Restarting counter-app_redis_1  ... <span class="keyword">done</span></span><br><span class="line">Restarting counter-app_web-fe_1 ... <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="停止并关闭应用-down"><a class="header-anchor" href="#停止并关闭应用-down">¶ </a>停止并关闭应用 down</h3>
+<p>使用 <code>docker-compose down</code> 命令可以停止和关闭应用。使用这个命令，应用会被删除，仅留下镜像，卷和源码。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker-compose down</span></span><br><span class="line">Stopping counter-app_redis_1  ... <span class="keyword">done</span></span><br><span class="line">Stopping counter-app_web-fe_1 ... <span class="keyword">done</span></span><br><span class="line">Removing counter-app_redis_1  ... <span class="keyword">done</span></span><br><span class="line">Removing counter-app_web-fe_1 ... <span class="keyword">done</span></span><br><span class="line">Removing network counter-app_counter-net</span><br></pre></td></tr></table></figure>
+<h2 id="更新应用内容"><a class="header-anchor" href="#更新应用内容">¶ </a>更新应用内容</h2>
+<p>再次研读 Dockerfile 中关于 web-fe 服务的定义，会看到它将卷 <code>counter-vol</code> 挂载到容器的的 <code>/code</code> 目录。还会发现，<code>/code</code> 正是应用安装和执行的目录。由此可见，应用的代码时位于 Docker 卷中的，这意味着，我们在 Docker 主机对卷中文件的修改，会立刻反应到应用中。下面验证一下。</p>
+<p>具体的验证过程包含这样几个步骤：</p>
+<ol>
+<li>首先在项目目录下编辑 <a href="http://app.py" target="_blank" rel="noopener">app.py</a> 文件，从而应用在浏览器中的页面会显示不同的文本；</li>
+<li>然后将更新的文件复制到位于 Docker 主机的卷中；</li>
+<li>最后刷新应用的web 页面来查看更新的内容，因为，所有对位于 Docker 主机上的卷中内容的修改都会立刻反应在容器内的卷里。</li>
+</ol>
+<h3 id="编辑-counter-app-app-py-文件"><a class="header-anchor" href="#编辑-counter-app-app-py-文件">¶ </a>编辑 counter-app/app.py 文件</h3>
+<p>编辑 <code>app.py</code> 文件，修改文件内 <code>hell()</code> 方法的返回值，如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    count = get_hit_count()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"你正在访问该页面第 &#123;&#125; 次.\n"</span>.format(count)</span><br></pre></td></tr></table></figure>
+<h3 id="复制-app-py-文件到卷中"><a class="header-anchor" href="#复制-app-py-文件到卷中">¶ </a>复制 <a href="http://app.py" target="_blank" rel="noopener">app.py</a> 文件到卷中</h3>
+<p>使用 <code>docker volume inspect</code> 命令可以查看卷位于 Docker 主机的什么位置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker volume inspect counter-app_counter-vol |grep Mount</span></span><br><span class="line">        <span class="string">"Mountpoint"</span>: <span class="string">"/var/lib/docker/volumes/counter-app_counter-vol/_data"</span>,</span><br></pre></td></tr></table></figure>
+<p>将 <code>app.py</code> 文件复制到 <code>/var/lib/docker/volumes/counter-app_counter-vol/_data</code> 目录下</p>
+<h3 id="查看更新"><a class="header-anchor" href="#查看更新">¶ </a>查看更新</h3>
+<p>使用浏览器访问 <code>http://192.168.47.100:5000</code>，这个地址，可以查看到前端已更新内容。或者使用 <code>curl</code> 命令也可以验证。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl http://127.0.0.1:5000/</span><br><span class="line">你正在访问该页面第 4 次.</span><br><span class="line">$ curl http://127.0.0.1:5000/</span><br><span class="line">你正在访问该页面第 5 次.</span><br><span class="line">$ curl http://127.0.0.1:5000/</span><br><span class="line">你正在访问该页面第 6 次.</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Compose</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 配置私有仓库-配置 Registry</title>
+    <url>/2020/12/31/91-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-3/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战 第3板]</p>
+</blockquote>
+<h2 id="配置-Registry"><a class="header-anchor" href="#配置-Registry">¶ </a>配置 Registry</h2>
+<p>Docker Registry 提供了一些样例配置，用户可以直接使用它们进行开发或生产部署。</p>
+<a id="more"></a>
+<h3 id="示例配置"><a class="header-anchor" href="#示例配置">¶ </a>示例配置</h3>
+<p>这里以下面的示例配置(config-dev.yaml)为例，介绍如何使用配置文件来管理私有仓库。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">0.1</span></span><br><span class="line"><span class="attr">log:</span></span><br><span class="line">  <span class="attr">level:</span> <span class="string">debug</span></span><br><span class="line">  <span class="attr">fields:</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">registry</span></span><br><span class="line">    <span class="attr">environment:</span> <span class="string">development</span></span><br><span class="line">  <span class="attr">hooks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">mail</span></span><br><span class="line">      <span class="attr">disabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">levels:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">panic</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">        <span class="attr">smtp:</span></span><br><span class="line">          <span class="attr">addr:</span> <span class="string">mail.example.com:25</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">mailuser</span></span><br><span class="line">          <span class="attr">password:</span> <span class="string">password</span></span><br><span class="line">          <span class="attr">insecure:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">from:</span> <span class="string">sender@example.com</span></span><br><span class="line">        <span class="attr">to:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">errors@example.com</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">delete:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">cache:</span></span><br><span class="line">        <span class="attr">blobdescriptor:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">filesystem:</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">/var/lib/registry</span></span><br><span class="line">    <span class="attr">maintenance:</span></span><br><span class="line">        <span class="attr">uploadpurging:</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">http:</span></span><br><span class="line">    <span class="attr">addr:</span> <span class="string">:5000</span></span><br><span class="line">    <span class="attr">debug:</span></span><br><span class="line">        <span class="attr">addr:</span> <span class="string">:5001</span></span><br><span class="line">        <span class="attr">prometheus:</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/metrics</span></span><br><span class="line">    <span class="attr">headers:</span></span><br><span class="line">        <span class="attr">X-Content-Type-Options:</span> <span class="string">[nosniff]</span></span><br><span class="line"><span class="attr">redis:</span></span><br><span class="line">  <span class="attr">addr:</span> <span class="string">localhost:6379</span></span><br><span class="line">  <span class="attr">pool:</span></span><br><span class="line">    <span class="attr">maxidle:</span> <span class="number">16</span></span><br><span class="line">    <span class="attr">maxactive:</span> <span class="number">64</span></span><br><span class="line">    <span class="attr">idletimeout:</span> <span class="string">300s</span></span><br><span class="line">  <span class="attr">dialtimeout:</span> <span class="string">10ms</span></span><br><span class="line">  <span class="attr">readtimeout:</span> <span class="string">10ms</span></span><br><span class="line">  <span class="attr">writetimeout:</span> <span class="string">10ms</span></span><br><span class="line"><span class="attr">notifications:</span></span><br><span class="line">    <span class="attr">events:</span></span><br><span class="line">        <span class="attr">includereferences:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">endpoints:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">local-5003</span></span><br><span class="line">          <span class="attr">url:</span> <span class="string">http://localhost:5003/callback</span></span><br><span class="line">          <span class="attr">headers:</span></span><br><span class="line">             <span class="attr">Authorization:</span> <span class="string">[Bearer</span> <span class="string">&lt;an</span> <span class="string">example</span> <span class="string">token&gt;]</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">1s</span></span><br><span class="line">          <span class="attr">threshold:</span> <span class="number">10</span></span><br><span class="line">          <span class="attr">backoff:</span> <span class="string">1s</span></span><br><span class="line">          <span class="attr">disabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">local-8083</span></span><br><span class="line">          <span class="attr">url:</span> <span class="string">http://localhost:8083/callback</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">1s</span></span><br><span class="line">          <span class="attr">threshold:</span> <span class="number">10</span></span><br><span class="line">          <span class="attr">backoff:</span> <span class="string">1s</span></span><br><span class="line">          <span class="attr">disabled:</span> <span class="literal">true</span> </span><br><span class="line"><span class="attr">health:</span></span><br><span class="line">  <span class="attr">storagedriver:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">interval:</span> <span class="string">10s</span></span><br><span class="line">    <span class="attr">threshold:</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置选项"><a class="header-anchor" href="#配置选项">¶ </a>配置选项</h3>
+<p>这些选项以 yaml 文件格式提供，用户可以直接进行修改，也可以添加自定义的模板段。<br>
+默认情况下变量可以从环境变量中读取，例如 log.level:debug 可以配置为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> LOG_LEVEL=debug</span><br></pre></td></tr></table></figure>
+<p>比较重要的选项包括版本信息，log 选项，hooks 选项，存储选项，认证选项，HTTP 选项，通知选项，Redis 选项，健康监控选项，代理选项和验证选项等。下面分别介绍。</p>
+<h4 id="version-版本信息"><a class="header-anchor" href="#version-版本信息">¶ </a>version 版本信息</h4>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">0.1</span></span><br></pre></td></tr></table></figure>
+<h4 id="log-日志选项"><a class="header-anchor" href="#log-日志选项">¶ </a>log 日志选项</h4>
+<p>日志相关，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">log:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="string">debug</span></span><br><span class="line">    <span class="attr">formatter:</span> <span class="string">text</span></span><br><span class="line">    <span class="attr">fields:</span></span><br><span class="line">        <span class="attr">service:</span> <span class="string">registry</span></span><br><span class="line">        <span class="attr">environment:</span> <span class="string">staging</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>level: 字符串类型，标注输出调试信息的级别，包括 debug，info，warn，error；</li>
+<li>formatter: 字符串类型，日志输出的格式，包括 text，json，logstash 等；</li>
+<li>fields: 增加到日志输出消息中的键值对，可以用于过滤日志。</li>
+</ul>
+<h4 id="hooks-选项"><a class="header-anchor" href="#hooks-选项">¶ </a>hooks 选项</h4>
+<p>配置当仓库发生异变时，通过邮件发送日志时的参数，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">hooks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">mail</span></span><br><span class="line">      <span class="attr">levels:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">panic</span></span><br><span class="line">      <span class="attr">options:</span></span><br><span class="line">          <span class="attr">smtp:</span></span><br><span class="line">              <span class="attr">addr:</span> <span class="string">smtp.senderhost.com:25</span></span><br><span class="line">              <span class="attr">username:</span> <span class="string">sender</span> <span class="string">name</span></span><br><span class="line">              <span class="attr">password:</span> <span class="string">password</span></span><br><span class="line">              <span class="attr">insecure:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">from:</span> <span class="string">name@senderhost.com</span></span><br><span class="line">          <span class="attr">to:</span></span><br><span class="line">              <span class="bullet">-</span> <span class="string">name@receivehost.com</span></span><br></pre></td></tr></table></figure>
+<h4 id="storage-存储选项"><a class="header-anchor" href="#storage-存储选项">¶ </a>storage 存储选项</h4>
+<p>storage 选项将配置存储引擎，默认支持包括本地文件系统，Google 云存储，AWS S3云存储和 OpenStack Swift 分布式存储等，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">filesystem:</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">/var/lib/registry</span></span><br><span class="line">    <span class="attr">azure:</span></span><br><span class="line">        <span class="attr">accountname:</span> <span class="string">account</span> <span class="string">name</span></span><br><span class="line">        <span class="attr">accountkey:</span> <span class="string">base64</span> <span class="string">encoded</span> <span class="string">accountkey</span></span><br><span class="line">        <span class="attr">container:</span> <span class="string">container</span> <span class="string">name</span></span><br><span class="line">    <span class="attr">gcs:</span></span><br><span class="line">        <span class="attr">bucket:</span> <span class="string">bucket</span> <span class="string">name</span></span><br><span class="line">        <span class="attr">keyfile:</span> <span class="string">/path/to/keyfile</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">/gcs/object/name/prefix</span></span><br><span class="line">    <span class="attr">s3:</span></span><br><span class="line">        <span class="attr">accesskey:</span> <span class="string">aws</span> <span class="string">access</span> <span class="string">key</span></span><br><span class="line">        <span class="attr">secretkey:</span> <span class="string">aws</span> <span class="string">secret</span> <span class="string">key</span></span><br><span class="line">        <span class="attr">region:</span> <span class="string">us-west-1</span></span><br><span class="line">        <span class="attr">regionendpoint:</span> <span class="string">http://myobjects.local</span></span><br><span class="line">        <span class="attr">bucket:</span> <span class="string">bucket</span> <span class="string">name</span></span><br><span class="line">        <span class="attr">encrypt:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">keyid:</span> <span class="string">mykey</span> <span class="string">id</span></span><br><span class="line">        <span class="attr">secure:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">v4auth:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">chunksize:</span> <span class="number">5242880</span></span><br><span class="line">        <span class="attr">multipartcopychunksize:</span> <span class="number">33554432</span></span><br><span class="line">        <span class="attr">multipartcopymaxconcurrency:</span> <span class="number">100</span></span><br><span class="line">        <span class="attr">multipartcopythresholdsize:</span> <span class="number">33554432</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">/s3/object/name/prefix</span></span><br><span class="line">    <span class="attr">swift:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">username</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">password</span></span><br><span class="line">        <span class="attr">authurl:</span> <span class="string">https://storage.myprovider.com/auth/v1.0</span> <span class="string">or</span> <span class="string">https://storage.myprovider.com/v2.0</span> <span class="string">or</span> <span class="string">https://storage.myprovider.com/v3/auth</span></span><br><span class="line">        <span class="attr">tenant:</span> <span class="string">tenantname</span></span><br><span class="line">        <span class="attr">tenantid:</span> <span class="string">tenantid</span></span><br><span class="line">        <span class="attr">domain:</span> <span class="string">domain</span> <span class="string">name</span> <span class="string">for</span> <span class="string">OpenStack</span> <span class="string">Identity</span> <span class="string">v3</span> <span class="string">API</span></span><br><span class="line">        <span class="attr">domianid:</span> <span class="string">domain</span> <span class="string">id</span> <span class="string">for</span> <span class="string">OpenStack</span> <span class="string">Identity</span> <span class="string">v3</span> <span class="string">API</span></span><br><span class="line">        <span class="attr">insecureskipverify:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">region:</span> <span class="string">fr</span></span><br><span class="line">        <span class="attr">container:</span> <span class="string">containername</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">/swift/object/name/prefix</span></span><br><span class="line">    <span class="attr">oss:</span></span><br><span class="line">        <span class="attr">accesskeyid:</span> <span class="string">access</span> <span class="string">key</span> <span class="string">id</span></span><br><span class="line">        <span class="attr">accesskeysecret:</span> <span class="string">access</span> <span class="string">key</span> <span class="string">secret</span></span><br><span class="line">        <span class="attr">region:</span> <span class="string">OSS</span> <span class="string">region</span> <span class="string">name</span></span><br><span class="line">        <span class="attr">endpoint:</span> <span class="string">optional</span> <span class="string">endpoint</span></span><br><span class="line">        <span class="attr">internal:</span> <span class="string">optional</span> <span class="string">internal</span> <span class="string">endpoint</span></span><br><span class="line">        <span class="attr">bucket:</span> <span class="string">OSS</span> <span class="string">bucket</span></span><br><span class="line">        <span class="attr">encrypy:</span> <span class="string">optional</span> <span class="string">data</span> <span class="string">encryption</span> <span class="string">setting</span></span><br><span class="line">        <span class="attr">secure:</span> <span class="string">optional</span> <span class="string">ssl</span> <span class="string">setting</span></span><br><span class="line">        <span class="attr">chunksize:</span> <span class="string">optional</span> <span class="string">size</span> <span class="string">value</span></span><br><span class="line">        <span class="attr">rootdirectory:</span> <span class="string">optional</span> <span class="string">root</span> <span class="string">directory</span></span><br><span class="line">    <span class="attr">inmemory:</span></span><br><span class="line">    <span class="attr">delete:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">cache:</span></span><br><span class="line">        <span class="attr">blobdescriptor:</span> <span class="string">inmemory</span></span><br><span class="line">    <span class="attr">maintenance:</span></span><br><span class="line">        <span class="attr">uploadpurging:</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">            <span class="attr">age:</span> <span class="string">168h</span></span><br><span class="line">            <span class="attr">interval:</span> <span class="string">24h</span></span><br><span class="line">            <span class="attr">dryrun:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>比较重要的选项如下：</p>
+<ul>
+<li>maintenance: 配置维护相关的功能，包括对孤立旧文件的清理，开启只读模式等；</li>
+<li>delete: 是否允许删除镜像功能，默认关闭；</li>
+<li>cache: 开启对镜像层元数据的缓存功能，默认开启。</li>
+</ul>
+<h4 id="auth-认证选项"><a class="header-anchor" href="#auth-认证选项">¶ </a>auth 认证选项</h4>
+<p>对认证类型的配置，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">auth:</span></span><br><span class="line">    <span class="attr">silly:</span></span><br><span class="line">        <span class="attr">realm:</span> <span class="string">silly-realm</span></span><br><span class="line">        <span class="attr">service:</span> <span class="string">silly-service</span></span><br><span class="line">    <span class="attr">token:</span></span><br><span class="line">        <span class="attr">realm:</span> <span class="string">token-realm</span></span><br><span class="line">        <span class="attr">service:</span> <span class="string">token-server</span></span><br><span class="line">        <span class="attr">issuer:</span> <span class="string">registry-token-issuer</span></span><br><span class="line">        <span class="attr">rootcertbundle:</span> <span class="string">/root/certs/bundle</span></span><br><span class="line">    <span class="attr">htpasswd:</span></span><br><span class="line">        <span class="attr">realm:</span> <span class="string">basic-realm</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/path/to/htpasswd</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>silly: 仅供测试使用，只要请求头带有认证域即可，不做内容检查；</li>
+<li>token: 基于 Token 的用户认证，适用于生产环境，需要额外的 Token 服务来支持；</li>
+<li>htpasswd: 基于 Apache htpasswd 密码文件的权限检查。</li>
+</ul>
+<h4 id="http-选项"><a class="header-anchor" href="#http-选项">¶ </a>http 选项</h4>
+<p>与 HTTP 服务相关的配置，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">http:</span></span><br><span class="line">    <span class="attr">addr:</span> <span class="string">localhost:5000</span></span><br><span class="line">    <span class="attr">net:</span> <span class="string">tcp</span></span><br><span class="line">    <span class="attr">prefix:</span> <span class="string">/my/nested/registry/</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">https://myregistryaddress.org:5000</span></span><br><span class="line">    <span class="attr">secret:</span> <span class="string">a</span> <span class="string">secret</span> <span class="string">for</span> <span class="string">local</span> <span class="string">development</span></span><br><span class="line">    <span class="attr">relativeurls:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tls:</span></span><br><span class="line">        <span class="attr">certificate:</span> <span class="string">/path/to/x509/public</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">/path/to/x509/private</span></span><br><span class="line">        <span class="attr">clientcas:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/path/to/ca.pem</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/path/to/anoyher/ca.pm</span></span><br><span class="line">        <span class="attr">letsencrypt:</span></span><br><span class="line">            <span class="attr">cachefile:</span> <span class="string">/path</span> <span class="string">to/cache-file</span></span><br><span class="line">            <span class="attr">email:</span> <span class="string">emailuser@letsencrypt.com</span></span><br><span class="line">    <span class="attr">debug:</span></span><br><span class="line">        <span class="attr">addr:</span> <span class="string">localhost:5001</span></span><br><span class="line">    <span class="attr">headers:</span></span><br><span class="line">        <span class="attr">X-Content-Type-Options:</span> <span class="string">[nosniff]</span></span><br><span class="line">    <span class="attr">http2:</span></span><br><span class="line">        <span class="attr">disabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>addr: 必选，服务监听地址；</li>
+<li>secret: 必选，与安全相关的随机字符串，用户可以自定义；</li>
+<li>tls: 证书相关的文件路径信息；</li>
+<li>http2: 是否开启 http2 支持，默认关闭。</li>
+</ul>
+<h4 id="notifications-通知选项"><a class="header-anchor" href="#notifications-通知选项">¶ </a>notifications 通知选项</h4>
+<p>有事件发生时候的通知系统，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">notifications:</span></span><br><span class="line">    <span class="attr">endpoints:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">a</span> <span class="string">listener</span></span><br><span class="line">          <span class="attr">disable:</span> <span class="literal">false</span></span><br><span class="line">          <span class="attr">url:</span> <span class="string">https://my.listener.com/event</span></span><br><span class="line">          <span class="attr">headers:</span> <span class="string">&lt;http.Header&gt;</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="number">500</span></span><br><span class="line">          <span class="attr">threshold:</span> <span class="number">5</span></span><br><span class="line">          <span class="attr">backoff:</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+<h4 id="redis-选项"><a class="header-anchor" href="#redis-选项">¶ </a>redis 选项</h4>
+<p>Registry 可以使用 Redis 来缓存文件块，这里可以配置相关选项，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">redis:</span></span><br><span class="line">    <span class="attr">addr:</span> <span class="string">localhost:6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">a</span> <span class="string">secret</span></span><br><span class="line">    <span class="attr">db:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">dialtimeout:</span> <span class="string">10ms</span></span><br><span class="line">    <span class="attr">readtimeout:</span> <span class="string">10ms</span></span><br><span class="line">    <span class="attr">writetimeout:</span> <span class="string">10ms</span></span><br><span class="line">    <span class="attr">pool:</span></span><br><span class="line">        <span class="attr">maxidle:</span> <span class="number">16</span></span><br><span class="line">        <span class="attr">maxactive:</span> <span class="number">64</span></span><br><span class="line">        <span class="attr">idletimeout:</span> <span class="string">300s</span></span><br></pre></td></tr></table></figure>
+<h4 id="health-健康监控选项"><a class="header-anchor" href="#health-健康监控选项">¶ </a>health 健康监控选项</h4>
+<p>与健康监控相关，主要是对配置服务进行检测判断系统状态，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">health:</span></span><br><span class="line">    <span class="attr">storagedriver:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">interval:</span> <span class="string">10s</span></span><br><span class="line">        <span class="attr">threshold:</span> <span class="number">3</span></span><br><span class="line">    <span class="attr">file:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">file:</span> <span class="string">/path/to/checked/file</span></span><br><span class="line">          <span class="attr">interval:</span> <span class="string">10s</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">uri:</span> <span class="string">http://server.to.check/must/return/200</span></span><br><span class="line">          <span class="attr">heahers:</span></span><br><span class="line">                <span class="attr">Authorization:</span> <span class="string">[Basic</span> <span class="string">QWxhZGRpbjpvcGVuIHNlc2FtZQ==]</span></span><br><span class="line">          <span class="attr">statuscode:</span> <span class="number">200</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">3s</span></span><br><span class="line">          <span class="attr">interval:</span> <span class="string">10s</span></span><br><span class="line">          <span class="attr">threshold:</span> <span class="number">3</span></span><br><span class="line">    <span class="attr">tcp:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">addr:</span> <span class="string">redis-server.domain.com:6379</span></span><br><span class="line">          <span class="attr">timeout:</span> <span class="string">3s</span></span><br><span class="line">          <span class="attr">interval:</span> <span class="string">10s</span></span><br><span class="line">          <span class="attr">threshold:</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>默认并未启用</p>
+<h4 id="proxy-代理选项"><a class="header-anchor" href="#proxy-代理选项">¶ </a>proxy 代理选项</h4>
+<p>配置 Registry 作为一个 pull 代理，从远端（目前仅支持官方仓库）下拉 Docker 镜像，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxy:</span></span><br><span class="line">    <span class="attr">remoteurl:</span> <span class="string">https://registry-1.docker.io</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">[username]</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">[password]</span></span><br></pre></td></tr></table></figure>
+<p>之后，用户可以通过如下命令来配置 Docker 使用代理：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker --registry-mirror=https://myrepo.com:5000 daemon</span><br></pre></td></tr></table></figure>
+<h4 id="validation-验证选项"><a class="header-anchor" href="#validation-验证选项">¶ </a>validation 验证选项</h4>
+<p>限定来自指定地址的客户端才可以执行 push 操作，代码如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">validation:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">manifests:</span></span><br><span class="line">        <span class="attr">urls:</span></span><br><span class="line">            <span class="attr">allow:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">^https?://([^/]+\.)*example\.com/</span></span><br><span class="line">            <span class="attr">deny:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">^https?://www\.example\.com/</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Registry</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Harbor 部署安装</title>
+    <url>/2020/12/31/92-Harbor-%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="Harbor-与-Registry"><a class="header-anchor" href="#Harbor-与-Registry">¶ </a>Harbor 与 Registry</h2>
+<p>Harbor 是一个英文单词，意思是港湾，港湾是干什么的呢？就是停放货物的，而货物呢，是装在集装箱中的，说到集装箱，就不得不提到 Docker 容器，因为 Docker 容器的技术正是借鉴了集装箱的原理。所以，Harbor 正是一个用于存储 Docker 镜像的企业级 Registry。</p>
+<a id="more"></a>
+<p>Registry 是 Docker 官方的一个私有仓库镜像，可以将本地的镜像打标签进行标记，然后 push 到以 registry 镜像起的容器的私有仓库中。企业可以根据自己的需求，使用 Dockerfile 生成自己的镜像，并推到私有仓库中，这样可以大大提高拉取镜像的效率。</p>
+<h3 id="Harbor-核心组件解释"><a class="header-anchor" href="#Harbor-核心组件解释">¶ </a>Harbor 核心组件解释</h3>
+<ul>
+<li>Proxy: 它是一个 nginx 的前端代理，代理 Harbor 的 registry，UI，token 等服务；</li>
+<li>db: 负责存储用户权限，审计日志，Docker imange 分组信息等数据；</li>
+<li>UI: 提供图形化界面，帮助用户管理 registry 上的镜像，并对用户进行授权；</li>
+<li>jobservice: jobService 是负责镜像复制工作的，它和 registry 通信，从一个 registry pull 镜像然后 push 到另一个 registry，并记录 job_log；</li>
+<li>Adminserver: 是系统的配置管理中心附带检查存储用户量，ui 和 jobserver 启动时后需要加载 adminserver 的配置；</li>
+<li>Registry: 镜像仓库，负责存储镜像文件；</li>
+<li>Log: 为了帮助监控 Harbor 运行，负责收集其他组件的 log，供日后进行分析。</li>
+</ul>
+<h3 id="Harbor-和-Registry-的比较"><a class="header-anchor" href="#Harbor-和-Registry-的比较">¶ </a>Harbor 和 Registry 的比较</h3>
+<p>Harbor 和 Registry 都是 Docker 的镜像仓库，但是 Harbor 作为更多企业的选择，是因为相较于 Registry 来说，它具有更多的优势。如下：</p>
+<ol>
+<li>提供分层传输机制，优化网络传输；<br>
+Docker 镜像时分层的，而如果每次传输都使用全量文件（所以用 FTP 的方式并不适合），显然不经济。必须提供识别分层传输的机制，以层的 UUID 为标识，确定传输的对象。</li>
+<li>提供 WEB 界面，优化用户体验；<br>
+只用镜像的名字来进行上传下载显然很不方便，需要有一个用户界面可以支持登录，搜索功能，包括区分共有，私有镜像；</li>
+<li>支持水平扩展集群；<br>
+当有用户对镜像的上传下载操作集中在某服务器，需要对相应的访问压力作分解；</li>
+<li>良好的安全机制<br>
+企业中的开发团队有很多不同的职位，对于不同的职位人员，分配不同的权限，具有更好的安全性；</li>
+<li>Harbor 提供了基于角色的访问控制机制，并通过项目来对镜像进行组织和访问权限的控制。Kubernetes 中通过 namespace 来对资源进行隔离，在企业级应用场景中，通过将两者进行结合可以有效将 Kubernetes 使用的镜像资源进行管理和访问控制，增强镜像使用的安全性。尤其是在多租户场景下，可以通过租户，namespace 和项目相结合的方式来实现对多租户镜像资源的管理和访问控制。</li>
+</ol>
+<h2 id="Harbor-安装部署"><a class="header-anchor" href="#Harbor-安装部署">¶ </a>Harbor 安装部署</h2>
+<p>Harbor 被部署为多个 Docker 容器。因此，你可以将其部署在任何支持 Docker 的 Linux 发行版上。目标主机需要安装好 Docker 和 Docker Compose 后才能安装 Harbor。</p>
+<h3 id="安装-docker-compose"><a class="header-anchor" href="#安装-docker-compose">¶ </a>安装 docker-compose</h3>
+<p>安装 docker-compose 可以使用 pip 安装。也可以使用 yum 安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y python-pip;pip install docker-compose</span><br><span class="line">或</span><br><span class="line">yum install -y docker-compose</span><br></pre></td></tr></table></figure>
+<h3 id="下载并解压-Harbor-安装包"><a class="header-anchor" href="#下载并解压-Harbor-安装包">¶ </a>下载并解压 Harbor 安装包</h3>
+<ol>
+<li>
+<p>前往 <a href="https://github.com/goharbor/harbor/releases" target="_blank" rel="noopener">Harbor releases page</a> 下载要安装的 Harbor 二进制包，此处下载的是最新的 v2.1.2 版本;</p>
+</li>
+<li>
+<p>下载相应的 <code>*.asc</code> 文件，验证该软件是正版(可选)。<br>
+<code>*.asc</code> 文件是 OpenPGP 秘钥文件，执行下面的步骤来验证下载的安装包是正版的</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 联网安装</span></span><br><span class="line">gpg -v –keyserver hkps://keyserver.ubuntu.com –verify harbor-online-installer-version.tgz.asc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 离线安装</span></span><br><span class="line">gpg -v –keyserver hkps://keyserver.ubuntu.com –verify harbor-offline-installer-version.tgz.asc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>gpg命令验证软件包的签名是否与* .asc密钥文件的签名匹配。您应该看到确认签名正确的确认。</p>
+</blockquote>
+</li>
+<li>
+<p>解压安装包</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar xvf harbor-offline-installer-v2.1.2.tgz</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="配置-HTTPS-访问-Harbor"><a class="header-anchor" href="#配置-HTTPS-访问-Harbor">¶ </a>配置 HTTPS 访问 Harbor</h3>
+<p>默认，Harbor 不附带任何证书。在 1.9.x 及以下版本中，在默认情况下，harbor 使用 HTTP 服务注册表请求。这仅在测试或开发环境中可以接受。在生产环境中，请始终使用 HTTPS。如果启用 <code>Content Trust with Notary</code> 来正确签名所有 Images，则必须使用 HTTPS。你可使用由受信任的第三方 CA 签名的证书，也可以使用自签名证书。</p>
+<h4 id="生成自签名证书"><a class="header-anchor" href="#生成自签名证书">¶ </a>生成自签名证书</h4>
+<p>在生产环境中，您应该从CA获得证书。在测试或开发环境中，您可以生成自己的CA。要生成CA证书，请运行以下命令。</p>
+<ol>
+<li>
+<p>生成 CA 私钥证书</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir certs &amp;&amp; <span class="built_in">cd</span> certs</span><br><span class="line">openssl genrsa -out ca.key 4096</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生成 CA 证书，这里使用域名 <code>harbor.59izt.com</code></p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl req -x509 -new -nodes -sha512 -days 3650 \</span><br><span class="line">-subj <span class="string">"/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=harbor.59izt.com"</span> \</span><br><span class="line">-key ca.key \</span><br><span class="line">-out ca.crt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="生成服务器证书"><a class="header-anchor" href="#生成服务器证书">¶ </a>生成服务器证书</h4>
+<p>证书通常包含一个 <code>.crt</code> 文件和一个 <code>.key</code> 文件。如：<code>harbor.59izt.com.crt</code> 和 <code>harbor.59izt.com.key</code></p>
+<ol>
+<li>
+<p>生成私钥</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl genrsa -out harbor.59izt.com.key 4096</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生成证书签名请求（CSR），注意 <code>Subj</code> 参数中的 <code>CN</code> 的值。必须为域名</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl req -sha512 -new \</span><br><span class="line">-subj <span class="string">"/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=harbor.59izt.com"</span> \</span><br><span class="line">-key harbor.59izt.com.key \</span><br><span class="line">-out harbor.59izt.com.csr</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生成一个 x509 v3 扩展文件，无论你是使用域名还是IP地址连接到 Harbor 主机，都必须创建此文件，以便可以为你的 harbor 主机生成符合主题备用名称（SAM）和 x509 v3 的证书扩展要求。替换下面的 DNS 为你的域</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &gt; v3.ext &lt;&lt;-EOF</span><br><span class="line">authorityKeyIdentifier=keyid,issuer</span><br><span class="line">basicConstraints=CA:FALSE</span><br><span class="line">keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment</span><br><span class="line">extendedKeyUsage = serverAuth</span><br><span class="line">subjectAltName = @alt_names</span><br><span class="line"></span><br><span class="line">[alt_names]</span><br><span class="line">DNS.1=harbor.59izt.com</span><br><span class="line">DNS.2=harbor.59izt</span><br><span class="line">DNS.3=harbor</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 v3.ext 文件为 Harbor 主机生成证书</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl x509 -req -sha512 -days 3650 \</span><br><span class="line">-extfile v3.ext \</span><br><span class="line">-CA ca.crt -CAkey ca.key -CAcreateserial \</span><br><span class="line">-<span class="keyword">in</span> harbor.59izt.com.csr \</span><br><span class="line">-out harbor.59izt.com.crt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="给-Harbor-和-Docker-配置证书"><a class="header-anchor" href="#给-Harbor-和-Docker-配置证书">¶ </a>给 Harbor 和 Docker 配置证书</h4>
+<p>在生成 ca.crt，harbor.59izt.com.crt 和 harbor.59izt.com.key 文件后，必须将它们提供给 Harbor 和 Docker，然后重新配置 Harbor 以使用它们。</p>
+<ol>
+<li>
+<p>将服务器证书和秘钥复制到 harbor 主机上的 certificates 文件夹中</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp harbor.59izt.com.crt /data/certs/</span><br><span class="line">cp harbor.59izt.com.key /data/certs/</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>转换 harbor.59izt.com.crt 为 harbor.59izt.com.cert 文件给 Docker 使用， Docker 守护程序将 .crt 文件解释为 CA 证书，将 .cert 文件解释为客户端证书</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl x509 -inform PEM -<span class="keyword">in</span> harbor.59izt.com.crt -out harbor.59izt.com.cert</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>复制服务器证书，秘钥和 CA 文件到 Harbor 主机上的 Docker 证书文件夹中。你必须先创建文件夹</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /etc/docker/certs.d/harbor.59izt.com/</span><br><span class="line">cp harbor.59izt.com.cert \</span><br><span class="line">harbor.59izt.com.key \</span><br><span class="line">ca.crt /etc/docker/certs.d/harbor.59izt.com/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不是使用默认的 443 端口，那么证书存放的文件夹名称为：</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/docker/certs.d/harbor.59izt.com:port/</span><br><span class="line">or</span><br><span class="line">/etc/docker/certs.d/harbor_IP:port/</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重启 Docker 服务</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="安装-Harbor"><a class="header-anchor" href="#安装-Harbor">¶ </a>安装 Harbor</h3>
+<p>一旦配置了从 harbor.yml.tmpl 复制的 harbor.yml 并有选择地设置了存储后端，就可以使用 <a href="http://install.sh" target="_blank" rel="noopener">install.sh</a> 脚本简单安装并启动 Harbor。</p>
+<p>可以以不同的配置安装Harbor：</p>
+<ul>
+<li>只是 harbor，没有 Notary，Trivy，Clair 或 chart Repository Sevice</li>
+<li>habor 和 Notary</li>
+<li>harbor 和 Trivy</li>
+<li>Habor 和 Clair</li>
+<li>Harbor 和 Chart Repository Service</li>
+<li>包含两个或三个 Notary，Trivy，Clair 和 Chart Repository 的 Harbor</li>
+</ul>
+<h4 id="最简化安装"><a class="header-anchor" href="#最简化安装">¶ </a>最简化安装</h4>
+<ol>
+<li>
+<p>创建 harbor.yml 配置文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp harbor.yml.tmpl harbor.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改配置文件中的几个配置，如下：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">hostname:</span> <span class="string">harbor.59izt.com</span></span><br><span class="line"><span class="attr">https:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">443</span></span><br><span class="line">    <span class="attr">certificate:</span> <span class="string">/data/certs/harbor.59izt.com.crt</span></span><br><span class="line">    <span class="attr">private_key:</span> <span class="string">/data/certs/harbor.59izt.com.key</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>默认的 Harbor 安装不包括 Notary 或 Trivy，Clair 服务。运行以下命令</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh</span><br><span class="line"></span><br><span class="line">[Step 0]: checking <span class="keyword">if</span> docker is installed ...</span><br><span class="line">Note: docker version: 20.10.1</span><br><span class="line">[Step 1]: checking docker-compose is installed ...</span><br><span class="line">Note: docker-compose version: 1.18.0</span><br><span class="line">....</span><br><span class="line">Creating harbor-core ... </span><br><span class="line">Creating harbor-jobservice ... </span><br><span class="line">Creating nginx ... </span><br><span class="line">✔ ----Harbor has been installed and started successfully.----</span><br></pre></td></tr></table></figure>
+<p>如上，如果安装成功，则可以打开浏览器以访问位于 <code>http://harbor.59izt.com</code> 的 Harbor 界面，将 <a href="http://harbor.59izt.com" target="_blank" rel="noopener">harbor.59izt.com</a> 更改为在 harbor.yml 中配置的主机名。如果未在 harbor.yml 中进行更改，则默认的管理员用户名和密码为 admin 和 Harbor12345。</p>
+<p><img src="https://s3.ax1x.com/2020/12/29/rHg8xS.png" alt="avatar"></p>
+</li>
+<li>
+<p>登录到管理门户并创建一个新项目，例如 myproject。然后，您可以使用 Docker 命令登录到 Harbor，标记 image 并将其推送到Harbor。<br>
+<img src="https://s3.ax1x.com/2020/12/29/rH2CLQ.png" alt="avatar"></p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker login harbor.59izt.com</span></span><br><span class="line">Username: admin</span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted <span class="keyword">in</span> /home/wanwu/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/<span class="comment">#credentials-store</span></span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker tag goharbor/harbor-core:v2.1.2 harbor.59izt.com/myproject/harbor-core:v2.1.2</span></span><br><span class="line"><span class="comment"># docker push harbor.59izt.com/myproject/harbor-core:v2.1.2 </span></span><br><span class="line">The push refers to repository [harbor.59izt.com/myproject/harbor-core]</span><br><span class="line">c224ac6b2bbd: Pushed </span><br><span class="line">d84c44c9e421: Pushed </span><br><span class="line">d9762d29a79e: Pushed </span><br><span class="line">9ce8bd7c9cc2: Pushed </span><br><span class="line">f73ff896d59e: Pushed </span><br><span class="line">dabb8c8d8330: Pushed </span><br><span class="line">1015a890d0ff: Pushed </span><br><span class="line">45759140eb84: Pushed </span><br><span class="line">f4813c3208bf: Pushed </span><br><span class="line">52ba3ba61de4: Pushed </span><br><span class="line">v2.1.2: digest: sha256:7d48a344c20c864dc823b023d09bb8fe8f59e8d1ee8a9673dac9d71cae7b6b3a size: 2410</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果安装的 Harbor 使用 HTTPS，则必须向 Docker 客户端提供 Harbor 证书。有关信息，请参阅 <a href="https://goharbor.io/docs/2.1.0/install-config/run-installer-script/configure-https.md#provide-the-certificates-to-harbor-and-docker" target="_blank" rel="noopener">配置对Harbor 的 HTTPS 访问</a>。<br>
+如果安装的 Harbor 使用HTTP，则必须在客户端的 Docker 守护程序中添加 --insecure-registry 选项，然后重新启动 Docker 服务。有关更多信息，请参见 <a href="https://goharbor.io/docs/2.1.0/install-config/run-installer-script/#connect-http" target="_blank" rel="noopener">通过 HTTP 连接到Harbor</a>。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="Installation-with-Notary"><a class="header-anchor" href="#Installation-with-Notary">¶ </a>Installation with Notary</h4>
+<p>要使用公证服务安装 Harbor，请在运行 <a href="http://install.sh" target="_blank" rel="noopener">install.sh</a> 时添加 --with-notary 参数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh --with-notary</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>要使用 Notary 进行安装，必须将 Harbor 配置为使用HTTPS。</p>
+</blockquote>
+<h4 id="Installation-with-Trivy"><a class="header-anchor" href="#Installation-with-Trivy">¶ </a>Installation with Trivy</h4>
+<p>要使用 Trivy 服务安装 Harbor，请在运行 <a href="http://install.sh" target="_blank" rel="noopener">install.sh</a> 时添加 --with-trivy 参数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh --with-notary</span><br></pre></td></tr></table></figure>
+<h4 id="Installation-with-Clair"><a class="header-anchor" href="#Installation-with-Clair">¶ </a>Installation with Clair</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh --with-clair</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>默认情况下，Harbour 将 Clair 容器的CPU使用率限制为 150000，以避免耗尽所有CPU资源。这是在 docker-compose.clair.yml 文件中定义的。您可以根据硬件配置修改此文件。</p>
+</blockquote>
+<h4 id="Installation-with-Chart-Repository-Service"><a class="header-anchor" href="#Installation-with-Chart-Repository-Service">¶ </a>Installation with Chart Repository Service</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh --with-chartmuseum</span><br></pre></td></tr></table></figure>
+<h4 id="安装所有模块"><a class="header-anchor" href="#安装所有模块">¶ </a>安装所有模块</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ./install.sh --with-notary --with-trivy --with-clair --with-chartmuseum</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Harbor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 配置私有仓库-方案二</title>
+    <url>/2020/12/24/90-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-2/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章：[Docker 技术入门与实战 第3板]</p>
+</blockquote>
+<p>本章将具体讲解 Registry 的使用技巧，并通过案例来展示如何搭建一个功能完善的私有镜像仓库。在搭建完本地的私有仓库服务后，来剖析 Registry 的配置参数，最后会通过编写脚本来实现对镜像的快速批量化管理。</p>
+<a id="more"></a>
+<h2 id="本地安装运行-Registry"><a class="header-anchor" href="#本地安装运行-Registry">¶ </a>本地安装运行 Registry</h2>
+<p>有时候需要本地运行仓库服务，可以通过源码的方式进行安装。</p>
+<ol>
+<li>
+<p>首先安装 Golang 环境支持，以 CentOS 为例，可以执行如下命令：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载 Go 安装包</span></span><br><span class="line">wget https://golang.google.cn/dl/go1.15.6.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压安装包</span></span><br><span class="line">sudo tar -zxf go1.15.6.linux-amd64.tar.gz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加环境变量</span></span><br><span class="line">cat &gt;/etc/profile.d/go.sh&lt;&lt;EOF</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">GO_HOME=/usr/<span class="built_in">local</span>/go</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$GO_HOME</span>/bin</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/go.sh</span><br><span class="line">go version</span><br><span class="line">go version go1.15.6 linux/amd64</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在 GO 家目录下，创建 <code>src/github.com/docker/</code> 目录，并拉取 registry 源码</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">sudo mkdir -p /usr/<span class="built_in">local</span>/go/src/github.com/docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取代码</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/go/src/github.com/docker/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/docker/distribution.git</span><br><span class="line"><span class="built_in">cd</span> distribution</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将自带的模板复制到 <code>/etc/docker/registry</code> 目录下，创建存储目录 <code>/var/lib/registry</code></p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo mkdir /etc/docker/registry</span><br><span class="line">sudo cp cmd/registry/config-dev.yml /etc/docker/registry/config.yml</span><br><span class="line">sudo mkdir /var/lib/registry</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行安装操作</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/go/src/github.com/docker/distribution</span><br><span class="line">make PREFIX=/usr/<span class="built_in">local</span>/go clean binaries</span><br><span class="line"><span class="comment"># 编译安装时可能会报 代理错误，此时需要设置 go 环境使用 GO111MODULE</span></span><br><span class="line">go env -w GO111MODULE=on</span><br><span class="line"><span class="comment"># 使用阿里云代理</span></span><br><span class="line">go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译安装后，可执行的二进制文件在 <code>distribution/bin</code> 下面，添加环境变量</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile.d/registry.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">REGISTRY_HOME=/usr/<span class="built_in">local</span>/go/src/github.com/docker/distribution</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$REGISTRY_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>可以通过下面的命令来启动 registry</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">registry serve /etc/docker/registry/config.yml</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>此时使用 <code>curl</code> 访问本地的 5000 端口，看到返回信息为 <code>200 OK</code>，则说明运行成功</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -i http://127.0.0.1:5000/v2/</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Length: 2</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Docker-Distribution-Api-Version: registry/2.0</span><br><span class="line">X-Content-Type-Options: nosniff</span><br><span class="line">Date: Tue, 22 Dec 2020 02:00:27 GMT</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="配置-TLS-证书"><a class="header-anchor" href="#配置-TLS-证书">¶ </a>配置 TLS 证书</h2>
+<p>当本地主机运行 registry 服务后，所有能访问到该主机的 Docker Host 都可以把它作为私有仓库使用，只需要在镜像名称前面加上具体的服务器地址即可。</p>
+<ul>
+<li>例如，将本地的 ubuntu:latest 镜像上传到私有仓库 <a href="http://registry.59izt.com" target="_blank" rel="noopener">registry.59izt.com</a>:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker tag ubuntu:latest registry.59izt.com:5000/ubuntu:latest</span><br><span class="line">docker push registry.59izt.com:5000/ubuntu:latest </span><br><span class="line"></span><br><span class="line">curl registry.59izt.com:5000/v2/_catalog</span><br><span class="line">&#123;<span class="string">"repositories"</span>:[<span class="string">"ubuntu"</span>]&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者从私有仓库 <a href="http://registry.59izt.com" target="_blank" rel="noopener">registry.59izt.com</a> 下载镜像到本地</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull registry.59izt.com:5000/ubuntu</span><br><span class="line">docker tag registry.59izt.com:5000/ubuntu:latest ubuntu</span><br></pre></td></tr></table></figure>
+<p>私有仓库需要启用 TLS 认证，否则会报错。在前面我们介绍了通过添加 DOCKER_OPTS=&quot;–insecure-registry <a href="http://reistry.59izt.com:5000" target="_blank" rel="noopener">reistry.59izt.com:5000</a>&quot; 来避免这个问题。在这里将介绍如何获取和生成 TLS 证书。</p>
+<ol>
+<li>
+<p>使用 OpenSSL 工具生成私人证书</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /data/docker/registry/certs</span><br><span class="line"><span class="built_in">cd</span> /data/docker/registry/</span><br><span class="line">openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/registry.59izt.com.key -x509 -days 365 -out certs/registry.59izt.com.crt</span><br></pre></td></tr></table></figure>
+<p>生成过程中会提示输入各种信息，注意 Common Name（CN）处一定要填入跟访问域名相同的域名，例如这里应该为 <a href="http://registry.59izt.com" target="_blank" rel="noopener">registry.59izt.com</a>。其中证书需要发给用户，并且配置到用户 Docker Host 上，注意路径需要跟域名一致，如：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/docker/certs.d/registry.59izt.com:5000/ca.crt</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>从代理商申请证书，如果 registry 服务需要对外公开，需要申请大家都认可的证书。知名的代理商包括 <a href="http://SSLs.com" target="_blank" rel="noopener">SSLs.com</a>，<a href="http://GoDaddy.com" target="_blank" rel="noopener">GoDaddy.com</a>，<a href="http://LetsEncrypt.org" target="_blank" rel="noopener">LetsEncrypt.org</a>，<a href="http://GlobalSign.com" target="_blank" rel="noopener">GlobalSign.com</a> 等。用户可以自行选择权威的证书提供商；</p>
+</li>
+<li>
+<p>启用证书，当拥有秘钥文件和证书文件后，可以配置 registry 启用证书支持，主要通过使用 REGISTRY_HTTP_TLS_CERTIFICTE 和 REGISTRY_HTTP_TLS_KEY 参数：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -dit \</span><br><span class="line">--restart=always \</span><br><span class="line">--name registry \</span><br><span class="line">-v /data/docker/registry/certs:/certs \</span><br><span class="line">-e REGISTRY_HTTP_ADDR=0.0.0.0:443 \</span><br><span class="line">-e REGISTRY_HTTP_SECRET=/certs/registry.59izt.com.crt \</span><br><span class="line">-e REGISTRY_HTTP_TLS_KEY=/certs/registry.59izt.com.key \</span><br><span class="line">-p 443:443 \</span><br><span class="line">registry:2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line">curl -i http://192.168.200.25:443/v2/</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Length: 2</span><br><span class="line">Content-Type: application/json; charset=utf-8</span><br><span class="line">Docker-Distribution-Api-Version: registry/2.0</span><br><span class="line">X-Content-Type-Options: nosniff</span><br><span class="line">Date: Sat, 26 Dec 2020 08:22:50 GMT</span><br><span class="line"></span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="管理访问权限"><a class="header-anchor" href="#管理访问权限">¶ </a>管理访问权限</h2>
+<p>通常在生产环境中，队友私有仓库还需要进行访问代理并提供认证和用户管理。</p>
+<h3 id="Docker-Registry-v2-的认证模式"><a class="header-anchor" href="#Docker-Registry-v2-的认证模式">¶ </a>Docker Registry v2 的认证模式</h3>
+<p>Docker Registry v2 的认证模式和 v1 有了较大的变化，降低了系统的复杂度，减少了服务之间的交互次数，其基本工作模式如下所示：<br>
+<img src="https://imgchr.com/i/rhoUSO" alt="Docker Registry v2 认证模式"></p>
+<p>具体交互过程包括如下步骤：</p>
+<ol>
+<li>Docker Daemon 或者其他客户端尝试访问 Registry 服务器，比如 pull，push 或者访问 manifiest 文件；</li>
+<li>在 Registry 服务器开启了认证服务模式时，就会直接返回 401 Unauthorized 错误，并通知调用方如何获取授权；</li>
+<li>调用方按照要求，想 Authorization Service 发送请求，并携带 Authorization Service 需要的信息，比如用户名，密码；</li>
+<li>如果授权成功，则可以拿到合法的 Bearer Token，来标识该请求方可以获得的权限；</li>
+<li>请求方将拿到的 Bearer Token 加到请求的 Authorization header 中，再次尝试步骤 1中的请求；</li>
+<li>Registry 服务通过验证 Bearer Token 以及 JWT 格式的授权数据，来决定用户是否有权限进行请求的操作。</li>
+</ol>
+<p>当启用认证服务时，需要注意以下两个地方：</p>
+<ul>
+<li>对于 Authorization Service，Docker 官方目前并没有放出对应的实现方案，需要自行实现对应的服务接口；</li>
+<li>Registry 服务和 Authorization 服务之间通过证书进行 Bearer Token 的生成和认证，所以要保证两个服务之间证书的匹配。</li>
+</ul>
+<p>除了使用第三方实现的认证服务外（如 docker_auth，SUSE Portus 等），还可以通过 nginx 代理方式来配置基于用户名和密码的认证。</p>
+<h3 id="配置-Nginx-代理"><a class="header-anchor" href="#配置-Nginx-代理">¶ </a>配置 Nginx 代理</h3>
+<p>使用 Nginx 来代理 registry 服务的原理十分简单，在上一节中，我们让 registry 服务监听在 127.0.0.1:5000，这意味着只允许本机才能通过 5000 端口访问到，其他主机是无法访问到的。为了让其他主机访问到，可以通过 Nginx 监听在对外地址的 15000 端口，当外部访问请求到达 15000 端口时，内部再将请求转发到本地的 5000 端口。具体操作如下：</p>
+<ol>
+<li>
+<p>首先，安装 Nginx</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y nginx</span><br><span class="line">systemctl start nginx</span><br><span class="line">systemctl <span class="built_in">enable</span> nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在 /etc/nginx/conf.d/ 目录下，创建新的站点配置文件 registry.59izt.com.conf，代理本地的 15000 端口转发到 5000 端口。配置文件内容如下：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream docker-registry &#123;</span><br><span class="line">    server localhost:5000;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name registry.59izt.com;</span><br><span class="line">    add_header <span class="string">'Docker-Distribution-Api-Version'</span> <span class="string">'registry/2.0'</span> always;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># If youi have SSL certification files, then can enable this section.</span></span><br><span class="line">    ssl_certificate /etc/nginx/ssl/registry.59izt.com.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl/registry.59izt.com.key;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ciphers TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_session_timeout 10m;</span><br><span class="line">    ssl_session_cache <span class="built_in">builtin</span>:1000 shared:SSL:10m;</span><br><span class="line">    ssl_buffer_size 1400;</span><br><span class="line">    ssl_stapling_verify on;</span><br><span class="line"></span><br><span class="line">    proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">    proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header Authorization <span class="string">""</span>;</span><br><span class="line">    proxy_set_header Accept-Encoding <span class="string">""</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-By <span class="variable">$server_addr</span>:<span class="variable">$server_port</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-For <span class="variable">$remote_addr</span>;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    proxy_read_timeout 600;</span><br><span class="line"></span><br><span class="line">    client_max_body_size 0;</span><br><span class="line">    chunked_transfer_encoding on;</span><br><span class="line"></span><br><span class="line">    location /v2/ &#123;</span><br><span class="line">        <span class="comment"># if ( $http_user_agent ~ "$(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*\$" ) &#123;</span></span><br><span class="line">        <span class="comment">#     return 404;</span></span><br><span class="line">        <span class="comment"># &#125;</span></span><br><span class="line">        proxy_pass http://docker-registry;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Nginx 证书存放目录以及拷贝证书</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /etc/nginx/ssl/</span><br><span class="line">cp /data/docker/registry/certs/* /etc/nginx/ssl/</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试 Nginx 配置文件，并重新加载配置文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nginx -t</span><br><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新启动 docker 容器</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -dit \</span><br><span class="line">--restart=always \</span><br><span class="line">--name registry \</span><br><span class="line">-v /data/docker/registry/certs:/certs \</span><br><span class="line">-v /data/docker/registry/data:/var/lib/registry \</span><br><span class="line">-e REGISTRY_HTTP_SECRET=/certs/registry.59izt.com.crt \</span><br><span class="line">-e REGISTRY_HTTP_TLS_KEY=/certs/registry.59izt.com.key \</span><br><span class="line">-p 127.0.0.1:5000:5000 \</span><br><span class="line">registry:2</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试上传本地的 ubuntu:latest 镜像</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker tag ubuntu:latest 127.0.0.1:443/ubuntu:latest</span><br><span class="line">docker push 127.0.0.1:443/ubuntu:latest </span><br><span class="line"></span><br><span class="line">The push refers to repository [127.0.0.1:443/ubuntu]</span><br><span class="line">f6253634dc78: Pushed </span><br><span class="line">9069f84dbbe9: Pushed </span><br><span class="line">bacd3af13903: Pushed </span><br><span class="line">latest: digest: sha256:4e4bc990609ed865e07afc8427c30ffdddca5153fd4e82c20d8f0783a291e241 size: 943</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="添加用户认证"><a class="header-anchor" href="#添加用户认证">¶ </a>添加用户认证</h3>
+<p>公共仓库 Docker Hub 是通过注册索引(index) 服务来实现的。由于 index 服务并没有完善的开源实现，在这里介绍基于 Nginx 代理的用户访问管理方案。Nginx 支持基于用域名和密码的访问管理。</p>
+<ol>
+<li>
+<p>首先，在刚才的 Nginx 配置文件中添加以下内容两行：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># 第一个 location 用于访问 docker-registry，需要进行认证</span></span><br><span class="line">location / &#123;</span><br><span class="line">    auth_basic <span class="string">"Please Input username/password"</span>;</span><br><span class="line">    auth_basic_user_file /data/docker/registey/auth/htpasswd;</span><br><span class="line">    proxy_pass http://docker-registry;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>auth_basic，说明启用认证服务，不通过的请求将无法转发。</li>
+<li>auth_basic_user_file 指定了验证的用户名和密码存储文件；</li>
+</ul>
+<p>/data/docker/registey/auth/htpasswd 文件中的用户名和密码格式为每一行放一个用户名，密码对。例如：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">user1:password1</span><br><span class="line">user2:password2</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建用户 wanwu，需要注意的是，密码字段存储的不是明文，而是使用 crypt 函数加密过的字符串。需要生成加密后的字符串，可以使用 htpasswd 工具，首先安装 apache2-utils(Ubuntu)，httpd-tools(CentOS)</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo htpasswd -c /data/docker/registry/auth/htpasswd wanwu</span><br></pre></td></tr></table></figure>
+<p>添加更多用户，可以重复上面的命令（密码文件存在后，不需要再使用 -c 选项来新建创建）。</p>
+<p>或者使用 registry 容器创建，方法为：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --entrypoint htpasswd registry:2.6.2 -Bbn wanwu test123 &gt; /data/docker/registry/auth/htpasswd</span><br></pre></td></tr></table></figure>
+<p>最后重启 Nginx 服务</p>
+</li>
+<li>
+<p>重启 registry 容器，命令如下：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --name registry \</span><br><span class="line">-p 127.0.0.1:5000:5000 \</span><br><span class="line">--restart=always \</span><br><span class="line">-v /data/docker/registry/certs:/certs \</span><br><span class="line">-v /data/docker/registry/data:/var/lib/registry \</span><br><span class="line">-e REGISTRY_STORAGE_DELETE_ENABLED=<span class="literal">true</span>  \</span><br><span class="line">-e REGISTRY_HTTP_SECRET=/certs/domain.crt \</span><br><span class="line">-e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \</span><br><span class="line">registry:2</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>此时，通过浏览器访问本地服务 <code>https://registry.59izt.com/v2/</code>，会弹出对话框，提示需要输入用户名和密码。通过命令行访问，需要在地址前面带上用户名和密码才能正常返回：<br>
+通过命令行访问，需要在地址前面带上用户名和密码才能正常返回</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -i -k --insecure -u wanwu:test123 https://registry.59izt.com/v2/_catalog</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: nginx/1.16.1</span><br><span class="line">Date: Sat, 26 Dec 2020 13:02:24 GMT</span><br><span class="line">Content-Type: application/json; charset=utf-8</span><br><span class="line">Content-Length: 49</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Docker-Distribution-Api-Version: registry/2.0</span><br><span class="line">X-Content-Type-Options: nosniff</span><br><span class="line">Docker-Distribution-Api-Version: registry/2.0</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"repositories"</span>:[<span class="string">"client-hello-world"</span>,<span class="string">"ubuntu"</span>]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>除了使用 Nginx 作为反向代理外，Registry 自身也支持简单的基于用户名和密码的认证，以及基于 Token 的认证。可以通过如下环境变量来指定。</p>
+<ul>
+<li>REGISTRY_AUTH: htpasswd</li>
+<li>REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd</li>
+<li>REGISTRY_AUTH_HTPASSWD_REALM: basic</li>
+</ul>
+</li>
+</ol>
+<h3 id="用-Compose-启动-Registry"><a class="header-anchor" href="#用-Compose-启动-Registry">¶ </a>用 Compose 启动 Registry</h3>
+<p>一般情况下，用户使用 Registry 需要的配置，包括存储路径，TLS证书和用户认证。这里提供一个基于 Docker Compose 的快速启动 Registry 的模板</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">registry:</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry:2.6.2</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">5000</span><span class="string">:5000</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">        <span class="attr">REGISTRY_HTTP_SECRET:</span> <span class="string">/certs/registry.59izt.com.crt</span></span><br><span class="line">        <span class="attr">REGISTRY_HTTP_TLS_KEY:</span> <span class="string">/certs/registry.59izt.com.key</span></span><br><span class="line">        <span class="attr">REGISTRY_AUTH:</span> <span class="string">htpasswd</span></span><br><span class="line">        <span class="attr">REGISTRY_AUTH_HTPASSWD_PATH:</span> <span class="string">/auth/htpasswd</span></span><br><span class="line">        <span class="attr">REGISTRY_AUTH_HTPASSWD_REALM:</span> <span class="string">basic</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/data/docker/registry/certs:/certs</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/data/docker/registry/auth:/auth</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/data/docker/registry/data:/var/lib/registry</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Registry</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 配置私有仓库-方案一</title>
+    <url>/2020/12/21/89-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/</url>
     <content><![CDATA[<blockquote>
 <p>参考文章：[Docker 技术入门与实战 第3板]</p>
 </blockquote>
