@@ -61,13 +61,15 @@
 <h4 id="配置源的表示方法"><a class="header-anchor" href="#配置源的表示方法">¶ </a>配置源的表示方法</h4>
 <p>执行同步任务时，rsync 命令需要指定同步源服务器中的资源位置</p>
 <h4 id="两种表示方法"><a class="header-anchor" href="#两种表示方法">¶ </a>两种表示方法</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">username@host::共享模块名   (两个冒号分隔形式)</span><br><span class="line">rsync://username@host/共享模块名    （URL 地址形式）</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">username@host:[port]:共享模块名   (两个冒号分隔形式)</span><br><span class="line">rsync://username@host[:port]/共享模块名    （URL 地址形式）</span><br></pre></td></tr></table></figure>
 <h4 id="使用真实用户测试-rsync-服务"><a class="header-anchor" href="#使用真实用户测试-rsync-服务">¶ </a>使用真实用户测试 rsync 服务</h4>
 <p>如果 ssh 端口修改了，需要加上端口。</p>
 <ul>
 <li>命令格式: rsync -param filename -e ‘ssh -p port’ username@ip:dir_path</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rsync -avz 59izt.github.io <span class="string">'-e ssh -p 22'</span> wanwu@192.168.200.173:~/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rsync -avz 59izt.github.io <span class="string">'-e ssh -p 22'</span> wanwu@192.168.200.173:~/GitHub</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">rsync -avz --delete --checksum 59izt.github.io wanwu@192.168.200.173:33389:backup</span><br></pre></td></tr></table></figure>
+<p>在实际生产环境中的备份工作，通常都是重复性的，那么我们可以设置个定时任务来完成备份操作。比如每天凌晨 04:00 对服务器的 /tmp 共享模块同步，并下载到本地 /mnt/backup 目录下。通过 crond 服务来完成，这种同步过程中，我们不想输入密码，那么需要创建一个密码文件，保存 rsync_backup 用户密码。在执行同步时使用选项 --password-file=/etc/rsync.password 指定。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># crontab -e </span></span><br><span class="line">00 04 * * * /usr/bin/rsync -az --delete --password-file=/etc/rsync.password@192.168.200.173::tmp /mnt/backup</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Linux</category>
