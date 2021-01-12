@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux 环境实战 Rsync 备份工具</title>
+    <url>/2021/01/12/102-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/</url>
+    <content><![CDATA[<blockquote>
+<p>原文地址：<a href="https://mp.weixin.qq.com/s/P8XDrr7ROIXBYOZnLy45zA" target="_blank" rel="noopener">Linux 环境下实战 Rsync 备份工具及配置 rsync+inotify实时同步</a></p>
+</blockquote>
+<h2 id="什么是-Rsync"><a class="header-anchor" href="#什么是-Rsync">¶ </a>什么是 Rsync</h2>
+<p>Rsync 是一个开源的快速备份工具，是 Linux 和 Unix 操作系统默认安装的组件之一，可以在不同主机之间镜像同步整个目录，并支持增量备份文件传输，保持链接和权限，采用优化的同步算法，传输前执行压缩，适用于异地备份，镜像服务器等应用。</p>
+<p>Rsync 官网地址：<a href="https://rsync.samba.org" target="_blank" rel="noopener">https:///rsync.samba.org/</a></p>
+<h2 id="配置-rsync-源服务器"><a class="header-anchor" href="#配置-rsync-源服务器">¶ </a>配置 rsync 源服务器</h2>
+<p>在远程同步任务中，复杂发起 rsync 同步操作的客户端称为 <code>发起端</code>，复杂响应来自客户端的 rsync 同步操作的服务器称为 <code>同步源</code>。</p>
+<p>通不过程中，同步源负责提供文档的原始位置，发起端应对该位置具有读取权限。</p>
+<ul>
+<li>关闭 selinux，开通防火墙放行端口或者关闭防火墙</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">systemctl <span class="built_in">disable</span> --now firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=873/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置 /etc/rsyncd.conf 文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat /etc/rsyncd.conf</span></span><br><span class="line"><span class="comment"># /etc/rsyncd: configuration file for rsync daemon mode</span></span><br><span class="line"><span class="comment"># See rsyncd.conf man page for more options.</span></span><br><span class="line"></span><br><span class="line">uid = rsync</span><br><span class="line">gid = rsync</span><br><span class="line">use chroot = no</span><br><span class="line">max connections = 2000</span><br><span class="line">pid file = /var/run/rsyncd.pid</span><br><span class="line">locak file = /var/run/rsyncd.lock</span><br><span class="line"><span class="built_in">log</span> file = /var/<span class="built_in">log</span>/rsyncd.log</span><br><span class="line">ignore errors</span><br><span class="line"><span class="built_in">read</span> only = <span class="literal">false</span></span><br><span class="line">list = <span class="literal">false</span></span><br><span class="line">timeout = 900</span><br><span class="line">auth user = sync_back</span><br><span class="line">secrets file = /etc/rsync.password</span><br><span class="line"><span class="comment"># hosts allow = 192.168.31.0/24</span></span><br><span class="line"><span class="comment"># hosts deny = 0.0.0.0/32</span></span><br><span class="line"><span class="comment"># exclude = lost+found/</span></span><br><span class="line"><span class="comment"># transfer logging = yes</span></span><br><span class="line"><span class="comment"># ignore nonreadable = yes</span></span><br><span class="line"><span class="comment"># dont compress   = *.gz *.tgz *.zip *.z *.Z *.rpm *.deb *.bz2</span></span><br><span class="line"></span><br><span class="line">[backup]</span><br><span class="line">path = /home/wanwu/GitHub/59izt.github.io</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 rsyncd 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now rsyncd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建 /etc/rsync.password 文件，并调整文件权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"rsync_backup:123456"</span> &gt;/etc/rsync.password</span><br><span class="line">chmod 600 /etc/rsync.password</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看服务监听端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep rsync</span><br><span class="line">tcp        0      0 0.0.0.0:873             0.0.0.0:*               LISTEN      7147/rsync          </span><br><span class="line">tcp6       0      0 :::873                  :::*                    LISTEN      7147/rsync</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建 rsync 需要同步的目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tree -L 2 /home/wanwu/GitHub/</span><br><span class="line">/home/wanwu/GitHub/</span><br><span class="line">└── 59izt.github.io</span><br><span class="line">    ├── _config.yml</span><br><span class="line">    ├── db.json</span><br><span class="line">    ├── node_modules</span><br><span class="line">    ├── package.json</span><br><span class="line">    ├── package-lock.json</span><br><span class="line">    ├── public</span><br><span class="line">    ├── README.md</span><br><span class="line">    ├── scaffolds</span><br><span class="line">    ├── <span class="built_in">source</span></span><br><span class="line">    ├── themes</span><br><span class="line">    └── update_doc.sh</span><br></pre></td></tr></table></figure>
+<h2 id="使用-rsync-备份工具"><a class="header-anchor" href="#使用-rsync-备份工具">¶ </a>使用 rsync 备份工具</h2>
+<h3 id="rsync-命令的基本用法"><a class="header-anchor" href="#rsync-命令的基本用法">¶ </a>rsync 命令的基本用法</h3>
+<p>大多数的备份程序要求制定原始位置，目标位置，rsync 命令其实跟 cp 命令相似。</p>
+<h4 id="rsync-命令格式"><a class="header-anchor" href="#rsync-命令格式">¶ </a>rsync 命令格式</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">基本格式： rsync [选项] 原始位置 目标位置</span><br></pre></td></tr></table></figure>
+<h4 id="常用备份选项"><a class="header-anchor" href="#常用备份选项">¶ </a>常用备份选项</h4>
+<ul>
+<li>-r: 表示递归整个目录；</li>
+<li>-l: 表示备份链接文件；</li>
+<li>-v: 显示同步过程的详细信息；</li>
+<li>-p: 保留文件的权限标记；</li>
+<li>-t: 保留文件的时间标记；</li>
+<li>-g: 保留文件的属组标记（仅限超级用户使用）</li>
+<li>-o: 保留文件的属主标记（仅限超级用户使用）</li>
+<li>-D: 保留设备文件及其他特殊文件</li>
+<li>-a: 归档模式，保留文件的权限，属性等信息，组合选项等于 <code>-rlptgoD</code>；</li>
+<li>-z: 在传输文件时进行压缩；</li>
+<li>-H: 保留硬链接文件；</li>
+<li>-A: 保留 ACL 属性信息；</li>
+<li>–delete: 删除目标位置有而原始位置没有的文件；</li>
+<li>–checksum: 根据校验和（而不是文件大小，修改时间）来决定是否跳过文件。</li>
+</ul>
+<h4 id="配置源的表示方法"><a class="header-anchor" href="#配置源的表示方法">¶ </a>配置源的表示方法</h4>
+<p>执行同步任务时，rsync 命令需要指定同步源服务器中的资源位置</p>
+<h4 id="两种表示方法"><a class="header-anchor" href="#两种表示方法">¶ </a>两种表示方法</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">username@host::共享模块名   (两个冒号分隔形式)</span><br><span class="line">rsync://username@host/共享模块名    （URL 地址形式）</span><br></pre></td></tr></table></figure>
+<h4 id="使用真实用户测试-rsync-服务"><a class="header-anchor" href="#使用真实用户测试-rsync-服务">¶ </a>使用真实用户测试 rsync 服务</h4>
+<p>如果 ssh 端口修改了，需要加上端口。</p>
+<ul>
+<li>命令格式: rsync -param filename -e ‘ssh -p port’ username@ip:dir_path</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rsync -avz 59izt.github.io <span class="string">'-e ssh -p 22'</span> wanwu@192.168.200.173:~/</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Rsync</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes 单 Master 节点安装</title>
     <url>/2021/01/12/101-Kubernetes-%E5%8D%95Master%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<blockquote>
@@ -1381,232 +1458,6 @@ Kubernetes Node 运行后将会注册到 Kubernetes Master，并定时上报心�
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes 高可用集群部署</title>
-    <url>/2021/01/12/102-Kubernetes-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<blockquote>
-<p>参考书籍：[再也不踩坑的Kubernetes实战指南]</p>
-</blockquote>
-<h2 id="Kubernetes-高可用安装"><a class="header-anchor" href="#Kubernetes-高可用安装">¶ </a>Kubernetes 高可用安装</h2>
-<p>本节主要演示使用 kubeadm 安装 Kubernetes 高可用集群，这也是目前官方默认的安装方式，比二进制方式更加简单，可以让初学者快速上手并测试。GitHub 上也有很多基于 Ansible 的自动化安装方式，但是为了更好的学习 Kubernetes，还是建议体验一下 Kubernetes 的手动安装过程，以熟悉 Kubernetes 的各个组件。</p>
-<a id="more"></a>
-<h3 id="基本环境配置"><a class="header-anchor" href="#基本环境配置">¶ </a>基本环境配置</h3>
-<p>本次安装使用 6 台 Linux 服务器，系统版本为 CentOS 7.9，分别为 3台 master，2台 node，一台 lb，其中 Node 的配置相同。Master 节点主要部署的组件有 Keepalived，HAProxy，Etcd，Kubelet，APIServer，Controller，Scheduler；Node 节点主要部署的为 Kubelet。详细配置见下表</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">主机名</th>
-<th style="text-align:center">IP地址</th>
-<th style="text-align:center">角色</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">k8s-master-01</td>
-<td style="text-align:center">192.168.200.18</td>
-<td style="text-align:center">master</td>
-</tr>
-<tr>
-<td style="text-align:center">k8s-master-02</td>
-<td style="text-align:center">192.168.200.19</td>
-<td style="text-align:center">master</td>
-</tr>
-<tr>
-<td style="text-align:center">k8s-master-03</td>
-<td style="text-align:center">192.168.200.20</td>
-<td style="text-align:center">master</td>
-</tr>
-<tr>
-<td style="text-align:center">k8s-master-lb</td>
-<td style="text-align:center">192.168.200.21</td>
-<td style="text-align:center">keepalived 虚拟 IP</td>
-</tr>
-<tr>
-<td style="text-align:center">k8s-node-01</td>
-<td style="text-align:center">192.168.200.22</td>
-<td style="text-align:center">worker</td>
-</tr>
-<tr>
-<td style="text-align:center">k8s-node-02</td>
-<td style="text-align:center">192.168.200.23</td>
-<td style="text-align:center">worker</td>
-</tr>
-</tbody>
-</table>
-<p>各节点通信采用主机名的方式，这种方式与 IP 地址相比更具有扩展性。以下介绍具体的安装步骤。</p>
-<h3 id="服务器系统配置"><a class="header-anchor" href="#服务器系统配置">¶ </a>服务器系统配置</h3>
-<p>以下操作需要在所有的节点执行</p>
-<h4 id="配置-hosts"><a class="header-anchor" href="#配置-hosts">¶ </a>配置 hosts</h4>
-<p>配置所有节点的 hosts，添加IP地址与主机名的解析，修改 /etc/hosts，内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; /etc/hosts</span><br><span class="line">192.168.200.18    k8s-master-01</span><br><span class="line">192.168.200.19    k8s-master-02</span><br><span class="line">192.168.200.20    k8s-master-03</span><br><span class="line">192.168.200.21    k8s-master-lb</span><br><span class="line">192.168.200.22    k8s-node-01</span><br><span class="line">192.168.200.23    k8s-node-02</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<h4 id="关闭防火墙，selinux，dnsmasq，swap"><a class="header-anchor" href="#关闭防火墙，selinux，dnsmasq，swap">¶ </a>关闭防火墙，selinux，dnsmasq，swap</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 关闭防火墙</span></span><br><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> --now firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 dnsmasq</span></span><br><span class="line">systemctl <span class="built_in">disable</span> --now dnsmasq</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 NetworkManager</span></span><br><span class="line">systemctl <span class="built_in">disable</span> --now NetworkManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 SELINUX</span></span><br><span class="line">sed -i <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭 swap 分区</span></span><br><span class="line">swapoff -a &amp;&amp; sysctl -w vm.swappiness=0</span><br><span class="line"><span class="comment"># 去掉 swap 挂在选项</span></span><br><span class="line">yes | cp /etc/fstab /etc/fstab_bak</span><br><span class="line">cat /etc/fstab_bak |grep -v swap &gt; /etc/fstab</span><br></pre></td></tr></table></figure>
-<h4 id="配置时间同步"><a class="header-anchor" href="#配置时间同步">¶ </a>配置时间同步</h4>
-<p>所有节点同步时间是必须的，并且需要加载到开机自启动和计划任务中，如果节点时间不同步，会造成 etcd 存储 Kubernetes 信息的键-值（key-value）数据库同步数据不正常，也会造成证书出现问题。时间同步配置如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装时间同步工具 ntpdate</span></span><br><span class="line">yum install -y ntpdate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改时区设置</span></span><br><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Asia/Shanghai'</span> &gt; /etc/localtime</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动同步时间</span></span><br><span class="line">ntpdate time2.aliyun.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加定时任务 crontab</span></span><br><span class="line">*/5 * * * * /usr/sbin/ntpdate time2.aliyun.com &gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入到开机自动同步 /etc/rc.local</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"/usr/sbin/ntpdate time2.aliyun.com"</span> &gt;&gt;/etc/rc.local</span><br></pre></td></tr></table></figure>
-<h4 id="修改-ulimit"><a class="header-anchor" href="#修改-ulimit">¶ </a>修改 ulimit</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'/# End of file/i\*    soft    nofile    65535'</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">'/# End of file/i\*    hard    nofile    65535'</span> /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
-<h4 id="配置秘钥登陆"><a class="header-anchor" href="#配置秘钥登陆">¶ </a>配置秘钥登陆</h4>
-<p>Master01 节点免密码登陆其他节点，安装过程中生成配置文件和证书均在 Master01 上操作，集群管理也在 master01 上操作，阿里云或者 AWS 上需要单独一台 kubectl 服务器。秘钥配置如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成秘钥</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送公钥到其他节点</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> k8s-master-01 k8s-master-02 k8s-master-03 k8s-master-lb k8s-node-01 k8s-node-02;<span class="keyword">do</span> ssh-copy-id -i .ssh/id_rsa.pub <span class="variable">$i</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h4 id="内核升级"><a class="header-anchor" href="#内核升级">¶ </a>内核升级</h4>
-<p>在安装过程中，很多文档及网上资源不会提及到内核升级的部分，但升级内核可以减少一些不必要的 BUG，也是安装过程中极为重要的一步。</p>
-<ol>
-<li>
-<p>下载内核安装包</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p packages/kernel</span><br><span class="line">wget -P packages/kernel --no-check-certificate https://mirror.rc.usf.edu/elrepo/kernel/el7/x86_64/RPMS/kernel-ml-5.10.5-1.el7.elrepo.x86_64.rpm </span><br><span class="line">wget -P packages/kernel --no-check-certificate https://mirror.rc.usf.edu/elrepo/kernel/el7/x86_64/RPMS/kernel-ml-devel-5.10.5-1.el7.elrepo.x86_64.rpm</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>将内核升级包复制到其他节点</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> k8s-master-01 k8s-master-02 k8s-master-03 k8s-master-lb k8s-node-01 k8s-node-02;<span class="keyword">do</span> scp -r packages <span class="variable">$i</span>:/root/;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>所有节点升级内核</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum localinstall -y packages/kernel/kernel-ml*</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>所有节点修改内核启动顺序</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grub2-set-default 0</span><br><span class="line">grub2-mkconfig -o /etc/grub2.cfg</span><br><span class="line">grubby --args=<span class="string">"user_namespace.enable=1"</span> --update-kernel=<span class="string">"<span class="variable">$(grubby --default-kernel)</span>"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>所有节点重启，然后确认内核版本，ulimit 参数</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -r &amp;&amp; <span class="built_in">ulimit</span> -n</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="安装-ipvs"><a class="header-anchor" href="#安装-ipvs">¶ </a>安装 ipvs</h4>
-<p>本书的 Kube-Proxy 均采用 ipvs 模式，该模式也是新版默认支持的代理模式，性能比 iptables 要高，如果服务器未配置安装 ipvs，将转换为 iptables 模式。</p>
-<ol>
-<li>
-<p>所有节点安装 ipvsadm</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y ipvsadm ipset sysstat conntrack libseccomp</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>所有节点配置 ipvs 模块，在内核 4.19 版本 nf_conntrack_ipv4 已经改为 nf_conntrack。</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建 /etc/sysconfig/modules/k8s.modules 配置文件 </span></span><br><span class="line">cat &lt;&lt;EOF |tee /etc/sysconfig/modules/k8s.modules</span><br><span class="line">ip_vs</span><br><span class="line">ip_vs_rr</span><br><span class="line">ip_vs_wrr</span><br><span class="line">ip_vs_sh</span><br><span class="line">nf_conntrack</span><br><span class="line">ip_tables</span><br><span class="line">ip_set</span><br><span class="line">xt_set</span><br><span class="line">ipt_set</span><br><span class="line">ipt_rpfilter</span><br><span class="line">ipt_REJECT</span><br><span class="line">ipip</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 载入模块</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /etc/sysconfig/modules/k8s.modules`;<span class="keyword">do</span> modprobe <span class="variable">$i</span>;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>配置 K8S集群中必须的内核参数，所有节点都要配置</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;/etc/sysctl.d/k8s.conf</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">fs.may_detach_mounts = 1</span><br><span class="line">vm.overcommit_memory = 1</span><br><span class="line">vm.panic_on_oom = 0</span><br><span class="line">fs.inotify.max_user_watches = 89100</span><br><span class="line">fs.file-max = 52706963</span><br><span class="line">fs.nr_open = 52706963</span><br><span class="line">net.netfilter.nf_conntrack_max = 2310720</span><br><span class="line">net.ipv4.tcp_keepalive_time = 600</span><br><span class="line">net.ipv4.tcp_keepalive_probes = 3</span><br><span class="line">net.ipv4.tcp_keepalive_intvl = 15</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 36000</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_max_orphans = 327680</span><br><span class="line">net.ipv4.tcp_orphan_retries = 3</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 16384</span><br><span class="line">net.ipv4.tcp_timestamps = 0</span><br><span class="line">net.core.somaxconn = 16384</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="基本组件安装"><a class="header-anchor" href="#基本组件安装">¶ </a>基本组件安装</h3>
-<p>本节主要安装的是集群中用到的各种组件，比如 Docker-ce，Kubernetes 各组件等。</p>
-<h4 id="安装-docker-ce"><a class="header-anchor" href="#安装-docker-ce">¶ </a>安装 docker-ce</h4>
-<ol>
-<li>
-<p>卸载旧版本的 Docker</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum remove -y docker \</span><br><span class="line">docker-client \</span><br><span class="line">docker-client-latest \</span><br><span class="line">docker-common \</span><br><span class="line">docker-latest \</span><br><span class="line">docker-latest-logrotate \</span><br><span class="line">docker-logrotate \</span><br><span class="line">docker-selinux \</span><br><span class="line">docker-engine-selinux \</span><br><span class="line">docker-engine</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>设置 yum 仓库</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装 yum 工具以及依赖</span></span><br><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 docker ce yum 源</span></span><br><span class="line">yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">yum makecache fast</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 k8s yum 源</span></span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看可用的 docker-ce 版本，以及可用的 kubeadm 组件版本</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum list docker-ce.x86_64 --showduplicates |sort -r</span><br><span class="line">yum list kubeadm --showduplicates |sort -r</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>安装的 Docker-ce，这里安装的版本为 19.03.11</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y docker-ce-19.03.11 docker-ce-cli-19.03.11 containerd.io-1.4.3-3.1</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>可以先使用 yum 将软件包下载到本地，然后拷贝到其他节点，再进行离线安装，如</p>
-</blockquote>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载离线安装包</span></span><br><span class="line">mkdir -p packages/docker-ce</span><br><span class="line">yum install -y --downloaddir=./packages/docker-ce/ --downloadonly docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="comment"># 复制离线包到其他节点</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> k8s-master-01 k8s-master-02 k8s-master-03 k8s-master-lb k8s-node-01 k8s-node-02;<span class="keyword">do</span> scp -r packages/docker-ce <span class="variable">$i</span>:/root/packages;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>创建 docker 默认配置文件，并设置 docker 开机启动</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /etc/docker</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"registry-mirrors"</span>: [<span class="string">"https://registry.cn-hangzhou.aliyuncs.com"</span>],</span><br><span class="line"><span class="string">"exec-opts"</span>: [<span class="string">"native.cgroupdriver=systemd"</span>],</span><br><span class="line"><span class="string">"log-driver"</span>: <span class="string">"json-file"</span>,</span><br><span class="line"><span class="string">"log-opts"</span>: &#123;</span><br><span class="line">    <span class="string">"max-size"</span>: <span class="string">"100m"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"storage-driver"</span>: <span class="string">"overlay2"</span>,</span><br><span class="line"><span class="string">"storage-opts"</span>: [</span><br><span class="line">    <span class="string">"overlay2.override_kernel_check=true"</span></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="安装-Kubernetes-组件"><a class="header-anchor" href="#安装-Kubernetes-组件">¶ </a>安装 Kubernetes 组件</h4>
-<ol>
-<li>
-<p>安装 kubeadm，这里安装的版本为 1.19.6</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm-1.19.6-0 kubectl-1.19.6-0 kubelete-1.19.6-0</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>修改 Kubelet 使用阿里云的 pause 镜像，使用 kubeadm 初始化时会读取该文件的变量</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOCKER_CGROUPS=$(docker info|grep <span class="string">'Cgroup'</span>|cut -d <span class="string">' '</span> -f4)</span><br><span class="line">cat &gt;/etc/sysconfig/kubelet &lt;&lt;EOF       </span><br><span class="line">KUBELET_EXTRA_ARGS=<span class="string">"--cgroup-driver=<span class="variable">$DOCKER_CGROUPS</span> --pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:3.1"</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>设置 kubelet 开机启动</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> --now kubelet</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="集群初始化"><a class="header-anchor" href="#集群初始化">¶ </a>集群初始化</h3>
-<p>本节进行 Kubernetes 集群初始化，主要目的是生成集群中用到的证书和配置文件。(在二进制安装过程中，证书和配置文件需要自行生成)<br>
-本例高可用方式采用的是 HAProxy + Keepalived，HAProxy 和 Keepalived 以守护进程的方式在所有 Master 节点部署。</p>
-<h4 id="安装配置-HAProxy与-Keepalived"><a class="header-anchor" href="#安装配置-HAProxy与-Keepalived">¶ </a>安装配置 HAProxy与 Keepalived</h4>
-<ol>
-<li>
-<p>通过 yum 安装 HAProxy 和 Keepalived</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y keepalived haproxy</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在所有 Master 节点配置 HAProxy（详细配置参考 HAProxy 文档，所有 Master 节点的 HAProxy 配置相同）</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg_back</span></span><br><span class="line"><span class="comment"># vim /etc/haproxy/haproxy.cfg</span></span><br><span class="line"></span><br><span class="line">global</span><br><span class="line">    <span class="built_in">ulimit</span>-n    16384</span><br><span class="line">    <span class="built_in">log</span>         127.0.0.1   local0  err</span><br><span class="line">    chroot      /var/lib/haproxy</span><br><span class="line">    pidfile     /var/run/haproxy.pid</span><br><span class="line">    maxconn     4000</span><br><span class="line">    user        haproxy</span><br><span class="line">    group       haproxy</span><br><span class="line">    daemon</span><br><span class="line">    stats timeout   30s</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode                    http</span><br><span class="line">    <span class="built_in">log</span>                     global</span><br><span class="line">    option                  httplog</span><br><span class="line">    option                  dontlognull</span><br><span class="line">    option http-server-close</span><br><span class="line">    option forwardfor       except 127.0.0.0/8</span><br><span class="line">    option                  redispatch</span><br><span class="line">    retries                 3   </span><br><span class="line">    timeout http-request    15s </span><br><span class="line">    timeout queue           1m  </span><br><span class="line">    timeout connect         15s </span><br><span class="line">    timeout client          1m  </span><br><span class="line">    timeout server          1m  </span><br><span class="line">    timeout http-keep-alive 15s </span><br><span class="line">    timeout check           15s </span><br><span class="line">    maxconn                 3000</span><br><span class="line"></span><br><span class="line">frontend monitor-in</span><br><span class="line">    <span class="built_in">bind</span>         *:33305</span><br><span class="line">    mode         http</span><br><span class="line">    option       httplog</span><br><span class="line">    monitor-uri  /monitor</span><br><span class="line"></span><br><span class="line">listen stats</span><br><span class="line">    <span class="built_in">bind</span>    *:8006</span><br><span class="line">    mode    http</span><br><span class="line">    stats   <span class="built_in">enable</span></span><br><span class="line">    stats   hide-version</span><br><span class="line">    stats   uri  /stats</span><br><span class="line">    stats   refresh  30s</span><br><span class="line">    stats   realm  Haproxy\ Statistcs</span><br><span class="line">    stats   auth   admin:admin</span><br><span class="line"></span><br><span class="line">frontend K8S-master</span><br><span class="line">    <span class="built_in">bind</span>    0.0.0.0:16443</span><br><span class="line">    <span class="built_in">bind</span>    127.0.0.1:16443</span><br><span class="line">    mode    tcp</span><br><span class="line">    option  tcplog</span><br><span class="line">    tcp-request inspect-delay   5s</span><br><span class="line">    default_backend K8S-master</span><br><span class="line"></span><br><span class="line">backend K8S-master</span><br><span class="line">    mode    tcp</span><br><span class="line">    option  tcplog</span><br><span class="line">    option  tcp-check</span><br><span class="line">    balance roundrobin</span><br><span class="line">    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100</span><br><span class="line">    server k8s-master-01    192.168.200.18:6443     check</span><br><span class="line">    server k8s-master-02    192.168.200.19:6443     check</span><br><span class="line">    server k8s-master-03    192.168.200.20:6443     check</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>所有 Master 节点的 Keepalived 配置，注意修改 interface（服务器网卡），priority（优先级，不同即可），mcast_src_ip(本机IP)。详细配置参考 Keepalived 文档。</p>
-<ul>
-<li>k8s-master-01 节点的配置</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mv /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf_back</span></span><br><span class="line"><span class="comment"># vim /etc/keepalived/keepalived.conf</span></span><br><span class="line"></span><br><span class="line">! Configuration File <span class="keyword">for</span> keepalived </span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">router_id LVS_DEVEL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_apiserver &#123;</span><br><span class="line">    script <span class="string">"/etc/keepalived/check_apiserver.sh"</span></span><br><span class="line">    interval 2</span><br><span class="line">    weight -5</span><br><span class="line">    fall 3</span><br><span class="line">    rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    mcast_src_ip 192.168.200.18</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 2</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass K8SHA_KA_AUTH</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.10</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># track_script &#123;</span></span><br><span class="line">    <span class="comment">#     chk_apiserver</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>k8s-master-02 节点的配置</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mv /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf_back</span></span><br><span class="line"><span class="comment"># vim /etc/keepalived/keepalived.conf</span></span><br><span class="line"></span><br><span class="line">! Configuration File <span class="keyword">for</span> keepalived </span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">router_id LVS_DEVEL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_apiserver &#123;</span><br><span class="line">    script <span class="string">"/etc/keepalived/check_apiserver.sh"</span></span><br><span class="line">    interval 2</span><br><span class="line">    weight -5</span><br><span class="line">    fall 3</span><br><span class="line">    rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    mcast_src_ip 192.168.200.19</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 101</span><br><span class="line">    advert_int 2</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass K8SHA_KA_AUTH</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.10</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># track_script &#123;</span></span><br><span class="line">    <span class="comment">#     chk_apiserver</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>k8s-master-03 节点的配置</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mv /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf_back</span></span><br><span class="line"><span class="comment"># vim /etc/keepalived/keepalived.conf</span></span><br><span class="line"></span><br><span class="line">! Configuration File <span class="keyword">for</span> keepalived </span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">router_id LVS_DEVEL</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_apiserver &#123;</span><br><span class="line">    script <span class="string">"/etc/keepalived/check_apiserver.sh"</span></span><br><span class="line">    interval 2</span><br><span class="line">    weight -5</span><br><span class="line">    fall 3</span><br><span class="line">    rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    mcast_src_ip 192.168.200.20</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 102</span><br><span class="line">    advert_int 2</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass K8SHA_KA_AUTH</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.10</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># track_script &#123;</span></span><br><span class="line">    <span class="comment">#     chk_apiserver</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意，上述的健康检查是关闭的，集群建立完成后再开启</p>
-</blockquote>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># track_script &#123;</span></span><br><span class="line"><span class="comment">#     chk_apiserver</span></span><br><span class="line"><span class="comment"># &#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>配置 Keepalived 的健康检查文件 <code>/etc/keepalived/check_apiserver.sh</code></p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">check_apiserver</span></span>() &#123;</span><br><span class="line">    <span class="keyword">for</span> (( i=0; i&lt;5; i++ )); <span class="keyword">do</span></span><br><span class="line">        apiserver_job_id=$(pgrep kube-apiserver)</span><br><span class="line">        <span class="keyword">if</span> [[ ! -z <span class="variable">$apiserver_job_id</span> ]];<span class="keyword">then</span></span><br><span class="line">            <span class="built_in">return</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            sleep 2</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        apiserver_job_id=0</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1: running 0: stopped</span></span><br><span class="line">check_apiserver</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$apiserver_job_id</span> -eq 0 ]]; <span class="keyword">then</span></span><br><span class="line">    /usr/bin/systemctl stop keepalived</span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>启动 haproxy 和 Keepalived</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now haproxy.service </span><br><span class="line">systemctl <span class="built_in">enable</span> --now keepalived.service</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>高可用方式不一定非要采用 HAProxy 和 Keepalived，在云上的话可以使用云上的负载均衡，比如在阿里云上的话可以使用阿里云内部的 SLB，就无需再配置 HAProxy 和 Keepalived，只需要将对应的 VIP 改成 SLB 的地址即可。在企业内部可以使用 F5 硬件负载，反向代理到每台 Master 节点的 6443 端口即可。</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="配置-kubeadm"><a class="header-anchor" href="#配置-kubeadm">¶ </a>配置 kubeadm</h4>
-<p>kubeadm 的安装方式可以配合使用 kubeadm-config.yaml 文件来初始化集群，所以需要提前创建各 Master 节点的 kubeadm-conf。由于国内网络的问题，需要将集群镜像的仓库地址改成 imageRepository:registry.cn-hangzhou.aliyuncs.com/google_containers。</p>
-<ol>
-<li>
-<p>各 Master 节点的配置文件如下：</p>
-<ul>
-<li>k8s-master-01</li>
-</ul>
- <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kubeadm.k8s.io/V1beta2</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">MasterConfiguration</span></span><br><span class="line"><span class="attr">kubernetesVersion:</span> <span class="string">v1.19.6</span></span><br><span class="line"><span class="attr">imageRepository:</span> <span class="string">registry.cn-hangzhou.aliyunce.com/google_containers</span></span><br><span class="line"><span class="attr">api:</span></span><br><span class="line"><span class="attr">advertiseAddress:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line"><span class="attr">controlPlaneEndpoint:</span> <span class="string">k8s-master-lb:16443</span></span><br><span class="line"><span class="attr">controllerManagerExtraArgs:</span></span><br><span class="line"><span class="attr">node-monitor-grace-period:</span> <span class="string">10s</span></span><br><span class="line"><span class="attr">pod-eviction-timeout:</span> <span class="string">10s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiServerCertSANs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-lb</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-01</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-02</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-03</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.10</span></span><br><span class="line"><span class="attr">etcd:</span></span><br><span class="line"><span class="attr">local:</span></span><br><span class="line">    <span class="attr">extraArgs:</span></span><br><span class="line">    <span class="attr">listen-client-urls:</span> <span class="string">"https://127.0.0.1:2379, https://192.168.200.18:2379"</span></span><br><span class="line">    <span class="attr">advertise-client-urls:</span> <span class="string">"https://192.168.200.18:2379"</span></span><br><span class="line">    <span class="attr">listen-peer-urls:</span> <span class="string">"https://192.168.200.18:2380"</span></span><br><span class="line">    <span class="attr">initial-advertise-peer-urls:</span> <span class="string">"https://192.168.200.18:2380"</span></span><br><span class="line">    <span class="attr">initial-cluster:</span> <span class="string">"k8s-master-01=https://192.158.200.18:2380"</span></span><br><span class="line">    <span class="attr">serverCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-01</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line">    <span class="attr">peerCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-01</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line"><span class="attr">networking:</span></span><br><span class="line"><span class="attr">podSubnet:</span> <span class="string">"172.168.0.0/16"</span></span><br><span class="line"><span class="attr">kubeProxy:</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">    <span class="attr">featureGates:</span></span><br><span class="line">    <span class="attr">SupportIPVSProxyMode:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">ipve</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>k8s-master-02</li>
-</ul>
- <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kubeadm.k8s.io/V1beta2</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">MasterConfiguration</span></span><br><span class="line"><span class="attr">kubernetesVersion:</span> <span class="string">v1.19.6</span></span><br><span class="line"><span class="attr">imageRepository:</span> <span class="string">registry.cn-hangzhou.aliyunce.com/google_containers</span></span><br><span class="line"><span class="attr">api:</span></span><br><span class="line"><span class="attr">advertiseAddress:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line"><span class="attr">controlPlaneEndpoint:</span> <span class="number">192.168</span><span class="number">.20</span><span class="number">.10</span><span class="string">:16443</span></span><br><span class="line"><span class="attr">controllerManagerExtraArgs:</span></span><br><span class="line"><span class="attr">node-monitor-grace-period:</span> <span class="string">10s</span></span><br><span class="line"><span class="attr">pod-eviction-timeout:</span> <span class="string">10s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiServerCertSANs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-lb</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-01</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-02</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-03</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.10</span></span><br><span class="line"><span class="attr">etcd:</span></span><br><span class="line"><span class="attr">local:</span></span><br><span class="line">    <span class="attr">extraArgs:</span></span><br><span class="line">    <span class="attr">listen-client-urls:</span> <span class="string">"https://127.0.0.1:2379, https://192.168.200.19:2379"</span></span><br><span class="line">    <span class="attr">advertise-client-urls:</span> <span class="string">"https://192.168.200.19:2379"</span></span><br><span class="line">    <span class="attr">listen-peer-urls:</span> <span class="string">"https://192.168.200.19:2380"</span></span><br><span class="line">    <span class="attr">initial-advertise-peer-urls:</span> <span class="string">"https://192.168.200.19:2380"</span></span><br><span class="line">    <span class="attr">initial-cluster:</span> <span class="string">"k8s-master-01=https://192.158.200.18:2380, k8s-master-02=https://192.158.200.18=9:2380"</span></span><br><span class="line">    <span class="attr">initial-cluster-state:</span> <span class="string">existing</span></span><br><span class="line">    <span class="attr">serverCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-02</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line">    <span class="attr">peerCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-02</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line"><span class="attr">networking:</span></span><br><span class="line"><span class="attr">podSubnet:</span> <span class="string">"172.168.0.0/16"</span></span><br><span class="line"><span class="attr">kubeProxy:</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">    <span class="attr">featureGates:</span></span><br><span class="line">    <span class="attr">SupportIPVSProxyMode:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">ipve</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>k8s-master-03</li>
-</ul>
- <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">kubeadm.k8s.io/V1beta2</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">MasterConfiguration</span></span><br><span class="line"><span class="attr">kubernetesVersion:</span> <span class="string">v1.19.6</span></span><br><span class="line"><span class="attr">imageRepository:</span> <span class="string">registry.cn-hangzhou.aliyunce.com/google_containers</span></span><br><span class="line"><span class="attr">api:</span></span><br><span class="line"><span class="attr">advertiseAddress:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line"><span class="attr">controlPlaneEndpoint:</span> <span class="number">192.168</span><span class="number">.20</span><span class="number">.10</span><span class="string">:16443</span></span><br><span class="line"><span class="attr">controllerManagerExtraArgs:</span></span><br><span class="line"><span class="attr">node-monitor-grace-period:</span> <span class="string">10s</span></span><br><span class="line"><span class="attr">pod-eviction-timeout:</span> <span class="string">10s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiServerCertSANs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.18</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.19</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-lb</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-01</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-02</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">k8s-master-03</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.10</span></span><br><span class="line"><span class="attr">etcd:</span></span><br><span class="line"><span class="attr">local:</span></span><br><span class="line">    <span class="attr">extraArgs:</span></span><br><span class="line">    <span class="attr">listen-client-urls:</span> <span class="string">"https://127.0.0.1:2379, https://192.168.200.20:2379"</span></span><br><span class="line">    <span class="attr">advertise-client-urls:</span> <span class="string">"https://192.168.200.20:2379"</span></span><br><span class="line">    <span class="attr">listen-peer-urls:</span> <span class="string">"https://192.168.200.20:2380"</span></span><br><span class="line">    <span class="attr">initial-advertise-peer-urls:</span> <span class="string">"https://192.168.200.20:2380"</span></span><br><span class="line">    <span class="attr">initial-cluster:</span> <span class="string">"k8s-master-01=https://192.158.200.18:2380, k8s-master-02=https://192.158.200.19:2380, k8s-master-03=https://192.158.200.20:2380"</span></span><br><span class="line">    <span class="attr">initial-cluster-state:</span> <span class="string">existing</span></span><br><span class="line">    <span class="attr">serverCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-03</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line">    <span class="attr">peerCertSANs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master-03</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.20</span></span><br><span class="line"><span class="attr">networking:</span></span><br><span class="line"><span class="attr">podSubnet:</span> <span class="string">"172.168.0.0/16"</span></span><br><span class="line"><span class="attr">kubeProxy:</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">    <span class="attr">featureGates:</span></span><br><span class="line">    <span class="attr">SupportIPVSProxyMode:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">ipve</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>各 Master 节点提前下载镜像，可以节省初始化时间</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Compose volumes 和 networks 字段参考文档</title>
     <url>/2021/01/12/97-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/</url>
     <content><![CDATA[<p>参考文档: <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference" target="_blank" rel="noopener">Compose file versions and upgrading</a></p>
@@ -1647,366 +1498,6 @@ Kubernetes Node 运行后将会注册到 Kubernetes Master，并定时上报心�
       <tags>
         <tag>Docker</tag>
         <tag>Compose</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes 核心概念</title>
-    <url>/2021/01/12/101-Kubernetes-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<blockquote>
-<p>书籍名称：[基于 Kubernetes 的容器云实战]</p>
-</blockquote>
-<h2 id="Kubernetes-的核心概念"><a class="header-anchor" href="#Kubernetes-的核心概念">¶ </a>Kubernetes 的核心概念</h2>
-<p>与其他技术一样，Kubernetes 也会采用一些专用词汇，这可能对初学者的理解和掌握这项技术造成一定的障碍。本节就一些常用的术语进行说明，以帮助读者快速理解 Kubernetes 的基本概念。</p>
-<a id="more"></a>
-<h3 id="Pod"><a class="header-anchor" href="#Pod">¶ </a>Pod</h3>
-<p>Kubernetes 的基本调度单元称为 “Pod”，一个 Pod 可以包含一个或多个容器。这样可以保证同一个 Pod 内的容器运行在同一个宿主机上，并且可以共享资源。这些容器使用相同的网络命名空间，IP 地址和端口。<br>
-kubernetes 中的每个 Pod 都被分配一个唯一的 IP 地址，这样就可以允许应用程序使用端口而不会有冲突的风险。另外，同一个 Pod 的容器还可以共享一块存储卷空间，可以定义一个卷，如本地磁盘目录或网络磁盘。在 Kubernetes 中创建，调度和管理的最小单元是 Pod，而不是 Docker 容器。用户可以通过 Kubernetes API 手动管理 Pod，也可以委托给控制器来管理 Pod。</p>
-<h3 id="Replication-Controller"><a class="header-anchor" href="#Replication-Controller">¶ </a>Replication Controller</h3>
-<p>Replication Controller 用于管理，控制 Pod 的副本数，用于解决 Pod 的扩容，缩容问题。<br>
-通常，分布式应用为了性能或高可用性的考虑，需要复制多份资源，并且根据负载情况实现动态伸缩。通过 Replication Controller，我们可以指定一个应用需要几份副本，Kubernetes 将为每份副本创建一个 Pod，并且保证实际运行 Pod 数量总是与该副本数量相等。如果少于指定数量的 Pod 副本，Replication Controller 会重新启动新的 Pod 副本，反之会杀死多余的副本以保证数量不变。</p>
-<h3 id="Service"><a class="header-anchor" href="#Service">¶ </a>Service</h3>
-<p>Service 是真实应用服务的抽象，定义了 Pod 的逻辑集合和访问这个集合的策略。<br>
-Service 是一组协同工作的 Pod，就像多层架构应用中的一层，是 Pod 的路由代理抽象，用于解决 Pod 之间的服务发现问题。因为 Pod 的运行状态可动态变化（比如 Pod 迁移到其他机器或者在缩容过程中被终止等），所以访问端不能以固定 IP 的方式去访问该 Pod 提供的服务。Service 的引入旨在保证 Pod 的动态变化对访问端透明，访问端只需要知道 Service 的地址，由 Service 来提供代理。构成服务的 Pod 组通过 Label 选择器来定义。Kubernetes 通过给服务分配静态 IP 地址和域名来提供服务发现机制，并且以轮询调度的方式将流量负载均衡到能与选择器匹配的 Pod 的 IP 地址的网络连接上（即使故障导致 Pod 从一台机器移动到另一台机器）。<br>
-默认情况下，一个服务会暴露在集群中（例如，多个后端 Pod 可能被分组成一个服务，前端 Pod 的请求在它们之间负载均衡）；但是一个服务也可以暴露在集群外部（例如，从客户端访问前端 Pod）。</p>
-<h3 id="Lable-及-Label-Selector"><a class="header-anchor" href="#Lable-及-Label-Selector">¶ </a>Lable 及 Label Selector</h3>
-<p>Kubernetes 将称为 Label 的键值对附加到系统中的任何 API 对象上，如 Pod，Service，Replication Controller 等。实际上，Kubernetes 中的任意 API 对象都可以通过 Label 进行标识。每个 API 对象可以有多个 Label，但每个 Label 的 Key 只能是唯一值。相应的，Label Selector 则是针对匹配对象的标签来进行查询。Label 和 Label Selector 是 Kubernetes 中的主要分组机制，用于确定操作适用的组件。</p>
-<p>例如，如果应用程序的 Pod 具有系统的标签 tier（如：“front-end”, “back-end”）和一个 release_track(如：“canary”, “production”)，那么对所有 back-end 和 canary 节点的操作可以使用如下所示的 Label Selector:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tier=back-end AND release_track=canary</span><br></pre></td></tr></table></figure>
-<h3 id="Node"><a class="header-anchor" href="#Node">¶ </a>Node</h3>
-<p>Node 也称为 Worker 或 Minion 节点，是主从分布式集群架构的计算单元，是分配给 Pod 并运行 Pod 的宿主机。<br>
-Kubernetes 集群中的每个计算节点都必须运行 Docker 引擎以及下面提到的组件，以便与这些容器的网络配置进行通信。每个 Node 节点主要由三个模块组成：kubelet，kube-proxy，runtime。</p>
-<h3 id="Master"><a class="header-anchor" href="#Master">¶ </a>Master</h3>
-<p>Master 是 Kubernetes 分布式集群的管理控制中枢，所有任务分配都来自与此。<br>
-Master 节点主要由四个模块组成：</p>
-<ul>
-<li>API Server</li>
-<li>scheduler</li>
-<li>controller manager</li>
-<li>etcd</li>
-</ul>
-<h2 id="Kubernetes-架构及组件"><a class="header-anchor" href="#Kubernetes-架构及组件">¶ </a>Kubernetes 架构及组件</h2>
-<p>尽管 Docker 为容器管理提供了一个有用的抽象层和工具层，但 Kubernetes 不仅带来了类似的协助，还可以进行大规模容器编排并管理完整的应用程序栈。</p>
-<p>Kubernetes 为我们提供了自动化和工具来确保高可用性和服务可移植性。Kubernetes 还可以更好的控制资源使用情况，如整个基础架构中的 CPU，内存和磁盘空间。Kubernetes 的大多数管理交互都是通过 kubectl 脚本或 Restful 服务调用 API 来完成的。下图是 Kubernetes 的架构图<br>
-<img src="https://s3.ax1x.com/2020/12/15/rMPriF.png" alt="avatar"></p>
-<p>Kubernetes 管理集群及其工作负载的关键是：对比期望状态和实际状态。所有 Kubernetes 都在不断监测当前的实际状态，并通过 API 服务器或 Kubectl 脚本与管理员定义的期望状态进行同步。有时候这些状态不匹配，但系统总是在努力调和这两个状态。</p>
-<h3 id="Master-节点"><a class="header-anchor" href="#Master-节点">¶ </a>Master 节点</h3>
-<p>客户端通过 kubectl 命令行工具或 kubectl Proxy 来访问 Kubernetes 系统，在 Kubernetes 集群内部的客户端可以直接使用 kubectl 命令管理集群。kubectl Proxy 是 API 服务器的一个反向代理，在 Kubernetes 集群外部，客户端可以通过 kubectl Proxy 来访问 API 服务器。<br>
-从本质上讲，Kubernetes 管理节点是 Kubernetes 集群的大脑。Kubernetes 管理节点包含 API 服务器，它提供基于 Restful 的 Web Service 接口以用于查询或者定义我们所需要的各种集群和状态。需要注意的是，所有 Kubernetes 集群对象的增、删、改、查操作只能通过访问 Kubernetes 管理集群的主管理节点来操作，不能直接访问各 Node 节点。</p>
-<p>API 服务器内部有一套完整的安全机制，包括认证，授权及准入控制等相关模块。API 服务器在收到一个 REST 请求后，会首先执行认证，授权和准入控制的相关逻辑，过滤非法请求，然后将请求发送给 API 服务器中的 REST 服务模块以执行资源的具体操作逻辑。</p>
-<p>此外，Kubernetes 管理节点还包含调度程序，该程序与 API 服务器协同工作，以 Node 节点上的实际 Pod 为单位进行工作负载调度。默认情况下，基本 Kubernetes 调度程序将各 Pod 分散到集群中，并使用不同的节点来匹配 Pod 副本。Kubernetes 还允许为每个容器指定必要的资源，因此可以通过这些附加因素来改变调度策略。</p>
-<p>复制控制器与 API 服务器一起工作，以确保在任何给定时间正确运行 Pod 副本数量。如果我们的复制控制器定义了三个副本，并且我们的实际状态是两个 pod 副本，那么调度程序将被调用以在集群中某处添加第三个 Pod 副本。如果在任何给定时间发现集群中运行的 Pod 副本数较多，则会销毁部分 Pod 副本。通过这种方式，Kubernetes 总是保持用户预先设定的集群状态。</p>
-<p>最后，Kubernetes 将 Etcd 作为分布式配置存储，各种 Kubernetes 状态存储在 etcd 中，Etcd 允许第三方软件监视值的变化，因此，可以将 Etcd 理解成 Kubernetes 的共享记忆。</p>
-<p>接下来，所有 Node 节点上运行的 Proxy 进程通过 API 服务器查询并监听 Service 对象及其对应的 Endpoint（端点）信息，建立一个软件方式的负载均衡器来实现 Service 访问到后端 Pod 的流量转发功能。</p>
-<p>从上面的分析来看，Kubernetes 的各个组件的功能是很清晰的：<br>
-API 服务器: 提供了 Kubernetes 资源对象的唯一操作入口，其他组件都必须通过它提供的 API 来操作资源数据，通过对相关的资源数据 “全量查询 + 变化监听”，这些组件可以很 “实时” 地完成相关的业务功能，比如新建 Pod 的请求一旦被提交到 API 服务器中，Controller Manager 就会立即发现并开始调度。</p>
-<p>Controller Manager: 集群内部的管理控制中心，其主要目的是实现 Kubernetes 集群的故障检测和恢复的自动化工作。比如，根据 Replication Controller（RC，复制控制器）的定义完成 Pod 的复制或移除，以确保 Pod 实例数符合 RC 副本的定义；根据 Service 与 Pod 的管理管理，完成服务的 Endpoint 对象的创建和更新；其他诸如 Node 的发现，管理和状态监控，已杀死容器所占磁盘空间及本地缓存的镜像文件的清理等工作也都由 Controller Manager 来完成。</p>
-<p>Schedule：负责集群的资源调度，以及 Pod 在集群中的调度分配。资源调度在整个 Kubernetes 管理节点中是一个独立的组件，也就意味着可以根据客户需求定制化开发自己的调度器或者替换成第三方调度器。</p>
-<h3 id="Node-节点"><a class="header-anchor" href="#Node-节点">¶ </a>Node 节点</h3>
-<p>在每个 Node 节点中，都有几个关键组件。<br>
-Kubelet 与 API 服务器交互以更新状态并启动调度程序调用的新工作负载，kubelet 负责管理 Pod 和它上面的容器，Images(镜像)，Volumes(卷)等。</p>
-<p>kube-proxy 提供基本的负载均衡，并将指定的服务的流量指向后端正确的 Pod，正如 Kubernetes API 所定义的这些服务，可以在各类终端中以轮询的方式做一些简单的 TCP 和 UDP 传输。</p>
-<p>在 Node 节点运行的 kubelet 服务中内嵌了一个 Advisor 服务，Advisor 是 Google 的另外一个开源项目，用于实时监控 Docker 上运行的容器的性能指标。</p>
-<h3 id="调度控制原理"><a class="header-anchor" href="#调度控制原理">¶ </a>调度控制原理</h3>
-<p>Controller Manager 是 Kubernetes 集群内部的管理控制中心，负责 Kubernetes 集群内的 Node，Pod，服务端点，服务，资源配额，命名空间，服务账号等资源的管理，自动化部署，健康监测，并对异常资源执行自动化修复，确保集群各资源始终处于预期的工作状态。</p>
-<p>Controller Manager 是一个控制器集合，包含：</p>
-<ul>
-<li>Replication Controller</li>
-<li>Node Controller</li>
-<li>Resourcequota Controller</li>
-<li>Namespace Controller</li>
-<li>Serviceaccount Controller</li>
-<li>Token Controller</li>
-<li>Service Controller</li>
-<li>Endpoint Controller</li>
-</ul>
-<p>Controller Manager 是这些控制器的核心管理者。一般来说，智能系统和自动系统通常会通过一个操纵系统来不断的修正系统的状态。在 Kubernetes 集群中，每个控制器的核心工作原理就是：每个控制器通过 API 服务器来查看系统的运行状态，并尝试着将系统状态从 “现有状态” 修正到 “期望状态”.</p>
-<p>在 Kubernetes 集群中与 Controller Manager 并重的另一个组件是 Kubernetes Scheduler。<br>
-Kubernetes Scheduler 的主要作用是将待调度的 Pod 按照给定的调度算法和调度策略绑定到 Kubernetes 集群中某个合适的 Node 上，并将绑定信息写入 Etcd 中进行存储。<br>
-在整个调度过程中涉及三个对象：</p>
-<ul>
-<li>待调度 Pod 列表</li>
-<li>可用 Node 列表</li>
-<li>调度算法和调度策略</li>
-</ul>
-<p>简单的说，就是依据调度算法和调度策略，从可用 Node 列表中筛选出最适合的一个 Node 给待调度 Pod。<br>
-随后，目标节点上的 Kubelet 通过 API 服务器监听到 Kubernetes Scheduler 产生的 Pod 绑定事件，获取对应的 Pod 清单，下载 image 镜像并启动容器，然后再将 Pod 创建结果反馈给 API 服务器。</p>
-<h3 id="集群功能模块间的通讯"><a class="header-anchor" href="#集群功能模块间的通讯">¶ </a>集群功能模块间的通讯</h3>
-<p>作为 Kubernetes 集群的核心，API 服务器负责 Kubernetes 集群各功能模块之间的信息交互。Kubernetes 集群内的功能模块都是通过 API 服务器的接口函数调用将信息存入 Etcd 的，其他模块可通过 API 服务器（用 get，list 或 watch方式）来读取这些信息，从而实现模块之间的信息交互。</p>
-<p>例如，Node 节点上的 Kubelet 每隔一个时间周期，通过 API 服务器报告自身状态，API 服务器接收到这些信息后，将 Node 节点状态信息保存到 Etcd 中。Controller Manager 中的 Node Controller 通过 API 服务器定期读取这些 Node 节点状态信息，并做相应处理。又比如，Scheduler 监听到某个 Pod 创建的信息后，检索所有符合该 Pod 要求的 Node 节点列表，并将 Pod 绑定到节点列表中最符合要求的 Node 节点上；如果 Scheduler 监听到某个 Pod 被删除，则调用 API 服务器删除该 Pod 资源对象。Kubelet 一直监听 Pod 信息，一旦监听到 Pod 对象被删除，则删除本节点上相应的 Pod 实例；如果 Kubelet 监听到要修改 Pod 信息，则 Kubelet 修改本节点的 Pod 实例等。</p>
-<p>为了缓解集群各个模块对 API 服务器的访问压力，各功能模块都采用缓存机制来缓存数据。各功能模块定时通过 API 服务器接口调用方式获取指定资源对象信息（通过 list 及 watch 方式），并将信息进行本地缓存。这样一来，在一些情况下各功能模块通过访问本地缓存的方式来获取数据信息，而不需要直接访问 API 服务器。</p>
-<h3 id="Kubernetes-高可用方案"><a class="header-anchor" href="#Kubernetes-高可用方案">¶ </a>Kubernetes 高可用方案</h3>
-<p>系统的高可用性一直是用户重点关注的话题。在生产环境中，任何系统都需要持续，可靠的运行，特别是针对 Kubernetes 这样的云管理平台，因为 Kubernetes 系统承载着大量的应用，它的任何故障都可能使大面积的业务受影响，重要性不言而喻。</p>
-<p>Kubernetes 系统属于主从分布式架构，它的重要数据都集中存储在 Etcd 上，Etcd 在整个 Kubernetes 集群中处于核心数据库的地位，数据层的可靠性至关重要，为保证 Kubernetes 集群的高可用性，首先要保证数据库不是单点故障。Etcd 需要以集群的方式进行部署，以实现 Etcd 数据存储的冗余，备份与高可用性。</p>
-<p>Kubernetes 作为容器应用的管理中心，对集群内所有容器的生命周期进行管理，结合自身的健康检查及错误恢复机制，实现了集群内部应用层的高可用性。<br>
-Kubernetes Master 服务扮演着总控制中心的角色，其主要的三个服务 kube-apiserver，kube-controller-manager 和 kube-scheduler 通过不断与工作节点上 Kubelet 和 kube-proxy 进行通信来维护整个集群的健康状态。<br>
-Kubernetes Node 运行后将会注册到 Kubernetes Master，并定时上报心跳信息以说明其可用。Kubernetes Master 调度 Pod 到可用的 Kubernetes Node 部署运行，如果 Master 服务无法访问到某个 Node，则会将该 Node 标记为不可用，并不再向其调度新建的 Pod。如果 Kubernetes Node 发生宕机，Kubernetes Master 会将该 Kubernetes Node 设置为不可用状态，然后 Replication Controller 会重新创建 Pod，从而调度到新的 Kubernetes Node 上。当然，Kubernetes Node 的数目至少要大于 2 才可以保障 Pod 的高可用性。</p>
-<p>以 Master 的 kube-apiserver，kube-controller-manager 和 kube-scheduler 三个服务作为一个部署单元，类似于 Etcd 集群的典型部署配置。使用至少三台服务器安装 Master 服务，并且使用 Active-Standby-Standby 模式，保证任何时候总有一套 Master 能够正常工作。所有 工作节点上的 Kubelet 和 kube-proxy 服务则需要访问 Master 集群的统一访问入口地址，例如，可以使用 Pacemaker 等工具来实现。下图展示了一种典型的部署方式<br>
-<img src="https://s3.ax1x.com/2020/12/15/rMfLiF.png" alt="avatar"></p>
-<h2 id="Kubernetes-部署方案总结"><a class="header-anchor" href="#Kubernetes-部署方案总结">¶ </a>Kubernetes 部署方案总结</h2>
-<p>Kubernetes 可以在多种平台运行，从笔记本电脑到云服务商的虚拟机，再到机架上的裸机服务器。要创建一个 Kubernetes 集群，根据不同的场景需要做的也不尽相同，可能是运行一条命令，也可能是配置自己的定制集群。<br>
-如果用户只想试试 Kubernetes 的功能，我们推荐基于 Docker 的本地方案。本地服务器方案可在一台物理机上创建一个或者多个 Kubernetes 计算节点的单机集群。创建过程是全自动的。但是这种单击集群的规模和可用性都受限于单台机器。当用户准备好扩展到多台机器和更高可用性时，托管解决方案是最容易搭建和维护的。<br>
-全套云端方案只需要少数几个命令就可以在更多的云服务提供商搭建 Kubernetes 集群。并且有很活跃的社区支持，如 GCE，AWS，Azure。<br>
-定制方案需要花费更多的精力，但是覆盖了从零开始搭建 Kubernetes 集群的通用建议到分步骤的细节指引。</p>
-<p>Kubernetes 官方和社区针对不同系统和平台提供了自动化部署脚本，具体情况如下表：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">laaS Provider</th>
-<th style="text-align:center">Config.Mgmt</th>
-<th style="text-align:center">OS(操作系统)</th>
-<th style="text-align:center">Networking</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">GKE</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">GCE</td>
-</tr>
-<tr>
-<td style="text-align:center">Vagrant</td>
-<td style="text-align:center">SaltStack</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">GCE</td>
-<td style="text-align:center">SaltStack</td>
-<td style="text-align:center">Debian</td>
-<td style="text-align:center">GCE</td>
-</tr>
-<tr>
-<td style="text-align:center">Azure</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Weave</td>
-</tr>
-<tr>
-<td style="text-align:center">Docker Single Node</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">N/A</td>
-<td style="text-align:center">local</td>
-</tr>
-<tr>
-<td style="text-align:center">Docker Multi Node</td>
-<td style="text-align:center">Flannel</td>
-<td style="text-align:center">N/A</td>
-<td style="text-align:center">local</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">Ansible</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">none</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">Fannel</td>
-</tr>
-<tr>
-<td style="text-align:center">libvirt</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">KVM</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Fedora</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">AWS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">GCE</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Vagrant</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal(Offline)</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Calico</td>
-</tr>
-<tr>
-<td style="text-align:center">CloudStack</td>
-<td style="text-align:center">Ansible</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">VMware</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">Debian</td>
-<td style="text-align:center">OVS</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">CentOS</td>
-<td style="text-align:center">none</td>
-</tr>
-<tr>
-<td style="text-align:center">AWS</td>
-<td style="text-align:center">juju</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">OpenStack/HPCloud</td>
-<td style="text-align:center">Juju</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Joyent</td>
-<td style="text-align:center">Juju</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">AWS</td>
-<td style="text-align:center">SaltStack</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">OVS</td>
-</tr>
-<tr>
-<td style="text-align:center">Azure</td>
-<td style="text-align:center">SaltStack</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">OpenVPN</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-<tr>
-<td style="text-align:center">Bare-metal</td>
-<td style="text-align:center">custom</td>
-<td style="text-align:center">Ubuntu</td>
-<td style="text-align:center">Calico</td>
-</tr>
-<tr>
-<td style="text-align:center">libvirt/KVM</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Libvirt/KVM</td>
-</tr>
-<tr>
-<td style="text-align:center">Rackspace</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">CoreOS</td>
-<td style="text-align:center">Flannel</td>
-</tr>
-</tbody>
-</table>
-<p>表格中各列说明</p>
-<ul>
-<li>laaS Provider 是指提供 Kubernetes 运行环境的虚拟机或物理机（节点）资源的提供商</li>
-<li>OS 是指节点上运行的基础操作系统</li>
-<li>Config.Mgmt 是指节点上安装和管理 Kubernetes 软件的配置管理系统</li>
-<li>Networking 是指实现网络模型的软件，none 表示只支持一个节点，或支持单物理节点上的虚拟机节点</li>
-</ul>
-<p>Kubernetes 从开发至今，其部署方式已经变得越来越简单。常见的有以下三种方式：</p>
-<ol>
-<li>最简单的就是使用 Minikube 方式，下载一个二进制文件即可拥有一个单机版的 Kubernetes，而且支持各个平台；</li>
-<li>从源码安装。使用这种方式可以进行一些简单的配置，然后执行 <a href="http://kube-up.sh" target="_blank" rel="noopener">kube-up.sh</a> 就可以部署一个 Kubernetes 集群。可参见官方文档</li>
-<li>通过 kubeadm 部署，可参见官方文件；</li>
-</ol>
-<p>除了上面三种方式外，一些 Linux 发行版还提供了 Kubernetes 的安装包（比如 CentOS 7），直接执行 yum install -y etcd kubernetes 即可安装 Kubernetes，然后做些配置就可以完成部署了。<br>
-现在简单化的部署昂视屏蔽了很多细节，使得我们对于各个模块的感知少了很多，而且很容易觉得 Kubernetes 的内部部署细节非常麻烦或者复杂，但其实并非如此，因此强烈建议自行纯手工安装一套 Kubernetes 系统，对深入理解 Kubernetes 解决方案有很强的辅助作用。</p>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes 单 Master 节点安装</title>
-    <url>/2021/01/12/100-Kubernetes-%E5%8D%95Master%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<blockquote>
-<p>原文地址：<a href="https://kuboard.cn/install/install-dashboard.html" target="_blank" rel="noopener">安装 Kubernetes</a></p>
-</blockquote>
-<h2 id="配置要求"><a class="header-anchor" href="#配置要求">¶ </a>配置要求</h2>
-<p>本安装文档教程中，需要使用的配置要求如下：</p>
-<ul>
-<li>至少 2 台 2核4G 的服务器</li>
-<li>CPU 必须为 x86 架构，暂时未适配 arm 架构的 CPU</li>
-<li>CentOS 7.8 或者 CentOS Stream 8</li>
-</ul>
-<h3 id="安装后的软件版本"><a class="header-anchor" href="#安装后的软件版本">¶ </a>安装后的软件版本</h3>
-<ul>
-<li>Kubernetes v1.20.x
-<ul>
-<li>calico 3.17.1</li>
-<li>nginx-ingress 1.9.1</li>
-</ul>
-</li>
-<li><a href="http://Containerd.io" target="_blank" rel="noopener">Containerd.io</a> 1.4.3</li>
-</ul>
-<h2 id="安装步骤"><a class="header-anchor" href="#安装步骤">¶ </a>安装步骤</h2>
-<h3 id="安装检查"><a class="header-anchor" href="#安装检查">¶ </a>安装检查</h3>
-<ol>
-<li>
-<p>检查主机名，系统版本，CPU 信息。在 master 节点和 worker 节点都要执行以下命令：</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /etc/redhat-release     <span class="comment"># 查看系统版本</span></span><br><span class="line">hostname                    <span class="comment"># 查看主机名，此处的输出将会是该机器在 Kubernetes 集群中的节点名字，不能使用 localhost 作为节点的名字</span></span><br><span class="line">lscpu                       <span class="comment"># 查看 CPU 信息，本文档不支持 arm 架构，CPU 内核数量不能低于 2</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>修改主机名以及设置 hostname 解析</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改 hostname</span></span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname your-new-host-name</span><br><span class="line"><span class="comment"># 查看修改结果</span></span><br><span class="line">hostnamectl status</span><br><span class="line"><span class="comment"># 设置 hostname 解析</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"127.0.0.1     <span class="variable">$(hostname)</span>"</span> &gt;&gt; /etc/hosts</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>检查网络，在所有节点执行以下命令</p>
-<ul>
-<li>ip route show: 查看机器默认网卡，通常是 eth0，如</li>
-<li>ip address: 显示默认网卡的 IP 地址，Kubernetes 将使用此 IP 地址与集群内的其他节点通信</li>
-<li>所有节点上 Kubernetes 所使用的 IP 地址必须可以互通（无须 NAT 映射，无安全组或防火墙隔离）</li>
-</ul>
-</li>
-</ol>
-<h3 id="安装组件"><a class="header-anchor" href="#安装组件">¶ </a>安装组件</h3>
-<p>使用 root 身份在所有节点执行如下代码，以安装软件：</p>
-<ul>
-<li>containerd</li>
-<li>nfs-utils</li>
-<li>kubectl/kubeadm/kubelet</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
       </tags>
   </entry>
   <entry>
