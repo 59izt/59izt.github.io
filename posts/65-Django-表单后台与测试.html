@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Django 入门基础（Form&amp;Admin&amp;Test）"><meta name="keywords" content=""><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Django 入门基础（Form&amp;Admin&amp;Test）【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color4"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color5"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">111</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">67</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">21</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="page"><article class="page"><h1>menu.Django 入门基础（Form&amp;Admin&amp;Test）</h1><div class="about"><blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<h1>Django 表单 Form</h1>
+<h2 id="Django-Form-的特点"><a class="header-anchor" href="#Django-Form-的特点">¶ </a>Django Form 的特点</h2>
+<p>在之前的小节中，提前使用了一个 Django 的 Form 表单功能，当时代码如下：</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"><span class="keyword">from</span> bbs.models <span class="keyword">import</span> Topic</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewTopicForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line">    message = forms.CharField(</span><br><span class="line">        widget=forms.Textarea(</span><br><span class="line">            attrs=&#123;<span class="string">'rows'</span>: <span class="number">5</span>, <span class="string">'placeholder'</span>: <span class="string">'What is on your mind?'</span>&#125;</span><br><span class="line">        ),</span><br><span class="line">        max_length=<span class="number">4000</span>,</span><br><span class="line">        help_text=<span class="string">'The max length of the text is 4000.'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Topic</span><br><span class="line">        fields = [<span class="string">'subject'</span>, <span class="string">'message'</span>]</span><br></pre></td></tr></table></figure>
+<p>在这里，我们多了解一下关于 Django Form 的一些知识。</p>
+<p>Django Form 是 Django 的表单处理库。依赖 HttpRequest，它具有如下特点：</p>
+<ul>
+<li>快速自动生成 HTML 表单；</li>
+<li>表单数据验证；</li>
+<li>错误信息提示；</li>
+<li>自动转换为 Python 数据格式。</li>
+</ul>
+<p> </p>
+<h2 id="Django-Form-的内置字段"><a class="header-anchor" href="#Django-Form-的内置字段">¶ </a>Django Form 的内置字段</h2>
+<p>Django 的 Form 为我们提供了一些常用的内置字段，如 BooleanField，CharField，ChoiceField，DateField，DateTimeField，EmailField，FileField，FloatField，ImageField 等。<br>
+而在每个 Field 中，也提供了 labels, wigets, error_messages 等参数；其中 wigets 参数用于控制 Form 在网页中的样式，需要好好掌握；</p>
+<p> </p>
+<h2 id="Django-Form-的渲染"><a class="header-anchor" href="#Django-Form-的渲染">¶ </a>Django Form 的渲染</h2>
+<p>在上一小节中，没有使用表单内置的渲染功能，而是手工一个字段一个字段地进行布置。其实，在有些标准化的展示中，Form 表单可以支持更快的渲染方式：</p>
+<ul>
+<li><code></code>：将表单渲染成一个表格元素，每个输入框作为一个 <code>&lt;tr&gt;</code> 标签;</li>
+<li><code></code>： 将表单的每个输入框包裹在一个 <code>&lt;p&gt;</code> 标签内;</li>
+<li><code></code>：将表单渲染成一个列表元素，每个输入框作为一个 <code>&lt;li&gt;</code> 标签。</li>
+</ul>
+<p> </p>
+<h1>Django Form 后台验证</h1>
+<ol>
+<li>函数 full_clean() 依次调用每个 field 的 clean() 函数，该函数针对 field max_length，unique 等约束进行验证，如果验证成功则返回值，否则抛出 ValidationError 错误。如果有值返回，则放入 Form 的 cleaned_data 字典中；</li>
+<li>如果每个 field 的内置 clean() 函数都没有抛出 ValidationError 错误，则调用以 clean_ 开头，以 field 名字结尾的自定义 field 验证函数。验证成功与失败的处理方式同步骤 1；</li>
+<li>调用 form 的 clean() 函数。注意，这是是 Form 的 clean，而不是 field 的 clean()。如果 clean 没有错误，那么它将返回 cleaned_data 字典；</li>
+<li>如果到这一步没有 ValidationError 错误抛出，那么 cleaned_data 字典就填满了有效数据；否则 cleaned_data 不存在，Form 的另外一个字典 errors 填上验证错误。在 template 中，每个 field 获取自己错误的方式是: {{ form.username.errors }}</li>
+<li>如果有错误，则 is_valid() 返回 False，否则返回 True。</li>
+</ol>
+<p> </p>
+<h2 id="Django-后台-Admin"><a class="header-anchor" href="#Django-后台-Admin">¶ </a>Django 后台 Admin</h2>
+<p>Django 作为一个 Web 框架，相比于其他框架来说，还有一个开发者很喜欢的功能。它提供了一个开箱即用的后台管理功能，即平时俗称的 Django Admin。有了这个管理功能，当我们建好 Model 之后，就可以在后台的 Web 界面上进行数据库的增删改查了，这将大大方便平时的数据管理。</p>
+<h2 id="Admin-界面登录"><a class="header-anchor" href="#Admin-界面登录">¶ </a>Admin 界面登录</h2>
+<ol>
+<li>
+<p>在前面的实践中，运行了 <code>python manage.py migrate</code> 命令，将 Django 自带的数据表合并到了数据库，并且运行过 <code>python manage.py createsuperuser</code> 创建管理员；这样就可以通过访问 <code>http://127.0.0.1:8000/admin/</code> 这个URL，看到 Admin 的登录界面。</p>
+</li>
+<li>
+<p>在登录界面中输入用户名和密码，就进入了 Admin 的 UI 界面；而且在这个界面中，可以对系统的用户和用户组进行增删改查。</p>
+</li>
+</ol>
+<p> </p>
+<h2 id="应用-Model-的注册"><a class="header-anchor" href="#应用-Model-的注册">¶ </a>应用 Model 的注册</h2>
+<p>在通过 <code>python manage.py startapp</code> 命令，创建了 Django 的应用之后，会在 APP的目录下生成一个 <a href="http://admin.py" target="_blank" rel="noopener">admin.py</a> 文件。这个文件默认是空的。正是通过这个文件，我们可以将自己创建的 Model 注册到 Django Admin 的后台管理上。</p>
+<ol>
+<li>打开 bbs 目录下的 admin 文件，输入以下内容：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> bbs.models <span class="keyword">import</span> Board, Topic, Post</span><br><span class="line"></span><br><span class="line"><span class="meta">@admin.register(Board)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BoardAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@admin.register(Topic)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TopicAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@admin.register(Post)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：</p>
+<ul>
+<li>第4行，注册后台管理数据库，有两种方法：<code>admin.site.register(Board)</code> 和使用装饰器的 <code>@admin.register(Board)</code>。在这里，我们使用后面才推出的装饰器方法；它可以让注册方法和自定义 Model 管理功能紧靠在一起；</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>重启一次 Django 测试服务器；</li>
+<li>再次登录 Admin，就会看到我们自定义的 Board，Topic，Post 数据表，已经出现在后台管理界面上，且同样可以进行每条记录的管理</li>
+</ol>
+<p> </p>
+<h2 id="Model-Admin-自定义管理界面"><a class="header-anchor" href="#Model-Admin-自定义管理界面">¶ </a>Model Admin 自定义管理界面</h2>
+<p>上面，我们已经实现了后台管理的基本功能，但是 Django 还为我们提供了更多，它可以让我们自定义一些表现形式，实现更方便的搜索，导航，外键的显示。<br>
+我们将上面的 TopicAdmin 类更改为如下内容，其作用已经在注释中说明了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@admin.register(Topic)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TopicAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="comment"># 显示的标签字段，字段不能是 ManyToManyField 类型</span></span><br><span class="line">    list_display = (<span class="string">'subject'</span>, <span class="string">'board'</span>, <span class="string">'starter'</span>, <span class="string">'views'</span>, <span class="string">'last_updated'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置每页显示多少条记录，默认是 100 条</span></span><br><span class="line">    list_per_page = <span class="number">20</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置默认可编辑的字段</span></span><br><span class="line">    list_editable = [<span class="string">'subject'</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 排除一些不想被编辑的 fields，没有在列表的不可被编辑</span></span><br><span class="line">    fields = (<span class="string">'subject'</span>, <span class="string">'board'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置哪些字段可以点击进入编辑页面</span></span><br><span class="line">    list_display_links = (<span class="string">'board'</span>,)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 进行数据的排序，负号表示降序排序</span></span><br><span class="line">    ordering = (<span class="string">'-id'</span>,)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 显示过滤器</span></span><br><span class="line">    list_filter = (<span class="string">'board'</span>, <span class="string">'subject'</span>, <span class="string">'starter'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 显示搜索框，搜索框大小写敏感</span></span><br><span class="line">    search_fields = (<span class="string">'subject'</span>,)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 详细时间分层筛选</span></span><br><span class="line">    date_hierarchy = <span class="string">'last_updated'</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 外键新开窗口选择</span></span><br><span class="line">    raw_id_fields = (<span class="string">'board'</span>, <span class="string">'starter'</span>)</span><br></pre></td></tr></table></figure>
+<p> </p>
+<h1>Django 测试</h1>
+<p>单元测试用例写的越多越好，但在一般的工作中，留给开发人员写测试用例的时间并不是很多。所以我们会将测试用例集中于 Django 的三个主要方面：Model，View 和 Form，辅以 Mock 和 API 测试；</p>
+<p>在单元测试方面，Django 继承 Python 的 unittest，TestCase，实现了自己的 django.test.TestCase，编写测试用例通常从这里开始。测试代码通常位于 APP 的 <a href="http://test.py" target="_blank" rel="noopener">test.py</a> 文件中。如果测试用例较多，也可以在 APP 目录下新建 tests 文件夹，在这个文件夹内，按测试用例的大类，分文件存放。比如，我们的 Manabe 项目，就是在 test_models.py、test_views.py、test_forms.py 这样的文件中存放的。</p>
+<p>可以使用以下几种方式运行单元测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python manage.py test                               <span class="comment"># 执行所有的测试用例</span></span><br><span class="line">python manage.py test app_name                      <span class="comment"># 执行 该 App 的所有测试用例</span></span><br><span class="line">python manage.py test app_name.case_name            <span class="comment"># 执行指定的测试用例</span></span><br><span class="line">python manage.py test app_name.case_name.method     <span class="comment"># 执行指定的测试用例的方法</span></span><br></pre></td></tr></table></figure>
+<p>关于 Django 的单元测试，还有以下两项需要提前了解：</p>
+<ul>
+<li>对于每一个测试方法，都会将 TestCase 类中 setUp() 和 tearDown() 方法执行一遍；</li>
+<li>单独新建一个测试数据库来执行数据的测试，默认在测试完成后销毁；</li>
+</ul>
+</div></article><div id="pagination"><div class="pagination"></div></div><!--div!= paginator()--></article></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i></span><span id="busuanzi_value_site_uv"></span><span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i></span><span id="busuanzi_value_site_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

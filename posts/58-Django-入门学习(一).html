@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Django 入门学习（一）"><meta name="keywords" content=""><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Django 入门学习（一）【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color4"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color6"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">111</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">67</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">21</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="page"><article class="page"><h1>menu.Django 入门学习（一）</h1><div class="about"><blockquote>
+<p>参考文章：<a href="https://docs.djangoproject.com/zh-hans/3.1/intro/" target="_blank" rel="noopener">Django 3.1 官方教程</a></p>
+</blockquote>
+<h1>快速安装指南(环境部署)</h1>
+<p>主要分以下步骤：</p>
+<ul>
+<li>安装 Python 3.x.x（Python 3.8.6）</li>
+<li>安装 Django（Django 3.1）</li>
+</ul>
+<a id="more"></a>
+<h2 id="安装-Python"><a class="header-anchor" href="#安装-Python">¶ </a>安装 Python</h2>
+<p>安装 Python 使用 <code>pyenv</code> 安装即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install -v 3.8.6</span><br></pre></td></tr></table></figure>
+<h2 id="创建-django-项目虚拟环境"><a class="header-anchor" href="#创建-django-项目虚拟环境">¶ </a>创建 django 项目虚拟环境</h2>
+<p>关于项目虚拟环境，这里使用 pyenv 的插件 pyenv-virtualenv 管理，具体的安装方式此处略过；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv virtualenv 3.8.6 django</span><br></pre></td></tr></table></figure>
+<h2 id="切换到-django-环境，安装-Django"><a class="header-anchor" href="#切换到-django-环境，安装-Django">¶ </a>切换到 django 环境，安装 Django</h2>
+<p>使用 <code>pip install django</code> 即可自动安装最新版的 Django；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyenv active django</span><br><span class="line">pip install django</span><br></pre></td></tr></table></figure>
+<h1>常用操作指令</h1>
+<h2 id="创建项目"><a class="header-anchor" href="#创建项目">¶ </a>创建项目</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
+<h2 id="启动项目"><a class="header-anchor" href="#启动项目">¶ </a>启动项目</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<h2 id="创建应用"><a class="header-anchor" href="#创建应用">¶ </a>创建应用</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp polls</span><br></pre></td></tr></table></figure>
+<h2 id="创建模型迁移"><a class="header-anchor" href="#创建模型迁移">¶ </a>创建模型迁移</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations polls</span><br></pre></td></tr></table></figure>
+<h2 id="查看迁移SQL语句"><a class="header-anchor" href="#查看迁移SQL语句">¶ </a>查看迁移SQL语句</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py sqlmigrate polls 0001</span><br></pre></td></tr></table></figure>
+<h2 id="执行迁移SQL语句"><a class="header-anchor" href="#执行迁移SQL语句">¶ </a>执行迁移SQL语句</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage migrate</span><br></pre></td></tr></table></figure>
+<h2 id="创建管理员账号"><a class="header-anchor" href="#创建管理员账号">¶ </a>创建管理员账号</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
+<h1>项目目录及文件说明</h1>
+<p>在 Django 的哲学中，有两个重要的概念：<code>Project</code> 和 <code>App</code></p>
+<ul>
+<li>Project: 是配置和应用程序的集合。一个项目可以由多个应用程序或一个应用程序组成。如果没有一个 Project，就无法运行 Django 应用程序；</li>
+<li>App: 是一个可以完成某件事情的 Web 应用程序。一个应用程序通常由一组 models，views，templates，tests 组成；</li>
+</ul>
+<h1>项目 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 内容说明</h1>
+<p><code>mysite/settings.py</code> 是包含了 Django 项目设置的 Python 模块</p>
+<h2 id="应用-INSTALLED-APPS-设置项"><a class="header-anchor" href="#应用-INSTALLED-APPS-设置项">¶ </a>应用 INSTALLED_APPS 设置项</h2>
+<p>这个设置项包括了会在项目中启用的所有 Django 应用。通常，INSTALLED_APPS 默认包括了以下 Django 的自带应用：</p>
+<ul>
+<li>django.contrib.admin: 管理员站点；</li>
+<li>django.contrib.auth: 认证授权系统；</li>
+<li>django.contrib.contenttypes: 内容类型框架；</li>
+<li>django.contrib.sessions: 会话框架；</li>
+<li>django.contrib.messages: 消息框架；</li>
+<li>django.contrib.staticfiles: 管理静态文件的框架；</li>
+</ul>
+<p>这些应用被默认启用时为了给常规项目提供方便。</p>
+<h2 id="数据库-DATABASES-设置项"><a class="header-anchor" href="#数据库-DATABASES-设置项">¶ </a>数据库 DATABASES 设置项</h2>
+<p>要想设置 Django 使用 MySQL 引擎，需要安装 <code>mysqlclient</code>，此处也是使用 <code>pip</code> 安装；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install mysqlclient</span><br></pre></td></tr></table></figure>
+<h3 id="安装-mysqlclient-过程可能遇到的问题："><a class="header-anchor" href="#安装-mysqlclient-过程可能遇到的问题：">¶ </a>安装 mysqlclient 过程可能遇到的问题：</h3>
+<ul>
+<li>找不到 my_config 文件：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 苹果系统</span></span><br><span class="line">brew install mysql-connector-c</span><br><span class="line">ln -s /usr/<span class="built_in">local</span>/Cellar/mysql-client/8.0.19/bin/mysql_config /usr/bin/mysql_config </span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS</span></span><br><span class="line">yum install mysql-devel</span><br></pre></td></tr></table></figure>
+<ul>
+<li>找不到 _ctypes 模块</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CentOS 系统</span></span><br><span class="line">yum install libffi-devel</span><br><span class="line"><span class="comment"># Ubuntu 系统</span></span><br><span class="line">sudo apt-get install libffi-dev</span><br></pre></td></tr></table></figure>
+<h3 id="设置数据库使用-MySQL"><a class="header-anchor" href="#设置数据库使用-MySQL">¶ </a>设置数据库使用 MySQL</h3>
+<ul>
+<li>配置项目使用 MySQL 数据库，项目目录下的 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'mysite'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'wanwu'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'xxxxxx'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Django-中与数据库有关的命令"><a class="header-anchor" href="#Django-中与数据库有关的命令">¶ </a>Django 中与数据库有关的命令</h3>
+<ul>
+<li>migrate: 在数据库中创建定义的模型的数据表；</li>
+<li>makemigrations: 为模型的变更生成迁移文件；</li>
+</ul>
+</div></article><div id="pagination"><div class="pagination"></div></div><!--div!= paginator()--></article></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i></span><span id="busuanzi_value_site_uv"></span><span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i></span><span id="busuanzi_value_site_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Django 入门基础（URL&amp;Templates）"><meta name="keywords" content=""><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Django 入门基础（URL&amp;Templates）【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color1"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color0"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">111</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">67</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">21</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="page"><article class="page"><h1>menu.Django 入门基础（URL&amp;Templates）</h1><div class="about"><blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<h2 id="Django-路由-URL"><a class="header-anchor" href="#Django-路由-URL">¶ </a>Django 路由 URL</h2>
+<p>Django 的 URL 功能，可以说是在 models 层，view 层，url 层，都实现统一形式。path，include，reverse，resolve，get_absolute__rule  结合 namespace，使我们在制作 URL 时，正向解析和反向解析都易如反掌，千变万化，又不失规范优雅。</p>
+<a id="more"></a>
+<p> </p>
+<h3 id="URLConf-的简介"><a class="header-anchor" href="#URLConf-的简介">¶ </a>URLConf 的简介</h3>
+<p>URL 配置（URLConf）就像 Django 所支撑网站的目录。它的本质是 URL 与要为该 URL 调用的 view 函数之前的映射表；也就是告诉 Django，对于哪个 URL 调用哪段代码。</p>
+<p>Django 处理接收到的 URL 的流程如下：</p>
+<ol>
+<li>首先确定使用的 URLConf 模块，默认情况下使用的是 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 中的 ROOT_URLCONF 对应的模块。如果接收到的 HttpRequest 经由 Middlewares 配置了 URLConf 属性，则就会使用该属性配置的模块；</li>
+<li>Django 在该模块中查找 urlpatterns 变量，这个变量必须是 django.urls.path() 或者 django.urls.re_path() 实例的列表；</li>
+<li>Django 按顺序匹配 urlpatterns 中的模式，使用首先匹配到的模式；</li>
+<li>匹配到模式后，会执行该模式对应的视图函数，或者视图类，并把以下参数传递过去：
+<ul>
+<li>HttpRequest 实例；</li>
+<li>如果匹配到的模式没有返回 named group，则正则表达式返回的匹配内容就会作为 positional arguments。</li>
+<li>路径表达式匹配到的 named part 作为 keyword arguments，会被 django.urls.path() 和 django.urls.re_path() 所指定的 kwargs 所覆盖；</li>
+</ul>
+</li>
+<li>如果没有匹配到模式，或者处理过程中抛出了异常，则 Django 会调用处理异常的视图。</li>
+</ol>
+<p> </p>
+<h3 id="URLConf-的-urlpatterns"><a class="header-anchor" href="#URLConf-的-urlpatterns">¶ </a>URLConf 的 urlpatterns</h3>
+<p><a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 中默认就有 Urlpatterns，可以把它看做一个存放了映射关系的列表。<br>
+Django 2.x 中常用的是 path() 方法，还可以使用 re_path() 方法来兼容 1.x 版本中的 url() 方法。</p>
+<p>这里，将会使用以下虚构的 URL 文件作为示例讲解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> bbs <span class="keyword">import</span> views <span class="keyword">as</span> bbs_view</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'bbs/2019/'</span>, bbs_view.special_case_2019, name=<span class="string">'bbs_year_2019'</span>),</span><br><span class="line">    path(<span class="string">'bbs/&lt;int:year&gt;/'</span>, bbs_view.year_archive, name=<span class="string">'bbs_year_archive'</span>),</span><br><span class="line">    path(<span class="string">'bbs/&lt;int:year&gt;/&lt;int:month&gt;/'</span>,bbs_view.month_archive),</span><br><span class="line">    path(<span class="string">'bbs/&lt;int:year&gt;/&lt;int:month&gt;/&lt;slug:slug&gt;/'</span>, bbs_view.bbs_detail),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>函数 path() 具有四个参数，其中有：两个必选参数 route 和 view，两个可选参数 kwargs 和 name。</p>
+<p>接下来看看 path() 函数的四个参数含义：</p>
+<ol>
+<li>route[必选参数]: route 是一个匹配 URL 的准则（类似正则表达式）。这些准则不会匹配 GET 和 POST 参数或域名；</li>
+<li>view[必选参数]: 当 Django 找到了一个匹配的准则时，就会调用这个特定的视图函数，并传入一个 HttpRequest 对象作为第一个参数，被捕获的参数以关键字参数的形式传入；</li>
+<li>kwargs[可选参数]: 任意一个关键字参数都可以作为一个字典传递给目标视图函数；</li>
+<li>name[可选参数]: 为你的 URL 取名能使你在 Django 的任意地方唯一地引用它，尤其是在模板中。这个特性允许你只改一个文件就能全局地修改某个 URL 模式。</li>
+</ol>
+<p>Path 的 route 字符串中，可以使用 <code>&lt; &gt;</code>  获取符合条件的字符串，转换成对应数据类型传递给 views 处理函数中的变量名，这个带有 <code>&lt; &gt;</code> 的字符串，称为 path 转换器。<br>
+默认情况下，Django 内置下面的路径转换器：</p>
+<ul>
+<li>str: 匹配任何非空字符串，但不含 "/"，默认使用；</li>
+<li>int: 匹配 0 和正整数，返回一个 int 类型；</li>
+<li>slug: 可以理解为注释，后缀，附属等概念，是 URL 在最后的一部分解释性字符。该转换器匹配任何 ASCII 字符以及连接符和下划线；</li>
+<li>uuid: 匹配一个 uuid 格式的对象。为了防止冲突，规定必须使用连字符，所有字母必须小写，例如：0836561d3-9527-633c-b9b6-8a032e1565f0。返回一个 UUID 对象；</li>
+<li>path: 匹配任何非空字符串，重点是可以包含路径分隔符 “/”，这个转换器可以帮住你匹配整个 URL 而不是一段一段的 URL 字符串。</li>
+</ul>
+<p> </p>
+<h3 id="URLConf-的路由分发"><a class="header-anchor" href="#URLConf-的路由分发">¶ </a>URLConf 的路由分发</h3>
+<p>在同一个 Django 项目中有多个 APP 应用，如果大家共用一个 URL，那么在根 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 中就要写巨多的 urls 映射关系。这样看起来很不灵活，而且杂乱无章，容易造成混淆。<br>
+路由分发就是让每个 APP 拥有自己单独的 URL，方便以后的维护和管理。也就是在每个 APP 里，各自创建一个 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 路由模块，然后从根路由出发，将 APP 所属的路由请求全部转发到相应的 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 模块中。</p>
+<p>路由转发使用的是 include() 方法，所以需要导入它，它的参数是转发目的地路径的字符串，路径以圆点分割。</p>
+<p> </p>
+<h3 id="URLConf-的反向解析"><a class="header-anchor" href="#URLConf-的反向解析">¶ </a>URLConf 的反向解析</h3>
+<p>在使用 Django 项目时，一个常见的需求是获得 URL 的最终形式，以用于嵌入到生成的内容（视图或显示给用户的 URL 等）中，或者用于处理服务器端的导航（重定向等）。</p>
+<p>Django 提供了一个解决方案，使得 URL 映射器是 URL 设计的唯一存储库。用你的 URLConf 提供给它，然后它可以再两个方向上使用：</p>
+<ol>
+<li>从用户/浏览器请求的 URL 开始，它调用正确的 Django 视图，提供它可能需要的任何参数以及从 URL 中提取的值；</li>
+<li>从相应的 Django 视图的标识以及将传递给它的参数的值开始，获取关联的 URL；</li>
+</ol>
+<p>第一种使我们前面讨论过的用法，可以称之为 URL 正向解析；第二种是所谓的 URL 反向解析，反向 URL 匹配，反向 URL 查询或者 URL 反转；</p>
+<p>Django 提供了用于执行 URL 反转的工具，以匹配需要 URL 的不同图层。如要使用 URL 反转功能，需要在 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 中起一个别名 name；如果有多个 APP 应用，最好和下面讲的 URL 名称空间结合起来。</p>
+<ul>
+<li>在 Template 模板中，使用 URL 模板标签（URL’别名’）；</li>
+<li>在 Python 代码中，使用 reverse() 函数；</li>
+<li>在处理 Django 模型实例的 URL 相关的更高级别的代码中，使用 get_absolute_url() 方法（也就是在模型 model 中）；</li>
+</ul>
+<p> </p>
+<p>例如，一个最简单的 URL 定义如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> bbs <span class="keyword">import</span> views <span class="keyword">as</span> bbs_view</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'bbs/2009/'</span>, bbs_view.special_case_2019, name=<span class="string">'bbs_year_2019'</span>),</span><br><span class="line">    ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>那么，如果想要在模板中跳转到此 URL，则使用如下语法：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'bbs_year_2019' %&#125;"</span>&gt;</span>2019 bbs<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果想在 view 中跳转到此 URL，则使用如下语法，需要先导入 reverse 方法：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bbs_year_2019</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">'bbs_year_2019'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>而在 <a href="http://models.py" target="_blank" rel="noopener">models.py</a> 中，则使用的语法类似如下，前提是先定义好带参数的 bbs_view：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_absolute_url</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> reverse(<span class="string">'bbs_view'</span>, args=[self.slug])</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p> </p>
+<h3 id="URLConf-的命名空间"><a class="header-anchor" href="#URLConf-的命名空间">¶ </a>URLConf 的命名空间</h3>
+<p>命名空间是表示标识符的可见范围。一个标识符可以再多个命名空间中定义，它在不同命名空间中的含义是互不相干的。<br>
+如果 name 没有作用域，则 Django 在反解 URL 时，会在项目全局顺序搜索，当查找到第一个 name 指定的 URL 时，立即返回。<br>
+在开发项目时，会经常使用 name 属性反解出 URL。当不小心在不同的 APP 的 urls 中定义了相同的 name 时，可能会导致 URL 反解错误。为了避免这种事情发生，引入了命名空间。</p>
+<p>假如：如果 A 同事开发的应用里有一个 URL，命名为 index; 而同事 B开发的应用里也有一个 URL，同样命名为 index, 那么 Django 应该怎么区分这两个 URL 呢？<br>
+按照上面路由分发的思路，A 在自己应用的 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件中，新增一个 app_name=‘A’ 的命名空间；而 B 在自己应用的 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件中，新增一个 app_name=‘B’ 的命名空间。</p>
+<ol>
+<li>
+<p>经过这样一区分，如果想在模板中跳转到 A 的 index URL，则使用如下语法：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'A:index' %&#125;"</span>&gt;</span>A index<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果想在模板中跳转到 B 的 index URL，则使用如下语法：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'B:index' %&#125;"</span>&gt;</span>B index<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果想在 View 视图中跳转到 A 的 index URL，则使用如下语法：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">'A:index'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果想在 View 视图中跳转到 B 的 index URL，则使用如下语法：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">'B:index'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Django-模板-Template"><a class="header-anchor" href="#Django-模板-Template">¶ </a>Django 模板 Template</h2>
+<p>Django 的模板是一些文本字符串，它既可以存在于文件当中，也可以存在于内存当中，其作用是把文档的表现与数据区分开。<br>
+模板定义了一些占位符和基本的逻辑（模板标签），并规定如何显示文档。而 Django 会使用模板引擎来将一些上下文填充到占位符中。通常，模板用于生成 HTML，不过 Django 模板可以生成任何基于文本的格式。</p>
+<p>使用模板后大致有以下几个优点：</p>
+<ul>
+<li>将业务逻辑的 Python 代码和页面设计的 HTML 代码分离；</li>
+<li>使代码更干净整洁，更容易维护；</li>
+<li>使 Python 程序员和 HTML/CSS 程序员分工协作，提高生产效率；</li>
+<li>将 HTML 代码分离出来，使其能够复用。</li>
+</ul>
+<p>Django 新建项目完成后，在 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 文件中的 Template 变量中，配置了一个默认的模板引擎，即 <code>django.template.backends.django.DjangoTemplates</code>，此引擎支持 Django Template Language（DTL）。</p>
+<h3 id="Django-Template-Language-简介"><a class="header-anchor" href="#Django-Template-Language-简介">¶ </a>Django Template Language 简介</h3>
+<p>若想在 Python 代码中使用 Django 的模板系统，基本方式如下：先以字符串的形式提供原始的模板代码，创建 Template 对象。然后在 Template 对象上调用 render() 方法，传入一系列变量（上下文）。返回的是完全渲染模板后得到的字符串，模板中的变量和模板标签已经根据上下文求出值了。</p>
+<ul>
+<li>使用 <code>python manage.py shell</code> 命令进入支持 Django 的 Shell，运行以下示例，以便了解 DTL 的基本工作机制：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">from</span> django.template <span class="keyword">import</span> Template, Context</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: bbs = &#123;<span class="string">'title'</span>: <span class="string">'first post'</span>, <span class="string">'content'</span>: <span class="string">'bbs is free mind tool.'</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: t = Template(<span class="string">'&#123;&#123; bbs.title &#125;&#125; content is &#123;&#123; bbs.content &#125;&#125;.'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: c = Context(&#123;<span class="string">'bbs'</span>: bbs&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: t.render(c)</span><br><span class="line">Out[<span class="number">5</span>]: <span class="string">'first post content is bbs is free mind tool..'</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>第一行，导入我们需要的 Template 和 Context 模块；</li>
+<li>第二行，定义一个 bbs 字典变量，在真正的开发当中，上下文的变量是相当灵活的；</li>
+<li>第三行，创建一个模板对象 t，使用 {{ }} 来作变量占位 tag;</li>
+<li>第四行，将上下文实例化为第2行定义的 bbs 变量；</li>
+<li>第五行，在模板对象上调用 render() 方法，传递 Context 实例。这是返回渲染后模板的方法，这样会替换模板变量为真实的值和执行块标签。</li>
+</ul>
+<p> </p>
+<h3 id="模板变量，常用标签和过滤器"><a class="header-anchor" href="#模板变量，常用标签和过滤器">¶ </a>模板变量，常用标签和过滤器</h3>
+<p>DTL 的模板变量，常用标签和过滤器如下表所示</p>
+<table border=1; cellspacing=0; cellpadding=2px>
+    <tr>
+        <th>类别</th>
+        <th>细分</th>
+        <th>代码</th>
+    </tr>
+    <tr>
+        <td rowspan="2">模板变量</td>
+        <td>普通变量</td>
+        <td>{{ name }}</td>
+    </tr>
+    <tr>
+        <td>对象变量</td>
+        <td>{{ bbs.title }}<br/>(使用点号访问对象属性和方法，方法不加括号)</td>
+    </tr>
+    <tr>
+        <td rowspan="4">常用模板标签</td>
+        <td>if 标签</td>
+        <td>{% if %}...{% endif %}</td>
+    </tr>
+    <tr>
+        <td>for 标签</td>
+        <td>{% for item in items %}...{% endfor %}</td>
+    </tr>
+    <tr>
+        <td>相等判断</td>
+        <td>{% ifequal x y %}...{% endifequal %}<br />{% ifnotequal x y %}...{% endifnotequal %}</td>
+    </tr>
+    <tr>
+        <td>注释</td>
+        <td>{# 单行注释 #}<br />{% comment %}<br />多行注释{% endcomment %}</td>
+    </tr>
+    <tr>
+        <td rowspan="6">过滤器</td>
+        <td>全小写</td>
+        <td>{{ name|lower }}</td>
+    </tr>
+    <tr>
+        <td>全大写</td>
+        <td>{{ name|upper }}</td>
+    </tr>
+    <tr>
+        <td>首字母大写</td>
+        <td>{{ name|title }}</td>
+    </tr>
+    <tr>
+        <td>第一个元素</td>
+        <td>{{ user_list|first }}</td>
+    </tr>
+    <tr>
+        <td>最后一个元素</td>
+        <td>{{ user_list|last }}</td>
+    </tr>
+    <tr>
+        <td>返回长度</td>
+        <td>{{ word|length }}</td>
+    </tr>
+    <tr>
+        <td>模板引用</td>
+        <td>  </td>
+        <td>{% include url %}</td>
+    </tr>
+    <tr>
+        <td rowspan="3">模板继承</td>
+        <td>块(block)</td>
+        <td>{% block block_name %}{% endblock %}</td>
+    </tr>
+    <tr>
+        <td>继承母版</td>
+        <td>{% extends url %}</td>
+    </tr>
+    <tr>
+        <td>静态文件</td>
+        <td>{% load static %}</td>
+    </tr>
+    <tr>
+        <td>csrf_token</td>
+        <td>  </td>
+        <td>{% csr_token %}</td>
+    </tr>
+</table>
+<p> </p>
+<h3 id="Django-Template-加载配置及基本使用"><a class="header-anchor" href="#Django-Template-加载配置及基本使用">¶ </a>Django Template 加载配置及基本使用</h3>
+<p>平时我们开发项目时，都会讲模板存为一个 HTML 文件，然后通过 Django Template 加载机制，讲这些模板加载进内存，以备渲染。<br>
+为了从文件系统加载模板，首先要告诉框架模板的存储位置。这个位置在 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 文件中，找到 TEMPLATES 设置。它的值是一个列表，分别针对各个模板引擎：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [],</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><code>BACKEND</code> 的值是一个点分 Python 路径，指向实现 Django 模板后端 API 的模板引擎类。Django 默认实现的内置后端有 django.template.backends.django.DjangoTemplates 和 django.template.backends.jinja2.Jinja2;</p>
+<p>因为 多数引擎从文件中加载模板，所以各个引擎的顶层配置包含三个通用的配置：</p>
+<ol>
+<li>DIRS: 定义一个目录列表，模板引擎按顺序在其中查找模板文件；</li>
+<li>APP_DIRS: 设定是否在安装的应用中查找模板。按约定，APP_DIRS 设为 true  时，DjangoTemplates 会在 INSTALLED_APPS 中的各个应用里查找名为 templates 的子目录。这样，即使 DIRS 为空，模板引擎也能找到应用模板；</li>
+<li>OPTIONS: 是一些针对后端的设置</li>
+</ol>
+<p> </p>
+<p>下面通过这种方式，来实现一个带模板功能的 Web 服务网页。</p>
+<ol>
+<li>
+<p>在 bbs 目录下的 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 文件里，加入一个新的视图函数 <code>password_reset</code></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http.response <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.template.loader <span class="keyword">import</span> get_template</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">password_reset</span><span class="params">(request)</span>:</span></span><br><span class="line">    user = &#123;<span class="string">'username'</span>: <span class="string">'CK Wong'</span>, <span class="string">'email'</span>: <span class="string">'CK@demo.com'</span>&#125;</span><br><span class="line">    t = get_template(<span class="string">'bbs/password_reset.html'</span>)</span><br><span class="line">    context = &#123;<span class="string">'user'</span>: user&#125;</span><br><span class="line">    <span class="comment"># 在 Django 1.1 版本中可以直接传入 Context 对象，</span></span><br><span class="line">    <span class="comment"># 在 Django 1.11 后只能传入字典</span></span><br><span class="line">    html = t.render(context)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(html)</span><br></pre></td></tr></table></figure>
+<p>代码解释:</p>
+<ul>
+<li>首先导入  get_template 以及 HttpResponse 方法；</li>
+<li>定义一个 user 字典;</li>
+<li>调用 get_template 方法，生成一个 Template 实例，指定的模板为 bbs 目录下的 password_reset.html;</li>
+<li>定义一个 Context 上下文对象 context;</li>
+<li>使用 templates 实例的 render() 方法，指定参数为一个字典对象；</li>
+<li>此函数返回一个 HttpResponse 对象，成为一个视图。</li>
+</ul>
+</li>
+<li>
+<p>在 bbs 目录下新建目录 templates，在 templates 目录下新建 bbs 目录，然后在 bbs 目录下新建一个模板文件 password_reset.html.</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span> Passwor Reset<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span></span><br><span class="line">    Hi there,</span><br><span class="line"></span><br><span class="line">    Someone asked for a password reset for the email address &#123;&#123; user.email &#125;&#125;.</span><br><span class="line">    Follow the link below:</span><br><span class="line"></span><br><span class="line">    In case you forgot your Django Boards username: &#123;&#123; user.username &#125;&#125;.</span><br><span class="line">    If clicking the link above doesn't work, please copy and paste the URL</span><br><span class="line">    in a new browser windows instead.</span><br><span class="line"><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>因为在 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 文件中的 TEMPLATES 中，已将 ‘APP_DIRS’ 变量设置为 True，所以，当 Django 框架寻找网页模板时，会在当前应用的 templates 下寻找指定的模板文件。</li>
+<li>在此例中，指定的模板路径为 <code>bbs/password_reset.html</code>，那么它的真实路径就是 <code>[项目根目录]/bbs/templates/bbs/password_reset.html</code>。</li>
+</ul>
+</li>
+<li>
+<p>在 django_demo_project 目录下的 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件里，加入新的 path 实例。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'password_reset/'</span>, bbs_view.password_reset, name=<span class="string">'password_reset'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在浏览器里面访问 <code>http://127.0.0.1:8000/password_reset/</code>，查看网页显示的内容是否正常。</p>
+</li>
+</ol>
+<p> </p>
+<h3 id="Django-Template-的-Render-快捷使用"><a class="header-anchor" href="#Django-Template-的-Render-快捷使用">¶ </a>Django Template 的 Render 快捷使用</h3>
+<p>在 Django 的开发过程中，根据上下文渲染一个网页模板是一个最经常要实现的操作，因此 Django 框架的开发者们提供了一种更简单的快捷方式，只需要一行代码就能做到。这个简单的方式就是 django.shortcuts 模块中名为 render() 的函数。</p>
+<p>render() 函数中的第一个参数是请求对象；第二个参数是模板名称；第三个参数可选，是一个字段，用于创建传给模板的上下文。如果不指定第三个参数，则 render() 使用一个空字典。</p>
+<p>将 bbs 目录下 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 文件中 password_reset() 函数更改如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">password_reset</span><span class="params">(request)</span>:</span></span><br><span class="line">    user = &#123;<span class="string">'username'</span>: <span class="string">'CK Wong'</span>, <span class="string">'email'</span>: <span class="string">'CK@demo.com'</span>&#125;</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'bbs/password_reset.html'</span>, &#123;<span class="string">'user'</span>: user&#125;)</span><br></pre></td></tr></table></figure>
+<p>还有一个类似的函数 render_to_response()，这个函数所有的模板路径为 django.shortcuts.render_to_response。自 Django 1.3 开始，render() 方法是 render_to_response() 的一个崭新的快捷方式，前者会自动使用 RequestContext，而后者必须编码出来，这是最明显的区别。render_to_response() 在 Django 2.0 版本后已移除。</p>
+</div></article><div id="pagination"><div class="pagination"></div></div><!--div!= paginator()--></article></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i></span><span id="busuanzi_value_site_uv"></span><span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i></span><span id="busuanzi_value_site_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

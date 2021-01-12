@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Pandas 概览"><meta name="keywords" content=""><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Pandas 概览【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="author-info"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color8"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color4"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">111</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">67</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">21</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="page"><article class="page"><h1>menu.Pandas 概览</h1><div class="about"><blockquote>
+<p>原文地址：<a href="https://www.pypandas.cn/docs/getting_started/overview.html" target="_blank" rel="noopener">Pandas 中文网</a></p>
+</blockquote>
+<h1>Pandas 概览</h1>
+<p>Pandas 是 Python 的核心数据分析支持库，提供了快速，灵活，明确的数据结构，旨在简单，直观地处理关系型，标记型数据。Pandas 的目标是成为 Python 数据分析实践与实战的必备高级工具，其长远目标是是成为 <code>最强大，最灵活，可以支持任何语言的开源数据分析工具</code>. 经过多年不懈的努力，Pandas 离这个目标已经越来越近了。</p>
+<a id="more"></a>
+<h2 id="Pandas-适用于处理以下类型的数据："><a class="header-anchor" href="#Pandas-适用于处理以下类型的数据：">¶ </a>Pandas 适用于处理以下类型的数据：</h2>
+<ul>
+<li>与 SQL 或 Excel 表类似的，含异构列的表格数据；</li>
+<li>有序和无序（非固定频率）的时间序列数据；</li>
+<li>带行列标签的矩阵数据，包含同构或异构型数据；</li>
+<li>任意其他形式的观测，统计数据集，数据转入 Pandas 数据结构时不必事先标记。</li>
+</ul>
+<p>Pandas 的主要数据结构是 Series（一维数据）与 DataFrame（二维数据），这两种数据结构足以处理金融，统计，社会科学，工程等领域里的大多数典型用例。对于 R 用户，DataFrame 提供了比 R 语言 data.frame 更丰富的功能。Pandas 基于 NumPy 开发，可以与其他第三方科学计算支持库完美集成。</p>
+<h2 id="Pandas-的部分优势："><a class="header-anchor" href="#Pandas-的部分优势：">¶ </a>Pandas 的部分优势：</h2>
+<ul>
+<li>处理浮点与非浮点数据里的缺失数据，表示为 NaN；</li>
+<li>大小可变：插入或删除 DataFrame 等多维对象的列；</li>
+<li>自动，显式数据对齐：显式地将对象与一组标签对齐，也可以忽略标签，在 Series, DataFrame 计算时自动与数据对齐；</li>
+<li>强大，灵活的分组(group by)功能：拆分-应用-组合数据集，聚合，转换数据；</li>
+<li>把 Python 和 NumPy 数据结构里不规则，不同索引的数据轻松地转换为 DataFrame 对象；</li>
+<li>基于智能标签，对大型数据集进行切片，花式索引，子集分解等操作；</li>
+<li>直观地合并（merge），连接（join）数据集；</li>
+<li>灵活的重塑（reshape），透视（pivot）数据集；</li>
+<li>轴支持结构化标签：一个刻度支持多个标签；</li>
+<li>成熟的 IO 工具：读取文本文件（CSV 等支持分隔符的文件），Excel 文件，数据库等来源的数据，利用超快的 HDF5 格式保存/加载数据；</li>
+<li>时间序列：支持日期范围生成，频率转换，移动窗口统计，移动窗口线性回归，日期位移等时间序列功能；</li>
+</ul>
+<p>这些功能主要是为了解决其他编程语言，科研环境的痛点。处理数据一般分为几个阶段：数据整理与清洗，数据分析与建模，数据可视化与制表，Pandas 是处理数据的理想工具。</p>
+<h2 id="其他说明："><a class="header-anchor" href="#其他说明：">¶ </a>其他说明：</h2>
+<ul>
+<li>Pandas 速度很快，Pandas 的很多底层算法都用 Cython 优化过。然而，为了保持通用性，必然要牺牲一些性能，如果专注某一功能，完全可以开发出比 Pandas 更快的专用工具。</li>
+<li>Pandas 是 statsmodels 的依赖项，因此，Pandas 也是 Python 中统计计算生态系统的重要组成部分。</li>
+<li>Pandas 已广泛应用于金融领域。</li>
+</ul>
+<h1>数据结构</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">维数</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Series</td>
+<td style="text-align:left">带标签的一维同构数组</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">DataFrame</td>
+<td style="text-align:left">带标签的，大小可变的，二维异构表格</td>
+</tr>
+</tbody>
+</table>
+<h2 id="为什么有多个数据结构"><a class="header-anchor" href="#为什么有多个数据结构">¶ </a>为什么有多个数据结构</h2>
+<p>Pandas 数据结构就像是低维数据的容器。比如，DataFrame 是 Series 的容器，Series 则是标量的容器。使用这种方式，可以在容器中以字典的形式插入或删除对象。<br>
+此外，通用 API 函数的默认操作要顾及时间序列与截面数据集的方向。多维数组存储二维或三维数据时，编写函数要注意数据集的方向，这对用户来说是一种负担；如果不考虑 C 或 Fortran 中连续性对性能的影响，一般情况下，不同轴在程序里其实没有什么区别。Pandas 里，轴的概念主要是为了给数据赋予更直观的语义，即用&quot;更恰当&quot;的方式表示数据集的方向。这样做可以让用户编写数据转换函数时，少费点脑子。</p>
+<p>处理 DataFrame 等表格数据时，index(行) 或 columns(列) 比 axis 0 和 axis 1 更直观。用这种方式迭代 DataFrame的列，代码更易读易懂：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> df.columns:</span><br><span class="line">    series = df[col]</span><br><span class="line">    <span class="comment"># do something with series</span></span><br></pre></td></tr></table></figure>
+<h1>大小可变与数据复制</h1>
+<p>Pandas 所有数据结构的值都是可变的，但数据结构的大小并非都是可变的，比如，Series 的长度不可改变，但 DataFrame 里就可以插入列。<br>
+Pandas 里，绝大多数方法都不改变原始的输入数据，而是复制数据，生成新的对象。一般来说原始输入数据不变更稳妥。</p>
+</div></article><div id="pagination"><div class="pagination"></div></div><!--div!= paginator()--></article></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fas fa-user"></i></span><span id="busuanzi_value_site_uv"></span><span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fas fa-eye"></i></span><span id="busuanzi_value_site_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
