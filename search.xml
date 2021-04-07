@@ -258,6 +258,7 @@
 <li>系统：CentOS 7.9 x64 位最小化安装的系统</li>
 <li>Oracle 版本: linux.x64_11gR2_database</li>
 </ul>
+<a id="more"></a>
 <h3 id="安装依赖包"><a class="header-anchor" href="#安装依赖包">¶ </a>安装依赖包</h3>
 <p>由于系统是使用的 CentOS 最小化安装，所以需要安装一些依赖库</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install binutils \</span><br><span class="line">compat-libstdc++-33 \</span><br><span class="line">elfutils-libelf \</span><br><span class="line">elfutils-libelf-devel \</span><br><span class="line">expat \</span><br><span class="line">gcc \</span><br><span class="line">gcc-c++ \</span><br><span class="line">glibc \</span><br><span class="line">glibc-common \</span><br><span class="line">glibc-devel \</span><br><span class="line">glibc-headers \</span><br><span class="line">libaio \</span><br><span class="line">libaio-devel \</span><br><span class="line">libgcc \</span><br><span class="line">libstdc++ \</span><br><span class="line">libstdc++-devel \</span><br><span class="line">make \</span><br><span class="line">ksh \</span><br><span class="line">sysstat \</span><br><span class="line">unixODBC \</span><br><span class="line">unixODBC-devel</span><br></pre></td></tr></table></figure>
