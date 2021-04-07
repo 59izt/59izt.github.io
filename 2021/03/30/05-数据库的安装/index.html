@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="数据库的安装"><meta name="keywords" content="Python,爬虫开发环境配置"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>数据库的安装【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">MySQL 的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接"><span class="toc-number">1.1.</span> <span class="toc-text">¶ 相关链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-下的安装"><span class="toc-number">1.2.</span> <span class="toc-text">¶ Windows 下的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-下的安装"><span class="toc-number">1.3.</span> <span class="toc-text">¶ Linux 下的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu，Debian-和-Deepin"><span class="toc-number">1.3.1.</span> <span class="toc-text">¶ Ubuntu，Debian 和 Deepin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS-和-RedHat"><span class="toc-number">1.3.2.</span> <span class="toc-text">¶ CentOS 和 RedHat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-下的安装"><span class="toc-number">1.4.</span> <span class="toc-text">¶ Mac 下的安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">MongoDB 的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接-v2"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 相关链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-下的安装-v2"><span class="toc-number">2.2.</span> <span class="toc-text">¶ Windows 下的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-下的安装-v2"><span class="toc-number">2.3.</span> <span class="toc-text">¶ Linux 下的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu-安装-MongoDB"><span class="toc-number">2.3.1.</span> <span class="toc-text">¶ Ubuntu 安装 MongoDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS，RedHat-安装-MongoDB"><span class="toc-number">2.3.2.</span> <span class="toc-text">¶ CentOS，RedHat 安装 MongoDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MacOS-安装-MongoDB"><span class="toc-number">2.4.</span> <span class="toc-text">¶ MacOS 安装 MongoDB</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">Redis 的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关链接-v3"><span class="toc-number">3.1.</span> <span class="toc-text">¶ 相关链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-下的安装-v3"><span class="toc-number">3.2.</span> <span class="toc-text">¶ Windows 下的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-下的安装-v3"><span class="toc-number">3.3.</span> <span class="toc-text">¶ Linux 下的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu-Debian-和-Deepin-安装-Redis"><span class="toc-number">3.3.1.</span> <span class="toc-text">¶ Ubuntu, Debian 和 Deepin 安装 Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS-和-RedHat-安装-Redis"><span class="toc-number">3.3.2.</span> <span class="toc-text">¶ CentOS 和 RedHat 安装 Redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-下的安装-v2"><span class="toc-number">3.4.</span> <span class="toc-text">¶ Mac 下的安装</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color4"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">121</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">78</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">24</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">数据库的安装</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Python/">Python</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Python/">Python</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/%E7%88%AC%E8%99%AB%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">爬虫开发环境配置</a></div></div></div><div class="main-content"><blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>作为数据存储的重要部分，数据库同样是必不可少的，数据库可以分为关系型数据库和非关系型数据库。<br>
+关系型数据库如：SQLite，MySQL，Oracle，SQL Server，DB2 等，其数据库是以表的形式存储；非关系型数据库如 MongoDB，Redis，他们的存储形式是以键值对，存储形式更加灵活。</p>
+<a id="more"></a>
+<h1>MySQL 的安装</h1>
+<p>MySQL 是一个轻量级的关系型数据库，这里我们了解下它的安装方式。</p>
+<h2 id="相关链接"><a class="header-anchor" href="#相关链接">¶ </a>相关链接</h2>
+<ul>
+<li>官方网站： <a href="https://www.mysql.com/cn/" target="_blank" rel="noopener">https://www.mysql.com/cn/</a></li>
+<li>下载地址： <a href="https://www.mysql.com/cn/downloads/" target="_blank" rel="noopener">https://www.mysql.com/cn/downloads/</a></li>
+<li>中文教程： <a href="https://www.runoob.com/mysql/mysql-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/mysql/mysql-tutorial.html</a></li>
+</ul>
+<h2 id="Windows-下的安装"><a class="header-anchor" href="#Windows-下的安装">¶ </a>Windows 下的安装</h2>
+<p>对于 Windows 来说，可以直接在各种软件中心搜索 MySQL，下载其提供的 MySQL 安装包，速度还是比较快的。<br>
+当然，最安全稳妥的方式是直接到官网下载安装包进行安装，但是这样需要登录才可以下载，而且速度不快。<br>
+下载完成后，双击安装包安装，直接选择默认选项，点击 Next 按钮安装即可。（需要记住安装时设置的密码）<br>
+安装完成后，我们可以在 “计算机” -&gt; “管理” -&gt; “服务” 页面开启和关闭 MySQL 服务。<br>
+如果启动了MySQL 服务，就可以使用它来存储数据。</p>
+<h2 id="Linux-下的安装"><a class="header-anchor" href="#Linux-下的安装">¶ </a>Linux 下的安装</h2>
+<p>下面我们仍然分平台来介绍。</p>
+<h3 id="Ubuntu，Debian-和-Deepin"><a class="header-anchor" href="#Ubuntu，Debian-和-Deepin">¶ </a>Ubuntu，Debian 和 Deepin</h3>
+<p>在 Ubuntu，Debian 和 Deepin 系统中，我们直接使用 apt-get 命令即可安装 MySQL：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y mysql-server mysql-client</span><br></pre></td></tr></table></figure>
+<p>在安装过程中，会提示输入用户名和密码，输入后等待片刻即可完成安装。<br>
+启动，关闭和重启 MySQL 服务的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql start</span><br><span class="line">sudo service mysql stop</span><br><span class="line">sudo service mysql restart</span><br></pre></td></tr></table></figure>
+<h3 id="CentOS-和-RedHat"><a class="header-anchor" href="#CentOS-和-RedHat">¶ </a>CentOS 和 RedHat</h3>
+<p>这里以 MySQL 5.6 的 Yum 源为例来说明（如果需要更高版本，可以另寻），安装命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line">rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br><span class="line">yum install mysql mysql-server</span><br></pre></td></tr></table></figure>
+<p>运行上面命令即可完成安装，初始密码为空，接下来需要启动 MySQL 服务。<br>
+启动，停止，重启 MySQL 服务的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br><span class="line">systemctl stop mysqld</span><br><span class="line">systemctl restart mysqld</span><br></pre></td></tr></table></figure>
+<p>上面我们完成了 Linux 下 MySQL 的安装，之后可以修改密码，此时可以执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>输入密码后，进入 MySQL 命令行模式，接着输入如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">UPDATE user SET Password &#x3D; PASSWORD(&#39;newpass&#39;) WHERE user&#x3D;&#39;root&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<p>其中 newpass 为修改的新的 MySQL 密码，请自行替换。<br>
+由于 Linux 一般会作为服务器使用，为了使 MySQL 可以被远程访问，我们需要修改 MySQL 的配置文件，配置文件的路径一般为 /etc/mysql/my.cnf.<br>
+比如使用 vim 进行修改的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
+<p>注释此行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span>-address = 127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>此行限制了 MySQL 只能本地访问而不能远程访问，注释掉即可解除此限制。<br>
+修改完成后重启 MySQL 服务，此时 MySQL 就可以被远程访问了。</p>
+<h2 id="Mac-下的安装"><a class="header-anchor" href="#Mac-下的安装">¶ </a>Mac 下的安装</h2>
+<p>这里推荐使用 Homebrew 或者 MacPorts 的方式安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port install mysql57-server 或者 brew install mysql</span><br></pre></td></tr></table></figure>
+<p>这里以 port 方式安装，安装完成后，根据提示，进行 MySQL 初始化设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /opt/<span class="built_in">local</span>/lib/mysql57/bin/mysqld --initialize --user=_mysql</span><br></pre></td></tr></table></figure>
+<p>执行完上面的命令会有一行关于 root@localhost 的初始密码提示，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Note] A temporary password is generated <span class="keyword">for</span> root@localhost: DnfS!pukh7zf</span><br></pre></td></tr></table></figure>
+<p>执行完 MySQL 初始化之后，启动 MySQL 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo port load mysql57-server</span><br></pre></td></tr></table></figure>
+<p>然后执行下一步 MySQL 的安全设置，执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/<span class="built_in">local</span>/lib/mysql57/bin/mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>输入上面的命令，根据提示，输入刚开始提示的初始密码，然后可以选择修改一个自己容易记住的密码，然后根据提示往下设置即可。</p>
+<p>启动，停止和重启 MySQL 服务的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo port load mysql57-server</span><br><span class="line">sudo port unload mysql57-server</span><br><span class="line">sudo port reload mysql57-server</span><br></pre></td></tr></table></figure>
+<p>Mac 一般不会作为服务器使用，如果想取消本地 host 绑定，那么需要修改 my.cnf 文件，然后重启服务。</p>
+<h1>MongoDB 的安装</h1>
+<p>MongoDB 是由 C++ 语言编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统，其内容存储形式类似 JSON 对象，它的字段值可以包含其他文档，数组以及文档数组，非常灵活。<br>
+MongoDB 支持多平台，包括 Windows，Linux，macOS，Solaris 等，在其官网均可以找到相对应的安装包。</p>
+<h2 id="相关链接-v2"><a class="header-anchor" href="#相关链接-v2">¶ </a>相关链接</h2>
+<ul>
+<li>官方网站： <a href="https://www.mongodb.com/" target="_blank" rel="noopener">https://www.mongodb.com/</a></li>
+<li>官方文档： <a href="https://docs.mongodb.com/" target="_blank" rel="noopener">https://docs.mongodb.com/</a></li>
+<li>GitHub： <a href="https://github.com/mongodb" target="_blank" rel="noopener">https://github.com/mongodb</a></li>
+<li>中文教程： <a href="https://www.runoob.com/mongodb/mongodb-connections.html" target="_blank" rel="noopener">https://www.runoob.com/mongodb/mongodb-connections.html</a></li>
+</ul>
+<h2 id="Windows-下的安装-v2"><a class="header-anchor" href="#Windows-下的安装-v2">¶ </a>Windows 下的安装</h2>
+<ul>
+<li>参考教程： <a href="https://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="noopener">https://www.runoob.com/mongodb/mongodb-window-install.html</a></li>
+</ul>
+<h2 id="Linux-下的安装-v2"><a class="header-anchor" href="#Linux-下的安装-v2">¶ </a>Linux 下的安装</h2>
+<p>这里参考官方的教程安装MongoDB，官方教程链接： <a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/administration/install-on-linux/</a></p>
+<h3 id="Ubuntu-安装-MongoDB"><a class="header-anchor" href="#Ubuntu-安装-MongoDB">¶ </a>Ubuntu 安装 MongoDB</h3>
+<ul>
+<li>导入包管理系统使用的公钥</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+<p>如果该命令运行成功，则可以进行下一步。<br>
+但是，如果收到指示未安装 gnupg 的错误，则可以使用下面的命令安装 gnupg 以及其必需的库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnupg</span><br></pre></td></tr></table></figure>
+<p>正确安装完 gnupg，然后再次执行上一步的命令导入公钥。</p>
+<ul>
+<li>创建 apt source源文件 /etc/apt/sources.list.d/mongodb-org-4.2.list<br>
+以下命令是为Ubuntu 18.04（Bionic）创建/etc/apt/sources.list.d/mongodb-org-4.2.list文件，其他版本的 Ubuntu 请在官网其查找相应的命令：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse"</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更新 apt 包管理</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 MongoDB</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p>启动，停止，重启, 查看 MongoDB 服务的相关命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mongod</span><br><span class="line">sudo systemctl stop mongod</span><br><span class="line">sudo systemctl restart mongod</span><br><span class="line">sudo systemctl status mongod</span><br></pre></td></tr></table></figure>
+<p>设置开机启动 MongoDB：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> mongod</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果启动mongod时收到与以下类似的错误：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to start mongod.service: Unit mongod.service not found.</span><br></pre></td></tr></table></figure>
+<p>请先运行以下命令，然后再运行启动 MongoDB 服务的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>一般情况下，我们在 Linux 上配置 MongoDB 都是为了远程连接使用的，所以这里还需要配置一下 MongoDB 的远程连接以及用户名和密码。<br>
+接着，进入 MongoDB 命令行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --port 27017</span><br></pre></td></tr></table></figure>
+<p>现在我们就已经进入到 MongoDB 的命令行交互模式下了，在此模式下运行如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">&gt; db.createUser(&#123;user: 'admin', pwd: 'admin123', roles: [&#123;role: 'root', db: 'admin'&#125;]&#125;)</span><br></pre></td></tr></table></figure>
+<p>这两条命令是用来创建一个用户名为 admin，密码为 admin123 的用户，赋予最高权限。<br>
+随后需要修改 MongoDB 的配置文件，此时执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mongod.conf</span><br></pre></td></tr></table></figure>
+<p>然后修改 net 部分为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 0.0.0.0</span><br></pre></td></tr></table></figure>
+<p>这样配置后，MongoDB 就可以被远程访问了。<br>
+另外还需要添加如下的权限认证配置。此时直接添加如下内容到配置文件即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">security:</span><br><span class="line">  authorization: <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+<p>配置完成之后，我们需要重新启动 MongoDB 服务，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart mongod</span><br></pre></td></tr></table></figure>
+<h3 id="CentOS，RedHat-安装-MongoDB"><a class="header-anchor" href="#CentOS，RedHat-安装-MongoDB">¶ </a>CentOS，RedHat 安装 MongoDB</h3>
+<ul>
+<li>配置 YUM 包管理源<br>
+创建一个/etc/yum.repos.d/mongodb-org-4.2.repo文件，以便可以使用yum直接安装MongoDB：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mongodb-org-4.2]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/<span class="variable">$releasever</span>/mongodb-org/4.2/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 MongoDB</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p>如果要指定安装特定版本的 MongoDB，需要分别指定每个组件包，然后将版本号附加到包名中，如下示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y mongodb-org-4.2.3 mongodb-org-server-4.2.3 mongodb-org-shell-4.2.3 mongodb-org-mongos-4.2.3 mongodb-org-tools-4.2.3</span><br></pre></td></tr></table></figure>
+<p>启动，停止，重启, 查看 MongoDB 服务的相关命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mongod</span><br><span class="line">sudo systemctl stop mongod</span><br><span class="line">sudo systemctl restart mongod</span><br><span class="line">sudo systemctl status mongod</span><br></pre></td></tr></table></figure>
+<p>设置开机启动 MongoDB：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> mongod</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果启动mongod时收到与以下类似的错误：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to start mongod.service: Unit mongod.service not found.</span><br></pre></td></tr></table></figure>
+<p>请先运行以下命令，然后再运行启动 MongoDB 服务的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>有关远程连接和认证配置，可以参考前面 Ubuntu 的方式。</p>
+<h2 id="MacOS-安装-MongoDB"><a class="header-anchor" href="#MacOS-安装-MongoDB">¶ </a>MacOS 安装 MongoDB</h2>
+<p>这里推荐使用 Homebrew 的方式安装。但是因为 MongoDB 不再开源了，所以安装前需要使用如下命令为 Homebrew 添加一个 tap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew tap mongodb/brew</span><br></pre></td></tr></table></figure>
+<p>然后就可以使用 brew 安装 MongoDB 的最新社区 4.2.x 版本，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mongodb-community@4.2</span><br></pre></td></tr></table></figure>
+<p>使用 Homebrew 安装的 MongoDB，默认的配置文件位置如下：</p>
+<ul>
+<li>配置文件： /usr/local/etc/mongod.conf</li>
+<li>log 目录： /usr/local/var/log/mongodb</li>
+<li>数据存放目录： /usr/local/var/mongodb</li>
+</ul>
+<p>启动，停止 MongoDB 服务相关命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew services start mongodb-community</span><br><span class="line">brew services stop mongodb-community</span><br></pre></td></tr></table></figure>
+<p>查看 MongoDB 服务状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services</span><br></pre></td></tr></table></figure>
+<h1>Redis 的安装</h1>
+<p>Redis 是一个基于内存的高效的非关系型数据库。</p>
+<h2 id="相关链接-v3"><a class="header-anchor" href="#相关链接-v3">¶ </a>相关链接</h2>
+<ul>
+<li>官方网站： <a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a></li>
+<li>官方文档： <a href="https://redis.io/documentation" target="_blank" rel="noopener">https://redis.io/documentation</a></li>
+<li>中文文档： <a href="http://www.redis.cn/" target="_blank" rel="noopener">http://www.redis.cn/</a></li>
+<li>GitHub： <a href="https://github.com/antirez/redis" target="_blank" rel="noopener">https://github.com/antirez/redis</a></li>
+<li>中文教程： <a href="https://www.runoob.com/redis/redis-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-tutorial.html</a></li>
+<li>Redis Desktop Manager： <a href="https://redisdesktop.com/" target="_blank" rel="noopener">https://redisdesktop.com/</a></li>
+<li>Redis Desktop Manager GitHub: <a href="https://github.com/uglide/RedisDesktopManager" target="_blank" rel="noopener">https://github.com/uglide/RedisDesktopManager</a></li>
+</ul>
+<h2 id="Windows-下的安装-v3"><a class="header-anchor" href="#Windows-下的安装-v3">¶ </a>Windows 下的安装</h2>
+<p>参考教程 <a href="https://www.runoob.com/redis/redis-install.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-install.html</a></p>
+<h2 id="Linux-下的安装-v3"><a class="header-anchor" href="#Linux-下的安装-v3">¶ </a>Linux 下的安装</h2>
+<p>这里依然分为两类平台来介绍。</p>
+<h3 id="Ubuntu-Debian-和-Deepin-安装-Redis"><a class="header-anchor" href="#Ubuntu-Debian-和-Deepin-安装-Redis">¶ </a>Ubuntu, Debian 和 Deepin 安装 Redis</h3>
+<p>在 Ubuntu，Debian 和 Deepin 系统下，使用 apt-get 命令安装 Redis：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install -y redis-server</span><br></pre></td></tr></table></figure>
+<p>然后输入 redis-cli 进入 Redis 命令行模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> <span class="string">'name'</span> <span class="string">'Germey'</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get <span class="string">'name'</span></span><br><span class="line"><span class="string">"Germey"</span></span><br></pre></td></tr></table></figure>
+<p>这样就证明 Redis 成功安装了，但是现在 Redis 还是无法远程连接的，依然需要修改配置文件，配置文件的路径为 /etc/redis/redis.conf.<br>
+首先，注释掉下面这一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span> 127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>给 Redis 设置密码，取消下面这一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass foobared    <span class="comment"># foobared 即当前的密码，可自行修改</span></span><br></pre></td></tr></table></figure>
+<p>使用下面的命令重启 Redis 服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/redis-server restart</span><br></pre></td></tr></table></figure>
+<p>现在就可以使用密码远程连接 Redis 了。<br>
+另外，停止和启动 Redis 服务的命令分别如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/redis-server start</span><br><span class="line">sudo /etc/init.d/redis-server stop</span><br></pre></td></tr></table></figure>
+<h3 id="CentOS-和-RedHat-安装-Redis"><a class="header-anchor" href="#CentOS-和-RedHat-安装-Redis">¶ </a>CentOS 和 RedHat 安装 Redis</h3>
+<p>在 CentOS 和 RedHat 系统中，首先添加 EPEL 仓库，然后更新 yum 源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<p>然后安装 Redis 数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y redis</span><br></pre></td></tr></table></figure>
+<p>安装好后启动 Redis 服务即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start redis</span><br></pre></td></tr></table></figure>
+<p>这里同样可以使用 redis-cli 进入 Redis 命令行模式操作<br>
+另外，为了可以使 Redis 能被远程连接，需要修改配置文件，路径为： /etc/redis.conf.<br>
+参考 Ubuntu 的方式修改配置文件实现远程连接和密码配置，修改完成之后保存。<br>
+然后重启 Redis 服务即可，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart redis</span><br></pre></td></tr></table></figure>
+<h2 id="Mac-下的安装-v2"><a class="header-anchor" href="#Mac-下的安装-v2">¶ </a>Mac 下的安装</h2>
+<p>这里推荐使用 Homebrew 安装，直接执行如下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure>
+<p>启动 Redis 服务的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew services start redis </span><br><span class="line"><span class="comment"># 或者在前台启动：</span></span><br><span class="line">redis-server /usr/<span class="built_in">local</span>/etc/redis.conf</span><br></pre></td></tr></table></figure>
+<p>这里同样可以使用 redis-cli 进入 Redis 命令行模式.<br>
+在 Mac 下 Redis 的配置文件路径是 /usr/local/etc/redis.conf，可以通过修改它来配置访问密码。<br>
+修改配置文件后，需要重启 Redis 服务。停止和重启 Redis 服务的命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew services stop redis</span><br><span class="line">brew services restart redis</span><br></pre></td></tr></table></figure>
+<p>另外，在 Mac 下也可以安装 Redis Desktop Manager 可视化工具来管理 Redis。</p>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">https://blog.59izt.com/2021/03/30/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/46-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/"><i class="fas fa-angle-left">&nbsp;</i><span>Docker 镜像相关操作指令</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/89-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/"><span>Docker 配置私有仓库-方案一</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

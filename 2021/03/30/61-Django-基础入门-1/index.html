@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Django 入门基础（一）"><meta name="keywords" content="Django,View"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Django 入门基础（一）【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">Django 模块实现 Web 服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">Django 新建项目应用及运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#新建-Django-项目应用"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 新建 Django 项目应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-目录及文件分析"><span class="toc-number">2.2.</span> <span class="toc-text">¶ Django 目录及文件分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-框架的工作机制"><span class="toc-number">2.3.</span> <span class="toc-text">¶ Django 框架的工作机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">Django 视图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基于函数的视图"><span class="toc-number">3.1.</span> <span class="toc-text">¶ 基于函数的视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-中的-HttpRequest-对象"><span class="toc-number">3.2.</span> <span class="toc-text">¶ Django 中的 HttpRequest 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性"><span class="toc-number">3.2.1.</span> <span class="toc-text">¶ 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-number">3.2.2.</span> <span class="toc-text">¶ 方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-HttpRequest-对象中的-QueryDict-对象"><span class="toc-number">3.3.</span> <span class="toc-text">¶ Django HttpRequest 对象中的 QueryDict 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-属性"><span class="toc-number">3.3.1.</span> <span class="toc-text">¶ GET 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST-属性"><span class="toc-number">3.3.2.</span> <span class="toc-text">¶ POST 属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-的-HttpResponse-对象"><span class="toc-number">3.4.</span> <span class="toc-text">¶ Django 的 HttpResponse 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性-v2"><span class="toc-number">3.4.1.</span> <span class="toc-text">¶ 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法-v2"><span class="toc-number">3.4.2.</span> <span class="toc-text">¶ 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子类-HTTPResponseRedirect"><span class="toc-number">3.4.3.</span> <span class="toc-text">¶ 子类 HTTPResponseRedirect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子类-JsonResponse"><span class="toc-number">3.4.4.</span> <span class="toc-text">¶ 子类 JsonResponse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简写函数-render-request-template-name-context"><span class="toc-number">3.4.5.</span> <span class="toc-text">¶ 简写函数 render(request, template_name[, context])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重定向-redirect-to"><span class="toc-number">3.4.6.</span> <span class="toc-text">¶ 重定向 redirect(to)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get-object-or-404-klass-args-kwargs"><span class="toc-number">3.4.7.</span> <span class="toc-text">¶ get_object_or_404(klass, args, *kwargs)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get-list-or-404-klass-args-kwargs"><span class="toc-number">3.4.8.</span> <span class="toc-text">¶ get_list_or_404(klass, args, *kwargs)</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color6"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">121</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">78</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">24</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Django 入门基础（一）</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Django/">Django</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Django/">Django</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/View/">View</a></div></div></div><div class="main-content"><blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<h1>Django 模块实现 Web 服务</h1>
+<ol>
+<li>将以下文件保存为 <code>testdjango.py</code>。</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">settings.configure(</span><br><span class="line">    DEBUG=<span class="literal">True</span>,</span><br><span class="line">    ROOT_URLCONF=__name__,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'Hello, Python!'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, index),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">from</span> django.core.management <span class="keyword">import</span> execute_from_command_line</span><br><span class="line">    execute_from_command_line(sys.argv)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：</p>
+<ul>
+<li>第6~9 行定义了 Django 的 settings 里面的配置参数</li>
+<li>第 11~12 行定义了 index 函数，此函数返回一个 HTTPResponse 对象</li>
+<li>第 14 行定义了一个 URL，注册了一个默认路径，此路径的处理函数为 index.</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>在当前目录下运行如下命令：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python testdjango.py runserver</span><br></pre></td></tr></table></figure>
+<p> </p>
+<h1>Django 新建项目应用及运行机制</h1>
+<h2 id="新建-Django-项目应用"><a class="header-anchor" href="#新建-Django-项目应用">¶ </a>新建 Django 项目应用</h2>
+<ul>
+<li>新建项目 django_demo_project</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject django_demo_project</span><br></pre></td></tr></table></figure>
+<ul>
+<li>进入此目录，运行如下命令，新建一个 App 应用</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startapp bbs</span><br></pre></td></tr></table></figure>
+<p>通过这两条命令，一个基本的 Django 项目就建立好了。</p>
+<p> </p>
+<h2 id="Django-目录及文件分析"><a class="header-anchor" href="#Django-目录及文件分析">¶ </a>Django 目录及文件分析</h2>
+<p>在 Django 的哲学中，有两个重要的概念：<code>Project</code> 和 <code>App</code>.</p>
+<ol>
+<li>Project: 是配置和应用程序的集合。一个项目可以由多个应用程序或一个应用程序组成。如果没有一个 Project，就无法运行 Django 应用程序。</li>
+<li>App: 是一个可以完成某件事情的 Web 应用程序。一个应用程序通常由一组 <code>models</code>(数据库表)，<code>views</code>(视图)，<code>templates</code>(模板)，<code>tests</code>(测试) 组成。</li>
+</ol>
+<p> </p>
+<p>到目前为止， django_demo_project 项目下的目录树如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">% tree django_demo_project </span><br><span class="line">django_demo_project</span><br><span class="line">├── bbs</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── admin.py</span><br><span class="line">│   ├── apps.py</span><br><span class="line">│   ├── migrations</span><br><span class="line">│   │   └── __init__.py</span><br><span class="line">│   ├── models.py</span><br><span class="line">│   ├── tests.py</span><br><span class="line">│   └── views.py</span><br><span class="line">├── django_demo_project</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── asgi.py</span><br><span class="line">│   ├── settings.py</span><br><span class="line">│   ├── urls.py</span><br><span class="line">│   └── wsgi.py</span><br><span class="line">└── manage.py</span><br><span class="line"></span><br><span class="line">3 directories, 13 files</span><br></pre></td></tr></table></figure>
+<p>下面为文件夹内的每个文件的作用讲解一下：</p>
+<ul>
+<li><code>manage.py</code> [项目根目录]: 使用 django-admin 命令行工具的快捷方式。它用于运行与我们项目相关的命令。我们将使用它来运行开发服务器，运行测试，创建迁移等；</li>
+<li><code>django_demo_project/</code>: 每个 Django 项目都会有和项目名同名的目录，这里面放置了影响项目的全局性的文件；</li>
+<li><code>__init__.py</code> [django_demo_project 目录]: 这个空文件告诉 Python，这个文件夹是一个 Python 包；</li>
+<li><code>settings.py</code> [django_demo_project 目录]: 这个文件包含了所有的项目配置；</li>
+<li><code>urls.py</code> [django_demo_project 目录]: 这个文件负责映射我们项目中的路由和路径；</li>
+<li><code>wsgi.py</code> [django_demo_project 目录]: 该文件是用于部署的简单网关接口；</li>
+<li><code>bbs/</code>: 在 Django 项目里，每新建一个应用，就会生成一个同名的应用目录；</li>
+<li><code>migrations/</code> [bbs 目录]: 在这个文件夹里，Django 会存储一些文件以跟踪在 <a href="http://models.py" target="_blank" rel="noopener">models.py</a> 文件中创建的变更，用来保持数据库和 <a href="http://models.py" target="_blank" rel="noopener">models.py</a> 的同步；</li>
+<li><code>admin.py</code> [bbs 目录]: 这个文件为一个 Django 内置的应用程序 <code>Django Admin</code> 的配置文件。如果在这里注册了 <a href="http://models.py" target="_blank" rel="noopener">models.py</a> 中的数据表，那么在 Admin 管理后台，就可以编辑数据表中的记录了；</li>
+<li><code>apps.py</code> [bbs 目录]: 这里是应用程序本身的配置文件。我们不在这里做过多扩展，只是使用了里面的 config 配置名称；</li>
+<li><code>models.py</code> [bbs 目录]: 这里定义 web 应用程序数据实例的地方。models 会由 Django 自动转换为数据库表；</li>
+<li><code>tests.py</code> [bbs 目录]: 这个文件用来写当前应用程序的单元测试。更专业的单元测试，会包括很多测试用例。这个 <a href="http://tests.py" target="_blank" rel="noopener">tests.py</a> 文件，就会扩展为一个 tests 目录；</li>
+<li><code>views.py</code> [bbs 目录]: 这是处理 Web 应用程序请求(request)/响应(response)周期的文件；</li>
+</ul>
+<p> </p>
+<h2 id="Django-框架的工作机制"><a class="header-anchor" href="#Django-框架的工作机制">¶ </a>Django 框架的工作机制</h2>
+<p>Django 对 HTTP 的请求回应过程如下：</p>
+<ol>
+<li>用户通过浏览器请求一个页面；</li>
+<li>请求到达 Request Middlewares，中间件对 Request 做一些预处理或者直接响应请求；</li>
+<li>URLConf 通过 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件和请求的 URL 找到相应的 View；</li>
+<li>View Middlewares 被访问，它同样可以对 Request 做一些处理或者直接返回 Response；</li>
+<li>调用 View 中的函数；</li>
+<li>View 中的方法可以选择性的通过 Models 访问底层的数据；</li>
+<li>所有的 Model-to-DB 的交互都是通过 Manager 完成的；</li>
+<li>如果需要，Views 可以使用一个特殊的 Context；</li>
+<li>Context 被传给 Template 用来生成页面；</li>
+<li>Template 使用 Filters 和 Tags 去渲染输出；</li>
+<li>输出被返回到 View；</li>
+<li>HTTP Response 被发送到 Response Middlewares；</li>
+<li>任何 Response Middlewares 都可以丰富 Response 或者返回一个完全不同的 Response；</li>
+<li>Response 返回到浏览器，呈现给用户。</li>
+</ol>
+<p> </p>
+<h1>Django 视图</h1>
+<p>在学习 Django 的工作机制时，发现 Django 最主要的几个部分分别是：<code>Middleware</code>（中间件，包括 Request，View，Exception，Response），<code>URLConf</code>（URL 映射关系），<code>Template</code>（模板系统）。</p>
+<h2 id="基于函数的视图"><a class="header-anchor" href="#基于函数的视图">¶ </a>基于函数的视图</h2>
+<p>视图是接收 HTTPRequest 对象并返回一个 HTTPResponse 对象的 Python 函数。接收 Request 作为参数并返回 Response 作为结果。</p>
+<p>项目仍以上一节的代码为基础。这一次实践中，我们暂时不会用到模板，模型，而只是使用路由和视图来实现一个简单的 web 访问服务。操作步骤如下：</p>
+<ol>
+<li>在 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 里的 INSTALLED_APPS 加入新建的 App:</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Application definition</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'bbs.apps.BbsConfig'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：<br /><br>
+bbs 应用目录中包含了 <a href="http://apps.py" target="_blank" rel="noopener">apps.py</a> 文件，用于保存该应用的相关信息。将此类添加到工程 <a href="http://settings.py" target="_blank" rel="noopener">settings.py</a> 中的 INSTALLED_APPS 列表中，表明注册安装具备此配置属性的应用；</p>
+</blockquote>
+<ol start="2">
+<li>在 bbs 目录下的 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 中生成一个 index 函数：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http.response <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"Hello, Django!"</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：<br /><br>
+当一个页面被请求时，Django 创建一个包含请求元数据的 HTTPRequest 对象。然后 Django 调入合适的视图，把 HTTPRequest 作为该视图函数的第一个参数传入。每个视图函数都使用 HTTPRequest 对象作为第一个参数，通常称之为 Request，并返回一个 HTTPResponse 对象。实现了这样一个 输入/输出 的函数，我们就称之为一个 Django 函数视图。</p>
+</blockquote>
+<ol start="3">
+<li>在 django_demo_project 目录下的 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 里加入此 View 的路由：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> bbs <span class="keyword">import</span> views <span class="keyword">as</span> bbs_view</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">'index/'</span>, bbs_view.index, name=<span class="string">'index'</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码解释：<br /></p>
+</blockquote>
+<ul>
+<li>首先引入 bbs 应用模块里的 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 文件，为避免引入其他的 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 文件导致冲突，为此文件取一个 bbs_view 的别名；</li>
+<li>将 bbs 目录下的 <a href="http://views.py" target="_blank" rel="noopener">views.py</a> 文件中的 index 函数，注册为一个 Django 的 URL 实例。</li>
+</ul>
+<ol start="4">
+<li>此时，在 django_demo_project 目录下，运行以下命令启动 Django 服务，打开浏览器访问 <a href="http://127.0.0.1:8000/index/%EF%BC%8C%E5%B0%B1%E4%BC%9A%E5%87%BA%E7%8E%B0%E8%A7%86%E5%9B%BE%E5%87%BD%E6%95%B0%E4%B8%AD%E8%BF%94%E5%9B%9E%E7%9A%84%E7%9A%84%E5%93%8D%E5%BA%94%E5%86%85%E5%AE%B9%E4%BA%86%EF%BC%9A" target="_blank" rel="noopener">http://127.0.0.1:8000/index/，就会出现视图函数中返回的的响应内容了：</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manager.py runserver</span><br></pre></td></tr></table></figure>
+<p>视图在 Django 中的实现，分为 <code>FBV</code>（Function Base Views），就是在视图中使用<code>函数</code>处理请求，以及 <code>CBV</code>（Class Base Views），就是在视图中使用<code>类</code>处理请求。</p>
+<p> </p>
+<h2 id="Django-中的-HttpRequest-对象"><a class="header-anchor" href="#Django-中的-HttpRequest-对象">¶ </a>Django 中的 HttpRequest 对象</h2>
+<p>基于 Django 的 Web 服务器接收到 HTTP 协议的请求后，会根据报文创建 HttpRequest 对象，视图函数的第一个参数时 HttpRequest对象。<br>
+在 django.http.request 模块中定义了 HttpRequest 对象的 API 属性。<br>
+在此，我们列出了 HttpRequest 对象的主要属性和方法。</p>
+<h3 id="属性"><a class="header-anchor" href="#属性">¶ </a>属性</h3>
+<p>下面的属性除非特别说明，属性都是只读的：</p>
+<ul>
+<li>path: 一个字符串，表示请求的页面的完整路径，不包含域名；</li>
+<li>method: 一个字符串，表示请求使用的 HTTP 方法，常用值包括 <code>GET</code>，<code>POST</code>;</li>
+<li>encoding: 一个字符串，表示提交的数据的编码方式，如果为 None，则表示使用浏览器的默认设置，一般为 <code>utf-8</code>，（这个属性是可写的）;</li>
+<li>get: 一个类似字典的对象，包含 get 请求方式的所有参数;</li>
+<li>post: 一个类似字典的对象，包含 post 请求方式的所有参数;</li>
+<li>files: 一个类似字典的对象，包含所有的上传文件;</li>
+<li>cookies: 一个标准的 Python 字典，包含所有的 cookie，键和值都为字符串;</li>
+<li>session: 一个即可读又可写的类似字典的对象，表示当前的会话，只有当 Django 启用会话的支持时才可用;</li>
+</ul>
+<h3 id="方法"><a class="header-anchor" href="#方法">¶ </a>方法</h3>
+<ul>
+<li>is_ajax(): 如果请求是通过 XMLHttpRequest 发起的，则返回 True。</li>
+</ul>
+<p> </p>
+<h2 id="Django-HttpRequest-对象中的-QueryDict-对象"><a class="header-anchor" href="#Django-HttpRequest-对象中的-QueryDict-对象">¶ </a>Django HttpRequest 对象中的 QueryDict 对象</h2>
+<p>在 HttpRequest 对象中，GET 和 POST 属性得到的都是 django.http.QueryDict 所创建的实例。这是一个 Django 自定义的类似字典的类，用来处理同一个键带多个值的情况。<br>
+在 Python 原始字典中，当一个键出现多个值的时候会发生冲突，只保留最后一个值。而在 HTML 表单中，通常会发生一个键有多个值的情况，例如 <code>&lt;select multiple&gt;</code>(多选框) 就是一个很常见的情况。</p>
+<p>request.POST 和 request.GET 的 QueryDict 在一个正常的请求/响应过程中是不可变的。若要获得可变版本，需要使用 copy() 方法。其主要属性和方法如下：</p>
+<h3 id="GET-属性"><a class="header-anchor" href="#GET-属性">¶ </a>GET 属性</h3>
+<ul>
+<li>QueryDict 类型的对象；</li>
+<li>包含 get 请求方式的所有参数；</li>
+<li>与 URL 请求地址中的参数对应，位于 “?” 后面；</li>
+<li>参数的格式是键值对，如 key1=value1；</li>
+<li>多个参数之间，使用 <code>“&amp;”</code> 连接，如 key1=value1&amp;key2=value2；</li>
+<li>键是开发人员定下的，值是可变的。</li>
+</ul>
+<h3 id="POST-属性"><a class="header-anchor" href="#POST-属性">¶ </a>POST 属性</h3>
+<ul>
+<li>QueryDict 类型的对象；</li>
+<li>包含 post 请求方式的所有参数；</li>
+<li>与 form 表单中的控件对应；</li>
+<li>控件要有 name 属性，则name 属性的值为键，value 属性的值为值，构成键值对提交；</li>
+<li>对于 checkbox 控件，name 属性一样为一组，当控件被选中后会被提交，存在一键多值的情况；</li>
+<li>键是开发人员定下来的，值是可变的。</li>
+</ul>
+<p> </p>
+<h2 id="Django-的-HttpResponse-对象"><a class="header-anchor" href="#Django-的-HttpResponse-对象">¶ </a>Django 的 HttpResponse 对象</h2>
+<p>在 Django 中，HttpRequest 对象由 Django 自动创建，HttpResponse 对象由程序员创建，每个视图都会返回一个 HttpResponse 对象。<br>
+在 django.http.response 模块中定义了 HttpResponse 对象的 API，其主要包含属性，方法，继承子类，简写函数，如下：</p>
+<h3 id="属性-v2"><a class="header-anchor" href="#属性-v2">¶ </a>属性</h3>
+<ul>
+<li>content: 字符串类型，表示返回的内容；</li>
+<li>charset: 字符串类型，表示 Response 采用的编码字符集；</li>
+<li>status_code: 响应的 HTTP 响应状态码；</li>
+<li>content-type: 指定输出的 MIME 类型；</li>
+</ul>
+<h3 id="方法-v2"><a class="header-anchor" href="#方法-v2">¶ </a>方法</h3>
+<ul>
+<li>init: 使用页内容实例化 HttpResponse 对象；</li>
+<li>write(content): 以文件的方式写；</li>
+<li>flush(): 以文件的方式输出缓存区；</li>
+<li>set_cookie(key, value=’’, max_age=None, expires=None): 设置 Cookie；</li>
+<li>delete_cookie(key): 删除指定 key 的 Cookie，如果 key 不存在，则什么也不发生。</li>
+</ul>
+<h3 id="子类-HTTPResponseRedirect"><a class="header-anchor" href="#子类-HTTPResponseRedirect">¶ </a>子类 HTTPResponseRedirect</h3>
+<ul>
+<li>重定向，服务器端跳转；</li>
+<li>构造函数的第一个参数，用来指定重定向的地址；</li>
+</ul>
+<h3 id="子类-JsonResponse"><a class="header-anchor" href="#子类-JsonResponse">¶ </a>子类 JsonResponse</h3>
+<ul>
+<li>返回 json 数据，一般用于异步请求；</li>
+<li>帮助用户创建 JSON 编码的响应；</li>
+<li>参数 data 是字典对象；</li>
+<li>JsonResponse 的默认 Content-Type 为 application/json;</li>
+</ul>
+<h3 id="简写函数-render-request-template-name-context"><a class="header-anchor" href="#简写函数-render-request-template-name-context">¶ </a>简写函数 render(request, template_name[, context])</h3>
+<ul>
+<li>结合一个给定的模板和一个给定的上下文字典，并返回一个渲染后的 HttpResponse 对象；</li>
+<li>request: 该 request 用于生成 Response；</li>
+<li>template_name: 要使用的模板的完整名称；</li>
+<li>context: 添加到模板上下文的一个字典，视图将在渲染模板之前调用它。</li>
+</ul>
+<h3 id="重定向-redirect-to"><a class="header-anchor" href="#重定向-redirect-to">¶ </a>重定向 redirect(to)</h3>
+<ul>
+<li>为传递进来的参数返回 HttpResponseRedirect；</li>
+<li>推荐使用反向解析。</li>
+</ul>
+<h3 id="get-object-or-404-klass-args-kwargs"><a class="header-anchor" href="#get-object-or-404-klass-args-kwargs">¶ </a>get_object_or_404(klass, args, *kwargs)</h3>
+<ul>
+<li>通过模型管理器或查询集调用 get() 方法，如果没找到对象，则不引发模型的 DoesNotExist 异常，而是引发 HTTP404 异常。</li>
+</ul>
+<h3 id="get-list-or-404-klass-args-kwargs"><a class="header-anchor" href="#get-list-or-404-klass-args-kwargs">¶ </a>get_list_or_404(klass, args, *kwargs)</h3>
+<ul>
+<li>和 get_object_or_404 类似，但可以在过滤多个对象时使用。</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/61-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/">https://blog.59izt.com/2021/03/30/61-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/56-Docker-Web%E6%9C%8D%E5%8A%A1%E4%BA%8E%E5%BA%94%E7%94%A8-Nginx/"><i class="fas fa-angle-left">&nbsp;</i><span>Docker Web 服务于应用-Nginx</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/62-Django-URL&amp;Template-%E5%85%A5%E9%97%A8/"><span>Django 入门基础（URL&amp;Templates）</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

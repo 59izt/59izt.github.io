@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Linux 环境下安装 GitLab 与配置"><meta name="keywords" content="GitLab"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Linux 环境下安装 GitLab 与配置【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">什么是 GitLab</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">GitLab 的功能与特点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">Git, GitLab, GitHub 三者的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">服务组成部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">5.</span> <span class="toc-text">功能介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">6.</span> <span class="toc-text">安装 GitLab 的步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">7.</span> <span class="toc-text">配置 GitLab 邮件服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-smtp-邮箱步骤"><span class="toc-number">7.1.</span> <span class="toc-text">¶ 配置 smtp 邮箱步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">8.</span> <span class="toc-text">GitLab 的日常操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#备份与还原"><span class="toc-number">8.1.</span> <span class="toc-text">¶ 备份与还原</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitlab-的备份"><span class="toc-number">8.1.1.</span> <span class="toc-text">¶ gitlab 的备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gitlab-的还原"><span class="toc-number">8.1.2.</span> <span class="toc-text">¶ gitlab 的还原</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进入控制台的两种方法"><span class="toc-number">8.2.</span> <span class="toc-text">¶ 进入控制台的两种方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#忘记-root-密码，进行修改"><span class="toc-number">8.3.</span> <span class="toc-text">¶ 忘记 root 密码，进行修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看-GitLab-的日志"><span class="toc-number">8.4.</span> <span class="toc-text">¶ 查看 GitLab 的日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-ssh-远程连接方式往-GitLab-上传文件"><span class="toc-number">8.5.</span> <span class="toc-text">¶ 通过 ssh 远程连接方式往 GitLab 上传文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#克隆项目，进行上传"><span class="toc-number">8.6.</span> <span class="toc-text">¶ 克隆项目，进行上传</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color10"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">121</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">78</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">24</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Linux 环境下安装 GitLab 与配置</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/GitLab/">GitLab</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/GitLab/">GitLab</a></div></div></div><div class="main-content"><blockquote>
+<p>原文地址：<a href="https://mp.weixin.qq.com/s?__biz=MzAwMjg1NjY3Nw==&amp;mid=2247487113&amp;idx=1&amp;sn=3cd5b2d3f249eb0d452363340f875065&amp;source=41#wechat_redirect" target="_blank" rel="noopener">杰哥的IT之旅-Linux 环境下安装 GitLab与配置</a></p>
+</blockquote>
+<h1>什么是 GitLab</h1>
+<p>GitLab 是一个用于仓库管理系统的开源项目，使用 Git 作为代码管理工具，并在此基础上搭建起来的 web 服务。</p>
+<a id="more"></a>
+<h1>GitLab 的功能与特点</h1>
+<p>提供了管理，计划，创建，验证，打包，发布，配置，监视和保护应用程序的功能，是一个在线代码仓库托管软件，是提供代码托管，提交审核和问题跟踪的代码管理平台。</p>
+<blockquote>
+<p>对服务器的要求：配置建议 2核4G以上</p>
+</blockquote>
+<h1>Git, GitLab, GitHub 三者的区别</h1>
+<ul>
+<li>Git：基于命令行的版本操作，全命令操作，无可视化界面；</li>
+<li>GitLab：基于 Git 实现的在线代码仓库软件，提供了 web 的管理页面，用于企业内部；</li>
+<li>GitHub：基于 Git 实现的在线代码仓库软件，提供了可视化管理界面，提供开放和私有的仓库。大部分开源项目选择 GitHub 作为代码托管仓库；</li>
+</ul>
+<h1>服务组成部分</h1>
+<ul>
+<li>nginx：静态 web 服务器，端口号为 80；</li>
+<li>gitlab-shell：用于处理 git 命令和修改 authorized key 列表；</li>
+<li>gitlab-workhorse：轻量级反向代理服务器（go语言）；
+<blockquote>
+<p>gitlab-workhorse 是一个敏捷的反向代理，它会处理一些大的 HTTP 请求，比如文件上传，下载，git push/pull 和 git 包下载，其他请求会反向代理到 gitlab rails 应用，即反向代理给后端的 unicorn；</p>
+</blockquote>
+</li>
+<li>logrotate：日志文件管理工具；</li>
+<li>postgresql：数据库；</li>
+<li>redis：缓存数据库；</li>
+<li>sidekiq：用于在后台执行队列任务（异步执行）(ruby)；</li>
+<li>unicorn：用 ruby 编写的一个 HTTP 服务器，端口号为 8080；</li>
+<li>gitlab rails：是托管在这个服务器上</li>
+</ul>
+<h1>功能介绍</h1>
+<ul>
+<li>基于web方式的管理平台；</li>
+<li>拥有完善的权限控制和身份认证模块；</li>
+<li>问题追踪和代码质量管理；</li>
+<li>代码 review（复查）功能；</li>
+<li>文档管理，知识库管理；</li>
+</ul>
+<h1>安装 GitLab 的步骤</h1>
+<ul>
+<li>安装依赖包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install -y curl \</span><br><span class="line">openssh-server \</span><br><span class="line">openssh-clients \</span><br><span class="line">cronie \</span><br><span class="line">policycoreutils-python \</span><br><span class="line">postfix</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载gitlab 的yum（仓库）源</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh |bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看 yum 仓库是否已经包含 gitlab-ce</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep gitlab-ce</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 gitlab-ce</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gitlab-ce</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 yum 从网络下载的包的位置：/var/cache/yum/x86_64/$releasever/gitlab_gitlab-ce/packages/</p>
+</blockquote>
+<ul>
+<li>修改 /etc/gitlab/gitlab.rb 中的一个URL 地址</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">external_url <span class="string">'http://gitlab.59izt.cn'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改 /etc/hosts 配置文件，添加一个域名解析</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.21    gitlab.59izt.cn</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重新配置 gitlab 的配置文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动 gitlab 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出如下内容：</span></span><br><span class="line">ok: run: alertmanager: (pid 9273) 486s</span><br><span class="line">ok: run: gitaly: (pid 9155) 488s</span><br><span class="line">ok: run: gitlab-exporter: (pid 9154) 488s</span><br><span class="line">ok: run: gitlab-workhorse: (pid 9129) 489s</span><br><span class="line">ok: run: grafana: (pid 9291) 485s</span><br><span class="line">ok: run: logrotate: (pid 8809) 543s</span><br><span class="line">ok: run: nginx: (pid 8768) 549s</span><br><span class="line">ok: run: node-exporter: (pid 9149) 488s</span><br><span class="line">ok: run: postgres-exporter: (pid 9283) 486s</span><br><span class="line">ok: run: postgresql: (pid 8545) 589s</span><br><span class="line">ok: run: prometheus: (pid 9256) 487s</span><br><span class="line">ok: run: redis: (pid 8386) 597s</span><br><span class="line">ok: run: redis-exporter: (pid 9167) 487s</span><br><span class="line">ok: run: sidekiq: (pid 8731) 557s</span><br><span class="line">ok: run: unicorn: (pid 8700) 563s</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看 gitlab 页面</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firefox gitlab.59izt.cn</span><br><span class="line"><span class="comment"># 或使用 IP 地址访问</span></span><br><span class="line">firefox 192.168.1.21</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>gitlab 页面出现的问题；</p>
+</blockquote>
+<ul>
+<li>
+<p>检测端口号 80 和 8080 是否被占用</p>
+</li>
+<li>
+<p>访问主页 502 的时候，检查端口 8080 是否被占用</p>
+</li>
+<li>
+<p>gitlab 相关命令</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start            //启动gitlab服务</span><br><span class="line">gitlab-ctl stop             //停止gitlab服务</span><br><span class="line">gitlab-ctl start unicorn（添加组件名称）   //单独开启某个组件</span><br><span class="line">gitlab-ctl status           //查看gitlab的运行状态</span><br><span class="line">gitlab-ctl reconfigure      //修改完配置文件重新编译</span><br><span class="line">gitlab-ctl tail             //查看gitlab的日志</span><br></pre></td></tr></table></figure>
+<h1>配置 GitLab 邮件服务</h1>
+<blockquote>
+<p>sendmail / postfix / smtp</p>
+</blockquote>
+<h2 id="配置-smtp-邮箱步骤"><a class="header-anchor" href="#配置-smtp-邮箱步骤">¶ </a>配置 smtp 邮箱步骤</h2>
+<ol>
+<li>修改配置文件 /etc/gitlab/gitlab.rb</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[<span class="string">'gitlab_email_from'</span>] = <span class="string">'bm73333@163.com'</span>   //说明邮箱从哪里发，设置自己的邮箱地址</span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="literal">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"smtp.163.com"</span> //在线邮件服务器地址</span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = 25   //端口号，开启本地发邮件的端口</span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"bm73333@163.com"</span>  //邮箱地址</span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"qwerty567890"</span>  //邮箱授权码，调用邮箱</span><br><span class="line"></span><br><span class="line"><span class="comment">###邮箱授权码的获取</span></span><br><span class="line">设置 -&gt; POP3/SMTP/IMAP -&gt; 客户端授权密码，在里面就可以设置授权码</span><br><span class="line"></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"163.com"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_authentication'</span>] = <span class="string">"login"</span>   //在登录时，查看是否有授权码</span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable_starttls_auto'</span>] = <span class="literal">true</span>   //加密方式</span><br><span class="line">gitlab_rails[<span class="string">'smtp_tls'</span>] = <span class="literal">false</span>    //加密方式</span><br><span class="line">user[<span class="string">'git_user_email'</span>] = <span class="string">"bm73333@163.com"</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>重新编译配置文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>重启 gitlab 服务</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>进入控制台</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出如下内容</span></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line"> GitLab:       12.9.3 (571e31b8362) FOSS</span><br><span class="line"> GitLab Shell: 12.0.0</span><br><span class="line"> PostgreSQL:   10.12</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">Loading production environment (Rails 6.0.2)</span><br><span class="line">irb(main):001:0&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<ol start="5">
+<li>在控制台输入如下命令</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">irb(main):002:0&gt; Notify.test_email(<span class="string">'18256001006@163.com'</span>,<span class="string">'yangxiaofeiNB'</span>,<span class="string">'hello,world!'</span>).deliver_now  //发送邮件，deliver_now代表立刻发送</span><br><span class="line">（格式：收件人的邮箱地址，邮件标题，邮件内容）</span><br><span class="line">irb(main):003:0&gt; <span class="built_in">exit</span>   //退出控制台</span><br></pre></td></tr></table></figure>
+<h1>GitLab 的日常操作</h1>
+<h2 id="备份与还原"><a class="header-anchor" href="#备份与还原">¶ </a>备份与还原</h2>
+<h3 id="gitlab-的备份"><a class="header-anchor" href="#gitlab-的备份">¶ </a>gitlab 的备份</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rake gitlab:backup:create</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份数据的目录</span></span><br><span class="line"><span class="comment"># ls /var/opt/gitlab/backups/</span></span><br><span class="line"><span class="comment"># 备份完成后会形成tar包，文件名格式：时间戳，当前日期，当前gitlab版本，backup备份包</span></span><br><span class="line">1587024697_2020_04_16_12.9.3_gitlab_backup.tar</span><br></pre></td></tr></table></figure>
+<h3 id="gitlab-的还原"><a class="header-anchor" href="#gitlab-的还原">¶ </a>gitlab 的还原</h3>
+<ol>
+<li>首先停止一下两个组件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop sidekiq</span><br><span class="line">gitlab-ctl stop unicorn</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>进入到备份目录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/opt/gitlab/backups/</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>还原数据</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rake gitlab:backup:restore BACKUP=1550541218_2019_02_19_11.7.5</span><br><span class="line"><span class="comment"># 进行数据的恢复，名字为上面的时间戳，日期，版本号组成</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>出现以下提示：</p>
+</blockquote>
+<ul>
+<li>Do you want to continue (yes/no)? yes</li>
+<li>Do you want to continue (yes/no)? yes</li>
+</ul>
+<ol start="4">
+<li>启动组件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start sidekiq</span><br><span class="line">gitlab-ctl start unicorn</span><br></pre></td></tr></table></figure>
+<h2 id="进入控制台的两种方法"><a class="header-anchor" href="#进入控制台的两种方法">¶ </a>进入控制台的两种方法</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console   //进入控制台</span><br><span class="line">gitlab-rails console production</span><br></pre></td></tr></table></figure>
+<h2 id="忘记-root-密码，进行修改"><a class="header-anchor" href="#忘记-root-密码，进行修改">¶ </a>忘记 root 密码，进行修改</h2>
+<ol>
+<li>进入 console 控制台</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console production</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>切换到 root 用户</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user = User.where(id:1).first</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>修改密码</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user.password=<span class="string">'1234.com'</span></span><br><span class="line">user.save!</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>验证都修改成功，使用 web 登录测试</li>
+</ol>
+<h2 id="查看-GitLab-的日志"><a class="header-anchor" href="#查看-GitLab-的日志">¶ </a>查看 GitLab 的日志</h2>
+<ul>
+<li>查看整体的日志</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl tail</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看 Redis 的日志</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl tail redis</span><br></pre></td></tr></table></figure>
+<ul>
+<li>检查 logrotate 的日志</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl tail logrotate</span><br></pre></td></tr></table></figure>
+<h2 id="通过-ssh-远程连接方式往-GitLab-上传文件"><a class="header-anchor" href="#通过-ssh-远程连接方式往-GitLab-上传文件">¶ </a>通过 ssh 远程连接方式往 GitLab 上传文件</h2>
+<ol>
+<li>创建秘钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"zhangsan@bdqn.cn"</span>     //为创建用户时输入的邮箱地址</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>查看秘钥</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>
+<p>复制密钥，到web页面进行添加密钥</p>
+</li>
+<li>
+<p>验证远程登录是否成功</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">% ssh -T git@gitlab.59izt.com</span><br><span class="line">The authenticity of host <span class="string">'gitlab.59izt.com (172.16.68.30)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:tvJ3QHw7mBV8quhOugs+Q6EGAH8x7O/LUlZTj3xNUeM.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>gitlab.59izt.com<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">Welcome to GitLab, @wanwu!</span></span><br></pre></td></tr></table></figure>
+<h2 id="克隆项目，进行上传"><a class="header-anchor" href="#克隆项目，进行上传">¶ </a>克隆项目，进行上传</h2>
+<ol>
+<li>下载 git</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置全局用户名和邮箱</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"wanwu"</span></span><br><span class="line">git config --global user.email <span class="string">"2350686113@qq.com"</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>克隆项目</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@gitlab.59izt.com:wanwu/elastic.git</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>新建一个 <a href="http://README.md" target="_blank" rel="noopener">README.md</a> 文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1111 &gt; README.md</span><br><span class="line">git add README.md </span><br><span class="line">git commit -m <span class="string">"create README.md file"</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>
+<p>进入 web 页面就可以看到项目了</p>
+</li>
+<li>
+<p>克隆项目</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="built_in">test</span></span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">test</span></span><br><span class="line">git <span class="built_in">clone</span> git@gitlab.59izt.com:wanwu/elastic.git</span><br></pre></td></tr></table></figure></div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/24-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">https://blog.59izt.com/2021/03/30/24-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/89-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/"><i class="fas fa-angle-left">&nbsp;</i><span>Docker 配置私有仓库-方案一</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/53-Docker-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/"><span>Docker 操作系统介绍</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

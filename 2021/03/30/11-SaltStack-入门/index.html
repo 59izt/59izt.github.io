@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="SaltStack 入门"><meta name="keywords" content="SaltStack,自动化运维"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>SaltStack 入门【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">SaltStack 服务架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-S-架构如下："><span class="toc-number">1.1.</span> <span class="toc-text">¶ C&#x2F;S 架构如下：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">SaltStack 架构安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SaltStack-软件依赖"><span class="toc-number">2.1.</span> <span class="toc-text">¶ SaltStack 软件依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SaltStack-的软件依赖列表如下："><span class="toc-number">2.1.1.</span> <span class="toc-text">¶ SaltStack 的软件依赖列表如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装方式"><span class="toc-number">2.2.</span> <span class="toc-text">¶ 安装方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置-SaltStack"><span class="toc-number">2.3.</span> <span class="toc-text">¶ 配置 SaltStack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Master-主控端配置"><span class="toc-number">2.3.1.</span> <span class="toc-text">¶ Master 主控端配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#minion-被控端配置"><span class="toc-number">2.3.2.</span> <span class="toc-text">¶ minion 被控端配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证安装"><span class="toc-number">2.4.</span> <span class="toc-text">¶ 验证安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书管理"><span class="toc-number">2.5.</span> <span class="toc-text">¶ 证书管理</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color9"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">121</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">78</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">24</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">SaltStack 入门</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/SaltStack/">SaltStack</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/SaltStack/">SaltStack</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/">自动化运维</a></div></div></div><div class="main-content"><blockquote>
+<p>参考书籍： SaltStack 技术入门与实战</p>
+</blockquote>
+<p>SaltStack 是基于 Python 开发的一套 C/S 架构配置管理工具，它的底层使用 ZeroMQ 消息队列 pub/sub 方式通信，使用 SSL 证书签发的方式进行认证管理。</p>
+<a id="more"></a>
+<h1>SaltStack 服务架构</h1>
+<p>由于 SaltStack 是一种基于 C/S 架构的服务模式，可以简单地理解为如果我们想使用 SaltStack 就需要在现有的环境下引入与维护一套 C/S 架构。在 SaltStack 架构中服务器端叫做 Master，客户端叫做 Minion，在我们理解的传统 C/S 架构中，客户端发送请求给服务器端，服务器端接收请求并且处理完成后再返回给客户端。在 SaltStack 架构中不仅有传统的 C/S 架构服务模式，而且有消息队列的发布与订阅（pub/sub）服务模式。这使得 SaltStack 应用场景更加丰富。目前在实际环境中一般使用 SaltStack 的 C/S 架构进行配置管理。</p>
+<p>在 Master 和 Minion 端都是以守护进程的模式运行，一直监听配置文件里面定义的 ret_port（接受 minion 请求）和 publish_port（发布消息）的端口。当 Minion 运行时会自动链接到配置文件里面定义的 Master 地址 ret_port 端口进行连接认证。默认客户端请求 id 是 socket.getfqdn() 取到的值，也可以在 Minion 启动之前修改 Minion 的 id 值。关于整个启动通信过程，可以使用 debug 查看详细记录。</p>
+<h2 id="C-S-架构如下："><a class="header-anchor" href="#C-S-架构如下：">¶ </a>C/S 架构如下：</h2>
+<ul>
+<li>Master 端：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">salt-master -l debug</span><br><span class="line">ss -a |egrep <span class="string">'4505|4506'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Minion 端：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt-minion -l debug</span><br></pre></td></tr></table></figure>
+<h1>SaltStack 架构安装</h1>
+<p>目前 SaltStack 支持很多平台的安装部署。具体每个平台的安装部署教程可以参照 <a href="https://docs.saltstack.com/en/latest/contents.html" target="_blank" rel="noopener">SaltStack 官方文档</a>。在安装之前我们需要先了解一下 SaltStack 的一些软件依赖，只有了解了安装和运行 SaltStack 的依赖，我们才能判断 SaltStack 到底适不适合我们的生产环境，以及能不能大规模的使用它。</p>
+<h2 id="SaltStack-软件依赖"><a class="header-anchor" href="#SaltStack-软件依赖">¶ </a>SaltStack 软件依赖</h2>
+<p>SaltStack 对 Python 版本和 Python 模块有一定的要求。目前 SaltStack 有两种消息系统，一种是 REAT，另一种是 ZeroMQ，默认使用 ZeroMQ。</p>
+<h3 id="SaltStack-的软件依赖列表如下："><a class="header-anchor" href="#SaltStack-的软件依赖列表如下：">¶ </a>SaltStack 的软件依赖列表如下：</h3>
+<ul>
+<li>Python 版本大于2.6 或版本小于 3.0：对 Python 版本要求</li>
+<li>msgpack-python：SaltStack 消息交换库</li>
+<li>YAML：SaltStack 配置解析定义语法</li>
+<li>Jinja2：SlatStack states 配置模板</li>
+<li>MarkupSafe：Python Unicode 转换库</li>
+<li>apache-libcloud：SaltStack 对云架构编排库</li>
+<li>Requests：HTTP Python 库</li>
+<li>ZeroMQ：SaltStack 消息系统</li>
+<li>pyzmq：ZeroMQ Python 库</li>
+<li>PyCrypto：Python 密码库</li>
+<li>M2Crypto：OpenSSL Python 包装库。</li>
+</ul>
+<h2 id="安装方式"><a class="header-anchor" href="#安装方式">¶ </a>安装方式</h2>
+<p>下面通过一个案例简单介绍 在 CentOS 上进行 SaltStack 部署。安装方式有四种，这里推荐使用 yum 方式安装。<br>
+部署环境见下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">角色</th>
+<th style="text-align:center">系统版本</th>
+<th style="text-align:left">主机名</th>
+<th style="text-align:left">IP地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Master</td>
+<td style="text-align:center">CentOS 7.5 x86_64</td>
+<td style="text-align:left">console</td>
+<td style="text-align:left">172.16.68.30</td>
+</tr>
+<tr>
+<td style="text-align:center">Minion</td>
+<td style="text-align:center">CentOS 7.5 x86_64</td>
+<td style="text-align:left">memcache</td>
+<td style="text-align:left">172.16.68.106</td>
+</tr>
+</tbody>
+</table>
+<p>使用 yum 方式安装最新版 SaltStack，安装命令如下：</p>
+<ul>
+<li>安装 epel 存储库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://repo.saltstack.com/yum/redhat/salt-repo-latest.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+<ul>
+<li>清理缓存</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum clean expire-cache</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装需要的 Salt 组件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install salt-master</span><br><span class="line">yum install salt-minion</span><br><span class="line">yum install salt-ssh</span><br><span class="line">yum install salt-syndic</span><br><span class="line">yum install salt-cloud</span><br><span class="line">yum install salt-api</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置开机启动，以及启动服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start salt-master        <span class="comment"># 启动主控端</span></span><br><span class="line">systemctl <span class="built_in">enable</span> salt-master        <span class="comment"># 设置主控端开机启动</span></span><br><span class="line">systemctl start salt-minion        <span class="comment"># 启动被控端</span></span><br><span class="line">systemctl <span class="built_in">enable</span> salt-minion        <span class="comment">#  设置被控端开机启动</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>SaltStack 防火墙配置<br>
+在主控制端添加TCP4505，TCP4506 的规则，而在被控制端无须配置防火墙，原理是被控制端直接与主控制端的 zeromq 建立长链接，接收广播到的任务信息并执行，具体操作如下：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># firewalld 配置规则</span></span><br><span class="line">firewalld-cmd --permanent --zone=&lt;zone&gt; --add-port=4505-4506/tcp</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># iptables 配置规则</span></span><br><span class="line">iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4505 -j ACCEPT</span><br><span class="line">iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<h2 id="配置-SaltStack"><a class="header-anchor" href="#配置-SaltStack">¶ </a>配置 SaltStack</h2>
+<p>SaltStack 分两种角色，一种为 master(主控端)，另一种为 minion(被控端)，安装完毕后需要对两种角色的配置文件进行修改，下面具体说明：</p>
+<h3 id="Master-主控端配置"><a class="header-anchor" href="#Master-主控端配置">¶ </a>Master 主控端配置</h3>
+<ul>
+<li>更新主控端关键项配置</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[/etc/salt/master]</span><br><span class="line"><span class="comment"># 绑定 Master 通信IP</span></span><br><span class="line">interface: 172.16.68.30</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动认证，避免手动运行 salt-key 来确认证书信任；</span></span><br><span class="line">auto_accpet: True</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定 SaltStack 文件根目录位置</span></span><br><span class="line">file_roots:</span><br><span class="line">    base:</span><br><span class="line">        - /srv/salt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启 SaltStack salt-master 服务使配置生效</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart salt-master</span><br></pre></td></tr></table></figure>
+<h3 id="minion-被控端配置"><a class="header-anchor" href="#minion-被控端配置">¶ </a>minion 被控端配置</h3>
+<ul>
+<li>更新被控端关键项</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[/etc/salt/minion]</span><br><span class="line"><span class="comment"># 指定 master 主机IP地址</span></span><br><span class="line">master: 172.16.68.30</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改被控端主机识别ID，建议使用操作系统主机名来配置</span></span><br><span class="line">id: 172.16.68.106</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启 SaltStack salt-minion 服务使配置生效</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart salt-minion</span><br></pre></td></tr></table></figure>
+<h2 id="验证安装"><a class="header-anchor" href="#验证安装">¶ </a>验证安装</h2>
+<p>通过 test 模块的 ping 方法，可以确认指定被控端设备与主控端是否建立信任关系及连同性是否正常，探测所有被控端采用 ‘*’ 来代替’172.16.68.106’即可，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">salt <span class="string">'172.16.68.106'</span> test.ping</span><br><span class="line">172.16.68.106:</span><br><span class="line">    True</span><br></pre></td></tr></table></figure>
+<h2 id="证书管理"><a class="header-anchor" href="#证书管理">¶ </a>证书管理</h2>
+<p>SaltStack 使用 SSL签证的方式进行安全认证，当 /etc/salt/master 没有配置 auto_accept: True 时，需要通过 salt-key 命令来进行证书认证操作，接下来我们就开始进行证书的管理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">salt-key -L             <span class="comment"># 查看当前证书签证情况</span></span><br><span class="line">salt-key -A -y          <span class="comment"># 同意所有没有接受的签证请求</span></span><br></pre></td></tr></table></figure>
+<p>更多的证书管理命令可以运行 salt-key -h 查看，下面列举了 salt-key 命令的一些 action 操作解释</p>
+<ul>
+<li>salt-key -l ARG，–list=ARG，显示指定状态的 key(支持正则表达式)</li>
+<li>salt-key -L，显示已经或未认证的被控端id，Accepted Keys 为已认证清单，Unaccepted Keys 为未认证清单；</li>
+<li>salt-key -A，接受所有 id 证书请求；</li>
+<li>salt-key -a id，接受单个 id 证书请求；</li>
+<li>salt-key -r REJECT, --reject=REJECT，拒绝指定等待认证的 key(支持正则表达式)</li>
+<li>salt-key -R, --reject-all，拒绝所有等待认证的key</li>
+<li>salt-key --include-all，显示所有状态的 key(包含 non-pending 状态)</li>
+<li>salt-key -p PRINT, --print=PRINT，打印指定的 public key(支持正则表达式)</li>
+<li>salt-key -P, --print-all，打印所有的 public key</li>
+<li>salt-key -d DELETE, --delete=DELETE，删除指定 key</li>
+<li>salt-key -D, --delete-all，删除所有的 key</li>
+<li>salt-key -f FINGER, --finger=FINGER，显示指定key 的指纹信息（支持正则表达式）</li>
+<li>salt-key -F, --finger-all，显示所有 key 的指纹信息</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/11-SaltStack-%E5%85%A5%E9%97%A8/">https://blog.59izt.com/2021/03/30/11-SaltStack-%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/73-%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B-5/"><i class="fas fa-angle-left">&nbsp;</i><span>自动化发布的数据库模型-发布单状态数据表</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/62-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-2/"><span>Django 入门基础（二）</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
