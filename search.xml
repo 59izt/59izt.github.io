@@ -1,6 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Kubernetes-ConfigMap</title>
+    <url>/2021/04/12/116-ConfigMap/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-pod-configmap/#%E4%BD%BF%E7%94%A8-kubectl-create-configmap-%E5%88%9B%E5%BB%BA-configmap" target="_blank" rel="noopener">配置 Pod 使用 ConfigMap</a></p>
+<h2 id="ConfigMap"><a class="header-anchor" href="#ConfigMap">¶ </a>ConfigMap</h2>
+<p>ConfigMap 是一种 API 对象，用来将非机密性的数据保存到键值对中。使用时，Pods 可以将其用作环境变量，命令行参数或者存储卷中的配置文件。</p>
+<a id="more"></a>
+<p>ConfigMap 将你的环境配置信息和容器镜像解耦，便于应用配置的修改。</p>
+<blockquote>
+<p>注意，ConfigMap 并不提供保密或者加密功能。如果你想存储的数据是机密的，请使用 Secret，或者使用其他第三方工具来保证你数据的私密性，而不是使用 ConfigMap。<br>
+ConfigMap 在设计上不是用来保存大量数据的，在 ConfigMap 中保存的数据不可超过 1MiB。如果你需要保存超过此尺寸限制的数据，你可能希望考虑挂载存储卷或者使用独立的数据库或者文件服务。</p>
+</blockquote>
+<h3 id="ConfigMap-对象"><a class="header-anchor" href="#ConfigMap-对象">¶ </a>ConfigMap 对象</h3>
+<p>ConfigMap 是一个 API 对象，让你可以存储其他对象所需要使用的配置。和其他 kubernetes 对象都有一个 <code>spec</code> 不同的是，ConfigMap 使用 <code>data</code> 和 <code>binarData</code> 字段。这些字段能够接收键值对作为其取值。data 和 binaryData 字段都是可选的。data 字段设计用来保存 UTF-8 字节序列，而 binaryData 则被设计用来保存二进制数据作为 base64 编码的字串。</p>
+<p><code>data</code> 或 <code>binaryData</code> 字段下面的每个键的名称都必须由字母数字字符或者 <code>-</code>、<code>_</code> 或 <code>.</code> 组成。在 <code>data</code> 下保存的键名不可以与在 <code>binaryData</code> 下出现的键名由重叠。</p>
+<p>从 v1.19 开始，可以添加一个 immutable 字段到 ConfigMap 定义中，创建不可变更的 ConfigMap。</p>
+<h3 id="创建-ConfigMap"><a class="header-anchor" href="#创建-ConfigMap">¶ </a>创建 ConfigMap</h3>
+<p>可以使用 kubectl create configmap 或者 kustomization.yaml 中的 ConfigMap 生成器来创建 ConfigMap。注意，kubectl 从 1.14 版本开始支持 kustomization.yaml。</p>
+<h4 id="使用-kubectl-创建-ConfigMap"><a class="header-anchor" href="#使用-kubectl-创建-ConfigMap">¶ </a>使用 kubectl 创建 ConfigMap</h4>
+<p>可以使用 kubectl create configmap 命令基于目录，文件或者字面值来创建 ConfigMap:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create configmap &lt;map-name&gt; &lt;data-source&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>map-name：要设置的 ConfigMap 名称</li>
+<li>data-source：要从中提取数据的目录，文件或者字面值。</li>
+</ul>
+<p>当你基于文件来创建 ConfigMap 时，data-source 中的键名默认取自文件的基本名，而对应的值默认为文件的内容。</p>
+<p>可以使用 kubectl describe 或者 kubectl get 获取有关 ConfigMap 的信息。</p>
+<h5 id="基于目录创建-ConfigMap"><a class="header-anchor" href="#基于目录创建-ConfigMap">¶ </a>基于目录创建 ConfigMap</h5>
+<p>你可以使用 kubectl create configmap 基于同一目录中的多个文件创建 ConfigMap。当基于目录创建 ConfigMap 时，kubectl 识别目录下基本名可以作为合法键名的文件，并将这些文件打包到新的 ConfigMap 中。普通文件之外的所有目录项都会被忽略（例如，子目录，符号链接，设备，管道等）。</p>
+<p>例如:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建本地目录</span></span><br><span class="line">mkdir -p configure-pod-container/configmap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将示例文件下载到 `configure-pod-container/configmap` 目录</span></span><br><span class="line">wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties</span><br><span class="line">wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 configmap</span></span><br><span class="line"><span class="comment"># kubectl create configmap game-config --from-file=configure-pod-container/configmap/</span></span><br><span class="line">configmap/game-config created</span><br></pre></td></tr></table></figure>
+<p>以上命令将 <code>configure-pod-container/configmap</code> 目录下的所有文件，也就是 <code>game.properties</code> 和 <code>ui.properties</code> 打包到 <code>game-config</code> ConfigMap 中。</p>
+<ul>
+<li>你可以使用下面的命令显示 ConfigMap 的详细信息</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl describe configmaps game-config</span></span><br><span class="line"></span><br><span class="line">Name:         game-config</span><br><span class="line">Namespace:    default</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  &lt;none&gt;</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">====</span><br><span class="line">ui.properties:</span><br><span class="line">----</span><br><span class="line">color.good=purple</span><br><span class="line">color.bad=yellow</span><br><span class="line">allow.textmode=<span class="literal">true</span></span><br><span class="line">how.nice.to.look=fairlyNice</span><br><span class="line"></span><br><span class="line">game.properties:</span><br><span class="line">----</span><br><span class="line">enemies=aliens</span><br><span class="line">lives=3</span><br><span class="line">enemies.cheat=<span class="literal">true</span></span><br><span class="line">enemies.cheat.level=noGoodRotten</span><br><span class="line">secret.code.passphrase=UUDDLRLRBABAS</span><br><span class="line">secret.code.allowed=<span class="literal">true</span></span><br><span class="line">secret.code.lives=30</span><br><span class="line">Events:  &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<p><code>configure-pod-container/configmap/</code> 目录中的 <code>game.properties</code> 和 <code>ui.properties</code> 文件出现在 ConfigMap 的 <code>data</code> 部分。</p>
+<ul>
+<li>也可以使用 kubectl get 命令查看，输出类似如下内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get configmaps game-config -oyaml</span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: <span class="string">"2021-04-12T08:55:07Z"</span></span><br><span class="line">  name: game-config</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: <span class="string">"3313722"</span></span><br><span class="line">  selfLink: /api/v1/namespaces/default/configmaps/game-config</span><br><span class="line">  uid: 5c8a7b16-c0cc-4cb5-8c1a-19a21fcf2815</span><br><span class="line">data:</span><br><span class="line">  game.properties: |-</span><br><span class="line">    enemies=aliens</span><br><span class="line">    lives=3</span><br><span class="line">    enemies.cheat=<span class="literal">true</span></span><br><span class="line">    enemies.cheat.level=noGoodRotten</span><br><span class="line">    secret.code.passphrase=UUDDLRLRBABAS</span><br><span class="line">    secret.code.allowed=<span class="literal">true</span></span><br><span class="line">    secret.code.lives=30</span><br><span class="line">  ui.properties: |</span><br><span class="line">    color.good=purple</span><br><span class="line">    color.bad=yellow</span><br><span class="line">    allow.textmode=<span class="literal">true</span></span><br><span class="line">    how.nice.to.look=fairlyNice</span><br></pre></td></tr></table></figure>
+<h5 id="基于文件创建-ConfigMap"><a class="header-anchor" href="#基于文件创建-ConfigMap">¶ </a>基于文件创建 ConfigMap</h5>
+<p>你可以使用 <code>kubectl create configmap</code> 基于单个文件或多个文件创建 ConfigMap，例如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties</span></span><br><span class="line">configmap/game-config-2 created</span><br></pre></td></tr></table></figure>
+<p>将产生以下 ConfigMap</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl describe configmaps game-config-2 </span></span><br><span class="line">Name:         game-config-2</span><br><span class="line">Namespace:    default</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  &lt;none&gt;</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">====</span><br><span class="line">game.properties:</span><br><span class="line">----</span><br><span class="line">enemies=aliens</span><br><span class="line">lives=3</span><br><span class="line">enemies.cheat=<span class="literal">true</span></span><br><span class="line">enemies.cheat.level=noGoodRotten</span><br><span class="line">secret.code.passphrase=UUDDLRLRBABAS</span><br><span class="line">secret.code.allowed=<span class="literal">true</span></span><br><span class="line">secret.code.lives=30</span><br><span class="line">Events:  &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<p>可以多次使用 <code>--from-file</code> 参数，从多个数据源创建 ConfigMap</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create configmap game-config-3 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties  </span></span><br><span class="line">configmap/game-config-3 created</span><br></pre></td></tr></table></figure>
+<p>查看上面创建的 game-config-3</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl describe configmaps game-config-3</span></span><br><span class="line"></span><br><span class="line">Name:         game-config-3</span><br><span class="line">Namespace:    default</span><br><span class="line">Labels:       &lt;none&gt;</span><br><span class="line">Annotations:  &lt;none&gt;</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">====</span><br><span class="line">ui.properties:</span><br><span class="line">----</span><br><span class="line">color.good=purple</span><br><span class="line">color.bad=yellow</span><br><span class="line">allow.textmode=<span class="literal">true</span></span><br><span class="line">how.nice.to.look=fairlyNice</span><br><span class="line"></span><br><span class="line">game.properties:</span><br><span class="line">----</span><br><span class="line">enemies=aliens</span><br><span class="line">lives=3</span><br><span class="line">enemies.cheat=<span class="literal">true</span></span><br><span class="line">enemies.cheat.level=noGoodRotten</span><br><span class="line">secret.code.passphrase=UUDDLRLRBABAS</span><br><span class="line">secret.code.allowed=<span class="literal">true</span></span><br><span class="line">secret.code.lives=30</span><br><span class="line">Events:  &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="从环境文件创建-ConfigMap"><a class="header-anchor" href="#从环境文件创建-ConfigMap">¶ </a>从环境文件创建 ConfigMap</h5>
+<p>使用 <code>--from-env-file</code> 选项从环境文件创建 ConfigMap，例如：<br>
+Env 文件包含环境变量列表。其中适用以下语法规则</p>
+<ul>
+<li>Env 文件中的每一行必须为 VAR=VAL 的格式；</li>
+<li>以 # 开头的行（即注释）将被忽略；</li>
+<li>空行将被忽略；</li>
+<li>引号不会被特殊处理（即它们将成为 ConfigMap 值得一部分）。</li>
+</ul>
+<p>将示例文件下载到 <code>configure-pod-container/configmap/</code> 目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties</span><br></pre></td></tr></table></figure>
+<p>env 文件 game-env-file.properties 内容如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat configure-pod-container/configmap/game-env-file.properties </span></span><br><span class="line">enemies=aliens</span><br><span class="line">lives=3</span><br><span class="line">allowed=<span class="string">"true"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># This comment and the empty line above it are ignored</span></span><br></pre></td></tr></table></figure>
+<p>创建 configMap</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create configmap game-config-env-file --from-env-file=configure-pod-container/configmap/game-env-file.properties </span></span><br><span class="line">configmap/game-config-env-file created</span><br></pre></td></tr></table></figure>
+<p>将产生以下 ConfigMap</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get configmaps game-config-env-file -oyaml</span></span><br><span class="line"></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: <span class="string">"2021-04-12T11:16:07Z"</span></span><br><span class="line">  name: game-config-env-file</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: <span class="string">"1291258"</span></span><br><span class="line">  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file</span><br><span class="line">  uid: 58728bef-c0c3-4918-bebf-3aa3eeec5271</span><br><span class="line">data:</span><br><span class="line">  allowed: <span class="string">'"true"'</span></span><br><span class="line">  enemies: aliens</span><br><span class="line">  lives: <span class="string">"3"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，当多次使用 <code>--from-env-file</code> 来从多个数据源创建 ConfigMap 时，仅仅最后一个 <code>env</code> 文件有效。</p>
+</blockquote>
+<h5 id="定义从文件创建-ConfigMap-时要使用的键"><a class="header-anchor" href="#定义从文件创建-ConfigMap-时要使用的键">¶ </a>定义从文件创建 ConfigMap 时要使用的键</h5>
+<p>在使用 --from-file 参数时，你可以定义在 configMap 的 data 部分出现的键名，而不是按默认行为使用文件名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create configmap game-config-3 --from-file=&lt;my-key-name&gt;=&lt;path-to-file&gt;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>&lt;my-key-name&gt;</code> 是你要在 ConfigMap 中使用的键名;</li>
+<li><code>&lt;path-to-name&gt;</code> 是你想要键表示数据源文件的位置。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create configmap game-config-5 --from-file=game-special-key=configure-pod-container/configmap/game.properties </span></span><br><span class="line">configmap/game-config-5 created</span><br></pre></td></tr></table></figure>
+<p>查看产生的 game-config-5 内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get configmaps game-config-5 -oyaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">game-special-key:</span> <span class="string">|-</span></span><br><span class="line">    <span class="string">enemies=aliens</span></span><br><span class="line">    <span class="string">lives=3</span></span><br><span class="line">    <span class="string">enemies.cheat=true</span></span><br><span class="line">    <span class="string">enemies.cheat.level=noGoodRotten</span></span><br><span class="line">    <span class="string">secret.code.passphrase=UUDDLRLRBABAS</span></span><br><span class="line">    <span class="string">secret.code.allowed=true</span></span><br><span class="line">    <span class="string">secret.code.lives=30</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">creationTimestamp:</span> <span class="string">"2021-04-12T11:28:58Z"</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">game-config-5</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">resourceVersion:</span> <span class="string">"1293881"</span></span><br><span class="line">  <span class="attr">selfLink:</span> <span class="string">/api/v1/namespaces/default/configmaps/game-config-5</span></span><br><span class="line">  <span class="attr">uid:</span> <span class="string">2c8c92e0-5b4e-4234-9cc4-ebdcfe5d1cd5</span></span><br></pre></td></tr></table></figure>
+<h5 id="根据字面值创建-ConfigMap"><a class="header-anchor" href="#根据字面值创建-ConfigMap">¶ </a>根据字面值创建 ConfigMap</h5>
+<p>可以将 kubectl create configmap 与 --from-literal 参数一起使用，从命令行定义文字值</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm</span><br></pre></td></tr></table></figure>
+<p>可以传入多个键值对。命令行中提供的每对键值在 ConfigMap 的 data 部分均表示为单条的条目</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get configmaps special-config -oyaml</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">special.how:</span> <span class="string">very</span></span><br><span class="line">  <span class="attr">special.type:</span> <span class="string">charm</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">creationTimestamp:</span> <span class="string">"2021-04-12T11:33:12Z"</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">resourceVersion:</span> <span class="string">"1294748"</span></span><br><span class="line">  <span class="attr">selfLink:</span> <span class="string">/api/v1/namespaces/default/configmaps/special-config</span></span><br><span class="line">  <span class="attr">uid:</span> <span class="string">206bd26d-ea37-4d4f-8491-3bb08f93c483</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用-ConfigMap-数据定义容器环境变量"><a class="header-anchor" href="#使用-ConfigMap-数据定义容器环境变量">¶ </a>使用 ConfigMap 数据定义容器环境变量</h3>
+<h4 id="使用单个-ConfigMap-中的数据定义容器环境变量"><a class="header-anchor" href="#使用单个-ConfigMap-中的数据定义容器环境变量">¶ </a>使用单个 ConfigMap 中的数据定义容器环境变量</h4>
+<ol>
+<li>
+<p>在 ConfigMap 中将环境变量定义为键值对</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create configmap special-config --from-literal=special.how=very</span></span><br><span class="line">configmap/special-config created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将 ConfigMap 中定义的 special.how 的值分配给 Pod 规范中的 SPECIAL_LEVEL_KEY 环境变量，创建 Pod 文件 pod-single-configmap-env-variable.yaml</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span> </span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["/bin/sh",</span> <span class="string">"-c"</span><span class="string">,</span> <span class="string">"env"</span><span class="string">]</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="comment"># 定义环境变量</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SPECIAL_LEVEL_KEY</span>   <span class="comment"># 容器中环境变量的名称</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">configMapKeyRef:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">special-config</span>  <span class="comment"># ConfigMap 的名字</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">special.how</span>      <span class="comment"># 需要分配的 key 的名称</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Pod</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f pod-single-configmap-env-variable.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>现在查看 Pod 的输出中是否包含环境变量 SPECIAL_LEVEL_KEY=very</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod  |grep SPECIAL_LEVEL_KEY</span></span><br><span class="line">SPECIAL_LEVEL_KEY=very</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="使用来自多个-ConfigMap-的数据定义容器环境变量"><a class="header-anchor" href="#使用来自多个-ConfigMap-的数据定义容器环境变量">¶ </a>使用来自多个 ConfigMap 的数据定义容器环境变量</h4>
+<ol>
+<li>
+<p>与前面的示例一样，首先创建 ConfigMap 文件 configmaps.yaml</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">special.how:</span> <span class="string">very</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">env-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">log_level:</span> <span class="string">INFO</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 ConfigMap</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f configmaps.yaml </span></span><br><span class="line">configmap/special-config created</span><br><span class="line">configmap/env-config created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>定义 Pod 规范文件 pod-multiple-configmap-env-variable.yaml，使用 定义的环境变量</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["bin/sh",</span> <span class="string">"-c"</span><span class="string">,</span> <span class="string">"env"</span><span class="string">]</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SPECIAL_LEVEL_KEY</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">configMapKeyRef:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">special.how</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">LOG_LEVEL</span></span><br><span class="line">      <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">configMapKeyRef:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">env-config</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">log_level</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Pod</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f pod-multiple-configmap-env-variable.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 Pod 的输出中是否包含环境变量 SPECIAL_LEVEL_KEY=very 和 LOG_LEVEL=INFO</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod |grep -E "SPECIAL_LEVEL_KEY|LOG_LEVEL"</span></span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">SPECIAL_LEVEL_KEY=very</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="将-ConfigMap-中的所有键值对配置为容器环境变量"><a class="header-anchor" href="#将-ConfigMap-中的所有键值对配置为容器环境变量">¶ </a>将 ConfigMap 中的所有键值对配置为容器环境变量</h4>
+<ol>
+<li>
+<p>创建一个包含多个键值对的 ConfigMap 文件 configmap-multikeys.yaml</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">SPECIAL_LEVEL:</span> <span class="string">very</span></span><br><span class="line">  <span class="attr">SPECIAL_TYPE:</span> <span class="string">charm</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 ConfigMap</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f configmap-multikeys.yaml </span></span><br><span class="line">configmap/special-config created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 envFrom 将所有 ConfigMap 的数据定义为容器环境变量，ConfigMap 中的键称为 Pod 中的环境变量名称</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["/bin/sh",</span> <span class="string">"-c"</span><span class="string">,</span> <span class="string">"env"</span><span class="string">]</span></span><br><span class="line">    <span class="attr">envFrom:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">configMapRef:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Pod</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl apply -f pod-configmap-envFrom.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 Pod 的输出是否包含变量</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod |grep -E "SPECIAL_LEVEL|SPECIAL_TYPE"</span></span><br><span class="line">SPECIAL_LEVEL=very</span><br><span class="line">SPECIAL_TYPE=charm</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="在-Pod-命令中使用-ConfigMap-定义的环境变量"><a class="header-anchor" href="#在-Pod-命令中使用-ConfigMap-定义的环境变量">¶ </a>在 Pod 命令中使用 ConfigMap 定义的环境变量</h3>
+<p>你可以在 kubernetes 中使用 $(VAR_NAME) 语法在容器的 command 和 args 部分中使用 ConfigMap 中定义的环境变量</p>
+<p>例如，以下 Pod 规范文件 pod-configmap-env-var-valueFrom.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">["/bin/sh",</span> <span class="string">"-c"</span><span class="string">,</span> <span class="string">"echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)"</span><span class="string">]</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SPECIAL_LEVEL_KEY</span></span><br><span class="line">    <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">configMapKeyRef:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">SPECIAL_LEVEL</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SPECIAL_TYPE_KEY</span></span><br><span class="line">    <span class="attr">valueFrom:</span></span><br><span class="line">        <span class="attr">configMapKeyRef:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">SPECIAL_TYPE</span></span><br><span class="line"><span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+<p>通过运行下面的命令创建 Pod</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f pod-configmap-env-var-valueFrom.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+<p>查看 pod 的输出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod </span></span><br><span class="line">very charm</span><br></pre></td></tr></table></figure>
+<h3 id="将-ConfigMap-数据添加到一个卷中"><a class="header-anchor" href="#将-ConfigMap-数据添加到一个卷中">¶ </a>将 ConfigMap 数据添加到一个卷中</h3>
+<p>如基于文件创建 ConfigMap 中所述，当你使用 --from-file 创建 ConfigMap 时，文件名成为存储在 ConfigMap 的 data 部分中的键，文件内容成为键对应的值。</p>
+<ol>
+<li>
+<p>本节中的示例引用了一个名为 special-config 的 ConfigMap，如下所示</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">SPECIAL_LEVEL:</span> <span class="string">very</span></span><br><span class="line">  <span class="attr">SPECIAL_TYPE:</span> <span class="string">charm</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 ConfigMap</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl create -f configmap-multikeys.yaml</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="使用存储在-ConfigMap-中的数据填充数据卷"><a class="header-anchor" href="#使用存储在-ConfigMap-中的数据填充数据卷">¶ </a>使用存储在 ConfigMap 中的数据填充数据卷</h4>
+<ol>
+<li>
+<p>在 Pod 的规范文件中的 <code>volumes</code> 部分添加 ConfigMap 名称。这会将 ConfigMap 数据添加到指定为 <code>volumeMounts.mountPath</code> 的目录（本例中为 <code>/etc/config</code>）。<code>command</code> 部分引用存储在 ConfigMap 中的 <code>special.level</code>。</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">[</span> <span class="string">"/bin/sh"</span><span class="string">,</span> <span class="string">"-c"</span><span class="string">,</span> <span class="string">"ls /etc/config/"</span> <span class="string">]</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config-volume</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/etc/config</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config-volume</span></span><br><span class="line">    <span class="attr">configMap:</span></span><br><span class="line">      <span class="comment"># Provide the name of the ConfigMap containing the files you want</span></span><br><span class="line">      <span class="comment"># to add to the container</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Pod</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f pod-configmap-volume.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 Pod 的输出</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod </span></span><br><span class="line">SPECIAL_LEVEL</span><br><span class="line">SPECIAL_TYPE</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>注意：如果在 /etc/config/ 目录中有一些文件，它们将被删除</p>
+</blockquote>
+<h4 id="将-ConfigMap-数据添加到数据卷中的特定路径"><a class="header-anchor" href="#将-ConfigMap-数据添加到数据卷中的特定路径">¶ </a>将 ConfigMap 数据添加到数据卷中的特定路径</h4>
+<p>使用 path 字段为特定的 ConfigMap 项目指定预期的文件路径。在这里，SPECIAL_LEVEL 将被挂载在 config-volume 数据卷中的 /etc/config/keys 目录下</p>
+<ol>
+<li>
+<p>创建 Pod yaml 文件 pod-configmap-volume-special-key.yaml</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dapi-test-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">[</span> <span class="string">"/bin/sh"</span><span class="string">,"-c","cat</span> <span class="string">/etc/config/keys"</span> <span class="string">]</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config-volume</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/etc/config</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config-volume</span></span><br><span class="line">    <span class="attr">configMap:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">special-config</span></span><br><span class="line">      <span class="attr">items:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">SPECIAL_LEVEL</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">keys</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建 Pod</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl create -f pod-configmap-volume-special-key.yaml </span></span><br><span class="line">pod/dapi-test-pod created</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看pod输出</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl logs dapi-test-pod </span></span><br><span class="line">very</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注意，和之前一样，/etc/config/ 目录中的所有文件都将被删除，如果不想文件被删除，可以使用 <code>subPath</code> 的方式挂载。</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+        <tag>HPA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes-Horizontal Pod Autoscaler</title>
+    <url>/2021/04/12/115-Horizontal-Pod-Autoscaler/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/" target="_blank" rel="noopener">Pod 水平自动扩缩</a></p>
+<h2 id="Horizontal-Pod-Autoscaler"><a class="header-anchor" href="#Horizontal-Pod-Autoscaler">¶ </a>Horizontal Pod Autoscaler</h2>
+<p>Pod 水平自动扩缩(Horizontal Pod AutoScaler) 可以基于 CPU 利用率，自动扩缩 RC，RS，Deployment 和 StatefulSet 中的 Pod 数量。除了 CPU 利用率，也可以基于其他应用程序提供的自定义度量指标来执行自动扩缩。Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。</p>
+<a id="more"></a>
+<p>Pod 水平自动扩缩特性由 Kubernetes API 资源和控制器实现。资源决定了控制器的行为。控制器会周期性的调整副本控制器或 Deployment 中的副本数量，以使得 Pod 的平均 CPU 利用率与用户所设定的目标值匹配。</p>
+<h3 id="Pod-水平自动扩缩工作机制"><a class="header-anchor" href="#Pod-水平自动扩缩工作机制">¶ </a>Pod 水平自动扩缩工作机制</h3>
+<p>Pod 水平自动扩缩器的实现是一个控制回路，由控制器管理器的 <code>--horizontal-pod-autoscaler-sync-period</code> 参数指定周期(默认值为 15 秒)。每个周期内，控制器管理器根据每个 HPA 定义中指定的指标查询资源利用率。控制器管理器可以从资源度量指标 API(按 Pod 统计的资源用量) 和自定义度量指标API（其他指标）获取度量值。</p>
+<ul>
+<li>对于按 Pod 统计的资源指标（如 CPU），控制器从资源指标 API 中获取每一个 HPA 指定的 Pod 的度量值，如果设置了目标使用率，控制器获取每个 Pod 中的容器资源使用情况，并计算资源使用率。如果设置了 <code>target</code> 值，将直接使用原始数据（不再计算百分比）。接下来，控制器根据平均的资源使用率或原始值计算出扩缩的比例，进而计算出目标副本数。(需要注意的是，如果 Pod 某些容器不支持资源采集，那么控制器将不会使用该 Pod 的 CPU 使用率。)</li>
+<li>如果 Pod 使用自定义指示，控制器机制与资源指标类似，区别在于自定义指标只使用原始值，而不是使用率；</li>
+<li>如果 Pod 使用对象指标和外部指标（每个指标描述一个对象信息）。这个指标将直接根据目标设定值相比较，并生成一个上面提到的扩缩比例。在 <code>autoscaling/v2beta2</code> 版本 API 中，这个指标也可以根据 Pod 数量平分后再计算。</li>
+</ul>
+<h3 id="算法细节"><a class="header-anchor" href="#算法细节">¶ </a>算法细节</h3>
+<p>从最基本的角度看，Pod 水平自动扩缩控制器根据当前指标和期望指标来计算扩缩比例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">期望副本数 = ceil[当前副本数 * (当前指标 / 期望指标)]</span><br></pre></td></tr></table></figure>
+<p>例如，当前度量值为 200m，目标设定值为 100m，那么由于 200.0/100.0 == 2.0，副本数量将会翻倍。如果当前指标为 50m，副本数量将会减半，因为 50.0/100.0 == 0.5。如果计算出的扩缩比例接近 1.0（根据 --horizontal-pod-autoscaler-tolerance 参数全局配置的容忍值，默认为 0.1），将会放弃本次扩缩。</p>
+<ul>
+<li>如果 HPA 指定的是 targetAverageValue 或 targetAverageUtilization，那么将会把指定 Pod 度量值的平均值作为 currentMetricValue。然而，在检查容忍度和决定最终扩缩值前，仍然会把那些无法获取指标的 Pod 统计进去。</li>
+<li>所有被标记了删除时间戳（Pod 正在关闭过程中）的 Pod 和失败的 Pod 都会被忽略；</li>
+<li>如果某个 Pod 缺失度量值，它将会被搁置，只在最终确定扩缩数量时再考虑；</li>
+<li>当使用 CPU 指标来扩缩时，任何还未就绪状态的 Pod 或最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置；</li>
+</ul>
+<blockquote>
+<p>由于受技术限制，HPA 控制器无法准确的知道 Pod 什么时候就绪，也就无法决定是否暂时搁置该 Pod。<code>--horizontal-pod-autoscaler-initial-readiness-delay</code> 参数(默认为 30s) 用于设置 Pod 准备时间，在此时间内的 Pod 统统被认为未就绪。–horizontal-pod-autoscaler-cpu-initialization-period 参数（默认为 5分钟）用于设置 Pod 的初始化时间，在此时间内的 Pod，CPU 资源度量值将不会被采纳。</p>
+</blockquote>
+<p>在排除掉被搁置的 Pod 后，扩缩比例就会根据 <code>currentMerticValue/desiredMetricValue</code> 计算出来。</p>
+<p>如果创建 HPA 时指定了多个指标， 那么会按照每个指标分别计算扩缩副本数，取最大值进行扩缩。 如果任何一个指标无法顺利地计算出扩缩副本数（比如，通过 API 获取指标时出错）， 并且可获取的指标建议缩容，那么本次扩缩会被跳过。 这表示，如果一个或多个指标给出的 desiredReplicas 值大于当前值，HPA 仍然能实现扩容。</p>
+<p>最后，在 HPA 控制器执行扩缩操作之前，会记录扩缩建议信息。 控制器会在操作时间窗口中考虑所有的建议信息，并从中选择得分最高的建议。 这个值可通过 kube-controller-manager 服务的启动参数 <code>--horizontal-pod-autoscaler-downscale-stabilization</code> 进行配置， 默认值为 5 分钟。 这个配置可以让系统更为平滑地进行缩容操作，从而消除短时间内指标值快速波动产生的影响。</p>
+<h3 id="kubectl-对-HPA-的支持"><a class="header-anchor" href="#kubectl-对-HPA-的支持">¶ </a>kubectl 对 HPA 的支持</h3>
+<p>与其他 API 资源类似，kubectl 以标准方式支持 HPA，我们可以通过　<code>kubectl create</code> 命令创建一个 HPA 对象，通过 <code>kubectl get hpa</code> 命令来获取所有 HPA 对象，通过 <code>kubectl describe hpa</code> 命令来查看 HPA 对象的详细信息。最后可以通过 <code>kubectl delete hpa</code> 命令删除对象。</p>
+<p>此外，还有一个简便的命令 kubectl autoscale 来创建 HPA 对象，例如。命令 kubectl autoscale rs foo --min=2 --ma=5 --cpu-percent=80 将会为名为 foo 的 RS 创建一个 HPA 对象，目标 CPU 使用率为 80%，副本数量配置为 2-5 之间；</p>
+<h3 id="冷却与延迟"><a class="header-anchor" href="#冷却与延迟">¶ </a>冷却与延迟</h3>
+<p>当使用 HPA 管理一组副本扩缩时，有可能因为指标动态的变化造成副本数量频繁的变化，有时这被称为<code>抖动</code>；从 v1.16 版本起，集群操作员可以调节某些 kube-controller-manager 的全局参数来缓解这个问题。</p>
+<p>从 v1.12 开始，算法调整后，扩容操作时的延迟就没必要设置了，</p>
+<ul>
+<li><code>--horizontal-pod-autoscaler-downscale-stabilization</code>： kube-controller-manager 的这个参数表示缩容冷却时间。 即自从上次缩容执行结束后，多久可以再次执行缩容，默认时间是 5 分钟(5m0s)。</li>
+</ul>
+<h3 id="对资源指标的支持"><a class="header-anchor" href="#对资源指标的支持">¶ </a>对资源指标的支持</h3>
+<p>HPA 的任何目标资源都可以基于其中的 Pods 的资源用量来实现扩缩。 在定义 Pod 规约时，类似 <code>cpu</code> 和 <code>memory</code> 这类资源请求必须被设定。 这些设定值被用来确定资源利用量并被 HPA 控制器用来对目标资源完成扩缩操作。</p>
+<ul>
+<li>要使用基于资源利用率的扩缩，可以像下面这样指定一个指标源</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">type:</span> <span class="string">Resource</span></span><br><span class="line"><span class="attr">resource:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cpu</span></span><br><span class="line">  <span class="attr">target:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Utilization</span></span><br><span class="line">    <span class="attr">averageUtilization:</span> <span class="number">60</span></span><br></pre></td></tr></table></figure>
+<p>基于以上指标配置，HPA 控制器会维持扩缩目标中的 Pods 的平均资源利用率在 60%。利用率是 Pod 的但前资源用量与请求值之间的比值。</p>
+<h3 id="多指标支持"><a class="header-anchor" href="#多指标支持">¶ </a>多指标支持</h3>
+<p>kubernetes 1.6 开始支持基于多个度量值进行扩缩。你可以使用 <code>autoscaling/v2beta2</code> API 来为 HPA 指定多个指标。HPA 会根据每个指标计算，并生成一个扩缩建议。幅度最大的扩缩建议会被采纳。</p>
+<h3 id="自定义指标支持"><a class="header-anchor" href="#自定义指标支持">¶ </a>自定义指标支持</h3>
+<p>自 Kubernetes 1.6 起，HPA 支持使用自定义指标。 你可以使用 <code>autoscaling/v2beta2</code> API 为 HPA 指定用户自定义指标。 Kubernetes 会通过用户自定义指标 API 来获取相应的指标。</p>
+<h3 id="HPA-示例"><a class="header-anchor" href="#HPA-示例">¶ </a>HPA 示例</h3>
+<ol>
+<li>
+<p>修改 deploy nginx 的 resource 属性，内容如下</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl edit deploy nginx     # 直接使用 edit 修改 deploy；</span></span><br><span class="line"></span><br><span class="line">修改以下 `resource` 部分内容</span><br><span class="line">...</span><br><span class="line">spec:   </span><br><span class="line">  containers:</span><br><span class="line">  - image: nginx</span><br><span class="line">    imagePullPolicy: Always</span><br><span class="line">    name: nginx</span><br><span class="line">    resources:</span><br><span class="line">      limits: </span><br><span class="line">        cpu: 100m</span><br><span class="line">        memory: 200Mi</span><br><span class="line">      requests:</span><br><span class="line">        cpu: 10m</span><br><span class="line">        memory: 70Mi</span><br><span class="line">    terminationMessagePath: /dev/termination-log</span><br><span class="line">    terminationMessagePolicy: File</span><br><span class="line">  dnsPolicy: ClusterFirst</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>为该 deployment 创建 HPA 资源</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl autoscale deploy nginx --cpu-percent=20 --min=2 --max=5</span></span><br><span class="line">horizontalpodautoscaler.autoscaling/nginx autoscaled</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 svc 地址，新开一个窗口，模拟大量访问请求</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get svc nginx </span></span><br><span class="line">NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">nginx   ClusterIP   10.102.0.153   &lt;none&gt;        80/TCP,443/TCP   2d21h</span><br><span class="line"></span><br><span class="line"><span class="comment"># while true;do wget -q -O- http://10.102.0.153 &gt;/dev/null;done</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 hpa 状态以及该 deploy 的 Pod 数量变化</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get hpa</span></span><br><span class="line">NAME    REFERENCE          TARGETS    MINPODS   MAXPODS   REPLICAS   AGE</span><br><span class="line">nginx   Deployment/nginx   485%/20%   2         5         2          25m</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl get pod</span></span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-5f7cd9bd54-8qphv   1/1     Running   0          37s</span><br><span class="line">nginx-5f7cd9bd54-fnk2w   1/1     Running   0          21m</span><br><span class="line">nginx-5f7cd9bd54-h6s9w   1/1     Running   0          52s</span><br><span class="line">nginx-5f7cd9bd54-lk9lp   1/1     Running   0          20m</span><br><span class="line">nginx-5f7cd9bd54-rjspc   1/1     Running   0          52s</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>退出模拟访问状态，检查 HPA 的自动缩容</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubectl get hpa</span></span><br><span class="line">NAME    REFERENCE          TARGETS   MINPODS   MAXPODS   REPLICAS   AGE</span><br><span class="line">nginx   Deployment/nginx   0%/20%    2         5         2          39m</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl get pods</span></span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-5f7cd9bd54-fnk2w   1/1     Running   0          34m</span><br><span class="line">nginx-5f7cd9bd54-rjspc   1/1     Running   0          13m</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+        <tag>HPA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes-Ingress</title>
     <url>/2021/04/08/114-Ingress/</url>
     <content><![CDATA[<h2 id="什么是-Ingress"><a class="header-anchor" href="#什么是-Ingress">¶ </a>什么是 Ingress</h2>
