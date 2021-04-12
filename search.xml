@@ -4059,8 +4059,8 @@ Docker 容器网络就很好的利用了 Linux 虚拟网络技术，它在本地
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Python</tag>
+        <tag>Linux</tag>
         <tag>爬虫开发环境配置</tag>
       </tags>
   </entry>
