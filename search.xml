@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Nexus 配置 Docker 私有仓库</title>
+    <url>/2021/04/21/135-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<p>参考文章: <a href="https://www.cnblogs.com/sanduzxcvbnm/p/13099635.html" target="_blank" rel="noopener">使用 Nexus3 配置 Docker 私有仓库</a></p>
+<h2 id="Nexus3-配置-Docker-私有仓库"><a class="header-anchor" href="#Nexus3-配置-Docker-私有仓库">¶ </a>Nexus3 配置 Docker 私有仓库</h2>
+<h3 id="配置-blob-存储"><a class="header-anchor" href="#配置-blob-存储">¶ </a>配置 blob 存储</h3>
+<a id="more"></a>
+<ol>
+<li>
+<p>登录 Nexus 中央仓库，依次点击左侧任务栏 <code>Repository</code> --&gt; <code>Blob Stores</code>，在右边窗口选择 <code>Create blob store</code>，如下图：<br>
+<img src="https://z3.ax1x.com/2021/04/21/cbA6KO.png" alt="image"></p>
+</li>
+<li>
+<p>在创建 blob 界面，选择 <code>Type</code> 为 <code>File</code>，blob 名称输入 <code>habor-blob</code>。然后点击 <code>Create blob store</code>。这个名字可以自己随意写，稍后创建仓库时需要选择这个 blob 存储；如下图所示<br>
+<img src="https://z3.ax1x.com/2021/04/21/cbALZQ.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="创建-Repository"><a class="header-anchor" href="#创建-Repository">¶ </a>创建 Repository</h3>
+<ol>
+<li>
+<p>创建 Docker 本地仓库，点击左侧任务栏，选择 <code>Repositories</code>，然后在右侧窗口点击 <code>Create repository</code>。选择 <code>docker(hosted)</code>，然后再接下来的界面中选择性输入以下配置：</p>
+<ul>
+<li>Name: docker-local</li>
+<li>Online: 勾选</li>
+<li>Repository Connectors: 勾选 HTTP，输入端口 8083；</li>
+<li>Docker Registry API Support: 勾选 Enable Docker V1 API;</li>
+<li>Storage: 选择刚创建的 habor-blob;</li>
+<li>Deployment policy: 选择默认的 Allow redeploy;</li>
+</ul>
+<p>其他不变，默认即可。设置完后，应该如下图所示<br>
+<img src="https://z3.ax1x.com/2021/04/21/cb7Y59.png" alt="image"></p>
+</li>
+<li>
+<p>创建 Docker 代理仓库，点击左侧任务栏，选择 <code>Repositories</code>，然后在右侧窗口点击 <code>Create repository</code>。选择 <code>docker(proxy)</code>，然后再接下来的界面中选择性输入以下配置：</p>
+<ul>
+<li>Name: docker-proxy；</li>
+<li>Online: 勾选；</li>
+<li>Repository Connectors: 不勾选，默认即可；</li>
+<li>Docker Registry API Support: 勾选 Enable Docker V1 API;</li>
+<li>Proxy: 输入 阿里云加速镜像地址 <code>https://b9pmyelo.mirror.aliyuncs.com</code>;</li>
+<li>Docker index: 选择 <code>Use Docker Hub</code>；</li>
+<li>Auto blocking enabled: 勾选；</li>
+<li>Storage: 选择刚创建的 habor-blob;</li>
+</ul>
+<p>其他不变，默认即可。设置完成后，应该如下图所示<br>
+<img src="https://z3.ax1x.com/2021/04/21/cbHrQ0.png" alt="image"><br>
+<img src="https://z3.ax1x.com/2021/04/21/cbH2o4.png" alt="image"></p>
+</li>
+<li>
+<p>创建 Docker 仓库组，点击左侧任务栏，选择 <code>Repositories</code>，然后在右侧窗口点击 <code>Create repository</code>。选择 <code>docker(group)</code>，然后再接下来的界面中选择性输入以下配置：</p>
+<ul>
+<li>Name: docker-group</li>
+<li>Repository Connectors: 勾选 HTTP，输入端口 8082；</li>
+<li>Docker Registry API Support: 勾选 Enable Docker V1 API;</li>
+<li>Storage: 选择刚创建的 habor-blob;</li>
+<li>Group：将左侧 Available 中的仓库添加到右侧 Members 中；</li>
+</ul>
+<p>其他不变，默认即可，设置完成后，应该如下图所示<br>
+<img src="https://z3.ax1x.com/2021/04/21/cbb1k4.png" alt="image"></p>
+</li>
+</ol>
+<p>到这里，Nexus 中对 Docker 仓库的配置已经完成，接下来配置 Nginx 反向代理访问 docker 仓库</p>
+<h3 id="配置-Nginx-反向代理"><a class="header-anchor" href="#配置-Nginx-反向代理">¶ </a>配置 Nginx 反向代理</h3>
+<p>在部署 Nginx 部分，需要先生成自签名 SSL 证书，因为后面不想在 <code>docker pull</code> 的时候还要带一个端口！</p>
+<ul>
+<li>docker 仓库域名: <a href="http://habor.59izt.com" target="_blank" rel="noopener">habor.59izt.com</a></li>
+</ul>
+<h4 id="生成证书"><a class="header-anchor" href="#生成证书">¶ </a>生成证书</h4>
+<p>这里推荐一个一键生成工具：<a href="https://github.com/Fishdrowned/ssl" target="_blank" rel="noopener">ssl 一键生成工具地址</a>，使用方法请参考作者说明。<br>
+创建证书方式如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 下载工具</span><br><span class="line"><span class="comment"># git clone https://github.com/Fishdrowned/ssl.git</span></span><br><span class="line"></span><br><span class="line">// 生成证书</span><br><span class="line"><span class="comment"># cd ssl</span></span><br><span class="line"><span class="comment"># ./gen.cert.sh habor.59izt.com</span></span><br><span class="line">Removing dir out</span><br><span class="line">Creating output structure</span><br><span class="line">Done</span><br><span class="line">Generating a 2048 bit RSA private key</span><br><span class="line">.........+++</span><br><span class="line">.......+++</span><br><span class="line">writing new private key to <span class="string">'out/root.key.pem'</span></span><br><span class="line">-----</span><br><span class="line">Generating RSA private key, 2048 bit long modulus</span><br><span class="line">........+++</span><br><span class="line">..............+++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Using configuration from ./ca.cnf</span><br><span class="line">Check that the request matches the signature</span><br><span class="line">Signature ok</span><br><span class="line">The Subject<span class="string">'s Distinguished Name is as follows</span></span><br><span class="line"><span class="string">countryName           :PRINTABLE:'</span>CN<span class="string">'</span></span><br><span class="line"><span class="string">stateOrProvinceName   :ASN.1 12:'</span>Guangdong<span class="string">'</span></span><br><span class="line"><span class="string">localityName          :ASN.1 12:'</span>Guangzhou<span class="string">'</span></span><br><span class="line"><span class="string">organizationName      :ASN.1 12:'</span>Fishdrowned<span class="string">'</span></span><br><span class="line"><span class="string">organizationalUnitName:ASN.1 12:'</span>habor.59izt.com<span class="string">'</span></span><br><span class="line"><span class="string">commonName            :ASN.1 12:'</span>*.habor.59izt.com<span class="string">'</span></span><br><span class="line"><span class="string">Certificate is to be certified until Apr 22 01:42:42 2023 GMT (730 days)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Write out database with 1 new entries</span></span><br><span class="line"><span class="string">Data Base Updated</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Certificates are located in:</span></span><br><span class="line"><span class="string">ls: illegal option -- -</span></span><br><span class="line"><span class="string">usage: ls [-@ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1%] [file ...]</span></span><br><span class="line"><span class="string">lrwxr-xr-x  1 wanwu  staff  42  4 22 09:42 /Users/wanwu/GitHub/ssl/out/habor.59izt.com/habor.59izt.com.bundle.crt -&gt; ./20210422-0942/habor.59izt.com.bundle.crt</span></span><br><span class="line"><span class="string">lrwxr-xr-x  1 wanwu  staff  35  4 22 09:42 /Users/wanwu/GitHub/ssl/out/habor.59izt.com/habor.59izt.com.crt -&gt; ./20210422-0942/habor.59izt.com.crt</span></span><br><span class="line"><span class="string">lrwxr-xr-x  1 wanwu  staff  15  4 22 09:42 /Users/wanwu/GitHub/ssl/out/habor.59izt.com/habor.59izt.com.key.pem -&gt; ../cert.key.pem</span></span><br><span class="line"><span class="string">lrwxr-xr-x  1 wanwu  staff  11  4 22 09:42 /Users/wanwu/GitHub/ssl/out/habor.59izt.com/root.crt -&gt; ../root.crt</span></span><br></pre></td></tr></table></figure>
+<h4 id="拷贝证书"><a class="header-anchor" href="#拷贝证书">¶ </a>拷贝证书</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 拷贝 Nginx 证书</span><br><span class="line"><span class="comment"># mkdir -p /etc/nginx/ssl                           // Nginx 主机上操作</span></span><br><span class="line"><span class="comment"># scp out/habor.59izt.com/habor.59izt.com.&#123;crt,key.pem&#125; root@192.168.64.64:/etc/nginx/ssl</span></span><br><span class="line"></span><br><span class="line">// 拷贝 Docker 使用的证书</span><br><span class="line"><span class="comment"># mkdir -p /etc/docker/certs.d/habor.59izt.com/     // Docker 主机上操作</span></span><br><span class="line"><span class="comment"># scp out/habor.59izt.com/root.crt root@192.168.64.64:/etc/docker/certs.d/habor.59izt.com/</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置-Nginx"><a class="header-anchor" href="#配置-Nginx">¶ </a>配置 Nginx</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream nexus_docker_get &#123;</span><br><span class="line">    server 192.168.64.64:8082;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">upstream nexus_docker_put &#123;</span><br><span class="line">    server 192.168.64.64:8083;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen  80; </span><br><span class="line">    listen  443 ssl;</span><br><span class="line">    server_name habor.china-snow.net;</span><br><span class="line">    ssl_certificate /etc/nginx/conf.d/ssl/habor.59izt.com.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/conf.d/ssl/habor.59izt.com.key.pem;</span><br><span class="line">    ssl_protocols TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers <span class="string">'!aNULL:kECDH+AESGCM:ECDH+AESGCM:RSA+AESGCM:kECDH+AES:ECDH+AES:RSA+AES:'</span>;</span><br><span class="line">    ssl_prefer_server_ciphers on; </span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    <span class="comment"># disable any limits to avoid HTTP 413 for large image uploads</span></span><br><span class="line">    client_max_body_size 0;</span><br><span class="line">    <span class="comment"># required to avoid HTTP 411: see Issue #1486 (https://github.com/docker/docker/issues/1486)                                                                                                          </span></span><br><span class="line">    chunked_transfer_encoding on; </span><br><span class="line">    access_log /var/<span class="built_in">log</span>/nginx/habor_access_nginx.log combined;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置默认使用推送代理</span></span><br><span class="line">    <span class="built_in">set</span> <span class="variable">$upstream</span> <span class="string">"nexus_docker_put"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 当请求是GET，也就是拉取镜像的时候，这里改为拉取代理，如此便解决了拉取和推送的端口统一</span></span><br><span class="line">    <span class="keyword">if</span> ( <span class="variable">$request_method</span> ~* <span class="string">'GET'</span>) &#123;</span><br><span class="line">        <span class="built_in">set</span> <span class="variable">$upstream</span> <span class="string">"nexus_docker_get"</span>;</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    index index.html index.htm index.php;</span><br><span class="line"></span><br><span class="line">    location / &#123; </span><br><span class="line">        proxy_pass  http://<span class="variable">$upstream</span>;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_connect_timeout 3600;</span><br><span class="line">        proxy_send_timeout 3600;</span><br><span class="line">        proxy_read_timeout 3600;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_buffering off;</span><br><span class="line">        proxy_request_buffering off;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto http;</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>nginx -t</code> 命令检查配置文件，如果没有问题，就可以启动 Nginx 服务了。</p>
+<h4 id="配置-Docker"><a class="header-anchor" href="#配置-Docker">¶ </a>配置 Docker</h4>
+<p>由于使用的是自己生成的证书，所以需要在 Docker 配置文件 daemon.json 中添加 <code>insecure-registries</code> 配置，如下</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"exec-opts"</span>: [<span class="string">"native.cgroupdriver=systemd"</span>],</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [<span class="string">"https://b9pmyelo.mirror.aliyuncs.com"</span>],</span><br><span class="line">  <span class="attr">"insecure-registries"</span>: [<span class="string">"https://habor.59izt.com"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重启 Docker 守护进程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a class="header-anchor" href="#测试">¶ </a>测试</h3>
+<ol>
+<li>
+<p>测试登录私有仓库</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker login habor.59izt.com</span></span><br><span class="line">Username: admin</span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted <span class="keyword">in</span> /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/<span class="comment">#credentials-store</span></span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试上传镜像到私有仓库</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 给镜像打标签</span><br><span class="line"><span class="comment"># docker tag nginx:latest habor.59izt.com/nginx:latest</span></span><br><span class="line"></span><br><span class="line">// 上传镜像</span><br><span class="line"><span class="comment"># docker push habor.59izt.com/nginx:latest</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试从私有仓库下载镜像</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull habor.59izt.com/nginx:latest</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>登录 Nexus 中央仓库，查看刚上传的镜像，如下图所示<br>
+<img src="https://z3.ax1x.com/2021/04/22/cq73wD.png" alt="image"></p>
+</li>
+<li>
+<p>测试能否匿名拉取私有镜像</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 登出私有仓库</span><br><span class="line"><span class="comment"># docker logout habor.59izt.com</span></span><br><span class="line">Removing login credentials <span class="keyword">for</span> habor.59izt.com</span><br><span class="line"></span><br><span class="line">// 再次尝试拉取</span><br><span class="line"><span class="comment"># docker pull habor.59izt.com/nginx:latest</span></span><br><span class="line">Error response from daemon: Get http://habor.59izt.com/v2/nginx/manifests/latest: no basic auth credentials</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Nexus</category>
+      </categories>
+      <tags>
+        <tag>Nexus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes-PV 和 PVC</title>
     <url>/2021/04/20/119-PV&amp;PVC/</url>
     <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" rel="noopener">Persistent Volumes</a></p>
@@ -116,7 +227,214 @@
 </ul>
 </li>
 </ol>
-]]></content>
+<h2 id="StorageClass"><a class="header-anchor" href="#StorageClass">¶ </a>StorageClass</h2>
+<p>官方文档地址 <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/" target="_blank" rel="noopener">Storage Classes</a></p>
+<p>StorageClass 为管理员提供了一种描述存储 “类” 的方法，可以满足用户不同的服务质量级别，备份策略和任意策略要求的存储需求，一般动态 PV 都会通过 StorageClass 来定义。</p>
+<p>每个 StorageClass 包含字段 provisioner，parameters 和 reclaimPolicy，StorageClass 对象的名称很重要，管理员在首次创建 StorageClass 对象时设置的类的名称和其他参数，在被创建对象后无法再更新这些对象。</p>
+<p>定义一个 StorageClass 的示例如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">standard</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/aws-ebs</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">gp2</span></span><br><span class="line"><span class="attr">reclaimPolicy:</span> <span class="string">Retain</span></span><br><span class="line"><span class="attr">allowVolumeExpansion:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">mountOptions:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">debug</span></span><br><span class="line"><span class="attr">volumeBindingMode:</span> <span class="string">Immediate</span></span><br></pre></td></tr></table></figure>
+<p>参数说明</p>
+<ol>
+<li>
+<p>Provisioner，用于指定配置 PV 的卷的类型，必须指定此字段，目前支持的卷插件如下表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Volume Plugin</th>
+<th style="text-align:center">Internal Provisioner</th>
+<th style="text-align:center">Config Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AWSElasticBlockStore</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">AWS EBS</td>
+</tr>
+<tr>
+<td style="text-align:left">AzureFile</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Azure File</td>
+</tr>
+<tr>
+<td style="text-align:left">AzureDisk</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Azure Disk</td>
+</tr>
+<tr>
+<td style="text-align:left">CephFS</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Cinder</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">OpenStack Cinder</td>
+</tr>
+<tr>
+<td style="text-align:left">FC</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">FlexVolume</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Flocker</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">GCEPersistentDisk</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">GCE PD</td>
+</tr>
+<tr>
+<td style="text-align:left">GlusterFS</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">GlusterFS</td>
+</tr>
+<tr>
+<td style="text-align:left">iSCSI</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Quobyte</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Quobyte</td>
+</tr>
+<tr>
+<td style="text-align:left">NFS</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">RBD</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Ceph RBD</td>
+</tr>
+<tr>
+<td style="text-align:left">VsphereVolume</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">vSphere</td>
+</tr>
+<tr>
+<td style="text-align:left">PortworxVolume</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Portworx Volume</td>
+</tr>
+<tr>
+<td style="text-align:left">ScaleIO</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">ScaleIO</td>
+</tr>
+<tr>
+<td style="text-align:left">StorageOS</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">StorageOS</td>
+</tr>
+<tr>
+<td style="text-align:left">Local</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">Local</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>provisioner 不仅限于此处列出的内部 provisioner，还可以运行和指定外部供应商。例如，NFS 不提供内部配置程序，但是可以使用外部配置程序，外部配置方式参考网址: <a href="https://github.com/kubernetes-incubator/external-storage" target="_blank" rel="noopener">外部配置方式</a></p>
+</blockquote>
+</li>
+<li>
+<p>ReclaimPolicy，回收策略，可以是 Delete，Retain，默认是 Delete；</p>
+</li>
+<li>
+<p>MountOptions，通过 StorageClass 动态创建的 PV可以使用 mountOptions 指定挂载参数。如果指定的卷插件不支持指定的挂载选项，就不会被创建成功，因此在设置时需要进行确认；</p>
+</li>
+<li>
+<p>parameters，PVC 具有描述属于 StorageClass 卷的参数，根据具体情况，取决于 provisioner，可以接受不同类型的参数。比如，type 为 io1 和 特定参数 iopsPerGB 是 EBS 所具有的的。如果省略配置参数，将采用默认值；</p>
+</li>
+<li>
+<p>allowVolumeExpansion，配置 PV 是否可扩展，设置为 true 时，允许用户通过编辑相应的 PVC 对象来调整卷的大小。当基础 StorageClass 的字段 allowVolumeExpansion 设置为 true 时，以下类型的卷支持卷扩展</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Volume type</th>
+<th style="text-align:center">Required Kubernetes version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gcePersistentDisk</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">awsElasticBlockStore</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Cinder</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">GlusterFS</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">RBD</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Azure File</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Azure Disk</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Portworx</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">FlexVolume</td>
+<td style="text-align:center">1.13</td>
+</tr>
+<tr>
+<td style="text-align:left">CSI</td>
+<td style="text-align:center">1.14(alpha), 1.16(beta)</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h3 id="定义-StorageClass"><a class="header-anchor" href="#定义-StorageClass">¶ </a>定义 StorageClass</h3>
+<p>StorageClass 一般用于定义动态存储卷，只需要在 Pod 上指定 StorageClass 的名字即可自动创建对应的 PV，无需再手工创建。以下为常用的 StorageClass 定义方式</p>
+<ol>
+<li>
+<p>AWS EBS</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/aws-ebs</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">io1</span></span><br><span class="line">  <span class="attr">iopsPerGB:</span> <span class="string">"10"</span></span><br><span class="line">  <span class="attr">fsType:</span> <span class="string">ext4</span></span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>type: 类型，可以设置为 io1, gp2, sc1, st1，默认值为 gp2。详细信息可以参考 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="noopener">AWS docs</a>;</li>
+<li>zone: 区域，不建议使用，AWS区域。如果既未指定区域又未指定区域，则通常会在 Kubernetes 集群具有节点的所有活动区域之间进行卷巡查。 zone 和zones 参数不能同时使用;</li>
+<li>zones: 区域，不建议使用。以逗号分隔的AWS区域列表。如果既未指定区域又未指定区域，则通常会在Kubernetes集群具有节点的所有活动区域之间进行卷巡查。 zone 和 zones 参数不能同时使用；</li>
+<li>iopsPerGB: 仅适用于 io1 卷。每秒每GiB的 I/O 操作数。 AWS 卷插件将此值乘以请求卷的大小即可计算出该卷的IOPS，并将其上限为 20,000 IOPS（AWS支持的最大值，请参阅AWS文档)。此处应为字符串，即 “10”，而不是 10;</li>
+<li>fsType: 文件类型，kubernetes 支持的 fsType。默认值为 “ext4”;</li>
+<li>encrypted: 加密，表示是否加密 EBS 卷。有效值为 “true” 或 “false”。这里需要一个字符串，即 “true” 而不是 true；</li>
+<li>kmsKeyId：可选。加密卷时使用密钥的完整 Amazon 资源名称。如果未提供任何内容但加密为 true，则 AWS 会生成一个密钥。有关有效的 ARN 值，请参阅AWS文档。</li>
+</ul>
+<blockquote>
+<p>注意，不建议使用 zone 和 zones 参数，可以使用 allowedTopologies 代替；</p>
+</blockquote>
+</li>
+<li>
+<p>GCE PD</p>
+</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line">  <span class="attr">replication-type:</span> <span class="string">none</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>

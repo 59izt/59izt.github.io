@@ -16,7 +16,7 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PersistentVolumes"><span class="toc-number">1.</span> <span class="toc-text">¶ PersistentVolumes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentVolume-和-PersistentVolumeClaim"><span class="toc-number">1.1.</span> <span class="toc-text">¶ PersistentVolume 和 PersistentVolumeClaim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回收策略"><span class="toc-number">1.2.</span> <span class="toc-text">¶ 回收策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PV"><span class="toc-number">1.3.</span> <span class="toc-text">¶ 创建 PV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PVC"><span class="toc-number">1.4.</span> <span class="toc-text">¶ 创建 PVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清理步骤"><span class="toc-number">1.5.</span> <span class="toc-text">¶ 清理步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PVC-需要注意的事项"><span class="toc-number">1.6.</span> <span class="toc-text">¶ 创建 PVC 需要注意的事项</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color10"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color9"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">130</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">85</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Kubernetes-PV 和 PVC</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-04-20 | 更新于 2021-04-20</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/kubernetes/">kubernetes</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/kubernetes/">kubernetes</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/PV/">PV</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/PVC/">PVC</a></div></div></div><div class="main-content"><p>官方文档: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" rel="noopener">Persistent Volumes</a></p>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PersistentVolumes"><span class="toc-number">1.</span> <span class="toc-text">¶ PersistentVolumes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentVolume-和-PersistentVolumeClaim"><span class="toc-number">1.1.</span> <span class="toc-text">¶ PersistentVolume 和 PersistentVolumeClaim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回收策略"><span class="toc-number">1.2.</span> <span class="toc-text">¶ 回收策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PV"><span class="toc-number">1.3.</span> <span class="toc-text">¶ 创建 PV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PVC"><span class="toc-number">1.4.</span> <span class="toc-text">¶ 创建 PVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清理步骤"><span class="toc-number">1.5.</span> <span class="toc-text">¶ 清理步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-PVC-需要注意的事项"><span class="toc-number">1.6.</span> <span class="toc-text">¶ 创建 PVC 需要注意的事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StorageClass"><span class="toc-number">2.</span> <span class="toc-text">¶ StorageClass</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义-StorageClass"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 定义 StorageClass</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color7"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">131</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">85</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Kubernetes-PV 和 PVC</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-04-20 | 更新于 2021-04-20</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/kubernetes/">kubernetes</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/kubernetes/">kubernetes</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/PV/">PV</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/PVC/">PVC</a></div></div></div><div class="main-content"><p>官方文档: <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank" rel="noopener">Persistent Volumes</a></p>
 <h2 id="PersistentVolumes"><a class="header-anchor" href="#PersistentVolumes">¶ </a>PersistentVolumes</h2>
 <p>与管理计算实例相比，管理存储是一个明显的问题。PersistentVolume 子系统为管理员和用户提供了一个 API，该 API 从如何使用存储中抽象出如何提供存储的详细信息。为此，我们引入了两个新的 API 资源: PV(PersistentVolume) 和 PVC(PersistentVolumeClaim)</p>
 <a id="more"></a>
@@ -129,4 +129,211 @@ if (isPassword) {
 </ul>
 </li>
 </ol>
-</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/04/20/119-PV&amp;PVC/">https://blog.59izt.com/2021/04/20/119-PV&amp;PVC/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/18/118-Volumes/"><span>Kubernetes-Volumes</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
+<h2 id="StorageClass"><a class="header-anchor" href="#StorageClass">¶ </a>StorageClass</h2>
+<p>官方文档地址 <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/" target="_blank" rel="noopener">Storage Classes</a></p>
+<p>StorageClass 为管理员提供了一种描述存储 “类” 的方法，可以满足用户不同的服务质量级别，备份策略和任意策略要求的存储需求，一般动态 PV 都会通过 StorageClass 来定义。</p>
+<p>每个 StorageClass 包含字段 provisioner，parameters 和 reclaimPolicy，StorageClass 对象的名称很重要，管理员在首次创建 StorageClass 对象时设置的类的名称和其他参数，在被创建对象后无法再更新这些对象。</p>
+<p>定义一个 StorageClass 的示例如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">standard</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/aws-ebs</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">gp2</span></span><br><span class="line"><span class="attr">reclaimPolicy:</span> <span class="string">Retain</span></span><br><span class="line"><span class="attr">allowVolumeExpansion:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">mountOptions:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">debug</span></span><br><span class="line"><span class="attr">volumeBindingMode:</span> <span class="string">Immediate</span></span><br></pre></td></tr></table></figure>
+<p>参数说明</p>
+<ol>
+<li>
+<p>Provisioner，用于指定配置 PV 的卷的类型，必须指定此字段，目前支持的卷插件如下表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Volume Plugin</th>
+<th style="text-align:center">Internal Provisioner</th>
+<th style="text-align:center">Config Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AWSElasticBlockStore</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">AWS EBS</td>
+</tr>
+<tr>
+<td style="text-align:left">AzureFile</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Azure File</td>
+</tr>
+<tr>
+<td style="text-align:left">AzureDisk</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Azure Disk</td>
+</tr>
+<tr>
+<td style="text-align:left">CephFS</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Cinder</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">OpenStack Cinder</td>
+</tr>
+<tr>
+<td style="text-align:left">FC</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">FlexVolume</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Flocker</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">GCEPersistentDisk</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">GCE PD</td>
+</tr>
+<tr>
+<td style="text-align:left">GlusterFS</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">GlusterFS</td>
+</tr>
+<tr>
+<td style="text-align:left">iSCSI</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">Quobyte</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Quobyte</td>
+</tr>
+<tr>
+<td style="text-align:left">NFS</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:left">RBD</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Ceph RBD</td>
+</tr>
+<tr>
+<td style="text-align:left">VsphereVolume</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">vSphere</td>
+</tr>
+<tr>
+<td style="text-align:left">PortworxVolume</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">Portworx Volume</td>
+</tr>
+<tr>
+<td style="text-align:left">ScaleIO</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">ScaleIO</td>
+</tr>
+<tr>
+<td style="text-align:left">StorageOS</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">StorageOS</td>
+</tr>
+<tr>
+<td style="text-align:left">Local</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">Local</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>provisioner 不仅限于此处列出的内部 provisioner，还可以运行和指定外部供应商。例如，NFS 不提供内部配置程序，但是可以使用外部配置程序，外部配置方式参考网址: <a href="https://github.com/kubernetes-incubator/external-storage" target="_blank" rel="noopener">外部配置方式</a></p>
+</blockquote>
+</li>
+<li>
+<p>ReclaimPolicy，回收策略，可以是 Delete，Retain，默认是 Delete；</p>
+</li>
+<li>
+<p>MountOptions，通过 StorageClass 动态创建的 PV可以使用 mountOptions 指定挂载参数。如果指定的卷插件不支持指定的挂载选项，就不会被创建成功，因此在设置时需要进行确认；</p>
+</li>
+<li>
+<p>parameters，PVC 具有描述属于 StorageClass 卷的参数，根据具体情况，取决于 provisioner，可以接受不同类型的参数。比如，type 为 io1 和 特定参数 iopsPerGB 是 EBS 所具有的的。如果省略配置参数，将采用默认值；</p>
+</li>
+<li>
+<p>allowVolumeExpansion，配置 PV 是否可扩展，设置为 true 时，允许用户通过编辑相应的 PVC 对象来调整卷的大小。当基础 StorageClass 的字段 allowVolumeExpansion 设置为 true 时，以下类型的卷支持卷扩展</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Volume type</th>
+<th style="text-align:center">Required Kubernetes version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gcePersistentDisk</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">awsElasticBlockStore</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Cinder</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">GlusterFS</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">RBD</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Azure File</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Azure Disk</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">Portworx</td>
+<td style="text-align:center">1.11</td>
+</tr>
+<tr>
+<td style="text-align:left">FlexVolume</td>
+<td style="text-align:center">1.13</td>
+</tr>
+<tr>
+<td style="text-align:left">CSI</td>
+<td style="text-align:center">1.14(alpha), 1.16(beta)</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h3 id="定义-StorageClass"><a class="header-anchor" href="#定义-StorageClass">¶ </a>定义 StorageClass</h3>
+<p>StorageClass 一般用于定义动态存储卷，只需要在 Pod 上指定 StorageClass 的名字即可自动创建对应的 PV，无需再手工创建。以下为常用的 StorageClass 定义方式</p>
+<ol>
+<li>
+<p>AWS EBS</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/aws-ebs</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">io1</span></span><br><span class="line">  <span class="attr">iopsPerGB:</span> <span class="string">"10"</span></span><br><span class="line">  <span class="attr">fsType:</span> <span class="string">ext4</span></span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<ul>
+<li>type: 类型，可以设置为 io1, gp2, sc1, st1，默认值为 gp2。详细信息可以参考 <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" target="_blank" rel="noopener">AWS docs</a>;</li>
+<li>zone: 区域，不建议使用，AWS区域。如果既未指定区域又未指定区域，则通常会在 Kubernetes 集群具有节点的所有活动区域之间进行卷巡查。 zone 和zones 参数不能同时使用;</li>
+<li>zones: 区域，不建议使用。以逗号分隔的AWS区域列表。如果既未指定区域又未指定区域，则通常会在Kubernetes集群具有节点的所有活动区域之间进行卷巡查。 zone 和 zones 参数不能同时使用；</li>
+<li>iopsPerGB: 仅适用于 io1 卷。每秒每GiB的 I/O 操作数。 AWS 卷插件将此值乘以请求卷的大小即可计算出该卷的IOPS，并将其上限为 20,000 IOPS（AWS支持的最大值，请参阅AWS文档)。此处应为字符串，即 “10”，而不是 10;</li>
+<li>fsType: 文件类型，kubernetes 支持的 fsType。默认值为 “ext4”;</li>
+<li>encrypted: 加密，表示是否加密 EBS 卷。有效值为 “true” 或 “false”。这里需要一个字符串，即 “true” 而不是 true；</li>
+<li>kmsKeyId：可选。加密卷时使用密钥的完整 Amazon 资源名称。如果未提供任何内容但加密为 true，则 AWS 会生成一个密钥。有关有效的 ARN 值，请参阅AWS文档。</li>
+</ul>
+<blockquote>
+<p>注意，不建议使用 zone 和 zones 参数，可以使用 allowedTopologies 代替；</p>
+</blockquote>
+</li>
+<li>
+<p>GCE PD</p>
+</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line">  <span class="attr">replication-type:</span> <span class="string">none</span></span><br></pre></td></tr></table></figure></div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/04/20/119-PV&amp;PVC/">https://blog.59izt.com/2021/04/20/119-PV&amp;PVC/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/21/135-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"><i class="fas fa-angle-left">&nbsp;</i><span>Nexus 配置 Docker 私有仓库</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/18/118-Volumes/"><span>Kubernetes-Volumes</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
