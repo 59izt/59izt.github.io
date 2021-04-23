@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Docker 存储驱动的选择"><meta name="keywords" content="Docker"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Docker 存储驱动的选择【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-存储驱动的选择"><span class="toc-number">1.</span> <span class="toc-text">¶ Docker 存储驱动的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Device-Mapper-配置"><span class="toc-number">1.1.</span> <span class="toc-text">¶ Device Mapper 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让-Docker-自动设置-direct-lvm"><span class="toc-number">1.2.</span> <span class="toc-text">¶ 让 Docker 自动设置 direct-lvm</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color5"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">130</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">84</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Docker 存储驱动的选择</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Docker/">Docker</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Docker/">Docker</a></div></div></div><div class="main-content"><blockquote>
+<p>参考文章：[深入浅出 Docker]</p>
+</blockquote>
+<h2 id="Docker-存储驱动的选择"><a class="header-anchor" href="#Docker-存储驱动的选择">¶ </a>Docker 存储驱动的选择</h2>
+<p>每个 Docker 容器都有一个本地存储空间，用于保存层叠的镜像层（Image Layer）以及挂载的容器文件系统。默认情况下，容器的所有读写操作都发生在其镜像层上或挂载的文件系统中。所以存储是每个容器的性能和稳定性不可或缺的一个环节。</p>
+<a id="more"></a>
+<p>以往，本地存储是通过存储驱动（Storage Driver）进行管理的，有时候也被称为 <code>Graph Driver</code> 或者 <code>GraphDriver</code>。虽然存储驱动在上层抽象设计中都采用了栈式镜像层存储和写时复制（<code>Copy-on-Write</code>）的设计思想，但是 Docker 在 Linux 底层支持几种不同的存储驱动的具体实现，每一种实现方式都采用不同方法实现了镜像层和写实复制。虽然底层实现的差异不影响用户与 Docker 之间的交互，但是对 Docker 的性能和稳定性至关重要。</p>
+<p>在 Linux 上，Docker 可选择的一些存储驱动包括 <code>AUFS</code>（最原始也是最老的），<code>Overlay2</code>（可能是未来的最佳选择），<code>Device Mapper</code>，<code>Btrfs</code> 和 <code>ZFS</code>。</p>
+<p>Docker 在 Windows 操作系统上只支持一种存储驱动，即 <code>Windows Filter</code>.</p>
+<p>存储驱动的选择是节点级别的，这意味着每个 Docker 主机只能选择一种存储驱动，而不能为每个容器选择不同的存储驱动。在 Linux 上，可以通过修改 <code>/etc/docker/daemon.json</code> 文件来修改存储引擎配置，修改完后需要重启 Docker 才能够生效。</p>
+<ul>
+<li>下面代码片段展示了如何将存储驱动设置为 <code>overlay2</code></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"storage-driver"</span>: <span class="string">"overlay2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：如果配置所在行不是文件的最后一行，则需要在行尾处添加逗号<code>,</code></p>
+</blockquote>
+<p>如果修改了正在运行 Docker 主机的存储引擎类型，则现有镜像和容器在重启之后将不可用，这是因为每种存储驱动在主机上存储镜像层的位置是不同的（通常在 <code>/var/lib/docker/&lt;storage-driver&gt;/...</code> 目录下）。修改了存储驱动的类型，Docker 就无法找到原有的镜像和容器了。切换到原来的存储驱动，之前的镜像和容器就可以继续使用了。</p>
+<p>如果希望在切换存储引擎之后还能够继续使用之前的镜像和容器，需要将镜像保存为 Docker 格式，上传到某个镜像仓库，修改本地 Docker 存储引擎并重启，之后从镜像仓库将镜像拉取到本地，最后重启容器。</p>
+<ul>
+<li>通过下面的命令来检查 Docker 当前的存储驱动类型</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker system info</span></span><br><span class="line">&lt;Snip&gt;</span><br><span class="line"> Server Version: 19.03.11</span><br><span class="line"> Storage Driver: overlay2</span><br><span class="line">  Backing Filesystem: xfs</span><br><span class="line">  Supports d_type: <span class="literal">true</span></span><br><span class="line">  Native Overlay Diff: <span class="literal">true</span></span><br><span class="line">&lt;Snip&gt;</span><br></pre></td></tr></table></figure>
+<p>选择存储驱动并正确地配置在 Docker 环境中是一件重要的事情，特别是在生产环境中。下面的清单可以作为一个参考指南，帮助我们选择合适的存储驱动。但是仍然建议参考 Docker 官网上由 Linux 发行商提供的最新文档来做出选择。</p>
+<ul>
+<li>Red Hat Enterprise Linux: 4.x 版本内核或更高版本 + Docker 17.06 版本或更高版本，建议使用 Overlay2;</li>
+<li>Red Hat Enterprise Linux: 低版本内核或低版本的 Docker，建议使用 Device Mapper；</li>
+<li>Ubuntu Linux: 4.x 版本内核或更高版本，建议使用 Overlay2；</li>
+<li>Ubuntu Linux: 更早的版本建议使用 AUFS；</li>
+<li>SUSE Linux Enterprise Server: Btrfs。</li>
+</ul>
+<p>再次强调，上面的清单内容只是一个参考建议，读者需要时刻关注 Docker 文档中关于存储驱动的最新支持和版本兼容列表。尤其是正在使用 Docker 企业版（EE）, 并且有售后支持合同的情况下，更有必要查阅最新文档。</p>
+<h3 id="Device-Mapper-配置"><a class="header-anchor" href="#Device-Mapper-配置">¶ </a>Device Mapper 配置</h3>
+<p>大部分 Linux 存储驱动不需要或需要很少的配置。但是，<code>Device Mapper</code> 通常需要合理配置之后才能表现出良好的性能。<br>
+默认情况下，<code>Device Mapper</code> 采用 <code>loopback mounted sparse file</code> 作为底层实现来为 Docker 提供存储支持。如果我们需要的是开箱即用并且对性能没什么要求，那么这种方式是可行的。但是这并不适合用于生产环境。实际上，默认方式的性能很差，并不支持生产环境。</p>
+<p>为了达到 Device Mapper 在生产环境中的最佳性能，读者需要将底层实现修改为 <code>direct-lvm</code> 模式。这种模式下通过使用基于裸块设备（Raw Block Device）的LVM 精简池（LVM thin pool）来获取更好的性能。</p>
+<p>在 Docker 17.06 以及更高版本中可以配置 <code>direct-lvm</code> 作为存储驱动。但是在本书撰写时，该方式存在某种限制。其中最主要的一点是，这种方式只能配置一个块设备，并且只有在第一次安装后才能设置生效。未来可能会有改进，但是就目前情况来看配置单一块设备这种方式在性能和可靠性上都有一定的风险。</p>
+<h3 id="让-Docker-自动设置-direct-lvm"><a class="header-anchor" href="#让-Docker-自动设置-direct-lvm">¶ </a>让 Docker 自动设置 direct-lvm</h3>
+<p>下面的步骤会将 Docker 配置存储驱动为 Device Mapper，并使用 direct-lvm 模式。</p>
+<ol>
+<li>
+<p>将下面的存储驱动配置添加到 <code>/etc/docker/daemon.json</code> 当中.</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"storage-driver"</span>: <span class="string">"devicemapper"</span>,</span><br><span class="line">  <span class="attr">"storage-opts"</span>: [</span><br><span class="line">    <span class="string">"dm.directlvm_device=/dev/xdf"</span>,</span><br><span class="line">    <span class="string">"dm.thinp_percent=95"</span>,</span><br><span class="line">    <span class="string">"dm.thinp_metapercent=1"</span>,</span><br><span class="line">    <span class="string">"dm.thinp_autoextend_threshold=80"</span>,</span><br><span class="line">    <span class="string">"dm.thinp_autoextend_percent=20"</span>,</span><br><span class="line">    <span class="string">"dm.directlvm_device_force=false"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Device Mapper 和 LVM 是很复杂的知识点，并不在本书的讨论范围之内。下面简单介绍一下各配置项的含义：</p>
+<ul>
+<li>dm.directlvm_device: 设置了块设备的位置。为了存储的最佳性能以及可用性，块设备应当位于高性能存储设备（如本地 SSD）或者外部 RAID 存储阵列上；</li>
+<li>dm.thinp_percent: 设置了镜像和容器允许使用的最大存储空间占比，默认是 95%；</li>
+<li>dm.thinp_metapercent: 设置了元数据存储（MetaData Storage）允许使用的存储空间大小。默认是 1%；</li>
+<li>dm.thinp_autoextend_threshold: 设置了 LVM 自动扩展精简池的阈值，默认是 80%；</li>
+<li>dm.thinp_autoextend_percent: 表示当触发精简池自动扩容机制的时候，扩容的大小应当占现有空间的比例；</li>
+<li>dm.directlvm_device_force: 允许用户决定是否将块设备格式化为新的文件系统。</li>
+</ul>
+</li>
+<li>
+<p>重启 Docker</p>
+</li>
+<li>
+<p>确认 Docker 已经成功运行，并且块设备配置已被成功加载。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>即使 Docker 在 driver-lvm 模式下智能设备单一块设备，其性能也会显著优于 loopback 模式；</p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/45-Docker-%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%80%89%E6%8B%A9/">https://blog.59izt.com/2021/03/30/45-Docker-%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8%E7%9A%84%E9%80%89%E6%8B%A9/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/36-SonarQube-%E6%8C%81%E7%BB%AD%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%A3%80%E6%9F%A5/"><i class="fas fa-angle-left">&nbsp;</i><span>SonarQube 持续代码质量检查</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/56-Docker-Web%E6%9C%8D%E5%8A%A1%E4%BA%8E%E5%BA%94%E7%94%A8-Nginx/"><span>Docker Web 服务于应用-Nginx</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

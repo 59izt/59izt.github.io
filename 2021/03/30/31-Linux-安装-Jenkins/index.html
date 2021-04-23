@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Linux 安装 Jenkins"><meta name="keywords" content="Jenkins"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Linux 安装 Jenkins【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">1.</span> <span class="toc-text">安装 Jenkins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text">系统要求</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">3.</span> <span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">4.</span> <span class="toc-text">安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-JDK"><span class="toc-number">4.1.</span> <span class="toc-text">¶ 安装 JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Tomcat"><span class="toc-number">4.2.</span> <span class="toc-text">¶ 安装 Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-Jenkins"><span class="toc-number">4.3.</span> <span class="toc-text">¶ 安装 Jenkins</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-number">5.</span> <span class="toc-text">启动异常问题汇总</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color4"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color10"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">130</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">84</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Linux 安装 Jenkins</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Jenkins/">Jenkins</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Jenkins/">Jenkins</a></div></div></div><div class="main-content"><blockquote>
+<p>参考文章：<a href="http://www.jenkins.org.cn/968.html" target="_blank" rel="noopener">http://www.jenkins.org.cn/968.html</a></p>
+</blockquote>
+<h1>安装 Jenkins</h1>
+<p>Jenkins 通常作为一个独立的应用程序在其自己的流程中运行，内置 Java servlet 容器/应用程序服务器(Jetty)<br>
+Jenkins 也可以运行在不同的 Java servlet 容器（如 Apache Tomcat 或 GlassFish）中作为 servlet 运行。</p>
+<blockquote>
+<p>注意：尽管此教程重点关注 Jenkins 的本地安装，但此内容也可用于帮助在生产环境中设置 Jenkins。</p>
+</blockquote>
+<a id="more"></a>
+<h1>系统要求</h1>
+<p>最低推荐配置：</p>
+<ul>
+<li>256 MB可用内存</li>
+<li>1GB 可用磁盘空间（作为一个 Docker 容器运行 jenkins 的话推荐 10GB）</li>
+</ul>
+<p>为小团队推荐的硬件配置：</p>
+<ul>
+<li>1 GB+ 可用内存</li>
+<li>50 GB+ 可用磁盘空间</li>
+</ul>
+<p>软件配置：</p>
+<ul>
+<li>Java 8 --无论是 Java 运行时环境(JRE) 还是 Java 开发工具包(JDK) 都可以</li>
+</ul>
+<blockquote>
+<p>注意：如果将 Jenkins 作为容器运行，这不是必需的。</p>
+</blockquote>
+<h1>安装环境</h1>
+<p>操作系统：CentOS 7.5<br>
+软件：JDK-14, Tomcat-9.0.34, Jenkins</p>
+<h1>安装步骤</h1>
+<h2 id="安装-JDK"><a class="header-anchor" href="#安装-JDK">¶ </a>安装 JDK</h2>
+<p>由于 Jenkins 是基于 Java 开发的，安装前确认操作系统已经安装了JDK</p>
+<ol>
+<li>解压 jdk 文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/java</span><br><span class="line">tar zxvf jdk-14_linux-x64_bin.tar.gz -C /usr/<span class="built_in">local</span>/java</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置jdk环境变量</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'#!/bin/bash'</span> &gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME=/usr/local/java/jdk-14/'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/java.sh</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>验证 Java 安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># java -version</span></span><br><span class="line">java version <span class="string">"14"</span> 2020-03-17</span><br><span class="line">Java(TM) SE Runtime Environment (build 14+36-1461)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 14+36-1461, mixed mode, sharing)</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Tomcat"><a class="header-anchor" href="#安装-Tomcat">¶ </a>安装 Tomcat</h2>
+<ol>
+<li>解压 Tomcat 软件包</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-tomcat-9.0.34.tar.gz</span><br><span class="line">mv apache-tomcat-9.0.34 /usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置 Tomcat 服务</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cp -p /usr/<span class="built_in">local</span>/tomcat/bin/catalina.sh /etc/init.d/tomcat</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑 /etc/init.d/tomcat 文件，在第二行加入以下内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># chkconfig: 112 63 37</span></span><br><span class="line"><span class="comment"># description: tomcat server init script</span></span><br><span class="line"><span class="comment"># Source Function Library</span></span><br><span class="line"></span><br><span class="line">. /etc/init.d/<span class="built_in">functions</span></span><br><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk-14/</span><br><span class="line">CATALINA_HOME=/usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>添加服务启动</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --add tomcat</span><br><span class="line">chkconfig tomcat on</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>启动 Tomcat</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service tomcat start</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Jenkins"><a class="header-anchor" href="#安装-Jenkins">¶ </a>安装 Jenkins</h2>
+<ol>
+<li>将从官网下载的 jenkins.war 包放入 Tomcat 下面的 webapps 目录下</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv jenkins.war /usr/<span class="built_in">local</span>/tomcat/webapps/</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>重启 Tomcat</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service tomcat restart</span><br></pre></td></tr></table></figure>
+<p>tomcat 会解压 war 包，生成一个 <code>jenkins</code> 文件夹，而且在 root 目录下生成一个 <code>.jenkins</code> 的文件夹.如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ls</span></span><br><span class="line">docs  examples  host-manager  jenkins  jenkins.war  manager  ROOT</span><br><span class="line"></span><br><span class="line"><span class="comment"># ls -a /root/</span></span><br><span class="line">.   .bash_history  .bash_profile  .cache   .cshrc  .jenkins     .pip  .pydistutils.cfg  .ssh     .vim           .viminfo  .vimrc</span><br><span class="line">..  .bash_logout   .bashrc        .config  .java   .oneinstack  .pki  .rnd              .tcshrc  .vim-fuf-data  .vim_old  .vimrc_old</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>
+<p>在浏览器上输出 IP地址 (<a href="http://ip" target="_blank" rel="noopener">http://ip</a>:端口/jenkins) 即可访问 Jenkins。</p>
+</li>
+<li>
+<p>剩下的安装步骤请参考提示进行安装即可（就和 Docker 运行 Jenkins 一样）</p>
+</li>
+</ol>
+<h1>启动异常问题汇总</h1>
+<ul>
+<li>问题 1：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">AWT is not properly configured on this server. Perhaps you need to run your container with <span class="string">"-Djava.awt.headless=true"</span>? See also: https://jenkins.io/redirect/troubleshooting/java.awt.headless</span><br><span class="line"></span><br><span class="line">java.lang.NullPointerException</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.getVersion(FontConfiguration.java:1262)</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.readFontConfigFile(FontConfiguration.java:225)</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.init(FontConfiguration.java:107)</span><br><span class="line">	at java.desktop/sun.awt.X11FontManager.createFontConfiguration(X11FontManager.java:719)</span><br><span class="line">	at java.desktop/sun.font.SunFontManager<span class="variable">$2</span>.run(SunFontManager.java:372)</span><br><span class="line">	at java.base/java.security.AccessController.doPrivileged(AccessController.java:312)</span><br><span class="line">	at java.desktop/sun.font.SunFontManager.&lt;init&gt;(SunFontManager.java:317)</span><br><span class="line">	at java.desktop/sun.awt.FcFontManager.&lt;init&gt;(FcFontManager.java:35)</span><br><span class="line">	at java.desktop/sun.awt.X11FontManager.&lt;init&gt;(X11FontManager.java:56)</span><br><span class="line">   ......</span><br></pre></td></tr></table></figure>
+<p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install fontconfig</span><br></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/31-Linux-%E5%AE%89%E8%A3%85-Jenkins/">https://blog.59izt.com/2021/03/30/31-Linux-%E5%AE%89%E8%A3%85-Jenkins/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/44-Flask-%E4%BD%BF%E7%94%A8-SQLAlchemy/"><i class="fas fa-angle-left">&nbsp;</i><span>Flask 使用 SQLAlchemy</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/46-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/"><span>Docker 镜像相关的操作</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>

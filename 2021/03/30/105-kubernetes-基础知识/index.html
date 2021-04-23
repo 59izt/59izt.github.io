@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Kubernetes 基础知识（一）"><meta name="keywords" content="kubernetes"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Kubernetes 基础知识（一）【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#组件介绍"><span class="toc-number">1.</span> <span class="toc-text">¶ 组件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Master-节点"><span class="toc-number">1.1.</span> <span class="toc-text">¶ Master 节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-节点"><span class="toc-number">1.2.</span> <span class="toc-text">¶ Node 节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看-Kube-proxy-的工作模式"><span class="toc-number">1.2.1.</span> <span class="toc-text">¶ 查看 Kube-proxy 的工作模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他组件"><span class="toc-number">1.3.</span> <span class="toc-text">¶ 其他组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-讲解"><span class="toc-number">2.</span> <span class="toc-text">¶ Pod 讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-Pod"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 什么是 Pod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-探针"><span class="toc-number">2.2.</span> <span class="toc-text">¶ Pod 探针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-镜像拉取策略和重启策略"><span class="toc-number">2.3.</span> <span class="toc-text">¶ Pod 镜像拉取策略和重启策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-的重启策略"><span class="toc-number">2.4.</span> <span class="toc-text">¶ Pod 的重启策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod常用的配置参数"><span class="toc-number">2.5.</span> <span class="toc-text">¶ Pod常用的配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个简单的-Pod-示例"><span class="toc-number">2.6.</span> <span class="toc-text">¶ 一个简单的 Pod 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-状态字段-Phase-的不同取值说明"><span class="toc-number">2.7.</span> <span class="toc-text">¶ Pod 状态字段 Phase 的不同取值说明</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">130</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">84</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Kubernetes 基础知识（一）</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-03-30 | 更新于 2021-03-30</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/kubernetes/">kubernetes</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/kubernetes/">kubernetes</a></div></div></div><div class="main-content"><p>参考书籍: <a href="http://www.kubeasy.com/" target="_blank" rel="noopener">kubernetes全栈架构师</a></p>
+<p>Kubernetes 是谷歌以 Borg 为前身，基于谷歌 15年生产环境经验的基础上开源的一个项目，Kubernetes 致力于提供跨主机集群的自动部署，扩展，高可用以及运行应用程序容器的平台。</p>
+<a id="more"></a>
+<h2 id="组件介绍"><a class="header-anchor" href="#组件介绍">¶ </a>组件介绍</h2>
+<h3 id="Master-节点"><a class="header-anchor" href="#Master-节点">¶ </a>Master 节点</h3>
+<p>Master 节点是 Kubernetes 集群的控制节点，在生产环境中不建议部署集群核心组件外的任何 Pod，公司业务的 Pod 更是不建议部署到 Master 节点上，以免升级或者维护时对业务造成影响。</p>
+<p>Master 组件包括:</p>
+<ul>
+<li>Kube-apiserver: 集群的控制中枢，各个模块之间的信息交互都需要经过 kube-apiserver，同时它也是集群管理，资源配置，以及整个集群安全机制的入口；</li>
+<li>Controller-Manager: 集群的状态管理器，保证 Pod 或其他资源达到预期值，也是需要和 APIServer 进行通信，在需要的时候创建，更新或删除它所管理的资源；</li>
+<li>Scheduler: 集群的调度中心，它会根据指定的一系列条件，选择一个或一批最佳的节点，然后部署我们的 Pod；</li>
+<li>Etcd: 键值数据库，包括一些集群的信息，一般生产环境中建议以部署三个以上节点（奇数个）。</li>
+</ul>
+<h3 id="Node-节点"><a class="header-anchor" href="#Node-节点">¶ </a>Node 节点</h3>
+<p>Node 节点有时候也称为 Worker 节点，或者 Minion 节点，是主要负责部署容器（工作负载）的单机（或虚拟机），集群中的每个节点都必须具备容器的运行环境，比如 Docker 及其他组件等；Kubelet 作为守护进程运行在 Node 节点上，负责监听该节点上所有的 Pod，同时负责上报该节点上所有 Pod 的运行状态确保节点上的所有容器都能正常运行。当 Node 节点宕机（NotReady）时，该节点上运行的 Pod 会被自动转移到其他节点上。</p>
+<p>Node 节点包括：</p>
+<ul>
+<li>Kubelet: 负责监听节点上 Pod 的状态，同时负责上报节点和节点上面 Pod 的状态。负责与 Master 节点通信，并管理节点上面的 Pod；</li>
+<li>Kube-proxy: 负责 Pod 之间的通信和负载均衡，将指定的流量分发到后端正确的机器上。</li>
+<li>Docker Engine: Docker 引擎，负责对容器的管理。</li>
+</ul>
+<h4 id="查看-Kube-proxy-的工作模式"><a class="header-anchor" href="#查看-Kube-proxy-的工作模式">¶ </a>查看 Kube-proxy 的工作模式</h4>
+<ol>
+<li>
+<p>查看 Kube-proxy 监听的端口</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -anptl |grep kube-proxy</span><br><span class="line">tcp        0      0 0.0.0.0:30000           0.0.0.0:*               LISTEN      1073/kube-proxy     </span><br><span class="line">tcp        0      0 127.0.0.1:10249         0.0.0.0:*               LISTEN      1073/kube-proxy     </span><br><span class="line">tcp        0      0 192.168.200.22:41662    192.168.200.110:8443    ESTABLISHED 1073/kube-proxy     </span><br><span class="line">tcp6       0      0 :::10256                :::*                    LISTEN      1073/kube-proxy</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 Kube-proxy 的工作模式</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl 127.0.0.1:10249/proxyMode</span><br><span class="line">ipvs</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="其他组件"><a class="header-anchor" href="#其他组件">¶ </a>其他组件</h3>
+<ul>
+<li>Calico: 符合 CNI 标准的网络插件，给每个 Pod 生成一个唯一的 IP 地址，并且把每个节点当做一个路由器；</li>
+<li>CoreDNS: 用于 Kubernetes 集群内部 Service 的解析，可以让 Pod 把 Service 名称解析成 IP 地址，然后通过 Service 的 IP 地址进行连接到对应的应用上。</li>
+<li>Docker: 容器引擎，负责对容器的管理。</li>
+</ul>
+<h2 id="Pod-讲解"><a class="header-anchor" href="#Pod-讲解">¶ </a>Pod 讲解</h2>
+<h3 id="什么是-Pod"><a class="header-anchor" href="#什么是-Pod">¶ </a>什么是 Pod</h3>
+<p>Pod 可简单地理解为是一组，一个或多个容器，具有共享存储/网络及如何运行容器的规范。Pod 包含一个或多个相对紧密耦合的应用程序容器，处于同一个 Pod 中的容器共享同样的存储空间（Volume，卷或存储卷），IP 地址和 Port 端口，容器之间使用 localhost:port 相互访问。<br>
+Pod 包含的容器最好是一个容器只运行一个进程。每个 Pod 包含一个 pause 容器，pause 容器是 Pod 的父容器，它主要负责僵尸进程的回收管理。<br>
+Kubernetes 为每个 Pod 都分配一个唯一的 IP 地址，这样就可以保证应用程序使用同一端口。避免了发生冲突的问题。</p>
+<p>一个 Pod 的状态信息保存在 PodStatus 对象中，在 PodStatus 中有一个 Phase 字段，用于描述 Pod 在其生命周期中的不同状态。如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Pending(挂起)</td>
+<td style="text-align:left">Pod 已被 Kubernetes 系统接收，但仍有一个或多个容器未被创建。可以通过 describe 查看处于 Pending 状态的原因</td>
+</tr>
+<tr>
+<td style="text-align:left">Running(运行中)</td>
+<td style="text-align:left">Pod 已经被绑定到一个节点上，并且所有的容器都已经被创建。而且至少有一个是运行状态，或者是正在启动或者重启。可以通过 logs 查看 Pod 的日志</td>
+</tr>
+<tr>
+<td style="text-align:left">Succeeded(成功)</td>
+<td style="text-align:left">所有容器执行成功成功并终止，并且不会再次重启</td>
+</tr>
+<tr>
+<td style="text-align:left">Failed(失败)</td>
+<td style="text-align:left">所有容器都已终止，并且至少有一个容器以失败的方式终止，也就是说这个容器要么以非零状态退出，要么是被系统终止</td>
+</tr>
+<tr>
+<td style="text-align:left">Unknown(位置)</td>
+<td style="text-align:left">通常是由于通信问题造成的无法获取 Pod 的状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pod-探针"><a class="header-anchor" href="#Pod-探针">¶ </a>Pod 探针</h3>
+<ol>
+<li>
+<p>Pod 探针用来检测容器内的应用是否正常，目前有三种方式，如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">种类</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">StartupProbe</td>
+<td style="text-align:left">k8s 1.16 版本后新加的探测方式，用于判断容器内应用程序是否已经启动。如果配置了 startupProbe，就会先禁用其他的探测，直到它成功为止，成功后不再进行探测</td>
+</tr>
+<tr>
+<td style="text-align:center">LivenessProbe</td>
+<td style="text-align:left">用于探测容器是否运行，如果探测失败，Kubelet 会根据配置的重启策略进行相应的处理。若没有配置该探针，默认就是 success</td>
+</tr>
+<tr>
+<td style="text-align:center">ReadinessProbe</td>
+<td style="text-align:left">一般用于探测容器内进程是否健康，它的返回值如果为 success，那么就代表这个容器已经启动完成，并且程序已经是可以接受流量的状态。</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Pod 探针的实现方式有以下三种</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">实现方式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ExecAction</td>
+<td style="text-align:left">在容器内执行一个指定的命令，如果命令返回值为 0，则认为容器健康</td>
+</tr>
+<tr>
+<td style="text-align:left">TCPSocketAction</td>
+<td style="text-align:left">通过 TCP 连接检查容器指定的端口，如果端口开放，则认为容器健康</td>
+</tr>
+<tr>
+<td style="text-align:left">HTTPGetAction</td>
+<td style="text-align:left">对指定的 URL 进行 Get 请求，如果状态码在 200~400 之间，则认为容器健康</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Pod 探针检查容器后可能得到的状态</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Success(成功)</td>
+<td style="text-align:left">容器通过检查</td>
+</tr>
+<tr>
+<td style="text-align:left">Failure(失败)</td>
+<td style="text-align:left">容器检测失败</td>
+</tr>
+<tr>
+<td style="text-align:left">Unknown(未知)</td>
+<td style="text-align:left">诊断失败，因此不采取任何措施</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Pod 探针检查参数配置</p>
+</li>
+</ol>
+<ul>
+<li>initialDelaySeconds: 60   # 初始化时间</li>
+<li>timeoutSeconds: 5         # 超时时间</li>
+<li>periodSeconds: 10          # 检查间隔</li>
+<li>successThreshold: 1       # 检查成功为1次就表示就绪</li>
+<li>failureThreshold: 2       # 检查失败2次就表示未就绪</li>
+</ul>
+<p>此处计算容器重启间隔的时间为，每次检查的时间间隔为 10s，最长超时时间是 5s,也就是单次检查时间应该是 10+5=15秒(periodSeconds+timeoutSeconds)；所以最长的重启时间为 <code>(10+5)*2=30s</code>; 即（periodSeconds + timeoutSeconds） * failureThreshold</p>
+<p>此时又分为两种情况：</p>
+<ul>
+<li>首次启动时：最长重启时间需要加上 initialDelaySeconds，因为需要等待 initialDelaySeconds 秒之后才会执行健康检查，最长重启时间为：(periodSeconds + timeoutSeconds) * failuerThreshold + initialDelaySeconds</li>
+<li>程序启动完成后: 此时不需要计入 initialDelaySeconds，因此最长重启时间为 (periodSeconds + timeoutSeconds) * failureThreshold</li>
+</ul>
+<h3 id="Pod-镜像拉取策略和重启策略"><a class="header-anchor" href="#Pod-镜像拉取策略和重启策略">¶ </a>Pod 镜像拉取策略和重启策略</h3>
+<p>Pod 镜像的拉去策略，用于配置当节点部署 Pod 时，对镜像的操作方式。如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作方式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Always</td>
+<td style="text-align:left">总是拉取，当镜像 tag 为 latest 时，默认为 Always</td>
+</tr>
+<tr>
+<td style="text-align:center">Never</td>
+<td style="text-align:left">不管镜像是否存在都不会拉取</td>
+</tr>
+<tr>
+<td style="text-align:center">ifNotPresent</td>
+<td style="text-align:left">镜像不存在时拉取镜像(默认值)。排除 latest</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pod-的重启策略"><a class="header-anchor" href="#Pod-的重启策略">¶ </a>Pod 的重启策略</h3>
+<p>Pod 重启策略，在 Pod 发生故障时对 Pod 的处理方式，如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作方式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Always</td>
+<td style="text-align:left">默认策略，容器失效时，自动重启该容器</td>
+</tr>
+<tr>
+<td style="text-align:center">OnFailure</td>
+<td style="text-align:left">容器以不为0的状态码终止，自动重启该容器</td>
+</tr>
+<tr>
+<td style="text-align:center">Never</td>
+<td style="text-align:left">无论何种状态，都不会重启</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pod常用的配置参数"><a class="header-anchor" href="#Pod常用的配置参数">¶ </a>Pod常用的配置参数</h3>
+<p>在生产环境中，很少会单独启动一个 Pod 直接使用，经常会用 Deployment，DaemonSet，StatefulSet 等方式调度并管理 Pod，定义 Pod 的参数同时适用于 Deployment，DaemonSet，StatefulSet 等方式。<br>
+以下是一个 Pod 常用的配置示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>  <span class="comment"># 必选，API的版本号</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>       <span class="comment"># 必选，类型Pod</span></span><br><span class="line"><span class="attr">metadata:</span>       <span class="comment"># 必选，元数据</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span>   <span class="comment"># 必选，符合RFC 1035规范的Pod名称</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span>  <span class="comment"># 可选，Pod所在的命名空间，不指定默认为default，可以使用 -n 参数指定 namespace </span></span><br><span class="line">  <span class="attr">labels:</span>             <span class="comment"># 可选，标签选择器，一般用于过滤和区分Pod</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">role:</span> <span class="string">frontend</span>    <span class="comment"># 可以写多个</span></span><br><span class="line">  <span class="attr">annotations:</span>        <span class="comment"># 可选，注释信息列表，可以写多个，和 labels 的区别是没有格式要求；</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span>    <span class="comment"># 必选，用于定义容器的详细信息</span></span><br><span class="line">  <span class="attr">initContainers:</span>     <span class="comment"># 初始化容器，在容器启动之前执行的一些初始化操作</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">command:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">sh</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">echo</span> <span class="string">"I am InitContainer for init some configuration"</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">init-container</span></span><br><span class="line">  <span class="attr">containers:</span>                 <span class="comment"># 必选，容器列表</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span>               <span class="comment"># 必选，符合RFC 1035规范的容器名称</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:latest</span>       <span class="comment"># 必选，容器所用的镜像的地址</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">Always</span>   <span class="comment"># 可选，镜像拉取策略</span></span><br><span class="line">    <span class="attr">command:</span>                  <span class="comment"># 可选，容器中启动进程执行的命令， command 相当于 Dockerfile 中的 ENTRYPOINT，还有一个 arg 相当于 Dockerfile 中的 CMD</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">nginx</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">-g</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"daemon off;"</span></span><br><span class="line">    <span class="attr">workingDir:</span> <span class="string">/usr/share/nginx/html</span>    <span class="comment"># 可选，容器的工作目录</span></span><br><span class="line">    <span class="attr">volumeMounts:</span>     <span class="comment"># 可选，存储卷配置，可以配置多个</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webroot</span>   <span class="comment"># 存储卷名称</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span>    <span class="comment"># 挂载目录</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span>    <span class="comment"># 只读</span></span><br><span class="line">    <span class="attr">ports:</span>              <span class="comment"># 可选，容器需要暴露的端口号列表</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span>        <span class="comment"># 端口名称</span></span><br><span class="line">      <span class="attr">containerPort:</span> <span class="number">80</span> <span class="comment"># 端口号</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span>     <span class="comment"># 端口协议，默认TCP</span></span><br><span class="line">    <span class="attr">env:</span>          <span class="comment"># 可选，环境变量配置列表</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">TZ</span>    <span class="comment"># 变量名</span></span><br><span class="line">      <span class="attr">value:</span> <span class="string">Asia/Shanghai</span>    <span class="comment"># 变量的值</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">LANG</span></span><br><span class="line">      <span class="attr">value:</span> <span class="string">en_US.utf8</span></span><br><span class="line">    <span class="attr">resources:</span>    <span class="comment"># 可选，资源限制和资源请求限制</span></span><br><span class="line">      <span class="attr">limits:</span>     <span class="comment"># 最大资源限制设置</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">1000m</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">1024Mi</span></span><br><span class="line">      <span class="attr">requests:</span>    <span class="comment"># 启动所需的资源的最小值</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">100m</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">512Mi</span></span><br><span class="line">    <span class="attr">startupProbe:</span>    <span class="comment"># 可选，检测容器内进程是否完成启动。注意三种检查方式同时只能使用一种。</span></span><br><span class="line">      <span class="attr">httpGet:</span>       <span class="comment"># httpGet检测方式，生产环境建议使用httpGet实现接口级健康检查，健康检查由应用程序提供。</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/api/successStart</span>    <span class="comment"># 检查路径</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">readinessProbe:</span>    <span class="comment"># 可选，健康检查。</span></span><br><span class="line">      <span class="attr">httpGet:</span>         <span class="comment"># httpGet检测方式，生产环境建议使用 httpGet 实现接口级健康检查，健康检查由应用程序提供。</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/</span>        <span class="comment"># 检查路径</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">80</span>       <span class="comment"># 监控端口</span></span><br><span class="line">    <span class="attr">livenessProbe:</span>     <span class="comment"># 可选，健康检查。</span></span><br><span class="line">      <span class="attr">exec:</span>        <span class="comment"># 执行容器命令检测方式</span></span><br><span class="line">        <span class="attr">command:</span> </span><br><span class="line">        <span class="bullet">-</span> <span class="string">cat</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">/health</span></span><br><span class="line">      <span class="attr">httpGet:</span>     <span class="comment"># httpGet检测方式</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/_health</span>   <span class="comment"># 检查路径</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">        <span class="attr">httpHeaders:</span>     <span class="comment"># 检查的请求头</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">end-user</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">Jason</span> </span><br><span class="line">      <span class="attr">tcpSocket:</span>   <span class="comment"># 端口检测方式</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">60</span>     <span class="comment"># 初始化时间</span></span><br><span class="line">      <span class="attr">timeoutSeconds:</span> <span class="number">2</span>      <span class="comment"># 超时时间</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">5</span>       <span class="comment"># 检测间隔</span></span><br><span class="line">      <span class="attr">successThreshold:</span> <span class="number">1</span>    <span class="comment"># 检查成功为2次表示就绪</span></span><br><span class="line">      <span class="attr">failureThreshold:</span> <span class="number">2</span>    <span class="comment"># 检测失败1次表示未就绪</span></span><br><span class="line">    <span class="attr">lifecycle:</span>   <span class="comment"># 生命周期配置</span></span><br><span class="line">      <span class="attr">postStart:</span> <span class="comment"># 容器创建完成后执行的指令, 可以是exec httpGet TCPSocket</span></span><br><span class="line">        <span class="attr">exec:</span></span><br><span class="line">          <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">sh</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">'mkdir /data/ '</span></span><br><span class="line">      <span class="attr">preStop:</span></span><br><span class="line">        <span class="attr">httpGet:</span>      </span><br><span class="line">          <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">exec:</span></span><br><span class="line">          <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">sh</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">sleep</span> <span class="number">9</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Always</span> <span class="comment"># 可选，默认为 Always，Always: 容器故障或没有启动成功时，自动重启；Onfailure: 容器以不为0 的状态终止，自动重启；Never: 无论何种状态，都不会重启；</span></span><br><span class="line">  <span class="attr">nodeSelector:</span>         <span class="comment"># 可选，指定该 pod 部署到哪个 Node 节点</span></span><br><span class="line">    <span class="attr">region:</span> <span class="string">subnet7</span></span><br><span class="line">  <span class="attr">imagePullSecrets:</span>     <span class="comment"># 可选，拉取镜像使用的 secret，可以配置多个</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">default-dockercfg-86258</span></span><br><span class="line">  <span class="attr">hostNetwork:</span> <span class="literal">false</span>      <span class="comment"># 可选，是否为主机模式，如是，会占用宿主机端口</span></span><br><span class="line">  <span class="attr">volumes:</span>    <span class="comment"># 共享存储卷列表</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webroot</span>   <span class="comment"># 名称，与上述对应</span></span><br><span class="line">    <span class="attr">emptyDir:</span> <span class="string">&#123;&#125;</span>    <span class="comment"># 挂载目录，这个与下面的 hostPath 只能二选一;</span></span><br><span class="line">    <span class="comment">#hostPath:       # 挂载本机目录</span></span><br><span class="line">    <span class="comment">#  path: /etc/hosts</span></span><br></pre></td></tr></table></figure>
+<h3 id="一个简单的-Pod-示例"><a class="header-anchor" href="#一个简单的-Pod-示例">¶ </a>一个简单的 Pod 示例</h3>
+<ol>
+<li>
+<p>创建一个简单的 Pod 示例文件 nginx-test.yaml，用来启动一个 Nginx pod，文件内容如下：</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span> </span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">role:</span> <span class="string">frontend</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:latest</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">    <span class="attr">command:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">nginx</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">-g</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"daemon off;"</span></span><br><span class="line">    <span class="attr">workingDir:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webroot</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">      <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span> </span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">TZ</span></span><br><span class="line">      <span class="attr">value:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">LANG</span></span><br><span class="line">      <span class="attr">value:</span> <span class="string">en_US.utf8</span></span><br><span class="line">    <span class="attr">livenessProbe:</span></span><br><span class="line">      <span class="attr">tcpSocket:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">30</span></span><br><span class="line">      <span class="attr">timeoutSeconds:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">successThreshold:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">failureThreshold:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">  <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">webroot</span></span><br><span class="line">    <span class="attr">emptyDir:</span> <span class="string">&#123;&#125;</span></span><br><span class="line">    <span class="comment">#hostPath: </span></span><br><span class="line">      <span class="comment">#path: /etc/hosts</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 kubectl 启动 pod</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f nginx-test.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看该 Pod 信息</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看 Pod 运行状态</span></span><br><span class="line">kubectl get pod</span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx   1/1     Running   0          47s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看标签信息</span></span><br><span class="line">kubectl get pod --show-labels </span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE   LABELS</span><br><span class="line">nginx   1/1     Running   0          53s   app=nginx,role=frontend</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Pod-状态字段-Phase-的不同取值说明"><a class="header-anchor" href="#Pod-状态字段-Phase-的不同取值说明">¶ </a>Pod 状态字段 Phase 的不同取值说明</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Pending(挂起)</td>
+<td style="text-align:center">Pod 已经被 Kubernetes 系统接收，但仍有一个或多个容器未被创建，可以通过 kubectl describe 查看处于 Pending 状态的原因</td>
+</tr>
+<tr>
+<td style="text-align:center">Running(运行中)</td>
+<td style="text-align:center">Pod 已经被绑定到一个节点上，并且所有的容器都已经被创建，而且至少有一个是运行状态，或者是正在启动或者重启，可以通过 kubectl logs 查看 Pod 日志</td>
+</tr>
+<tr>
+<td style="text-align:center">Succeeded(成功)</td>
+<td style="text-align:center">所有容器执行成功并终止，并且不会再次重启，可以通过 kubectl logs 查看 Pod 日志</td>
+</tr>
+<tr>
+<td style="text-align:center">Failed(失败)</td>
+<td style="text-align:center">所有容器都已终止，并且至少有一个容器以失败的方式告终，也就是说这个容器要么以非零状态退出，要么被系统终止，可以通过 logs 和 describe 查看 Pod 日志和状态</td>
+</tr>
+<tr>
+<td style="text-align:center">Unknown(位置)</td>
+<td style="text-align:center">通常是由于通信问题造成的无法获得 Pod 的状态</td>
+</tr>
+<tr>
+<td style="text-align:center">ImagePullBackOff ErrImagePull</td>
+<td style="text-align:center">镜像拉取失败，一般是由于镜像不存在，网络不通或者需要登录认证引起的，可以使用 describe 命令查看具体原因</td>
+</tr>
+<tr>
+<td style="text-align:center">CrashLoopBackOff</td>
+<td style="text-align:center">容器启动失败，可以通过 logs 命令查看具体原因，一般为启动命令不正确，健康检查不通过等</td>
+</tr>
+<tr>
+<td style="text-align:center">OOMKilled</td>
+<td style="text-align:center">容器内存溢出，一般是容器的内存 Limit 设置的过小，或者程序本身有内存溢出，可以通过 logs 查看程序的启动日志</td>
+</tr>
+<tr>
+<td style="text-align:center">Terminating</td>
+<td style="text-align:center">Pod 正在被删除，可以通过 describe 查看状态</td>
+</tr>
+<tr>
+<td style="text-align:center">SysctlForbidden</td>
+<td style="text-align:center">Pod 定义了内核配置，但 Kubelet 没有添加内核配置或配置的内核参数不支持，可以通过 describe 查看具体原因</td>
+</tr>
+<tr>
+<td style="text-align:center">Completed</td>
+<td style="text-align:center">容器内部主进程退出，一般计划任务执行结束会显示该状态，此时可以通过 logs 查看容器日志</td>
+</tr>
+<tr>
+<td style="text-align:center">ContainerCreating</td>
+<td style="text-align:center">Pod 正在创建，一般为正在下载镜像，或者有配置不当的地方，可以通过 describe 查看具体原因</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意，Pod 的 Phase 字段只有 Pending，Running，Succeeded，Failed，Unknown，其余的为处于上述状态的原因，可以通过 kubectl get pod xxx -o yaml 查看</p>
+</blockquote>
+<ol>
+<li>
+<p>kubectl logs 命令格式：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs -f POD_NAME -n POD_NAMESPACE</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>kubectl describe 命令格式</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe POD_NAME -n POD_NAMESPACE</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/03/30/105-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">https://blog.59izt.com/2021/03/30/105-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/70-%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8F%91%E5%B8%83%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B-2/"><i class="fas fa-angle-left">&nbsp;</i><span>自动化发布的数据库模型-应用数据表</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/03/30/01-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"><span>SaltStack 安装脚本学习心得</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
