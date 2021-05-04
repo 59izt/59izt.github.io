@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Oracle 备份与恢复"><meta name="keywords" content="Oracle"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Oracle 备份与恢复【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Oracle 备份与恢复"><meta name="keywords" content="Database,Oracle"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Oracle 备份与恢复【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
     tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
 });
 </script><script>var isPassword = '' || false;
@@ -16,7 +16,7 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#备份与恢复概述"><span class="toc-number">1.</span> <span class="toc-text">¶ 备份与恢复概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份方法"><span class="toc-number">2.</span> <span class="toc-text">¶ 备份方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复原理"><span class="toc-number">3.</span> <span class="toc-text">¶ 恢复原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的运行模式"><span class="toc-number">4.</span> <span class="toc-text">¶ 数据库的运行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改数据库运行模式"><span class="toc-number">4.1.</span> <span class="toc-text">¶ 修改数据库运行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闪回恢复区-Flash-Recovery-Area"><span class="toc-number">4.2.</span> <span class="toc-text">¶ 闪回恢复区 Flash Recovery Area</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color3"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">132</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">85</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">25</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle 备份与恢复</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-04-24 | 更新于 2021-04-24</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a></div></div></div><div class="main-content"><p>参考书籍: 循序渐进 Oracle 数据库管理优化与备份恢复</p>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#备份与恢复概述"><span class="toc-number">1.</span> <span class="toc-text">¶ 备份与恢复概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份方法"><span class="toc-number">2.</span> <span class="toc-text">¶ 备份方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复原理"><span class="toc-number">3.</span> <span class="toc-text">¶ 恢复原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库的运行模式"><span class="toc-number">4.</span> <span class="toc-text">¶ 数据库的运行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改数据库运行模式"><span class="toc-number">4.1.</span> <span class="toc-text">¶ 修改数据库运行模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闪回恢复区-Flash-Recovery-Area"><span class="toc-number">4.2.</span> <span class="toc-text">¶ 闪回恢复区 Flash Recovery Area</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑备份与恢复"><span class="toc-number">5.</span> <span class="toc-text">¶ 逻辑备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-EXP-进行逻辑备份"><span class="toc-number">5.1.</span> <span class="toc-text">¶ 使用 EXP 进行逻辑备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP-导出的注意事项及特殊用法"><span class="toc-number">5.2.</span> <span class="toc-text">¶ EXP 导出的注意事项及特殊用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EXP-导出与字符集"><span class="toc-number">5.2.1.</span> <span class="toc-text">¶ EXP 导出与字符集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#带查询字句的部分导出"><span class="toc-number">5.2.2.</span> <span class="toc-text">¶ 带查询字句的部分导出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数文件的使用"><span class="toc-number">5.2.3.</span> <span class="toc-text">¶ 参数文件的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用通配符进行模糊导出"><span class="toc-number">5.2.4.</span> <span class="toc-text">¶ 使用通配符进行模糊导出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按日期区分文件名称的导出"><span class="toc-number">5.2.5.</span> <span class="toc-text">¶ 按日期区分文件名称的导出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-IMP-进行逻辑恢复"><span class="toc-number">5.3.</span> <span class="toc-text">¶ 使用 IMP 进行逻辑恢复</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color3"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color8"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">138</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">90</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">29</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle 备份与恢复</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-04-24 | 更新于 2021-04-28</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Database/">Database</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a></div></div></div><div class="main-content"><p>参考书籍: 循序渐进 Oracle 数据库管理优化与备份恢复</p>
 <h2 id="备份与恢复概述"><a class="header-anchor" href="#备份与恢复概述">¶ </a>备份与恢复概述</h2>
 <p>在数据库环境中，常见的故障类型主要有：语句失败，用户进程失败，用户错误，实例失败，介质故障和网络故障。</p>
 <a id="more"></a>
@@ -138,4 +138,224 @@ if (isPassword) {
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; show parameter recovery;</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE                              VALUE</span><br><span class="line"><span class="comment">------------------------------------ --------------------------------- ------------------------------</span></span><br><span class="line">db_recovery_file_dest                string                            /u01/app/oracle/flash_recovery</span><br><span class="line">                                                                       _area</span><br><span class="line">db_recovery_file_dest_size           big integer                       3882M</span><br><span class="line">recovery_parallelism                 integer                           0</span><br></pre></td></tr></table></figure>
 <p>经过空间扩展，数据库即可恢复正常。有了闪回恢复区之后，在执行 RMAN 备份操作时，如果不指定路径，缺省的备份将存储在闪回区中；</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ rman target /</span><br><span class="line"></span><br><span class="line">Recovery Manager: Release 11.2.0.1.0 - Production on Sat Apr 24 16:52:06 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line"></span><br><span class="line">connected to target database: ORCL (DBID=1598437971)</span><br><span class="line"></span><br><span class="line">RMAN&gt; backup archivelog all delete input;</span><br><span class="line"></span><br><span class="line">Starting backup at 2021-04-24 16:52:31</span><br><span class="line">current <span class="built_in">log</span> archived</span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">allocated channel: ORA_DISK_1</span><br><span class="line">channel ORA_DISK_1: SID=144 device <span class="built_in">type</span>=DISK</span><br><span class="line">channel ORA_DISK_1: starting archived <span class="built_in">log</span> backup <span class="built_in">set</span></span><br><span class="line">channel ORA_DISK_1: specifying archived <span class="built_in">log</span>(s) <span class="keyword">in</span> backup <span class="built_in">set</span></span><br><span class="line">input archived <span class="built_in">log</span> thread=1 sequence=5 RECID=1 STAMP=1070729552</span><br><span class="line">channel ORA_DISK_1: starting piece 1 at 2021-04-24 16:52:32</span><br><span class="line">channel ORA_DISK_1: finished piece 1 at 2021-04-24 16:52:33</span><br><span class="line">piece handle=/u01/app/oracle/flash_recovery_area/ORCL/backupset/2021_04_24/o1_mf_annnn_TAG20210424T165232_j87q2jfl_.bkp tag=TAG20210424T165232 comment=NONE</span><br><span class="line">channel ORA_DISK_1: backup <span class="built_in">set</span> complete, elapsed time: 00:00:01</span><br><span class="line">channel ORA_DISK_1: deleting archived <span class="built_in">log</span>(s)</span><br><span class="line">archived <span class="built_in">log</span> file name=/u01/app/oracle/flash_recovery_area/ORCL/archivelog/2021_04_24/o1_mf_1_5_j87q2hs8_.arc RECID=1 STAMP=1070729552</span><br><span class="line">Finished backup at 2021-04-24 16:52:33</span><br></pre></td></tr></table></figure>
-</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/04/24/136-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">https://blog.59izt.com/2021/04/24/136-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/21/135-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"><span>Nexus 配置 Docker 私有仓库</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
+<h2 id="逻辑备份与恢复"><a class="header-anchor" href="#逻辑备份与恢复">¶ </a>逻辑备份与恢复</h2>
+<h3 id="使用-EXP-进行逻辑备份"><a class="header-anchor" href="#使用-EXP-进行逻辑备份">¶ </a>使用 EXP 进行逻辑备份</h3>
+<p>导入/导出（IMP/EXP）是 Oracle 最古老的两个命令行工具，通过导出（EXP）工具可以将 Oracle 数据库中的数据提取出来，在恢复时可以将数据导入（IMP）进行恢复。但需要注意的是，使用 EXP 备份的数据进行全库恢复时，需要重新创建数据库，导入备份的数据，恢复的过程可能极为漫长。</p>
+<p>逻辑导出（EXP）的使用方法在命令行通过 <code>exp -help</code> 命令可以直接得到。关于 EXP 命令的说明如下：</p>
+<ol>
+<li>
+<p>通过直接输入 EXP 命令和你的 <code>username/password</code>，导出操作将提示你输入参数，例如</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXP SCOTT/TIGER</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过输入跟有各种参数的 EXP 命令来控制导出的运行方式。要指定参数，可以使用关键字，格式如下：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EXP KEYWORD=value</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">EXP KEYWORD=(value1,value2,...,valueN)</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">EXP SCOTT/TIGER GRANTS=Y TABLES=(T1:P1,T2:P2)   <span class="comment"># 如果 T1 是分区表</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: USERID（username/password）必须是命令行中的第一个参数。</p>
+</blockquote>
+</li>
+<li>
+<p>以下是 EXP 帮助信息中所有可用的关键字以及说明</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Keyword</th>
+<th style="text-align:left">说明（默认值）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">USERID</td>
+<td style="text-align:left">用户名/密码</td>
+</tr>
+<tr>
+<td style="text-align:center">BUFFER</td>
+<td style="text-align:left">数据缓冲区大小</td>
+</tr>
+<tr>
+<td style="text-align:center">FILE</td>
+<td style="text-align:left">输出文件（EXPDAT.DMP)</td>
+</tr>
+<tr>
+<td style="text-align:center">COMPRESS</td>
+<td style="text-align:left">导入到一个区（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">GRANTS</td>
+<td style="text-align:left">导出权限（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">INDEXES</td>
+<td style="text-align:left">导出索引（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">DIRECT</td>
+<td style="text-align:left">直接路径（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">LOG</td>
+<td style="text-align:left">屏幕输出的日志文件</td>
+</tr>
+<tr>
+<td style="text-align:center">ROWS</td>
+<td style="text-align:left">导出数据（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">CONSISTENT</td>
+<td style="text-align:left">交叉表的一致性（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">FULL</td>
+<td style="text-align:left">导出整个文件（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">OWNER</td>
+<td style="text-align:left">所有者用户名列表</td>
+</tr>
+<tr>
+<td style="text-align:center">TABLES</td>
+<td style="text-align:left">表名列表</td>
+</tr>
+<tr>
+<td style="text-align:center">RECORDLENGTH</td>
+<td style="text-align:left">IO 记录的长度</td>
+</tr>
+<tr>
+<td style="text-align:center">INCTYPE</td>
+<td style="text-align:left">增量导出类型</td>
+</tr>
+<tr>
+<td style="text-align:center">RECORD</td>
+<td style="text-align:left">跟踪增量导出（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">TRIGGERS</td>
+<td style="text-align:left">导出触发器（Y）</td>
+</tr>
+<tr>
+<td style="text-align:center">STATISTICS</td>
+<td style="text-align:left">分析对象（ESTIMATE）</td>
+</tr>
+<tr>
+<td style="text-align:center">PARFILE</td>
+<td style="text-align:left">参数文件名</td>
+</tr>
+<tr>
+<td style="text-align:center">CONSTRAINTS</td>
+<td style="text-align:left">导出的约束条件</td>
+</tr>
+<tr>
+<td style="text-align:center">OBJECT_CONSISTENT</td>
+<td style="text-align:left">只在对象导出期间设置为只读的事务处理（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">FEEDBACK</td>
+<td style="text-align:left">每 x 行显示进度（0）</td>
+</tr>
+<tr>
+<td style="text-align:center">FILESIZE</td>
+<td style="text-align:left">每个转储文件的最大大小</td>
+</tr>
+<tr>
+<td style="text-align:center">FLASHBACK_SCN</td>
+<td style="text-align:left">用于将会话快照设置回以前状态的 SCN</td>
+</tr>
+<tr>
+<td style="text-align:center">FLASHBACK_TIME</td>
+<td style="text-align:left">用于获取最接近指定时间的 SCN 的时间</td>
+</tr>
+<tr>
+<td style="text-align:center">QUERY</td>
+<td style="text-align:left">用于导出表的子集的 select 子句</td>
+</tr>
+<tr>
+<td style="text-align:center">RESUMABLE</td>
+<td style="text-align:left">遇到与空格相关的错误时挂起（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">RESUMABLE_NAME</td>
+<td style="text-align:left">用于标识可恢复语句的文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">RESUMABLE_TIMEOUT</td>
+<td style="text-align:left">RESUMABLE 的等待时间</td>
+</tr>
+<tr>
+<td style="text-align:center">TTS_FULL_CHECK</td>
+<td style="text-align:left">对 TTS 执行完整或部分相关性检查</td>
+</tr>
+<tr>
+<td style="text-align:center">TABLESPACES</td>
+<td style="text-align:left">要导出的表空间列表</td>
+</tr>
+<tr>
+<td style="text-align:center">TRANSPORT_TABLESPACE</td>
+<td style="text-align:left">导出可传输的表空间元数据（N）</td>
+</tr>
+<tr>
+<td style="text-align:center">TEMPLATE</td>
+<td style="text-align:left">调用 IAS 模式导出的模板名</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<p>帮助部分详细介绍了 EXP 的使用方法，以上帮助内容来自 Oracle 11gR2。接下来简要介绍几个关于 EXP 的注意事项及特殊用法。</p>
+<h3 id="EXP-导出的注意事项及特殊用法"><a class="header-anchor" href="#EXP-导出的注意事项及特殊用法">¶ </a>EXP 导出的注意事项及特殊用法</h3>
+<h4 id="EXP-导出与字符集"><a class="header-anchor" href="#EXP-导出与字符集">¶ </a>EXP 导出与字符集</h4>
+<p>导出客户端的字符集设置会影响导出数据，所以应该设置导出客户端字符集和数据库相一致。在 Windows 的命令行可以如下设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; <span class="built_in">set</span> nls_lang=AMERICAN_AMERICA.AL32UTF8</span><br></pre></td></tr></table></figure>
+<p>在 Linux/Unix 上 Bash 下通常可以如下设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NLS_LANG=AMERICAN_AMERICA.AL32UTF8</span><br></pre></td></tr></table></figure>
+<p>数据库端使用的字符集可以通过如下查询获得</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from NLS_DATABASE_PARAMETERS where parameter='NLS_CHARACTERSET';</span><br><span class="line"></span><br><span class="line">PARAMETER                       VALUE</span><br><span class="line"><span class="comment">--------------------------------------------------------------------------------</span></span><br><span class="line">NLS_CHARACTERSET                AL32UTF8</span><br></pre></td></tr></table></figure>
+<h4 id="带查询字句的部分导出"><a class="header-anchor" href="#带查询字句的部分导出">¶ </a>带查询字句的部分导出</h4>
+<p>从 Oracle 8i 开始，EXP 工具支持使用查询字句对特定表的部分数据执行导出，这个功能是通过 EXP 的 query 参数来实现的，在使用过程中可能最常见的错误是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRM-00112: multiple values not allowed <span class="keyword">for</span> parameter <span class="string">'query'</span></span><br><span class="line"></span><br><span class="line">EXP-00019: failed to process parameter, <span class="built_in">type</span> <span class="string">'EXP HELP=Y'</span> <span class="keyword">for</span> <span class="built_in">help</span></span><br><span class="line">EXP-00000: Export terminated unsuccessfully</span><br></pre></td></tr></table></figure>
+<p>这通常是因为 QUERY 字句包含特殊字符导致的，由于特殊字符在命令行通常需要转义，所以导出的语法结构通常于与众不同。</p>
+<p>在 Windows 上，通常可以使用如下方式指定 QUERY 字句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">exp ... query=<span class="string">'where col=1000'</span></span><br><span class="line">exp ... query=<span class="string">'where col="1000"'</span></span><br><span class="line">exp ... query=<span class="string">'where col "&lt;" 1000'</span></span><br><span class="line">exp ... query=\"<span class="built_in">where</span> col &lt; 1000\"</span><br><span class="line">exp ... query=<span class="string">"'where col &lt; 1000'"</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; exp eygle/eygle@dana file=test.dmp tables=tquery query=\"<span class="built_in">where</span> object_id &lt; 1000\"</span><br></pre></td></tr></table></figure>
+<p>在 Linux/UNIX 的 Bash 下，通常可以如下方式指定 query 参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp ... query=\"<span class="built_in">where</span> col \&lt; 1000\"</span><br><span class="line">exp ... query=\"<span class="built_in">where</span> col \&lt; <span class="string">'1000'</span>\"</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp eygle/eygle file=test.dmp tables=tquery query=\"<span class="built_in">where</span> object_id \&lt; 1000\"</span><br></pre></td></tr></table></figure>
+<h4 id="参数文件的使用"><a class="header-anchor" href="#参数文件的使用">¶ </a>参数文件的使用</h4>
+<p>对于类似以上的复杂处理，可以通过参数文件 PARFILE 来指定一个参数文件，具体的参数写在参数文件中，这样就可以避免复杂的转义等操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat parfile.lst</span></span><br><span class="line">userid=eygle/eygle</span><br><span class="line">file=test.dmp</span><br><span class="line">tables=tquery</span><br><span class="line">query=<span class="string">"where object_id &lt; 1000"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exp parfile=parfile.lst</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用通配符进行模糊导出"><a class="header-anchor" href="#使用通配符进行模糊导出">¶ </a>使用通配符进行模糊导出</h4>
+<p>有时候我们希望按条件导出部分表，EXP 工具支持模糊查找，通配符可以在 tables 参数中使用。例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp eygle/eygle tables=e% file=a.dmp</span><br></pre></td></tr></table></figure>
+<p>这样，以字符 e 开头的表都被导出了。</p>
+<h4 id="按日期区分文件名称的导出"><a class="header-anchor" href="#按日期区分文件名称的导出">¶ </a>按日期区分文件名称的导出</h4>
+<p>很多时候，在导出备份时，我们希望在文件名中加入日期变量，以区分不同日期的导出文件，也可以防止覆盖。在导出文件名中引入时间有很多种不同的做法，本文主要介绍以下两种方法：</p>
+<ol>
+<li>
+<p>通过数据库查询获取日期，通过数据库查询可以获得需要的日期格式。</p>
+<p>在 Windows 上可以编写两个文件用于完成备份，一个是可执行的批处理文件，名称为 startbak.bat，内容如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> oracle_sid=eygle</span><br><span class="line">sqlplus eygle/eygle @expbydt.sql</span><br></pre></td></tr></table></figure>
+<p>第二个文件是 expbydt.sql 脚本，内容如下</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">column today new_val dt</span><br><span class="line"><span class="keyword">select</span> to_char( <span class="keyword">sysdate</span>, <span class="string">'ddmmyyyy'</span>) today <span class="keyword">from</span> dual;</span><br><span class="line">host exp userid=eygle/eygle file=exp_eygle_&amp;dt..dmp log=exp_eygle_&amp;dt..log</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>准备好这两个文件之后，就可以通过命令行运行 startbak.bat 来执行逻辑备份了。</p>
+<p>在 Linux/UNIX 系统上的 Bash 环境下可以做类似的操作，如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat startbak.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> oracle_sid=orcl</span><br><span class="line">sqlplus scott/tiger @expbydt.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># cat expbydt.sql</span></span><br><span class="line">column today new_val dt</span><br><span class="line">select to_char( sysdate, <span class="string">'ddmmyyyy'</span> ) today from dual;</span><br><span class="line">host exp userid=scott/tiger file=exp_scott_&amp;dt..dmp <span class="built_in">log</span>=exp_scott_&amp;dt..log</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<p>准备好了这两个文件之后，就可以通过命令行运行 <a href="http://startbak.sh" target="_blank" rel="noopener">startbak.sh</a> 来执行逻辑备份了。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sh startbak.sh </span></span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.1.0 Production on Sat Apr 24 22:00:15 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2009, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production</span><br><span class="line">With the Partitioning, Oracle Label Security, OLAP, Data Mining,</span><br><span class="line">Oracle Database Vault and Real Application Testing options</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TODAY</span><br><span class="line">------------------------</span><br><span class="line">24042021</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Export: Release 11.2.0.1.0 - Production on Sat Apr 24 22:00:15 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production</span><br><span class="line">With the Partitioning, Oracle Label Security, OLAP, Data Mining,</span><br><span class="line">Oracle Database Vault and Real Application Testing option</span><br><span class="line">Export <span class="keyword">done</span> <span class="keyword">in</span> UTF8 character <span class="built_in">set</span> and AL16UTF16 NCHAR character <span class="built_in">set</span></span><br><span class="line">server uses AL32UTF8 character <span class="built_in">set</span> (possible charset conversion)</span><br><span class="line">. exporting pre-schema procedural objects and actions</span><br><span class="line">. exporting foreign <span class="keyword">function</span> library names <span class="keyword">for</span> user SCOTT </span><br><span class="line">. exporting PUBLIC <span class="built_in">type</span> synonyms</span><br><span class="line">. exporting private <span class="built_in">type</span> synonyms</span><br><span class="line">. exporting object <span class="built_in">type</span> definitions <span class="keyword">for</span> user SCOTT </span><br><span class="line">About to <span class="built_in">export</span> SCOTT<span class="string">'s objects ...</span></span><br><span class="line"><span class="string">. exporting database links</span></span><br><span class="line"><span class="string">. exporting sequence numbers</span></span><br><span class="line"><span class="string">. exporting cluster definitions</span></span><br><span class="line"><span class="string">. about to export SCOTT'</span>s tables via Conventional Path ...</span><br><span class="line">. . exporting table                           DEPT          4 rows exported</span><br><span class="line">EXP-00091: Exporting questionable statistics.</span><br><span class="line">EXP-00091: Exporting questionable statistics.</span><br><span class="line">. . exporting table                            EMP         14 rows exported</span><br><span class="line">EXP-00091: Exporting questionable statistics.</span><br><span class="line">EXP-00091: Exporting questionable statistics.</span><br><span class="line">. . exporting table                       SALGRADE          5 rows exported</span><br><span class="line">EXP-00091: Exporting questionable statistics.</span><br><span class="line">. exporting synonyms</span><br><span class="line">. exporting views</span><br><span class="line">. exporting stored procedures</span><br><span class="line">. exporting operators</span><br><span class="line">. exporting referential integrity constraints</span><br><span class="line">. exporting triggers</span><br><span class="line">. exporting indextypes</span><br><span class="line">. exporting bitmap, functional and extensible indexes</span><br><span class="line">. exporting posttables actions</span><br><span class="line">. exporting materialized views</span><br><span class="line">. exporting snapshot logs</span><br><span class="line">. exporting job queues</span><br><span class="line">. exporting refresh groups and children</span><br><span class="line">. exporting dimensions</span><br><span class="line">. exporting post-schema procedural objects and actions</span><br><span class="line">. exporting statistics</span><br><span class="line">Export terminated successfully with warnings.</span><br><span class="line"></span><br><span class="line">Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production</span><br><span class="line">With the Partitioning, Oracle Label Security, OLAP, Data Mining,</span><br><span class="line">Oracle Database Vault and Real Application Testing options</span><br></pre></td></tr></table></figure>
+<p>检查一下导出后的文件名称，如果备份计划无误，就可以通过定时任务来定时执行这个任务了。</p>
+</li>
+<li>
+<p>通过操作系统获取日期，时间变量也可以直接通过操作系统获得，在 Windows 上，我们可以通过如下命令获得</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt; <span class="built_in">echo</span> %date:~0.10%</span><br></pre></td></tr></table></figure>
+<p>当然，在 Windows 上的时间格式和区域设置有关，如果以上命令输出的日期格式存在问题，那么可以调整一下区域设置的日期。可以通过一个名为 expbdt.bat 的批处理文件来执行导出操作：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> oracle_sid=eygle</span><br><span class="line">exp userid=eygle/eygle full=y file=d:\backup\exp_eygle_%date:~0.10%.dmp <span class="built_in">log</span>=d:\backup\exp_eygle_%date:~0.10%.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<p>在 Linux/UNIX  的系统上，时间的定义就显得更为简单：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp scott/tiger file=scott_`date +%Y%M%d`</span><br></pre></td></tr></table></figure>
+<p>导出的文件名如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ll</span></span><br><span class="line">total 32</span><br><span class="line">-rw-r--r-- 1 oracle oinstall 24576 Apr 24 22:19 scott_20211924.dmp</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="使用-IMP-进行逻辑恢复"><a class="header-anchor" href="#使用-IMP-进行逻辑恢复">¶ </a>使用 IMP 进行逻辑恢复</h3>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/04/24/136-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">https://blog.59izt.com/2021/04/24/136-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/25/137-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><i class="fas fa-angle-left">&nbsp;</i><span>Oracle 数据库基础知识</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/04/21/135-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"><span>Nexus 配置 Docker 私有仓库</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
