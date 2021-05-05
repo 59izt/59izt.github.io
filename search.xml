@@ -7,6 +7,7 @@
 <ol>
 <li>
 <p>打开 Windows CMD 命令行，输入以下命令导出版本库;</p>
+ <a id="more"></a>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">svnadmin dump D:\Repositories\sal D:\svnbackup\sal.dump</span><br><span class="line">svnadmin dump D:\Repositories\pur D:\svnbackup\pur.dump</span><br><span class="line">svnadmin dump D:\Repositories\settle D:\svnbackup\settle.dump</span><br><span class="line">svnadmin dump D:\Repositories\sync D:\svnbackup\sync.dump</span><br><span class="line">svnadmin dump D:\Repositories\wms D:\svnbackup\wms.dump</span><br></pre></td></tr></table></figure>
 </li>
 <li>
@@ -100,6 +101,7 @@
 <ol>
 <li>
 <p>安装常用软件</p>
+ <a id="more"></a>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y net-tools vim wget lrzsz tree bash-completion epel-release ntpdate</span><br></pre></td></tr></table></figure>
 </li>
 <li>
@@ -120,15 +122,11 @@
 </li>
 <li>
 <p>修改最大文件打开数</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line">* soft nofile 65535</span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>修改用户最大进程数</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/security/limits.d/20-nproc.conf </span><br><span class="line">*          soft    nproc     65535</span><br><span class="line">*          hard    nproc     65535</span><br><span class="line">root       soft    nproc     unlimited</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line">*   soft    nofile      65535</span><br><span class="line">*   hard    nofile      65535</span><br><span class="line">*   soft    nproc       65535</span><br><span class="line">*   hard    nproc       65535</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>设置 SSH 登录警告语</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编辑 vim /etc/ssh/sshd_config 配置文件，找到 #Banner none 参数，在其下一行增加以下内容</span></span><br><span class="line">Banner /etc/ssh/alert</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新增告警信息文件 /etc/ssh/alert。文件内容如下，这里的内容自己定义，可以提示一下登录的用户引起运维人员重视</span></span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line"></span><br><span class="line">You have successfully logged on to the SVN server, All your actions will be recorded, please be carefully !!!</span><br><span class="line"></span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编辑 vim /etc/ssh/sshd_config 配置文件，找到 #Banner none 参数，在其下一行增加以下内容</span></span><br><span class="line">Banner /etc/ssh/alert</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新增告警信息文件 /etc/ssh/alert。文件内容如下</span></span><br><span class="line"></span><br><span class="line">***************************************************************************</span><br><span class="line">          警告: 你正在登录到重要服务器，所有从操作将被记录。请谨慎操作 !!!     </span><br><span class="line">***************************************************************************</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 /etc/motd 文件，内容如下</span></span><br><span class="line"></span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br><span class="line">!!!                                                                     !!!</span><br><span class="line">!!!      You have successfully logged on to the Prometheus server,      !!!</span><br><span class="line">!!!       All your actions will be recorded, please be carefully!       !!!</span><br><span class="line">!!!                                                                     !!!</span><br><span class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>设置自动同步时间</p>
@@ -136,7 +134,7 @@
 </li>
 <li>
 <p>修改历史命令记录格式，记录登陆系统的人指定的命令以及时间，执行命令所在的目录记录到系统 message 日志</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"%Y-%m-%d %H:%M:%S  `whoami`  "</span></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; msg=$(history 1 | &#123; read x y; echo $y; &#125;); logger "[euid=$(whoami)]":$(who am i):[`pwd`]"$msg";&#125;'</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"%Y-%m-%d %H:%M:%S  `whoami`  "</span></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; msg=$(history 1 | &#123; read x y; echo $y; &#125;); logger "[euid=$(whoami)]":$(who am i):[`pwd`]"$msg";&#125;'</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>关闭 SSH 配置中 UseDNS</p>
@@ -230,6 +228,7 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 <ol>
 <li>
 <p>前往 Apache OpenOffice 官网下载对应的操作系统安装包；</p>
+ <a id="more"></a>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://jaist.dl.sourceforge.net/project/openofficeorg.mirror/4.1.9/binaries/zh-CN/Apache_OpenOffice_4.1.9_Linux_x86-64_install-rpm_zh-CN.tar.gz</span><br></pre></td></tr></table></figure>
 </li>
 <li>
@@ -305,14 +304,16 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
   <entry>
     <title>CentOS 7 配置 Tomcat 开机启动</title>
     <url>/2021/04/30/139-CentOS-7-%E9%85%8D%E7%BD%AE-Tomcat-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<ol>
+    <content><![CDATA[<h2 id="CentOS-7-配置-Tomcat-服务"><a class="header-anchor" href="#CentOS-7-配置-Tomcat-服务">¶ </a>CentOS 7 配置 Tomcat 服务</h2>
+<ol>
 <li>
 <p>为 Tomcat 设置环境变量，创建 /usr/local/tomcat/bin/setenv.sh 文件，内容如下</p>
+ <a id="more"></a>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/lib/jvm/jdk1.8.0_201</span><br><span class="line"><span class="built_in">export</span> CATALINA_PID=<span class="variable">$CATALINA_BASE</span>/tomcat.pid</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>编写 Systemd 配置文件 /usr/lib/systemd/system/tomcat.service，内容如下</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.8.0_202</span><br><span class="line"><span class="built_in">export</span> CATALINA_PID=<span class="variable">$CATALINA_BASE</span>/tomcat.pid</span><br><span class="line">[root@knowledge ~]<span class="comment"># cat /usr/lib/systemd/system/tomcat.service </span></span><br><span class="line">[Unit]</span><br><span class="line">Description=tomcat Web Server</span><br><span class="line">After=syslog.target network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">Environment=<span class="string">'JAVA_HOME=/usr/local/java/jdk1.8.0_202'</span></span><br><span class="line">PIDFile=/usr/<span class="built_in">local</span>/tomcat/tomcat.pid</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/tomcat/bin/startup.sh</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></span><br><span class="line">ExecStop=/bin/<span class="built_in">kill</span> -s QUIT <span class="variable">$MAINPID</span></span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line">User=root</span><br><span class="line">Group=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@knowledge ~]<span class="comment"># cat /usr/lib/systemd/system/tomcat.service </span></span><br><span class="line">[Unit]</span><br><span class="line">Description=tomcat Web Server</span><br><span class="line">After=syslog.target network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">Environment=<span class="string">'JAVA_HOME=/usr/local/java/jdk1.8.0_202'</span></span><br><span class="line">PIDFile=/usr/<span class="built_in">local</span>/tomcat/tomcat.pid</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/tomcat/bin/startup.sh</span><br><span class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></span><br><span class="line">ExecStop=/bin/<span class="built_in">kill</span> -s QUIT <span class="variable">$MAINPID</span></span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line">User=root</span><br><span class="line">Group=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>配置开机启动与启动 Tomcat</p>
@@ -337,6 +338,7 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 <ol>
 <li>
 <p>从官网下载 jdk8 tar 包，此处略。</p>
+ <a id="more"></a>
 </li>
 <li>
 <p>安装 jdk8</p>
@@ -4189,14 +4191,14 @@ multi        stage          b9860c6c5421   5 minutes ago   159MB
     <content><![CDATA[<blockquote>
 <p>参考文章：<a href="http://www.jenkins.org.cn/968.html" target="_blank" rel="noopener">http://www.jenkins.org.cn/968.html</a></p>
 </blockquote>
-<h1>安装 Jenkins</h1>
+<h2 id="安装-Jenkins"><a class="header-anchor" href="#安装-Jenkins">¶ </a>安装 Jenkins</h2>
 <p>Jenkins 通常作为一个独立的应用程序在其自己的流程中运行，内置 Java servlet 容器/应用程序服务器(Jetty)<br>
 Jenkins 也可以运行在不同的 Java servlet 容器（如 Apache Tomcat 或 GlassFish）中作为 servlet 运行。</p>
 <blockquote>
 <p>注意：尽管此教程重点关注 Jenkins 的本地安装，但此内容也可用于帮助在生产环境中设置 Jenkins。</p>
 </blockquote>
 <a id="more"></a>
-<h1>系统要求</h1>
+<h2 id="系统要求"><a class="header-anchor" href="#系统要求">¶ </a>系统要求</h2>
 <p>最低推荐配置：</p>
 <ul>
 <li>256 MB可用内存</li>
@@ -4214,65 +4216,67 @@ Jenkins 也可以运行在不同的 Java servlet 容器（如 Apache Tomcat 或 
 <blockquote>
 <p>注意：如果将 Jenkins 作为容器运行，这不是必需的。</p>
 </blockquote>
-<h1>安装环境</h1>
+<h2 id="安装环境"><a class="header-anchor" href="#安装环境">¶ </a>安装环境</h2>
 <p>操作系统：CentOS 7.5<br>
 软件：JDK-14, Tomcat-9.0.34, Jenkins</p>
-<h1>安装步骤</h1>
-<h2 id="安装-JDK"><a class="header-anchor" href="#安装-JDK">¶ </a>安装 JDK</h2>
+<h2 id="安装步骤"><a class="header-anchor" href="#安装步骤">¶ </a>安装步骤</h2>
+<h3 id="安装-JDK"><a class="header-anchor" href="#安装-JDK">¶ </a>安装 JDK</h3>
 <p>由于 Jenkins 是基于 Java 开发的，安装前确认操作系统已经安装了JDK</p>
 <ol>
-<li>解压 jdk 文件</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/java</span><br><span class="line">tar zxvf jdk-14_linux-x64_bin.tar.gz -C /usr/<span class="built_in">local</span>/java</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>配置jdk环境变量</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'#!/bin/bash'</span> &gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME=/usr/local/java/jdk-14/'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/java.sh</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>验证 Java 安装</li>
+<li>
+<p>解压 jdk 文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/java</span><br><span class="line">tar zxvf jdk-14_linux-x64_bin.tar.gz -C /usr/<span class="built_in">local</span>/java</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置jdk环境变量</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'#!/bin/bash'</span> &gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME=/usr/local/java/jdk-14/'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin'</span> &gt;&gt; /etc/profile.d/java.sh</span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/java.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>验证 Java 安装</p>
+</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># java -version</span></span><br><span class="line">java version <span class="string">"14"</span> 2020-03-17</span><br><span class="line">Java(TM) SE Runtime Environment (build 14+36-1461)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 14+36-1461, mixed mode, sharing)</span><br></pre></td></tr></table></figure>
-<h2 id="安装-Tomcat"><a class="header-anchor" href="#安装-Tomcat">¶ </a>安装 Tomcat</h2>
-<ol>
+<h3 id="安装-Tomcat"><a class="header-anchor" href="#安装-Tomcat">¶ </a>安装 Tomcat</h3>
+<ul>
 <li>解压 Tomcat 软件包</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf apache-tomcat-9.0.34.tar.gz</span><br><span class="line">mv apache-tomcat-9.0.34 /usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ul>
 <li>配置 Tomcat 服务</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp -p /usr/<span class="built_in">local</span>/tomcat/bin/catalina.sh /etc/init.d/tomcat</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑 /etc/init.d/tomcat 文件，在第二行加入以下内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># chkconfig: 112 63 37</span></span><br><span class="line"><span class="comment"># description: tomcat server init script</span></span><br><span class="line"><span class="comment"># Source Function Library</span></span><br><span class="line"></span><br><span class="line">. /etc/init.d/<span class="built_in">functions</span></span><br><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk-14/</span><br><span class="line">CATALINA_HOME=/usr/<span class="built_in">local</span>/tomcat</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ul>
 <li>添加服务启动</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig --add tomcat</span><br><span class="line">chkconfig tomcat on</span><br></pre></td></tr></table></figure>
-<ol start="4">
+<ul>
 <li>启动 Tomcat</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service tomcat start</span><br></pre></td></tr></table></figure>
-<h2 id="安装-Jenkins"><a class="header-anchor" href="#安装-Jenkins">¶ </a>安装 Jenkins</h2>
-<ol>
+<h3 id="开始安装-Jenkins"><a class="header-anchor" href="#开始安装-Jenkins">¶ </a>开始安装 Jenkins</h3>
+<ul>
 <li>将从官网下载的 jenkins.war 包放入 Tomcat 下面的 webapps 目录下</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv jenkins.war /usr/<span class="built_in">local</span>/tomcat/webapps/</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ul>
 <li>重启 Tomcat</li>
-</ol>
+</ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service tomcat restart</span><br></pre></td></tr></table></figure>
 <p>tomcat 会解压 war 包，生成一个 <code>jenkins</code> 文件夹，而且在 root 目录下生成一个 <code>.jenkins</code> 的文件夹.如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ls</span></span><br><span class="line">docs  examples  host-manager  jenkins  jenkins.war  manager  ROOT</span><br><span class="line"></span><br><span class="line"><span class="comment"># ls -a /root/</span></span><br><span class="line">.   .bash_history  .bash_profile  .cache   .cshrc  .jenkins     .pip  .pydistutils.cfg  .ssh     .vim           .viminfo  .vimrc</span><br><span class="line">..  .bash_logout   .bashrc        .config  .java   .oneinstack  .pki  .rnd              .tcshrc  .vim-fuf-data  .vim_old  .vimrc_old</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ul>
 <li>
-<p>在浏览器上输出 IP地址 (<a href="http://ip" target="_blank" rel="noopener">http://ip</a>:端口/jenkins) 即可访问 Jenkins。</p>
+<p>在浏览器上输出 IP地址 (<code>http://ip:端口/jenkins</code>) 即可访问 Jenkins。</p>
 </li>
 <li>
 <p>剩下的安装步骤请参考提示进行安装即可（就和 Docker 运行 Jenkins 一样）</p>
 </li>
-</ol>
-<h1>启动异常问题汇总</h1>
+</ul>
+<h2 id="启动异常问题汇总"><a class="header-anchor" href="#启动异常问题汇总">¶ </a>启动异常问题汇总</h2>
 <ul>
 <li>问题 1：</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">AWT is not properly configured on this server. Perhaps you need to run your container with <span class="string">"-Djava.awt.headless=true"</span>? See also: https://jenkins.io/redirect/troubleshooting/java.awt.headless</span><br><span class="line"></span><br><span class="line">java.lang.NullPointerException</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.getVersion(FontConfiguration.java:1262)</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.readFontConfigFile(FontConfiguration.java:225)</span><br><span class="line">	at java.desktop/sun.awt.FontConfiguration.init(FontConfiguration.java:107)</span><br><span class="line">	at java.desktop/sun.awt.X11FontManager.createFontConfiguration(X11FontManager.java:719)</span><br><span class="line">	at java.desktop/sun.font.SunFontManager<span class="variable">$2</span>.run(SunFontManager.java:372)</span><br><span class="line">	at java.base/java.security.AccessController.doPrivileged(AccessController.java:312)</span><br><span class="line">	at java.desktop/sun.font.SunFontManager.&lt;init&gt;(SunFontManager.java:317)</span><br><span class="line">	at java.desktop/sun.awt.FcFontManager.&lt;init&gt;(FcFontManager.java:35)</span><br><span class="line">	at java.desktop/sun.awt.X11FontManager.&lt;init&gt;(X11FontManager.java:56)</span><br><span class="line">   ......</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">AWT is not properly configured on this server. Perhaps you need to run your container with <span class="string">"-Djava.awt.headless=true"</span>? See also: https://jenkins.io/redirect/troubleshooting/java.awt.headless</span><br><span class="line"></span><br><span class="line">java.lang.NullPointerException</span><br><span class="line">    at java.desktop/sun.awt.FontConfiguration.getVersion(FontConfiguration.java:1262)</span><br><span class="line">    at java.desktop/sun.awt.FontConfiguration.readFontConfigFile(FontConfiguration.java:225)</span><br><span class="line">    at java.desktop/sun.awt.FontConfiguration.init(FontConfiguration.java:107)</span><br><span class="line">    at java.desktop/sun.awt.X11FontManager.createFontConfiguration(X11FontManager.java:719)</span><br><span class="line">    at java.desktop/sun.font.SunFontManager<span class="variable">$2</span>.run(SunFontManager.java:372)</span><br><span class="line">    at java.base/java.security.AccessController.doPrivileged(AccessController.java:312)</span><br><span class="line">    at java.desktop/sun.font.SunFontManager.&lt;init&gt;(SunFontManager.java:317)</span><br><span class="line">    at java.desktop/sun.awt.FcFontManager.&lt;init&gt;(FcFontManager.java:35)</span><br><span class="line">    at java.desktop/sun.awt.X11FontManager.&lt;init&gt;(X11FontManager.java:56)</span><br><span class="line">   ......</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install fontconfig</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -12354,11 +12358,11 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
     <content><![CDATA[<blockquote>
 <p>参考文章: <a href="https://www.jianshu.com/p/e59cfd15612e" target="_blank" rel="noopener">https://www.jianshu.com/p/e59cfd15612e</a></p>
 </blockquote>
-<h1>安装配置</h1>
-<h2 id="下载安装包"><a class="header-anchor" href="#下载安装包">¶ </a>下载安装包</h2>
+<h2 id="安装配置"><a class="header-anchor" href="#安装配置">¶ </a>安装配置</h2>
+<h3 id="下载安装包"><a class="header-anchor" href="#下载安装包">¶ </a>下载安装包</h3>
 <a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载 Prometheus 服务端程序</span></span><br><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.18.1/prometheus-2.18.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Prometheus 告警管理程序</span></span><br><span class="line">wget https://github.com/prometheus/alertmanager/releases/download/v0.20.0/alertmanager-0.20.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载节点服务器监控程序</span></span><br><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.0.0-rc.1/node_exporter-1.0.0-rc.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Grafana 面板程序</span></span><br><span class="line">wget https://dl.grafana.com/oss/release/grafana-6.7.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<h2 id="安装-Prometheus"><a class="header-anchor" href="#安装-Prometheus">¶ </a>安装 Prometheus</h2>
+<h3 id="安装-Prometheus"><a class="header-anchor" href="#安装-Prometheus">¶ </a>安装 Prometheus</h3>
 <ul>
 <li>解压压缩包</li>
 </ul>
@@ -12378,7 +12382,7 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <ul>
 <li>浏览器访问地址 172.16.68.23:9090</li>
 </ul>
-<h2 id="安装-Alertmanager"><a class="header-anchor" href="#安装-Alertmanager">¶ </a>安装 Alertmanager</h2>
+<h3 id="安装-Alertmanager"><a class="header-anchor" href="#安装-Alertmanager">¶ </a>安装 Alertmanager</h3>
 <ul>
 <li>解压压缩包</li>
 </ul>
@@ -12395,7 +12399,7 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <li>查看端口</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anplt |grep 9093</span><br><span class="line">tcp6       0      0 :::9093                 :::*                    LISTEN      15957/alertmanager</span><br></pre></td></tr></table></figure>
-<h2 id="安装-Grafana"><a class="header-anchor" href="#安装-Grafana">¶ </a>安装 Grafana</h2>
+<h3 id="安装-Grafana"><a class="header-anchor" href="#安装-Grafana">¶ </a>安装 Grafana</h3>
 <ul>
 <li>解压文件</li>
 </ul>
@@ -12415,7 +12419,7 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <ul>
 <li>grafana 初始账号密码为 admin/admin, 第一次登陆会提示修改密码。</li>
 </ul>
-<h2 id="安装-exporter"><a class="header-anchor" href="#安装-exporter">¶ </a>安装 exporter</h2>
+<h3 id="安装-exporter"><a class="header-anchor" href="#安装-exporter">¶ </a>安装 exporter</h3>
 <ul>
 <li>解压文件</li>
 </ul>
@@ -12423,7 +12427,7 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <ul>
 <li>配置服务文件 /etc/systemd/system/node_exporter.service</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=node_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/node_exporter-0.18.1/node_exporter</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=node_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/node_exporter/node_exporter</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <ul>
 <li>重新加载服务并启动 node_exporter 服务</li>
 </ul>
@@ -12432,7 +12436,7 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <li>查看端口</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep 9100</span><br><span class="line">tcp6       0      0 :::9100                 :::*                    LISTEN      16132/node_exporter</span><br></pre></td></tr></table></figure>
-<h1>配置 Prometheus 监控 node 节点</h1>
+<h2 id="配置-Prometheus-监控-node-节点"><a class="header-anchor" href="#配置-Prometheus-监控-node-节点">¶ </a>配置 Prometheus 监控 node 节点</h2>
 <ul>
 <li>编辑 Prometheus 配置文件 prometheus.yml，添加监控对象以及监控任务</li>
 </ul>
@@ -12445,10 +12449,10 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <li>重启服务</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br></pre></td></tr></table></figure>
-<h1>配置 Prometheus Alertmanager</h1>
-<h2 id="修改-prometheus-yml-配置文件的如下内容"><a class="header-anchor" href="#修改-prometheus-yml-配置文件的如下内容">¶ </a>修改 prometheus.yml 配置文件的如下内容</h2>
+<h2 id="配置-Prometheus-Alertmanager"><a class="header-anchor" href="#配置-Prometheus-Alertmanager">¶ </a>配置 Prometheus Alertmanager</h2>
+<h3 id="修改-prometheus-yml-配置文件的如下内容"><a class="header-anchor" href="#修改-prometheus-yml-配置文件的如下内容">¶ </a>修改 prometheus.yml 配置文件的如下内容</h3>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Alertmanager configuration</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">localhost:9093</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/host_status.yml"</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/memory_usage.yml"</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建-rules-文件"><a class="header-anchor" href="#创建-rules-文件">¶ </a>创建 rules 文件</h2>
+<h3 id="创建-rules-文件"><a class="header-anchor" href="#创建-rules-文件">¶ </a>创建 rules 文件</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir rules &amp;&amp; <span class="built_in">cd</span> rules</span><br></pre></td></tr></table></figure>
 <ul>
 <li>host_status.yml 内容如下</li>
@@ -12458,9 +12462,9 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <li>memory_usage.yml</li>
 </ul>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Memory</span> <span class="string">Monitor</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">NodeMemoryUsage</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(node_memory_MemTotal_bytes</span> <span class="bullet">-</span> <span class="string">(node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes</span> <span class="string">))</span> <span class="string">/</span> <span class="string">node_memory_MemTotal_bytes</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: High Memory usage detected"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: Memory usage is above 80% (current value is:<span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br></pre></td></tr></table></figure>
-<h2 id="修改-Alertmanager-配置文件-alertmanager-yml"><a class="header-anchor" href="#修改-Alertmanager-配置文件-alertmanager-yml">¶ </a>修改 Alertmanager 配置文件 alertmanager.yml</h2>
+<h3 id="修改-Alertmanager-配置文件-alertmanager-yml"><a class="header-anchor" href="#修改-Alertmanager-配置文件-alertmanager-yml">¶ </a>修改 Alertmanager 配置文件 alertmanager.yml</h3>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="comment"># 每2分钟检查一次是否恢复</span></span><br><span class="line">  <span class="attr">resolve_timeout:</span> <span class="string">2m</span></span><br><span class="line">  <span class="comment"># SMTP的相关配置</span></span><br><span class="line">  <span class="attr">smtp_smarthost:</span> <span class="string">smtp.163.com:25</span></span><br><span class="line">  <span class="attr">smtp_from:</span> <span class="string">xxxxx@163.com</span></span><br><span class="line">  <span class="attr">smtp_auth_username:</span> <span class="string">xxxxx@163.com</span> </span><br><span class="line">  <span class="attr">smtp_auth_password:</span> <span class="string">xxxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义 通知的模板的 目录 或者 文件.</span></span><br><span class="line"><span class="attr">templates:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'template/*.tmpl'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路由树的根节点, 每个传进来的报警从这里开始.</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> <span class="string">['alertname']</span></span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">30m</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">'email'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'email'</span></span><br><span class="line">  <span class="attr">email_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">to:</span> <span class="string">'2350686113@qq.com'</span></span><br><span class="line">    <span class="attr">headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] Prometheus 告警邮件"</span> <span class="string">&#125;</span></span><br><span class="line">    <span class="attr">html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "email.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">wechat_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">corp_id:</span> <span class="string">'xxxxxxx'</span></span><br><span class="line">    <span class="attr">api_secret:</span> <span class="string">'xxxxxxxxxxxxxxxxxxxx'</span></span><br><span class="line">    <span class="attr">agent_id:</span> <span class="string">'x'</span></span><br><span class="line">    <span class="attr">to_party:</span> <span class="string">'2'</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "wechat.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建告警模板文件"><a class="header-anchor" href="#创建告警模板文件">¶ </a>创建告警模板文件</h2>
+<h3 id="创建告警模板文件"><a class="header-anchor" href="#创建告警模板文件">¶ </a>创建告警模板文件</h3>
 <ul>
 <li>email.tmpl</li>
 </ul>
@@ -12469,10 +12473,10 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
 <li>wechat.tmpl</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123; define "wechat.html" &#125;&#125;</span><br><span class="line">    &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">    ===alertmanager监控报警===</span><br><span class="line">    告警状态：&#123;&#123; .Status &#125;&#125;</span><br><span class="line">    告警级别：&#123;&#123; $alert.Labels.severity &#125;&#125;</span><br><span class="line">    告警类型：&#123;&#123; $alert.Labels.alertname &#125;&#125;</span><br><span class="line">    告警应用：&#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    故障主机: &#123;&#123; $alert.Labels.instance &#125;&#125;</span><br><span class="line">    告警主题: &#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    触发阀值：&#123;&#123; $alert.Annotations.value &#125;&#125;</span><br><span class="line">    告警详情: &#123;&#123; $alert.Annotations.description &#125;&#125;</span><br><span class="line">    触发时间: &#123;&#123; $alert.StartsAt.Format "2006-01-02 15:04:05" &#125;&#125;</span><br><span class="line">    ===========end============</span><br><span class="line">    &#123;&#123; end &#125;&#125;</span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="重启服务"><a class="header-anchor" href="#重启服务">¶ </a>重启服务</h2>
+<h3 id="重启服务"><a class="header-anchor" href="#重启服务">¶ </a>重启服务</h3>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br><span class="line">systemctl status prometheus</span><br><span class="line">systemctl restart alertmanager</span><br><span class="line">systemctl status alertmanager</span><br></pre></td></tr></table></figure>
-<h2 id="测试告警"><a class="header-anchor" href="#测试告警">¶ </a>测试告警</h2>
-<p>停掉一台服务器的 node_exporter，然后访问 <a href="http://172.16.68.23:9090/alerts" target="_blank" rel="noopener">http://172.16.68.23:9090/alerts</a>, 查看告警相关的规则</p>
+<h3 id="测试告警"><a class="header-anchor" href="#测试告警">¶ </a>测试告警</h3>
+<p>停掉一台服务器的 node_exporter，然后访问 <code>http://172.16.68.23:9090/alerts</code>, 查看告警相关的规则</p>
 ]]></content>
       <categories>
         <category>Prometheus</category>
