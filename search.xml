@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS 磁盘扩容 LVM</title>
+    <url>/2021/05/06/143-CentOS-%E7%A3%81%E7%9B%98LVM%E6%89%A9%E5%AE%B9/</url>
+    <content><![CDATA[<h2 id="CentOS-7-磁盘扩容"><a class="header-anchor" href="#CentOS-7-磁盘扩容">¶ </a>CentOS 7 磁盘扩容</h2>
+<h3 id="扩容步骤"><a class="header-anchor" href="#扩容步骤">¶ </a>扩容步骤</h3>
+<a id="more"></a>
+<ul>
+<li>增加虚拟机磁盘容量，从 40G 增加到 120G;</li>
+<li>创建磁盘分区;</li>
+<li>创建 pv;</li>
+<li>扩容 vg;</li>
+<li>扩容 lv;</li>
+</ul>
+<h3 id="详细步骤"><a class="header-anchor" href="#详细步骤">¶ </a>详细步骤</h3>
+<ol>
+<li>
+<p>登录系统，使用 <code>fdisk</code> 或者 <code>parted</code> 创建新分区，这里使用 <code>fdisk</code> 命令</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># fdisk /dev/sda</span></span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line"></span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write <span class="built_in">command</span>.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span>:</span><br><span class="line">p   primary (2 primary, 0 extended, 2 free)</span><br><span class="line">e   extended</span><br><span class="line">Select (default p): </span><br><span class="line">Using default response p</span><br><span class="line">Partition number (3,4, default 3): </span><br><span class="line">First sector (83886080-251658239, default 83886080): </span><br><span class="line">Using default value 83886080</span><br><span class="line">Last sector, +sectors or +size&#123;K,M,G&#125; (83886080-251658239, default 251658239): </span><br><span class="line">Using default value 251658239</span><br><span class="line">Partition 3 of <span class="built_in">type</span> Linux and of size 80 GiB is <span class="built_in">set</span></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 128.8 GB, 128849018880 bytes, 251658240 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x0000df14</span><br><span class="line"></span><br><span class="line">Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sda1   *        2048     2099199     1048576   83  Linux</span><br><span class="line">/dev/sda2         2099200    83886079    40893440   8e  Linux LVM</span><br><span class="line">/dev/sda3        83886080   251658239    83886080   83  Linux</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): t</span><br><span class="line">Partition number (1-3, default 3): </span><br><span class="line">Hex code (<span class="built_in">type</span> L to list all codes): 8e</span><br><span class="line">Changed <span class="built_in">type</span> of partition <span class="string">'Linux'</span> to <span class="string">'Linux LVM'</span></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 128.8 GB, 128849018880 bytes, 251658240 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x0000df14</span><br><span class="line"></span><br><span class="line">Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/sda1   *        2048     2099199     1048576   83  Linux</span><br><span class="line">/dev/sda2         2099200    83886079    40893440   8e  Linux LVM</span><br><span class="line">/dev/sda3        83886080   251658239    83886080   8e  Linux LVM</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</span><br><span class="line">The partition table has been altered!</span><br><span class="line"></span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line"></span><br><span class="line">WARNING: Re-reading the partition table failed with error 16: Device or resource busy.</span><br><span class="line">The kernel still uses the old table. The new table will be used at</span><br><span class="line">the next reboot or after you run partprobe(8) or kpartx(8)</span><br><span class="line">Syncing disks.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建完新分区后，需要使用 <code>partprobe</code> 命令重新加载分区表，否则无法找到新建的分区</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># partprobe </span></span><br><span class="line">Warning: Unable to open /dev/sr0 <span class="built_in">read</span>-write (Read-only file system).  /dev/sr0 has been opened <span class="built_in">read</span>-only.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建玩新分区后，使用 <code>pvcreate</code> 创建新的 PV</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># pvcreate /dev/sda3</span></span><br><span class="line">  Physical volume <span class="string">"/dev/sda3"</span> successfully created.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>扩容 VG 或者新建一个 VG，这里使用扩容命令 vgextend 扩容 VG centos</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># vgextend centos /dev/sda3</span></span><br><span class="line">  Volume group <span class="string">"centos"</span> successfully extended</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 VG 信息</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># vgdisplay </span></span><br><span class="line">  --- Volume group ---</span><br><span class="line">  VG Name               centos</span><br><span class="line">  System ID             </span><br><span class="line">  Format                lvm2</span><br><span class="line">  Metadata Areas        2</span><br><span class="line">  Metadata Sequence No  4</span><br><span class="line">  VG Access             <span class="built_in">read</span>/write</span><br><span class="line">  VG Status             resizable</span><br><span class="line">  MAX LV                0</span><br><span class="line">  Cur LV                2</span><br><span class="line">  Open LV               2</span><br><span class="line">  Max PV                0</span><br><span class="line">  Cur PV                2</span><br><span class="line">  Act PV                2</span><br><span class="line">  VG Size               118.99 GiB</span><br><span class="line">  PE Size               4.00 MiB</span><br><span class="line">  Total PE              30462</span><br><span class="line">  Alloc PE / Size       9982 / 38.99 GiB</span><br><span class="line">  Free  PE / Size       20480 / 80.00 GiB</span><br><span class="line">  VG UUID               6im9xc-9k0x-tUq7-DHWd-ER4r-WiNs-j2Szfi</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 LV 信息</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># lvs</span></span><br><span class="line">LV   VG     Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert</span><br><span class="line">  root centos -wi-ao---- &lt;35.12g                                                    </span><br><span class="line">  swap centos -wi-ao----  &lt;3.88g</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>扩容 LV</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># lvextend -l +100%FREE /dev/centos/root</span></span><br><span class="line">  Size of logical volume centos/root changed from &lt;35.12 GiB (8990 extents) to &lt;115.12 GiB (29470 extents).</span><br><span class="line">  Logical volume centos/root successfully resized.</span><br><span class="line"></span><br><span class="line">[root@jenkins ~]<span class="comment"># lvs</span></span><br><span class="line">  LV   VG     Attr       LSize    Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert</span><br><span class="line">  root centos -wi-ao---- &lt;115.12g                                                    </span><br><span class="line">  swap centos -wi-ao----   &lt;3.88g</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新加载逻辑卷的大小</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ext4 文件系统的方法</span></span><br><span class="line">[root@jenkins ~]<span class="comment"># resize2fs /dev/centos/root</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># xfs 文件系统的方法</span></span><br><span class="line">[root@jenkins ~]<span class="comment"># xfs_growfs /dev/centos/root </span></span><br><span class="line">meta-data=/dev/mapper/centos-root isize=512    agcount=4, agsize=2301440 blks</span><br><span class="line">         =                       sectsz=512   attr=2, projid32bit=1</span><br><span class="line">         =                       crc=1        finobt=0 spinodes=0</span><br><span class="line">data     =                       bsize=4096   blocks=9205760, imaxpct=25</span><br><span class="line">         =                       sunit=0      swidth=0 blks</span><br><span class="line">naming   =version 2              bsize=4096   ascii-ci=0 ftype=1</span><br><span class="line"><span class="built_in">log</span>      =internal               bsize=4096   blocks=4495, version=2</span><br><span class="line">         =                       sectsz=512   sunit=0 blks, lazy-count=1</span><br><span class="line">realtime =none                   extsz=4096   blocks=0, rtextents=0</span><br><span class="line">data blocks changed from 9205760 to 30177280</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看最新的挂载信息</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@jenkins ~]<span class="comment"># df -Th</span></span><br><span class="line">Filesystem              Type      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs                devtmpfs  2.0G     0  2.0G   0% /dev</span><br><span class="line">tmpfs                   tmpfs     2.0G     0  2.0G   0% /dev/shm</span><br><span class="line">tmpfs                   tmpfs     2.0G  8.9M  2.0G   1% /run</span><br><span class="line">tmpfs                   tmpfs     2.0G     0  2.0G   0% /sys/fs/cgroup</span><br><span class="line">/dev/mapper/centos-root xfs       116G  3.0G  113G   3% /</span><br><span class="line">/dev/sda1               xfs      1014M  137M  878M  14% /boot</span><br><span class="line">tmpfs                   tmpfs     396M     0  396M   0% /run/user/1000</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>LVM</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>LVM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迁移 VisualSVN 到 Linux 平台</title>
     <url>/2021/05/03/142-%E8%BF%81%E7%A7%BB-VisualSVN-%E5%88%B0CentOS7-%E5%B9%B3%E5%8F%B0/</url>
     <content><![CDATA[<h2 id="备份-VisualSVN-版本库仓库"><a class="header-anchor" href="#备份-VisualSVN-版本库仓库">¶ </a>备份 VisualSVN 版本库仓库</h2>
@@ -176,7 +236,7 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 </li>
 <li>
 <p>设置 umask 值</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'umask 027'</span> &gt;&gt; /etc/&#123;bashrc,profile&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'umask 027'</span> &gt;&gt; /etc/bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'umask 027'</span> &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>隐藏系统版本信息</p>
@@ -184,7 +244,7 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 </li>
 <li>
 <p>设置登录失败锁定（终端锁定）</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/pam.d/system-auth</span><br><span class="line"><span class="comment"># 在 # User changes will be destroyed the next time authconfig is run. 行的下面，添加</span></span><br><span class="line">auth       required     pam_tally2.so deny=5 unlock_time=1800 even_deny_root root_unlock_time=1800</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'auth        required      pam_tally2.so deny=5 unlock_time=1800 even_deny_root root_unlock_time=1800'</span> &gt;&gt; /etc/pam.d/system-auth</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>通过终端登录，5次登录失败后锁定账号30分钟，锁定期间此账号无法再次登录。</p>
 </blockquote>
