@@ -1,9 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>145-CentOS7-安装-JumpServer</title>
-    <url>/2021/05/25/145-CentOS7-%E5%AE%89%E8%A3%85-JumpServer/</url>
-    <content><![CDATA[]]></content>
+    <title>Prometheus 基础知识</title>
+    <url>/2021/05/30/145-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<h2 id="Prometheus-架构"><a class="header-anchor" href="#Prometheus-架构">¶ </a>Prometheus 架构</h2>
+<p>Prometheus 由开源编程语言 Go 编写，并且是在 Apache 2.0 许可证下授权的。它孵化于云原生计算基金会。</p>
+<a id="more"></a>
+<p>Prometheus 通过抓取或拉取应用程序中暴露的时间序列数据来工作。时间序列数据通常由应用程序本身通过客户端库或 exporter 的代理来作为 HTTP 端点暴露。目前已经存在很多的 exporter 和客户端库，支持多种编程语言，框架和开源应用程序，如 Apache Web 服务器和 MySQL 数据库等。</p>
+<p>Prometheus 还有一个推送网关（push gateway），可用于接收少量数据，例如，来自无法拉取的目标数据（如临时作业或者防火墙后面的目标）。</p>
+<h3 id="指标收集"><a class="header-anchor" href="#指标收集">¶ </a>指标收集</h3>
+<ul>
+<li>端点（endpoint）：Prometheus 称其可以抓取的指标来源为端点，端点通常对应单个进程，主机，服务或者应用程序。</li>
+<li>目标（target）：为了抓取端点数据，Prometheus 定义了名为目标的配置。这是执行抓取所需的信息。例如，如何进行连接，要应用哪些元数据，连接需要哪些身份验证，或者定义抓取将如何执行的其他信息。</li>
+<li>作业（job）：一组目标被称为作业（job）。作业通常是具有相同角色的目标组，例如，负载均衡器后面的 Apache 服务器集群，它们实际上是一组相似的进程。</li>
+</ul>
+<p>生成的时间序列数据被收集并存储在 Prometheus 服务器本地，也可以设置从服务器发送数据到外部存储器或者其他时间序列数据库。</p>
+<h3 id="服务发现"><a class="header-anchor" href="#服务发现">¶ </a>服务发现</h3>
+<p>可以通过多种方式来处理要监控的资源的发现，包括：</p>
+<ul>
+<li>用户提供的静态资源列表；</li>
+<li>基于文件的发现。例如，使用配置管理工具生成在 Prometheus 中可以自动更新的资源列表；</li>
+<li>自动发现。例如，查询 Consul 等数据存储，在 Amazon 或 Google 中运行实例，或使用 DNS SRV 记录来生成资源列表。</li>
+</ul>
+<h3 id="什么是指标"><a class="header-anchor" href="#什么是指标">¶ </a>什么是指标</h3>
+<p><code>指标</code>是软件或硬件组件属性的度量。为了使指标有价值，我们会跟踪其状态，通常记录一段时间内的数据点。这些数据点称为<code>观察点</code>(observation)，观察点通常包括值，时间戳，有时也涵盖描述观察点的一系列属性（如源或标签）。观察的集合称为<code>时间序列</code>。</p>
+<p>我们通常以固定的时间间隔收集数据，该时间间隔被称为<code>颗粒度</code>(granularity)或者<code>分辨率</code>(resolution)，取值可以从1秒到5分钟，甚至到60分钟或者更长。正确的选择指标的颗粒度至关重要，若选择得太粗糙，则很容易错过某些细节。例如，以5分钟为间隔对 CPU 或内存使用情况进行采样，几乎不可能识别出数据中的异常情况。另外，如果颗粒度过于精细，则需要存储和分析大量数据。</p>
+<p>时间序列数据是这些观察点按时间序列排列的的集合。时间序列指标通常被可视化为二位图形，其中 X 轴是时间，Y 轴是具体的数据值。通常，你会在 Y 轴上看到多个数据值 – 例如，来自主机的多个 CPU 使用率值，或者成功和失败的事物。</p>
+<h3 id="指标类型"><a class="header-anchor" href="#指标类型">¶ </a>指标类型</h3>
+<h4 id="测量型-Gauge"><a class="header-anchor" href="#测量型-Gauge">¶ </a>测量型(Gauge)</h4>
+<p>第一种指标类型是测量型（gauge），这种类型是上下增减的数字，本质上是特定度量的快照。常见的监控指标如 CPU，内存和磁盘使用率等都属于这个类型。对于业务指标来说，指标可能是网站上的客户端数量。</p>
+<h4 id="计数型-Counter"><a class="header-anchor" href="#计数型-Counter">¶ </a>计数型(Counter)</h4>
+<p>第二种类型是计数型（counter），这种类型是随着时间增加而不会减少的数字。虽然它们永远不会减少，但有时可以将其充值为零并再次开始递增。应用程序和基础设施的计数型示例包括系统正常运行时间，设备收发包的字节数或登录次数。业务方面的示例可能是一个月内的销售数量或应用程序收到的订单数量。</p>
+<p>计数型指标的一个优势在于它们可以让你计算变化率。每个观察到的数值都是在一个时刻: t，你可以使用 t+1 处的值减去 t 处的值，以获得两个值之间的变化率。通过了解两个值之间的变化率，可以理解许多有用的信息。例如登录次数指标，你可以通过计算变化率来查看每秒的登录次数，这有助于确定网站这段时间的受欢迎程度。</p>
+<h4 id="直方图-Histogram"><a class="header-anchor" href="#直方图-Histogram">¶ </a>直方图(Histogram)</h4>
+<p>直方图是对观察点进行采样的指标类型，可以展现数据集的频率分布。将数据分组在一起并以这样的方式显示，这个被称为 <code>分箱</code>(binning) 的过程可以直观地查看数值得相对大小。统计每个观察点并将其放入不同的桶中，这样可以产生多个指标：每个桶一个，加上所有值得总和以及计数。<br>
+直方图可以很好地展现时间序列数据，尤其适用于数据的可视化（如应用程序延迟等）。</p>
+<h4 id="摘要型-Summary"><a class="header-anchor" href="#摘要型-Summary">¶ </a>摘要型(Summary)</h4>
+<p>还有一种指标类型，称为 <code>摘要型</code>（summary），类似于直方图，但它还会计算百分位数。更多信息参考 <a href="https://prometheus.io/docs/practices/histograms/" target="_blank" rel="noopener">Histograms and Summaries</a></p>
+<h3 id="指标摘要"><a class="header-anchor" href="#指标摘要">¶ </a>指标摘要</h3>
+<p>通常来说，单个指标对我们价值很小，往往需要联合并可视化多个指标，这其中需要应用一些数学变换。例如，我们可能会将统计函数应用于指标或指标组，一些可能应用的常见函数包括：</p>
+<ul>
+<li>计数: 计算特定时间间隔内的观察点数；</li>
+<li>求和: 将特定时间间隔内所有观察点的值累计相加；</li>
+<li>平均值: 提供特定时间间隔内所有值得平均值；</li>
+<li>中间数: 数值的几何中点，正好 50% 的数值位于它前面，而另外 50% 则位于它后面；</li>
+<li>百分位数: 度量占总数特定百分比的观察点的值；</li>
+<li>标准差: 显示指标分布中与平均值的标准差，这可以测量出数据集的差异程度。标准差为 0 表示数据都等于平均值，较高的标准差意味着数据分布的范围很广；</li>
+<li>变化率: 显示时间序列中数据之间的变化程度。</li>
+</ul>
+<h3 id="指标聚合"><a class="header-anchor" href="#指标聚合">¶ </a>指标聚合</h3>
+<p>除了上述的指标摘要外，可能还希望看到来自多个源的指标的聚合视图，例如所有应用程序服务器的磁盘空间使用情况。指标聚合最典型的样式就是在一张图上显示多个指标，这有助于你识别环境的发展趋势。例如，负载均衡服务器中的间歇性故障可能导致多个服务器的 Web 流量下降，这通常比通过查看每个单独的指标更容易发现。</p>
+<p><img src="https://z3.ax1x.com/2021/05/30/2VMgCF.png" alt="image"></p>
+<p>从上图中看一看到 30 天内多个主机的磁盘使用情况，它为我们提供了一种快速确定某主机的当前状态(和变化率)的方法.<br>
+最终，你会发现单一指标和聚合指标的组合可以提供最佳的监控视图：前者可以深入到某个特定问题，后者可以查看更高阶的状态。</p>
+<h3 id="监控方法"><a class="header-anchor" href="#监控方法">¶ </a>监控方法</h3>
+<p>我们将在指标和指标聚合之上结合使用多种监控方法，以帮助加强监控。我们将结合以下两种监控方法：</p>
+<ul>
+<li>Brendan Gregg 的 USE（Utilization，Saturation 和 Error）方法，侧重于主机级别的监控。<a href="http://www.brendangregg.com/usemethod.html" target="_blank" rel="noopener">链接</a></li>
+<li>Google 的四个黄金指标，专注于应用程序级别的监控。</li>
+</ul>
+<p>监控方法提供的指导原则可以让你缩小范围并专注于所收集的海量时间序列中的特定指标。上述两个监控框架，一个侧重于主机级性能，一个侧重于应用程序级性能，结合使用可以获得一个相当全面的环境视图，帮助你解决任何问题。</p>
+<h4 id="USE-方法"><a class="header-anchor" href="#USE-方法">¶ </a>USE 方法</h4>
+<p>USE 是使用率（Utilization），饱和度（Saturation）和错误（Error）的缩写，该方法是由 Netflix 的内核和性能功能师 Brendan Gregg 开发的。USE 方法建议创建服务器分析清单，以便快速识别问题。可以利用从你的环境中收集的数据，对照清单来确定常见的性能问题。</p>
+<p>USE 方法可以概括为：针对每个资源，检查使用率，饱和度和错误。该方法对于监控那些受高使用率或饱和度的性能问题影响的资源来说是最有效的。</p>
+<p>让我们快速查看每个术语的定义以帮助理解：</p>
+<ul>
+<li>资源: 系统的一个组件。在 Gregg 对模型的定义中，它是一个传统意义上的物理服务器组件，如 CPU，磁盘等，但许多人也将软件资源包含在定义中；</li>
+<li>使用率: 资源忙于工作的平均时间。它通常用随时变化的百分比表示；</li>
+<li>饱和度: 资源排队工作的指标，无法再处理额外的工作。通常用队列长度表示；</li>
+<li>错误: 资源错误事件的计数。</li>
+</ul>
+<p>我们将这些定义结合起来创建一份资源清单，并采用一种方法来监控每个要素：使用率，饱和度和错误。它们是如何起作用的呢？假设我们有一个严重的性能问题，想深入了解以便诊断。参考我们的清单并检查每个被监控组件的各个要素。在这个示例中，我们将从 CPU 开始：</p>
+<ul>
+<li>CPU 使用率随时间的百分比；</li>
+<li>CPU 饱和度，等待 CPU 的进程数；</li>
+<li>错误，通常对 CPU 资源不太有影响；</li>
+</ul>
+<p>然后是内存：</p>
+<ul>
+<li>内存使用率随时间的百分比；</li>
+<li>内存饱和度，通过监控 swap 测量；</li>
+<li>错误，通常不太关键，但也可以捕获。</li>
+</ul>
+<p>其他组件以此类推，直到我们找到了问题的瓶颈或信号。</p>
+<blockquote>
+<p>可以查看 Brendan Gregg 提供的 <a href="http://www.brendangregg.com/USEmethod/use-linux.html" target="_blank" rel="noopener">Linux 系统的参考示例清单</a></p>
+</blockquote>
+<h4 id="Google-的四个黄金指标"><a class="header-anchor" href="#Google-的四个黄金指标">¶ </a>Google 的四个黄金指标</h4>
+<p>Google 的四个黄金指标来自 Google 的 SRE 手册，它们采用与 USE 类似的方法，指定要监控的一系列通用指标类型。此类方法中的指标类型主要关注的不是系统级的时间序列数据，更多的是针对应用程序或面向用户的部分:</p>
+<ul>
+<li>延迟: 服务请求所花费的时间，需要区分成功请求和失败请求。例如，失败请求可能会以非常低的延迟返回错误结果；</li>
+<li>流量: 针对系统，例如每秒 HTTP 请求数，或者是数据库系统的事物；</li>
+<li>错误: 请求失败的速率，要么是 HTTP 500 错误等显式错误，要么是返回错误内容或无效内容等隐式错误，或者基于策略原因导致的失败 – 例如，强制要求响应时间超过 30ms 的请求视为错误。</li>
+<li>饱和度: 应用程序有多<code>满</code>，或者受限的资源，如内存或 IO。这还包括即将饱和的部分，例如正在快速填充的磁盘。</li>
+</ul>
+<p>黄金指标使用起来很简单，依次选择对应的高阶指标，然后为它们设置警报。如果其中一个指标出现问题，那么警报就会响起，然后你可以去诊断或解决问题。</p>
+<h3 id="聚合和警报"><a class="header-anchor" href="#聚合和警报">¶ </a>聚合和警报</h3>
+<p>服务器还可以查询和聚合时间序列数据，并创建规则来记录常用的查询和聚合。这允许你从现有时间序列中创建新的时间序列，例如，计算变化率和比率，或者产生类似求和等聚合。这样就不必重新创建常用的聚合，例如用于调试，并且预计算可能比每次需要时运行查询性能更好。<br>
+Prometheus还可以定义警报规则。这些是为系统配置的在满足条件时触发警报的标准，例如，资 源时间序列开始显示异常的CPU使用率。Prometheus服务器没有内置警报工具，而是将警报从 Prometheus 服务器推送到名为 Alertmanager (警报管理器)的单独服务器。Alertmanager 可以管理、整合和分发各种警报到不同目的地——例如，它可以在发出警报时发送电子邮件，并能够防止重复发送。</p>
+<h3 id="查询数据"><a class="header-anchor" href="#查询数据">¶ </a>查询数据</h3>
+<p>Prometheus 服务器还提供了一套内置查询语言 PromQL，一个表达式浏览器以及一个用于浏览服务器上数据的图形界面。</p>
+<h2 id="Prometheus-数据模型"><a class="header-anchor" href="#Prometheus-数据模型">¶ </a>Prometheus 数据模型</h2>
+<p>正如之前所述，Prometheus 收集时间序列数据。为了处理这些数据，它使用一个多维时间序列数据模型。这个时间序列数据模型结合了时间序列名称和称为标签(label)的键/值对，这些标签提供了维度。每个时间序列由时间序列名称和标签的组合作为唯一标识。</p>
+<h3 id="指标名称"><a class="header-anchor" href="#指标名称">¶ </a>指标名称</h3>
+<p>时间序列名称：通常描述收集的时间序列数据的一般性质。例如，website_visits_total 为网站访问的总数。<br>
+名称可以包含 ASCII 字符，数字，下划线和冒号；</p>
+<h3 id="标签"><a class="header-anchor" href="#标签">¶ </a>标签</h3>
+<p>标签为 Prometheus 数据模型提供了维度。它们为特定时间序列添加上下文。例如，total_website_visits 时间序列可以使用能够识别网站名称，请求 IP 或其他特殊标识的标签。Prometheus 可以在一个时间序列，一组时间序列或者所有相关的时间序列上进行查询。</p>
+<p>标签共有两大类：插桩标签（instrumentation label）和目标标签（target label）。<br>
+插桩标签来自被监控的资源。例如，对于与 HTTP 相关的时间序列，标签可能会显示所使用的特定 HTTP 动词。这些标签在由诸如客户端或 exporter 抓取之前会被添加到时间序列中。<br>
+目标标签更多地与架构相关，它们可能会识别时间序列所在的数据中心。目标标签由 Prometheus 在抓取期间和之后添加。</p>
+<p>时间序列由名称和标签进行标识（从技术上讲，名称本身也是名为 <code>__name__</code> 的标签）。如果你在时间序列中添加或更改标签，那么 Prometheus 会将其视为新的时间序列。</p>
+<blockquote>
+<p>你可以理解 label 就是键值对形式的标签，并且新的标签会创建新的时间序列。标签名可以包含 ASCII 字符，数字和下划线。<br>
+带有 <code>__</code> 前缀的标签名称保留给 Prometheus 内部使用。</p>
+</blockquote>
+<h3 id="采样数据"><a class="header-anchor" href="#采样数据">¶ </a>采样数据</h3>
+<p>时间序列的真实值是采样的结果，它包括两个部分：</p>
+<ul>
+<li>一个是 float64 类型的数值；</li>
+<li>一个是毫秒精度的时间戳；</li>
+</ul>
+<h3 id="符号表示"><a class="header-anchor" href="#符号表示">¶ </a>符号表示</h3>
+<p>结合这些元素，我们可以看到 Prometheus 如何将时间序列表示为符号（notation）。如下所示</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;time series name&gt;&#123;&lt;label name&gt;=&lt;label value&gt;, ...&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，带有标签的 total_website_visits 时间序列可能如下所示</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">total_website_visits&#123;site=<span class="string">"MageAPP"</span>, location=<span class="string">"NJ"</span>, instance=<span class="string">"webserver"</span>, job=<span class="string">"web"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>受限是时间序列名称，后面跟着一组键值对标签。通常所有时间序列都有一个 instance 标签(标识源主机或应用程序)以及一个 job 标签（包含抓取特定时间序列的作业名称）。</p>
+<h3 id="保留时间"><a class="header-anchor" href="#保留时间">¶ </a>保留时间</h3>
+<p>Prometheus 专为短期监控和警报需求而设计。默认情况下，它在其数据库中保留 15 天的时间序列数据。如果要保留更长时间的数据，则建议将所需数据发送到远程的第三方平台。Prometheus 能够写入外部数据存储。</p>
+<h2 id="安全模型"><a class="header-anchor" href="#安全模型">¶ </a>安全模型</h2>
+<p>Prometheus 可以通过多种方式进行配置和部署，关于安全有以下两个假设:</p>
+<ul>
+<li>不受信任的用户将能够访问 Prometheus 服务器的 HTTP API，从而访问数据库中的所有数据。</li>
+<li>只有受信任的用户才能访问 Prometheus 命令行、配置文件、规则文件和运行时配置。</li>
+</ul>
+<blockquote>
+<p>从 Prometheus 2.0 开始，默认情况下某些 HTTP API 的管理功能被禁用。因此，Prometheus 及其组件不提供任何服务器端的身份验证、授权或加密。如果你需要在一个更加安全的环境中工作，则需要自己实施安全控制 —— 例如，通过反向代理访问 Prometheus 服务器或者正向代理 exporter。</p>
+</blockquote>
+<h2 id="Prometheus-生态系统"><a class="header-anchor" href="#Prometheus-生态系统">¶ </a>Prometheus 生态系统</h2>
+<p>Prometheus 生态系统由 Prometheus 项目本身提供的组件以及丰富的开源工具和套件组成。生态系统的核心是 Prometheus 服务器，我们将在下一章进行详细介绍。此外还有 Alertmanager，它为 Prometheus 提供警报引擎并进行管理。</p>
+<p>Prometheus 项目还包括一系列 exporter，用于监控应用程序和服务，并在端点上公开相关指标以进行抓取。核心 exporter 支持常见工具，如 Web 服务器、数据库等。许多其他 exporter 都是开源的，可以从 Prometheus 社区查看。</p>
+<p>Prometheus 还发布了一系列客户端库，支持监控由多种语言编写的应用程序和服务。它们包括主流编程语言，如 Python、Ruby、Go 和 Java。其他客户端库也可以从开源社区获取。</p>
+<ul>
+<li><a href="https://prometheus.io/docs/instrumenting/exporters/" target="_blank" rel="noopener">exporter</a></li>
+<li><a href="https://prometheus.io/docs/instrumenting/clientlibs/" target="_blank" rel="noopener">客户端库</a></li>
+</ul>
+<h2 id="参考连接"><a class="header-anchor" href="#参考连接">¶ </a>参考连接</h2>
+<ul>
+<li>Prometheus 官网: <a href="https://prometheus.io/" target="_blank" rel="noopener">https://prometheus.io/</a></li>
+<li>Prometheus 文档: <a href="https://prometheus.io/docs/" target="_blank" rel="noopener">https://prometheus.io/docs/</a></li>
+<li>Ptometheus GitHub 主页: <a href="https://github.com/prometheus/" target="_blank" rel="noopener">https://github.com/prometheus/</a></li>
+<li>Prometheus 源码: <a href="https://github.com/prometheus/prometheus" target="_blank" rel="noopener">https://github.com/prometheus/prometheus</a></li>
+<li>Grafana 官网: <a href="https://grafana.com/" target="_blank" rel="noopener">https://grafana.com</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+      </tags>
   </entry>
   <entry>
     <title>Oracle 数据库基础知识</title>
@@ -574,7 +731,7 @@ INSTANCE_NAME 是 Oracle 数据库的一个参数，参数文件中定义，用�
 </li>
 <li>
 <p>修改醒目 PS1</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="built_in">export</span> PS1=<span class="string">'\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\[\e[33;40m\]\h \[\e[35;40m\]\W\[\e[0m\]]\$ '</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &gt;&gt; /etc/profile&lt;&lt;EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 PS1 样式</span></span><br><span class="line"><span class="built_in">export</span> PS1=<span class="string">'\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\[\e[33;40m\]\h \[\e[35;40m\]\W\[\e[0m\]]\\$ '</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改历史命令格式</span></span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"%Y-%m-%d %H:%M:%S  \$(whoami)  "</span></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; msg=\$(history 1 | &#123; read x y; echo \$y; &#125;); logger "[euid=\$(whoami)]":\$(who am i):[\$(pwd)]"\$msg";&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置回话超时时间</span></span><br><span class="line"><span class="built_in">export</span> TMOUT=300</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>修改最大文件打开数</p>
@@ -589,12 +746,8 @@ INSTANCE_NAME 是 Oracle 数据库的一个参数，参数文件中定义，用�
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'05 01 * * * /usr/sbin/ntpdate time2.aliyun.com &gt;/dev/null'</span> &gt;&gt; /var/spool/cron/root</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'/usr/sbin/ntpdate time2.aliyun.com'</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>修改历史命令记录格式，记录登陆系统的人指定的命令以及时间，执行命令所在的目录记录到系统 message 日志</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HISTTIMEFORMAT=<span class="string">"%Y-%m-%d %H:%M:%S  `whoami`  "</span></span><br><span class="line"><span class="built_in">export</span> PROMPT_COMMAND=<span class="string">'&#123; msg=$(history 1 | &#123; read x y; echo $y; &#125;); logger "[euid=$(whoami)]":$(who am i):[`pwd`]"$msg";&#125;'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
 <p>关闭 SSH 配置中 UseDNS</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/#UseDNS yes/UseDNS no/g'</span> /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/#UseDNS yes/UseDNS no/g'</span> /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="系统安全加固"><a class="header-anchor" href="#系统安全加固">¶ </a>系统安全加固</h2>
@@ -663,10 +816,6 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 <li>通过/etc/hosts.allow里面进行限制(如下)，/etc/hosts.deny文件不要任何内容编辑，保持默认！</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/hosts.allow</span><br><span class="line">sshd:192.168.64.,192.168.1.,124.65.197.154,61.148.60.42,103.10.86.7:allow</span><br><span class="line">sshd:all:deny</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>设置会话超市（5分钟）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="built_in">export</span> TMOUT=300</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 ]]></content>
@@ -737,7 +886,7 @@ type=xxx: 此选项用来修改缺省的密码提示文本</p>
 <h3 id="PersistentVolume-和-PersistentVolumeClaim"><a class="header-anchor" href="#PersistentVolume-和-PersistentVolumeClaim">¶ </a>PersistentVolume 和 PersistentVolumeClaim</h3>
 <ul>
 <li>
-<p>PersistentVolume（PV）是集群中的一块存储，由管理员提供或使用存储类动态提供。它是集群中的资源，就像节点时集群资源一样。PV 是类似于 Volumes 的卷插件，但是其生命周期与使用 PV 的任何单个 Pod 无关。此 API 对象捕获 NFS，iSCSI 或特定于云提供商的存储系统的存储实现的详细信息。</p>
+<p>PersistentVolume（PV）是集群中的一块存储，由管理员提供或使用存储类动态提供。它是集群中的资源，就像节点是集群资源一样。PV 是类似于 Volumes 的卷插件，但是其生命周期与使用 PV 的任何单个 Pod 无关。此 API 对象捕获 NFS，iSCSI 或特定于云提供商的存储系统的存储实现的详细信息。</p>
 </li>
 <li>
 <p>PersistentVolumeClaim（PVC) 是用户存储的请求。它类似于 Pod。Pod 会消耗节点资源，PVC 会消耗 PV 资源。Pod 可以请求特定级别的资源（CPU 和内存）。PVC 可以请求特定的容量大小和访问模式（例如，可以将它们挂载为 ReadWriteOnce，ReadOnlyMany 或 ReadWriteMany）。</p>
@@ -2247,6 +2396,140 @@ ZEP-BACKEND-JAVA 的 Pipeline 全部内容如下：</p>
       </categories>
       <tags>
         <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 安装部署 Prometheus服务</title>
+    <url>/2021/05/05/37-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>参考文章: <a href="https://www.jianshu.com/p/e59cfd15612e" target="_blank" rel="noopener">https://www.jianshu.com/p/e59cfd15612e</a></p>
+</blockquote>
+<h2 id="安装配置"><a class="header-anchor" href="#安装配置">¶ </a>安装配置</h2>
+<h3 id="下载安装包"><a class="header-anchor" href="#下载安装包">¶ </a>下载安装包</h3>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载 Prometheus 服务端程序</span></span><br><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.18.1/prometheus-2.18.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Prometheus 告警管理程序</span></span><br><span class="line">wget https://github.com/prometheus/alertmanager/releases/download/v0.20.0/alertmanager-0.20.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载节点服务器监控程序</span></span><br><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.0.0-rc.1/node_exporter-1.0.0-rc.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Grafana 面板程序</span></span><br><span class="line">wget https://dl.grafana.com/oss/release/grafana-6.7.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Prometheus"><a class="header-anchor" href="#安装-Prometheus">¶ </a>安装 Prometheus</h3>
+<ul>
+<li>解压压缩包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf prometheus-2.18.1.linux-amd64.tar.gz</span><br><span class="line">mv prometheus-2.18.1.linux-amd64 /usr/<span class="built_in">local</span>/prometheus-2.18.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置服务文件 /etc/systemd/system/prometheus.service</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Prometheus Server</span><br><span class="line">Documentation=https://prometheus.io/docs/introduction/overview/</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/prometheus-2.18.1/prometheus \</span><br><span class="line">--config.file=/usr/<span class="built_in">local</span>/prometheus-2.18.1/prometheus.yml \</span><br><span class="line">--storage.tsdb.path=/var/lib/prometheus \</span><br><span class="line">--web.external-url=http://172.16.68.23:9090</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加载服务并启动 Prometheus 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start prometheus</span><br><span class="line">systemctl <span class="built_in">enable</span> prometheus</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@prometheus <span class="built_in">local</span>]<span class="comment"># netstat -anptl |grep 9090</span></span><br><span class="line">tcp        0      0 127.0.0.1:60298         127.0.0.1:9090          ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 :::9090                 :::*                    LISTEN      15894/prometheus    </span><br><span class="line">tcp6       0      0 ::1:9090                ::1:35212               ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 ::1:35212               ::1:9090                ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 127.0.0.1:9090          127.0.0.1:60298         ESTABLISHED 15894/prometheus</span><br></pre></td></tr></table></figure>
+<ul>
+<li>浏览器访问地址 172.16.68.23:9090</li>
+</ul>
+<h3 id="安装-Alertmanager"><a class="header-anchor" href="#安装-Alertmanager">¶ </a>安装 Alertmanager</h3>
+<ul>
+<li>解压压缩包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf alertmanager-0.20.0.linux-amd64.tar.gz </span><br><span class="line">mv alertmanager-0.20.0.linux-amd64 /usr/<span class="built_in">local</span>/alertmanager-0.20.0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置服务文件 /etc/systemd/system/alertmanager.service</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Alertmanager</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/alertmanager-0.20.0/alertmanager \</span><br><span class="line">--config.file=/usr/<span class="built_in">local</span>/alertmanager-0.20.0/alertmanager.yml</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加载服务并启动 alertmanager 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start alertmanager</span><br><span class="line">systemctl <span class="built_in">enable</span> alertmanager</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anplt |grep 9093</span><br><span class="line">tcp6       0      0 :::9093                 :::*                    LISTEN      15957/alertmanager</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Grafana"><a class="header-anchor" href="#安装-Grafana">¶ </a>安装 Grafana</h3>
+<ul>
+<li>解压文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf grafana-6.7.3.linux-amd64.tar.gz -C /usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置服务文件 /etc/systemd/system/grafana.service</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Grafana Server</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/grafana-6.7.3/bin/grafana-server \</span><br><span class="line">-config /usr/<span class="built_in">local</span>/grafana-6.7.3/conf/defaults.ini \</span><br><span class="line">-homepath /usr/<span class="built_in">local</span>/grafana-6.7.3</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重新加载服务并启动 grafana 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start grafana</span><br><span class="line">systemctl <span class="built_in">enable</span> grafana</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep 3000</span><br><span class="line">tcp6       0      0 :::3000                 :::*                    LISTEN      10540/grafana-serve</span><br></pre></td></tr></table></figure>
+<ul>
+<li>grafana 初始账号密码为 admin/admin, 第一次登陆会提示修改密码。</li>
+</ul>
+<h3 id="安装-exporter"><a class="header-anchor" href="#安装-exporter">¶ </a>安装 exporter</h3>
+<ul>
+<li>解压文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf node_exporter-0.18.1.linux-amd64.tar.gz</span><br><span class="line">mv node_exporter-0.18.1.linux-amd64 /usr/<span class="built_in">local</span>/node_exporter-0.18.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置服务文件 /etc/systemd/system/node_exporter.service</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=node_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/node_exporter/node_exporter</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重新加载服务并启动 node_exporter 服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start node_exporter</span><br><span class="line">systemctl <span class="built_in">enable</span> node_exporter</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看端口</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep 9100</span><br><span class="line">tcp6       0      0 :::9100                 :::*                    LISTEN      16132/node_exporter</span><br></pre></td></tr></table></figure>
+<h2 id="配置-Prometheus-监控-node-节点"><a class="header-anchor" href="#配置-Prometheus-监控-node-节点">¶ </a>配置 Prometheus 监控 node 节点</h2>
+<ul>
+<li>编辑 Prometheus 配置文件 prometheus.yml，添加监控对象以及监控任务</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># metrics_path defaults to '/metrics'</span></span><br><span class="line">    <span class="comment"># scheme defaults to 'http'.</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'Host'</span></span><br><span class="line">    <span class="attr">file_sd_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">files:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">'configs/host.yml'</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">/metrics</span></span><br><span class="line">    <span class="attr">refresh_interval:</span> <span class="string">15s</span></span><br><span class="line">    <span class="attr">relabel_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line">      <span class="attr">regex:</span> <span class="string">(.*)</span></span><br><span class="line">      <span class="attr">target_label:</span> <span class="string">instance</span></span><br><span class="line">      <span class="attr">replacement:</span> <span class="string">$1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line">      <span class="attr">regex:</span> <span class="string">(.*)</span></span><br><span class="line">      <span class="attr">target_label:</span> <span class="string">__address__</span></span><br><span class="line">      <span class="attr">replacement:</span> <span class="string">$1:9100</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加 configs/host.yml 文件</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">labels:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">env_name:</span> <span class="string">"deveploy"</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">soft_name:</span> <span class="string">"test"</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">server_name:</span> <span class="string">"59izt.com"</span></span><br><span class="line">  <span class="attr">targets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'172.16.68.23'</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'172.16.68.30'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br></pre></td></tr></table></figure>
+<h2 id="配置-Prometheus-Alertmanager"><a class="header-anchor" href="#配置-Prometheus-Alertmanager">¶ </a>配置 Prometheus Alertmanager</h2>
+<h3 id="修改-prometheus-yml-配置文件的如下内容"><a class="header-anchor" href="#修改-prometheus-yml-配置文件的如下内容">¶ </a>修改 prometheus.yml 配置文件的如下内容</h3>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Alertmanager configuration</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">localhost:9093</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/host_status.yml"</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/memory_usage.yml"</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建-rules-文件"><a class="header-anchor" href="#创建-rules-文件">¶ </a>创建 rules 文件</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir rules &amp;&amp; <span class="built_in">cd</span> rules</span><br></pre></td></tr></table></figure>
+<ul>
+<li>host_status.yml 内容如下</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'Host Status Monitor'</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">InstanceDown</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">severity:</span> <span class="string">'critical'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 1 minutes."</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>memory_usage.yml</li>
+</ul>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Memory</span> <span class="string">Monitor</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">NodeMemoryUsage</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(node_memory_MemTotal_bytes</span> <span class="bullet">-</span> <span class="string">(node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes</span> <span class="string">))</span> <span class="string">/</span> <span class="string">node_memory_MemTotal_bytes</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: High Memory usage detected"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: Memory usage is above 80% (current value is:<span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改-Alertmanager-配置文件-alertmanager-yml"><a class="header-anchor" href="#修改-Alertmanager-配置文件-alertmanager-yml">¶ </a>修改 Alertmanager 配置文件 alertmanager.yml</h3>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="comment"># 每2分钟检查一次是否恢复</span></span><br><span class="line">  <span class="attr">resolve_timeout:</span> <span class="string">2m</span></span><br><span class="line">  <span class="comment"># SMTP的相关配置</span></span><br><span class="line">  <span class="attr">smtp_smarthost:</span> <span class="string">smtp.163.com:25</span></span><br><span class="line">  <span class="attr">smtp_from:</span> <span class="string">xxxxx@163.com</span></span><br><span class="line">  <span class="attr">smtp_auth_username:</span> <span class="string">xxxxx@163.com</span> </span><br><span class="line">  <span class="attr">smtp_auth_password:</span> <span class="string">xxxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义 通知的模板的 目录 或者 文件.</span></span><br><span class="line"><span class="attr">templates:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'template/*.tmpl'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路由树的根节点, 每个传进来的报警从这里开始.</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> <span class="string">['alertname']</span></span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">30m</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">'email'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'email'</span></span><br><span class="line">  <span class="attr">email_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">to:</span> <span class="string">'2350686113@qq.com'</span></span><br><span class="line">    <span class="attr">headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] Prometheus 告警邮件"</span> <span class="string">&#125;</span></span><br><span class="line">    <span class="attr">html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "email.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">wechat_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">corp_id:</span> <span class="string">'xxxxxxx'</span></span><br><span class="line">    <span class="attr">api_secret:</span> <span class="string">'xxxxxxxxxxxxxxxxxxxx'</span></span><br><span class="line">    <span class="attr">agent_id:</span> <span class="string">'x'</span></span><br><span class="line">    <span class="attr">to_party:</span> <span class="string">'2'</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "wechat.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建告警模板文件"><a class="header-anchor" href="#创建告警模板文件">¶ </a>创建告警模板文件</h3>
+<ul>
+<li>email.tmpl</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123; define "email.html" &#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>报警项<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>实例<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>报警阀值<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>开始时间<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Labels "alertname" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Labels "instance" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Annotations "value" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; $alert.StartsAt &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  &#123;&#123; end &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>wechat.tmpl</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123; define "wechat.html" &#125;&#125;</span><br><span class="line">    &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">    ===alertmanager监控报警===</span><br><span class="line">    告警状态：&#123;&#123; .Status &#125;&#125;</span><br><span class="line">    告警级别：&#123;&#123; $alert.Labels.severity &#125;&#125;</span><br><span class="line">    告警类型：&#123;&#123; $alert.Labels.alertname &#125;&#125;</span><br><span class="line">    告警应用：&#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    故障主机: &#123;&#123; $alert.Labels.instance &#125;&#125;</span><br><span class="line">    告警主题: &#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    触发阀值：&#123;&#123; $alert.Annotations.value &#125;&#125;</span><br><span class="line">    告警详情: &#123;&#123; $alert.Annotations.description &#125;&#125;</span><br><span class="line">    触发时间: &#123;&#123; $alert.StartsAt.Format "2006-01-02 15:04:05" &#125;&#125;</span><br><span class="line">    ===========end============</span><br><span class="line">    &#123;&#123; end &#125;&#125;</span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重启服务"><a class="header-anchor" href="#重启服务">¶ </a>重启服务</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br><span class="line">systemctl status prometheus</span><br><span class="line">systemctl restart alertmanager</span><br><span class="line">systemctl status alertmanager</span><br></pre></td></tr></table></figure>
+<h3 id="测试告警"><a class="header-anchor" href="#测试告警">¶ </a>测试告警</h3>
+<p>停掉一台服务器的 node_exporter，然后访问 <code>http://172.16.68.23:9090/alerts</code>, 查看告警相关的规则</p>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+        <tag>监控</tag>
       </tags>
   </entry>
   <entry>
@@ -13644,140 +13927,6 @@ Docker 镜像时分层的，而如果每次传输都使用全量文件（所以�
       <tags>
         <tag>Docker</tag>
         <tag>Harbor</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 安装部署 Prometheus服务</title>
-    <url>/2021/03/30/37-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/</url>
-    <content><![CDATA[<blockquote>
-<p>参考文章: <a href="https://www.jianshu.com/p/e59cfd15612e" target="_blank" rel="noopener">https://www.jianshu.com/p/e59cfd15612e</a></p>
-</blockquote>
-<h2 id="安装配置"><a class="header-anchor" href="#安装配置">¶ </a>安装配置</h2>
-<h3 id="下载安装包"><a class="header-anchor" href="#下载安装包">¶ </a>下载安装包</h3>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载 Prometheus 服务端程序</span></span><br><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.18.1/prometheus-2.18.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Prometheus 告警管理程序</span></span><br><span class="line">wget https://github.com/prometheus/alertmanager/releases/download/v0.20.0/alertmanager-0.20.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载节点服务器监控程序</span></span><br><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.0.0-rc.1/node_exporter-1.0.0-rc.1.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Grafana 面板程序</span></span><br><span class="line">wget https://dl.grafana.com/oss/release/grafana-6.7.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<h3 id="安装-Prometheus"><a class="header-anchor" href="#安装-Prometheus">¶ </a>安装 Prometheus</h3>
-<ul>
-<li>解压压缩包</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf prometheus-2.18.1.linux-amd64.tar.gz</span><br><span class="line">mv prometheus-2.18.1.linux-amd64 /usr/<span class="built_in">local</span>/prometheus-2.18.1</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置服务文件 /etc/systemd/system/prometheus.service</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Prometheus Server</span><br><span class="line">Documentation=https://prometheus.io/docs/introduction/overview/</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/prometheus-2.18.1/prometheus \</span><br><span class="line">--config.file=/usr/<span class="built_in">local</span>/prometheus-2.18.1/prometheus.yml \</span><br><span class="line">--storage.tsdb.path=/var/lib/prometheus \</span><br><span class="line">--web.external-url=http://172.16.68.23:9090</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<ul>
-<li>加载服务并启动 Prometheus 服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start prometheus</span><br><span class="line">systemctl <span class="built_in">enable</span> prometheus</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看端口</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@prometheus <span class="built_in">local</span>]<span class="comment"># netstat -anptl |grep 9090</span></span><br><span class="line">tcp        0      0 127.0.0.1:60298         127.0.0.1:9090          ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 :::9090                 :::*                    LISTEN      15894/prometheus    </span><br><span class="line">tcp6       0      0 ::1:9090                ::1:35212               ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 ::1:35212               ::1:9090                ESTABLISHED 15894/prometheus    </span><br><span class="line">tcp6       0      0 127.0.0.1:9090          127.0.0.1:60298         ESTABLISHED 15894/prometheus</span><br></pre></td></tr></table></figure>
-<ul>
-<li>浏览器访问地址 172.16.68.23:9090</li>
-</ul>
-<h3 id="安装-Alertmanager"><a class="header-anchor" href="#安装-Alertmanager">¶ </a>安装 Alertmanager</h3>
-<ul>
-<li>解压压缩包</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf alertmanager-0.20.0.linux-amd64.tar.gz </span><br><span class="line">mv alertmanager-0.20.0.linux-amd64 /usr/<span class="built_in">local</span>/alertmanager-0.20.0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置服务文件 /etc/systemd/system/alertmanager.service</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Alertmanager</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/alertmanager-0.20.0/alertmanager \</span><br><span class="line">--config.file=/usr/<span class="built_in">local</span>/alertmanager-0.20.0/alertmanager.yml</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<ul>
-<li>加载服务并启动 alertmanager 服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start alertmanager</span><br><span class="line">systemctl <span class="built_in">enable</span> alertmanager</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看端口</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anplt |grep 9093</span><br><span class="line">tcp6       0      0 :::9093                 :::*                    LISTEN      15957/alertmanager</span><br></pre></td></tr></table></figure>
-<h3 id="安装-Grafana"><a class="header-anchor" href="#安装-Grafana">¶ </a>安装 Grafana</h3>
-<ul>
-<li>解压文件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf grafana-6.7.3.linux-amd64.tar.gz -C /usr/<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置服务文件 /etc/systemd/system/grafana.service</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Grafana Server</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/grafana-6.7.3/bin/grafana-server \</span><br><span class="line">-config /usr/<span class="built_in">local</span>/grafana-6.7.3/conf/defaults.ini \</span><br><span class="line">-homepath /usr/<span class="built_in">local</span>/grafana-6.7.3</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<ul>
-<li>重新加载服务并启动 grafana 服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start grafana</span><br><span class="line">systemctl <span class="built_in">enable</span> grafana</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看端口</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep 3000</span><br><span class="line">tcp6       0      0 :::3000                 :::*                    LISTEN      10540/grafana-serve</span><br></pre></td></tr></table></figure>
-<ul>
-<li>grafana 初始账号密码为 admin/admin, 第一次登陆会提示修改密码。</li>
-</ul>
-<h3 id="安装-exporter"><a class="header-anchor" href="#安装-exporter">¶ </a>安装 exporter</h3>
-<ul>
-<li>解压文件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf node_exporter-0.18.1.linux-amd64.tar.gz</span><br><span class="line">mv node_exporter-0.18.1.linux-amd64 /usr/<span class="built_in">local</span>/node_exporter-0.18.1</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置服务文件 /etc/systemd/system/node_exporter.service</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=node_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/node_exporter/node_exporter</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<ul>
-<li>重新加载服务并启动 node_exporter 服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start node_exporter</span><br><span class="line">systemctl <span class="built_in">enable</span> node_exporter</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看端口</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -anptl |grep 9100</span><br><span class="line">tcp6       0      0 :::9100                 :::*                    LISTEN      16132/node_exporter</span><br></pre></td></tr></table></figure>
-<h2 id="配置-Prometheus-监控-node-节点"><a class="header-anchor" href="#配置-Prometheus-监控-node-节点">¶ </a>配置 Prometheus 监控 node 节点</h2>
-<ul>
-<li>编辑 Prometheus 配置文件 prometheus.yml，添加监控对象以及监控任务</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># metrics_path defaults to '/metrics'</span></span><br><span class="line">    <span class="comment"># scheme defaults to 'http'.</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">file_sd_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">files:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">'configs/host.yml'</span></span><br><span class="line">    <span class="attr">job_name:</span> <span class="string">'Host'</span></span><br><span class="line">    <span class="attr">metrics_path:</span> <span class="string">/metrics</span></span><br><span class="line">    <span class="attr">relabel_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line">      <span class="attr">regex:</span> <span class="string">(.*)</span></span><br><span class="line">      <span class="attr">target_label:</span> <span class="string">instance</span></span><br><span class="line">      <span class="attr">replacement:</span> <span class="string">$1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">source_labels:</span> <span class="string">[__address__]</span></span><br><span class="line">      <span class="attr">regex:</span> <span class="string">(.*)</span></span><br><span class="line">      <span class="attr">target_label:</span> <span class="string">__address__</span></span><br><span class="line">      <span class="attr">replacement:</span> <span class="string">$1:9100</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>添加 configs/host.yml 文件</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">labels:</span></span><br><span class="line">  <span class="attr">targets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'172.16.68.23'</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'172.16.68.30'</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>重启服务</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br></pre></td></tr></table></figure>
-<h2 id="配置-Prometheus-Alertmanager"><a class="header-anchor" href="#配置-Prometheus-Alertmanager">¶ </a>配置 Prometheus Alertmanager</h2>
-<h3 id="修改-prometheus-yml-配置文件的如下内容"><a class="header-anchor" href="#修改-prometheus-yml-配置文件的如下内容">¶ </a>修改 prometheus.yml 配置文件的如下内容</h3>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Alertmanager configuration</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">localhost:9093</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/host_status.yml"</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"rules/memory_usage.yml"</span></span><br></pre></td></tr></table></figure>
-<h3 id="创建-rules-文件"><a class="header-anchor" href="#创建-rules-文件">¶ </a>创建 rules 文件</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir rules &amp;&amp; <span class="built_in">cd</span> rules</span><br></pre></td></tr></table></figure>
-<ul>
-<li>host_status.yml 内容如下</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'Host Status Monitor'</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">InstanceDown</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">severity:</span> <span class="string">'critical'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 1 minutes."</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>memory_usage.yml</li>
-</ul>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Memory</span> <span class="string">Monitor</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">NodeMemoryUsage</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(node_memory_MemTotal_bytes</span> <span class="bullet">-</span> <span class="string">(node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes</span> <span class="string">))</span> <span class="string">/</span> <span class="string">node_memory_MemTotal_bytes</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: High Memory usage detected"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>: Memory usage is above 80% (current value is:<span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br></pre></td></tr></table></figure>
-<h3 id="修改-Alertmanager-配置文件-alertmanager-yml"><a class="header-anchor" href="#修改-Alertmanager-配置文件-alertmanager-yml">¶ </a>修改 Alertmanager 配置文件 alertmanager.yml</h3>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="comment"># 每2分钟检查一次是否恢复</span></span><br><span class="line">  <span class="attr">resolve_timeout:</span> <span class="string">2m</span></span><br><span class="line">  <span class="comment"># SMTP的相关配置</span></span><br><span class="line">  <span class="attr">smtp_smarthost:</span> <span class="string">smtp.163.com:25</span></span><br><span class="line">  <span class="attr">smtp_from:</span> <span class="string">xxxxx@163.com</span></span><br><span class="line">  <span class="attr">smtp_auth_username:</span> <span class="string">xxxxx@163.com</span> </span><br><span class="line">  <span class="attr">smtp_auth_password:</span> <span class="string">xxxxxx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义 通知的模板的 目录 或者 文件.</span></span><br><span class="line"><span class="attr">templates:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">'template/*.tmpl'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路由树的根节点, 每个传进来的报警从这里开始.</span></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> <span class="string">['alertname']</span></span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">5m</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">30m</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">'email'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'email'</span></span><br><span class="line">  <span class="attr">email_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">to:</span> <span class="string">'2350686113@qq.com'</span></span><br><span class="line">    <span class="attr">headers:</span> <span class="string">&#123;</span> <span class="attr">Subject:</span> <span class="string">"[WARN] Prometheus 告警邮件"</span> <span class="string">&#125;</span></span><br><span class="line">    <span class="attr">html:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "email.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">wechat_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">corp_id:</span> <span class="string">'xxxxxxx'</span></span><br><span class="line">    <span class="attr">api_secret:</span> <span class="string">'xxxxxxxxxxxxxxxxxxxx'</span></span><br><span class="line">    <span class="attr">agent_id:</span> <span class="string">'x'</span></span><br><span class="line">    <span class="attr">to_party:</span> <span class="string">'2'</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">'<span class="template-variable">&#123;&#123; template "wechat.html" . &#125;&#125;</span>'</span></span><br><span class="line">    <span class="attr">send_resolved:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h3 id="创建告警模板文件"><a class="header-anchor" href="#创建告警模板文件">¶ </a>创建告警模板文件</h3>
-<ul>
-<li>email.tmpl</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123; define "email.html" &#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>报警项<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>实例<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>报警阀值<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>开始时间<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Labels "alertname" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Labels "instance" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; index $alert.Annotations "value" &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; $alert.StartsAt &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  &#123;&#123; end &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>wechat.tmpl</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123; define "wechat.html" &#125;&#125;</span><br><span class="line">    &#123;&#123; range $i, $alert := .Alerts &#125;&#125;</span><br><span class="line">    ===alertmanager监控报警===</span><br><span class="line">    告警状态：&#123;&#123; .Status &#125;&#125;</span><br><span class="line">    告警级别：&#123;&#123; $alert.Labels.severity &#125;&#125;</span><br><span class="line">    告警类型：&#123;&#123; $alert.Labels.alertname &#125;&#125;</span><br><span class="line">    告警应用：&#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    故障主机: &#123;&#123; $alert.Labels.instance &#125;&#125;</span><br><span class="line">    告警主题: &#123;&#123; $alert.Annotations.summary &#125;&#125;</span><br><span class="line">    触发阀值：&#123;&#123; $alert.Annotations.value &#125;&#125;</span><br><span class="line">    告警详情: &#123;&#123; $alert.Annotations.description &#125;&#125;</span><br><span class="line">    触发时间: &#123;&#123; $alert.StartsAt.Format "2006-01-02 15:04:05" &#125;&#125;</span><br><span class="line">    ===========end============</span><br><span class="line">    &#123;&#123; end &#125;&#125;</span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="重启服务"><a class="header-anchor" href="#重启服务">¶ </a>重启服务</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart prometheus</span><br><span class="line">systemctl status prometheus</span><br><span class="line">systemctl restart alertmanager</span><br><span class="line">systemctl status alertmanager</span><br></pre></td></tr></table></figure>
-<h3 id="测试告警"><a class="header-anchor" href="#测试告警">¶ </a>测试告警</h3>
-<p>停掉一台服务器的 node_exporter，然后访问 <code>http://172.16.68.23:9090/alerts</code>, 查看告警相关的规则</p>
-]]></content>
-      <categories>
-        <category>Prometheus</category>
-      </categories>
-      <tags>
-        <tag>Prometheus</tag>
-        <tag>监控</tag>
       </tags>
   </entry>
   <entry>
