@@ -1,6 +1,404 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PromQL</title>
+    <url>/2021/05/31/147-Prometheus-PromQL/</url>
+    <content><![CDATA[<h2 id="查看-Prometheus"><a class="header-anchor" href="#查看-Prometheus">¶ </a>查看 Prometheus</h2>
+<p>Prometheus 提供了一种名为 PromQL 的函数式查询语言，可以让用户实时选择和聚合时间序列数据。表达式的结果可以显示为图形，在 Prometheus 的表达式浏览器中查看为表格数据，也可以通过 HTTP API 由外部系统使用。</p>
+<a id="more"></a>
+<h3 id="表达式语言数据类型"><a class="header-anchor" href="#表达式语言数据类型">¶ </a>表达式语言数据类型</h3>
+<p>在 Prometheus 的表达式语言中，表达式或子表达式可以计算为以下四种类型之一：</p>
+<ul>
+<li>即时向量(instant vector): 一组时间序列，包含每个时间序列的单个样本，所有时间序列都共享相同的时间戳；</li>
+<li>范围向量(range vector): 一组时间序列，包含每个时间序列随时间变化的数据点范围；</li>
+<li>标量(Scalar): 一个简单的数字浮点值；</li>
+<li>字符串(String): 一个简单的字符串值；目前未使用。</li>
+</ul>
+<h3 id="时间序列选择器"><a class="header-anchor" href="#时间序列选择器">¶ </a>时间序列选择器</h3>
+<h4 id="即时向量选择器-Instant-vector-selectors"><a class="header-anchor" href="#即时向量选择器-Instant-vector-selectors">¶ </a>即时向量选择器(Instant vector selectors)</h4>
+<p>即时向量选择器允许在给定的时间戳（即时）选择一组时间序列和单个样本值：在最简单的示例中，只指定一个度量名称。这会产生一个包含所有具有此度量名称的时间序列元素的即时向量。</p>
+<ol>
+<li>
+<p>选择具有 prometheus_http_requests_total 指标名称的所有时间序列</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过在花括号（{}）中附加以逗号分隔的标签匹配器列表，可以进一步过滤这些时间序列。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>, code=<span class="string">"200"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是可用的标签匹配运算符</p>
+<ul>
+<li>= : 选择与提供的字符串完全相同的标签；</li>
+<li>!= : 选择不等于提供的字符串的标签；</li>
+<li>=~ : 选择与提供的字符串正则表达式匹配的标签；</li>
+<li>!~ : 选择与提供的字符串不匹配的标签；</li>
+</ul>
+</li>
+<li>
+<p>示例，这里选择所有 http_requests_total 时间序列用于暂存，测试和开发环境以及除 GET 之外的 HTTP 方法。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total&#123;environment=~<span class="string">"staging|testing|development"</span>, method!=<span class="string">"GET"</span>&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>匹配空标签值的标签匹配器还会选择根本没有设置特定标签的所有时间序列。正则表达式匹配是完全锚定的。同一个标签名称可以有多个匹配器。</p>
+</blockquote>
+</li>
+<li>
+<p>向量选择器必须指定一个名称或至少一个与空字符串不匹配的标签匹配器。以下表达式是错误的：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;job=~<span class="string">".*"</span>&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>相反，这些表达式是有效的，因为它们都有一个不匹配空标签值的选择器。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;job=~<span class="string">".+"</span>&#125;              <span class="comment"># Good!</span></span><br><span class="line">&#123;job=~<span class="string">".*"</span>,method=<span class="string">"get"</span>&#125; <span class="comment"># Good!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过与内部 <code>__name__</code> 标签进行匹配，标签匹配器也可以应用于度量标准名称。例如，表达式 <code>http_requests_total</code> 等价于 <code>{__name__ = &quot;http_requests_total&quot;}</code>。也可以使用除 =（!=,=<sub>,!</sub>）以外的匹配器。以下表达式选择名称以 prome 开头的所有指标。</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;__name__ =~ <span class="string">"prome.*"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指标名称不能是关键字 <code>bool</code>, <code>on</code>, <code>ignoring</code>, <code>group_left</code> 和 <code>group_right</code> 之一。以下表达式是错误的</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">on&#123;&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要想使用关键字作为指标名称查询，需要使用 <code>__name__</code> 标签</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;__name__=<span class="string">"on"</span>&#125; <span class="comment"># Good</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="范围向量选择器-Range-Vector-Selectors"><a class="header-anchor" href="#范围向量选择器-Range-Vector-Selectors">¶ </a>范围向量选择器(Range Vector Selectors)</h4>
+<p>范围向量 literals 的工作方式与即时向量 literals 类似，不同之处在于它们从当前时刻选择了一系列样本。从语法上讲，持续时间在向量选择器的末尾附加在方括号 ([]) 中，以指定应该为每个结果范围向量元素提取多远的时间值。</p>
+<ol>
+<li>
+<p>在此示例中，我们为所有具有指标名称 prometheus_http_requests_total 和设置为 prometheus 的作业标签的时间序列选择我们在过去 5 分钟内记录的所有值</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>&#125;[5m]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="持续时间"><a class="header-anchor" href="#持续时间">¶ </a>持续时间</h4>
+<p>持续时间指定为数字，紧随其后的是以下单位之一：</p>
+<ul>
+<li>ms: 毫秒</li>
+<li>s: 秒</li>
+<li>m: 分</li>
+<li>h: 时</li>
+<li>d: 天，一天为 24 小时</li>
+<li>w: 周，一周为 7 天</li>
+<li>y: 年，一年为 365 天</li>
+</ul>
+<p>持续时间可以通过串联来组合。单位必须按从最长到最短的顺序排列。给定的单位在一段时间内只能出现一次。以下是一些有效持续时间的示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">5h</span><br><span class="line">1h30m</span><br><span class="line">5m</span><br><span class="line">10s</span><br></pre></td></tr></table></figure>
+<h4 id="偏移和修改"><a class="header-anchor" href="#偏移和修改">¶ </a>偏移和修改</h4>
+<h5 id="偏移-offset"><a class="header-anchor" href="#偏移-offset">¶ </a>偏移 offset</h5>
+<p>偏移修饰符允许更改查询中单个瞬时和范围向量的时间偏移。</p>
+<ol>
+<li>
+<p>例如，以下表达式返回相对于当前查询评估时间过去 5 分钟的 http_requests_total 值：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total offset 5m</span><br></pre></td></tr></table></figure>
+<ul>
+<li>请注意，偏移修饰符始终需要立即跟随选择器，如下</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125; offset 5m)    // GOOD.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下内容是错误的</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) offset 5m    // INVALID.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这同样适用于范围向量。这将返回 http_requests_total 一周前的 5 分钟速率</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset 1w)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为了与时间上的时间前移进行比较，可以指定负偏移量</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset -1w)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过设置 <code>--enable-feature = promql-negative-offset</code> 标志来启用此功能。有关此标志的更多详细信息，请参阅禁用的功能。</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="修改"><a class="header-anchor" href="#修改">¶ </a>修改 <code>@</code></h5>
+<p><code>@</code> 修饰符允许更改查询中单个即时和范围向量的评估时间。提供给 <code>@</code> 修饰符的时间是一个 unix 时间戳并用浮点文字描述。</p>
+<ol>
+<li>
+<p>例如，以下表达式返回 2021-01-04T07:40:00 +00:00 的 http_requests_total 的值：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total @ 1609746000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>请注意，<code>@</code> 修饰符总是需要立即跟随选择器，即以下是正确的：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125; @ 1609746000)     // GOOD.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下内容是不正确的：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) @ 1609746000     // INVALID.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这同样适用于范围向量。这将返回 http_requests_total 在 2021-01-04T07:40:00+00:00 的 5 分钟速率：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] @ 1609746000)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>@</code> 修饰符支持上述 int64 限制内的所有浮点文字表示。它也可以与偏移修饰符一起使用，其中偏移是相对于 <code>@</code> 修饰符时间应用的，而不管哪个修饰符首先被写入。这两个查询将产生相同的结果。</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># offset after @</span></span><br><span class="line">http_requests_total @ 1609746000 offset 5m</span><br><span class="line"></span><br><span class="line"><span class="comment"># offset before @</span></span><br><span class="line">http_requests_total offset 5m @ 1609746000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>默认情况下禁用此修饰符，因为它打破了 PromQL 不会提前评估样本的不变性。可以通过设置 <code>--enable-feature=promql-at-modifier</code> 标志来启用它。有关此标志的更多详细信息，请参阅禁用的功能。</p>
+</blockquote>
+<ul>
+<li>此外， <code>start()</code> 和 <code>end()</code> 也可以用作 <code>@</code> 修饰符的值作为特殊值。对于范围查询，它们分别解析为范围查询的开始和结束，并在所有步骤中保持不变。</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对于即时查询， start() 和 end() 都解析为评估时间。</span></span><br><span class="line">http_requests_total @ start()</span><br><span class="line">rate(http_requests_total[5m] @ end())</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="子查询"><a class="header-anchor" href="#子查询">¶ </a>子查询</h3>
+<p>子查询允许您对给定的范围和分辨率运行即时查询。子查询的结果是一个范围向量。语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;instant_query&gt; <span class="string">'['</span> &lt;range&gt; <span class="string">':'</span> [&lt;resolution&gt;] <span class="string">']'</span> [ @ &lt;float_literal&gt; ] [ offset &lt;duration&gt; ]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;resolution&gt;</code> 是可选的。默认为全局评估区间。</li>
+</ul>
+<h2 id="二元运算符"><a class="header-anchor" href="#二元运算符">¶ </a>二元运算符</h2>
+<p>Prometheus 的查询语言支持基本的逻辑和算术运算符。对于两个瞬时向量之间的操作，可以修改匹配行为。</p>
+<h3 id="算术二元运算符"><a class="header-anchor" href="#算术二元运算符">¶ </a>算术二元运算符</h3>
+<p>Prometheus 中存在以下二元算术运算符</p>
+<ul>
+<li><code>+</code> : 加</li>
+<li><code>-</code> : 减</li>
+<li><code>*</code> : 乘</li>
+<li><code>/</code> : 除</li>
+<li><code>%</code> : 取余</li>
+<li><code>^</code> : 求幂</li>
+</ul>
+<h3 id="比较二元运算符"><a class="header-anchor" href="#比较二元运算符">¶ </a>比较二元运算符</h3>
+<p>Prometheus 中存在以下二元比较运算符：</p>
+<ul>
+<li><code>==</code> : 等于</li>
+<li><code>!=</code> : 不等于</li>
+<li><code>&gt;</code> : 大于</li>
+<li><code>&lt;</code> : 小于</li>
+<li><code>&gt;=</code> : 大于等于</li>
+<li><code>&lt;=</code> : 小于等于</li>
+</ul>
+<h3 id="逻辑-设置二元运算符"><a class="header-anchor" href="#逻辑-设置二元运算符">¶ </a>逻辑/设置二元运算符</h3>
+<p>这些逻辑/集合二进制运算符仅在即时向量之间定义</p>
+<ul>
+<li>and</li>
+<li>or</li>
+<li>unless</li>
+</ul>
+<h2 id="聚合运算符"><a class="header-anchor" href="#聚合运算符">¶ </a>聚合运算符</h2>
+<p>Prometheus 支持以下内置聚合运算符，可用于聚合单个即时向量的元素，从何生成具有聚合值得更少元素的新向量：</p>
+<ul>
+<li>sum: 计算维度总和</li>
+<li>min: 选择最小值</li>
+<li>max: 选择最大值</li>
+<li>avg: 计算维度的平均值</li>
+<li>group: 结果向量中的所有值都是 1</li>
+<li>stddev: 计算维度上的总体标准差</li>
+<li>stdvar: 计算维度上的总体标准方差</li>
+<li>count: 计算向量中元素的数量</li>
+<li>count_values: 计算具有相同值的元素的数量</li>
+<li>bottomk: 样本值的最小的 k 个元素</li>
+<li>topk: 样本值最大的 k 个元素</li>
+<li>quantile: 在维度上计算分位数 (0 ≤ φ ≤ 1)</li>
+</ul>
+<p>这些运算符既可用于聚合所有标签维度，也可通过包含 without 或 by 子句来保留不同的维度。这些子句可以在表达式之前或之后使用。如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;aggr-op&gt; [without|by (&lt;label list&gt;)] ([parameter,] &lt;vector expression&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">&lt;aggr-op&gt; ([parameter,] &lt;vector expression&gt;) [without|by (&lt;label list&gt;)]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>标签列表是一个未加引号的标签列表，其中可能包含一个尾随逗号，即 (label1, label2) 和 (label1, label2,) 都是有效的语法。</li>
+<li>without 从结果向量中删除列出的标签，而所有其他标签都保留在输出中。 by 执行相反的操作并删除未在 by 子句中列出的标签，即使它们的标签值在向量的所有元素之间都相同。</li>
+<li>只有 count_values、quantile、topk 和 bottomk 需要此参数。</li>
+<li>count_values 为每个唯一样本值输出一个时间序列。每个系列都有一个附加标签。该标签的名称由聚合参数给出，标签值是唯一的样本值。每个时间序列的值是样本值出现的次数。</li>
+<li>topk 和 bottomk 与其他聚合器的不同之处在于，在结果向量中返回输入样本的子集，包括原始标签。 by 和 without 仅用于对输入向量进行分桶。</li>
+<li>quantile 计算 φ-quantile，即在聚合维度的 N 个度量值中排名第 φ*N 的值。 φ 作为聚合参数提供。例如， quantile(0.5, …) 计算中位数， quantile(0.95, …) 计算第 95 个百分位数。</li>
+</ul>
+<h3 id="示例"><a class="header-anchor" href="#示例">¶ </a>示例</h3>
+<ol>
+<li>
+<p>如果指标 http_requests_total 具有按应用程序、实例和组标签扇出的时间序列，我们可以通过以下方式计算每个应用程序和组在所有实例上看到的 HTTP 请求总数：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum without (instance) (http_requests_total)</span><br></pre></td></tr></table></figure>
+<p>这相等同于以下表达式</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum by (application, group) (http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果我们只对我们在所有应用程序中看到的 HTTP 请求总数感兴趣，我们可以简单地编写</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要计算运行每个构建版本的二进制文件的数量，我们可以编写：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">count_values(<span class="string">"version"</span>, build_version)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要在所有实例中获得 5 个最大的 HTTP 请求数，我们可以编写：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">topk(5, http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="二元运算符优先级"><a class="header-anchor" href="#二元运算符优先级">¶ </a>二元运算符优先级</h3>
+<p>下面的列表显示了 Prometheus 中二元运算符的优先级，从高到低</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. ^</span><br><span class="line">2. *, /, %</span><br><span class="line">3. +, -</span><br><span class="line">4. ==, !=, &lt;=, &lt;, &gt;=, &gt;</span><br><span class="line">5. and, unless</span><br><span class="line">6. or</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相同优先级的运算符是左结合的。例如，<code>2 * 3 % 2</code> 等价于 <code>(2 * 3) % 2</code>。但是 <code>^</code> 是右结合的，所以 <code>2 ^ 3 ^ 2</code> 等价于 <code>2 ^ (3 ^ 2)</code>。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+        <tag>PromQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prometheus 配置</title>
+    <url>/2021/05/30/146-Prometheus-%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="配置-Prometheus"><a class="header-anchor" href="#配置-Prometheus">¶ </a>配置 Prometheus</h2>
+<p>Prometheus 通过 YAML 文件来配置。当运行 Prometheus 二进制文件时，我们会指定一个配置文件。Prometheus 自带默认的配置文件 <code>prometheus.yml</code>。</p>
+<a id="more"></a>
+<ul>
+<li>Prometheus 默认的配置文件去掉注释后，内容如下</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">15s</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span></span><br><span class="line"></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="comment"># - alertmanager:9093</span></span><br><span class="line"></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="comment"># - "first_rules.yml"</span></span><br><span class="line">  <span class="comment"># - "second_rules.yml"</span></span><br><span class="line"></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br></pre></td></tr></table></figure>
+<p>我们的默认配置文件中定义了 4 个 YAML 块: <code>global</code>, <code>alerting</code>, <code>rule_files</code> 和 <code>scrape_configs</code>。</p>
+<p>接下来我们来看一下每个块的内容</p>
+<h3 id="global"><a class="header-anchor" href="#global">¶ </a>global</h3>
+<p>配置的第一部分是 <code>global</code>，它包含了控制 Prometheus 服务器行为的全局配置。</p>
+<ul>
+<li>
+<p><code>scrape_interval</code>: 指定应用程序或服务抓取数据的时间间隔，默认是 15s。这个值是时间序列的颗粒度，即该序列中每个数据点所覆盖的时间段。</p>
+<blockquote>
+<p>建议仅设置抓取间隔为全局参数以保持颗粒度一致！</p>
+</blockquote>
+</li>
+<li>
+<p><code>evaluation_interval</code>: 用来指定 Prometheus 评估规则的评率。目前主要有两种规则：记录规则（recording rule）和警报规则（alerting rule）。</p>
+<ul>
+<li>记录规则: 允许预先计算使用频繁且开销大的表达式，并将结果保存为一个新的时间序列数据；</li>
+<li>警报规则: 允许定义警报条件.</li>
+</ul>
+<blockquote>
+<p>根据这个参数，Prometheus 将每隔 15 秒重新评估这些规则。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="alerting"><a class="header-anchor" href="#alerting">¶ </a>alerting</h3>
+<p>配置的第二部分是 <code>alerting</code>，它用来设置 Prometheus 的警报。正如我们在之前提到的，警报是由名为 Alertmanager 的独立工具进行管理的。Alertmanager 是一个可以集群化的独立警报管理工具。</p>
+<ul>
+<li>Alertmanager 相关的配置</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="comment"># - alertmanager:9093</span></span><br></pre></td></tr></table></figure>
+<p>在默认的配置中，<code>alerting</code> 部分包含服务器的警报配置，其中 <code>alertmanagers</code> 块会列出 Prometheus 服务器使用的每个 Alertmanager，<code>static_configs</code> 块表示我们要手动的指定在 <code>targets</code> 数组中配置的 Alertmanager。</p>
+<blockquote>
+<p>Prometheus 还支持 Alertmanager 的服务发现功能。例如，可以通过查询外部源（如 Consul服务器）来返回可用的 Alertmanager 列表。而不是单独指定每个 Alertmanager。<br>
+上述例子中，我们没有定义 Alertmanager，而是有一行注释的 <code>alertmanager:9093</code>。我们可以暂时不处理这个注释，因为目前并不需要特别定义一个 Alertmanager 来运行 Prometheus。后面将添加一个 Alertmanager 并对其进行配置。</p>
+</blockquote>
+<h3 id="rule-files"><a class="header-anchor" href="#rule-files">¶ </a>rule_files</h3>
+<p>配置的第三部分是 <code>rule_files</code>，它用来指定包含记录规则或警报规则的文件列表。我们将在后面对它进行一些配置</p>
+<h3 id="scrape-configs"><a class="header-anchor" href="#scrape-configs">¶ </a>scrape_configs</h3>
+<p>配置的最后一部分是 <code>scrape_configs</code>，用来指定 Prometheus 抓取的所有目标。</p>
+<ul>
+<li>Prometheus 的默认抓取配置如下</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br></pre></td></tr></table></figure>
+<p>默认配置中定义了一个作业 prometheus，它的 <code>static_configs</code> 参数部分列出了要抓取的目标，这些特定的目标被单独列出来，而不是通过自动服务发现。你也可以将静态配置理解为手动或人工服务发现。</p>
+<p>作业 <code>prometheus</code> 只有一个监控目标：Prometheus 服务器自身。它从本地的 9090 端口抓取数据并返回服务器的健康指标。Prometheus 假设抓取的指标将返回到 <code>/metrics</code> 路径下，因此它会被追加到目标中，然后抓取地址 <code>http://localhost:9090/metrics</code>。</p>
+<h2 id="指标示例"><a class="header-anchor" href="#指标示例">¶ </a>指标示例</h2>
+<p>启动 Prometheus 服务器之后，我们来看看正在抓取的端点和一些原始的 Prometheus 指标。为此，我们可以浏览 <code>http://localhost:9090/metrics</code> 并查看返回的内容。</p>
+<p>在所有示例中，我们假设正在查看的是运行 Prometheus 的服务器，即本地服务器。</p>
+<ul>
+<li>原始的指标示例，如下</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.</span></span><br><span class="line"><span class="comment"># TYPE go_gc_duration_seconds summary</span></span><br><span class="line">go_gc_duration_seconds&#123;quantile=<span class="string">"0"</span>&#125; 5.8048e-05</span><br><span class="line">go_gc_duration_seconds&#123;quantile=<span class="string">"0.25"</span>&#125; 0.000139932</span><br><span class="line">go_gc_duration_seconds&#123;quantile=<span class="string">"0.5"</span>&#125; 0.000246489</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里可以看到你的第一个 Prometheus 指标，它们看起来很像我们之前见到的数据模型</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go_gc_duration_seconds&#123;quantile=<span class="string">"0.5"</span>&#125; 0.000246489</span><br></pre></td></tr></table></figure>
+<p>这个指标的名称是 <code>go_gc_duration_seconds</code>，里面有一个标签 <code>quantile=&quot;0.5&quot;</code>，表示这衡量的是第 50 百分位数，后面的数字是这个指标的值。</p>
+<h2 id="表达式浏览器"><a class="header-anchor" href="#表达式浏览器">¶ </a>表达式浏览器</h2>
+<p>由于上述查看指标的方式对用户不是很友好，所以我们可以使用 Prometheus 的内置表达式浏览器来查看，其可以通过在 Prometheus 服务器上浏览 <code>http://localhost:9090/graph</code> 来查看。</p>
+<p>首先让我们使用表达式浏览器找出 go_gc_duration_seconds 指标。你可以打开可用指标的下拉列表来查找，也可以在查询框中键入指标名称，然后单击 Execute 按钮得到具有这个名称的所有指标。如下图</p>
+<p><img src="https://z3.ax1x.com/2021/05/30/2ZQsns.png" alt="image"></p>
+<p>在这个指标列表中，每个指标都使用一个或多个标签来进行描述，我们需要找到表示第 50 百分位数的标签，如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go_gc_duration_seconds&#123;instance=<span class="string">"localhost:9090"</span>, job=<span class="string">"prometheus"</span>,quantile=<span class="string">"0.5"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，两个新标签已添加到指标上，这是 Prometheus 在抓取过程中自动完成的。第一个新标签 instance 是我们抓取指标的目标，第二个标签 job 则是抓取指标的作业名称。标签为指标提供了不同的维度，允许我们查询或使用单个/多个指标。</p>
+<p>Prometheus 在服务器中内置了一种名为 PromQL 的高度灵活的表达式语言，允许查询和聚合指标。我们可以在浏览器界面顶部的查询输入框中使用此查询语言。</p>
+<p>在上图中，我们查询了所有带有 <code>quantile=&quot;0.5&quot;</code> 标签的指标，并返回了可能的1个结果。这个数据集是 PromQL 查询语言中的表达式可以返回的四种数据类型之一。此类型称为即时向量（instant vector）：一组包含每个时间序列的单个样本的时间序列集合，其中所有时间序列都共享相同的时间戳。还可以通过查询指标的名称和标签来返回它的即时向量。</p>
+<p>接下来我们查询指标 go_gc_duration_seconds，但这次是第 75 百分位。在输入框输入以下信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go_gc_duration_seconds&#123;quantile=<span class="string">"0.75"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>然后单击 Execute 进行搜索，它应该返回与查询内容匹配的即时向量。我们也可以使用正则表达式来过滤或匹配标签。如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go_gc_duration_seconds&#123;quantile!=<span class="string">"0.75"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>这将返回所有百分位数不等于 0.75 的指标的即时向量。</p>
+<h3 id="查询语法"><a class="header-anchor" href="#查询语法">¶ </a>查询语法</h3>
+<ul>
+<li>官方文档: <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/" target="_blank" rel="noopener">QUERYING PROMETHEUS</a></li>
+<li>数据类型: <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/#expression-language-data-types" target="_blank" rel="noopener">Expression language data types</a></li>
+</ul>
+<h2 id="聚合时间序列"><a class="header-anchor" href="#聚合时间序列">¶ </a>聚合时间序列</h2>
+<p>在上述查询界面中还可以进行指标的复杂聚合。我们选择另一个指标 <code>promhttp_metric_handler_requests_total</code> 看一下，它是 Prometheus 服务器中抓取数据所产生的的 HTTP 请求总数。现在通过指定其名称并单击 Execute 来查询，如下图所示</p>
+<p><img src="https://z3.ax1x.com/2021/05/31/2enAAK.png" alt="image"></p>
+<p>查询结果会返回一个 HTTP 请求指标列表，但我们真正想要的是每个作业的 HTTP 请求总数，为此，我们需要通过查询语句来创建新的指标。Prometheus 的查询语言 PromQL 具有大量的表达式和函数，可以帮助我们实现这一目标.</p>
+<p>让我们从按作业汇总 HTTP 请求开始。将以下内容添加到查询框中，然后单击 Execute。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(promhttp_metric_handler_requests_total)</span><br></pre></td></tr></table></figure>
+<p>这个查询使用了 <code>promhttp_metric_handler_requests_total</code> 指标的 <code>sum()</code> 运算符，它对所有请求进行了累加，但没有按作业分类。为此，我们需要根据特定的标签维度进行聚合。PromQL 有一个子句 <code>by</code>，它允许按照特定的维度聚合。将以下类容添加到查询框中，然后单击 Execute。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 按作业 聚合</span></span><br><span class="line">sum(promhttp_metric_handler_requests_total) by (job)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按目标聚合</span></span><br><span class="line">sum(promhttp_metric_handler_requests_total) by (instance)</span><br></pre></td></tr></table></figure>
+<p>输入如下：</p>
+<p><img src="https://z3.ax1x.com/2021/05/31/2euXz4.png" alt="image"></p>
+<blockquote>
+<p>PromQL 还有一个子句 <code>without</code>，可以不按特定维度进行聚合</p>
+</blockquote>
+<p>现在单击 Graph 选项，将这个查询结果显示为一张图。</p>
+<p>根据上述结果，新的输出仍然不是很有用。让我们把它转换成一个速率，将查询语句更新为</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(rate(promhttp_metric_handler_reuqests_total[5m])) by (instance)</span><br></pre></td></tr></table></figure>
+<p>这里我们添加了一个新函数 <code>rate()</code>，将它插入到 <code>sum()</code> 函数中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(promhttp_metric_handler_reuqests_total[5m])</span><br></pre></td></tr></table></figure>
+<p><code>rate()</code> 函数用来计算一定范围内时间序列的每秒平均增长率，只能与计数器一起使用。它非常聪明且可以自适应，例如在资源重启时会重置计数器，并且通过推断来处理时间序列中的间隔，例如一次漏掉的数据抓取。<code>rate()</code> 函数最适合用于增长较慢的计数器或用于警报的场景。</p>
+<blockquote>
+<p>还有一个 <code>irate()</code> 函数可以计算增长较快的计时器的瞬时增长率。</p>
+</blockquote>
+<p>这里我们计算 5分钟范围向量的速率。范围向量（range vector）是第二个 PromQL 数据类型，它包含一组时间序列，其中每个时间序列都包含一系列数据点。范围向量允许我们显示该时间段的时间序列，持续时间被包含在中括号中，内容是一个整数值后跟一个单位缩写，其中单位缩写如下：</p>
+<ul>
+<li>s: 表示秒</li>
+<li>m: 表示分</li>
+<li>h: 表示小时</li>
+<li>d: 表示天</li>
+<li>w: 表示周</li>
+</ul>
+<blockquote>
+<p>另外两个 PromQL 数据类型是 Scalars（数字浮点值）和 String（字符串值，且暂未使用）。</p>
+</blockquote>
+<p>接下来执行该查询并查看时间序列的结果范围向量。如下图</p>
+<p><img src="https://z3.ax1x.com/2021/05/31/2eQjSS.png" alt="image"></p>
+<blockquote>
+<p>如果在构建 PromQL 查询方面需要帮助，则可以使用查询编辑器 Promeditor，它可以在 Prometheus 本地运行。</p>
+</blockquote>
+<h3 id="参考文档"><a class="header-anchor" href="#参考文档">¶ </a>参考文档</h3>
+<ol>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/" target="_blank" rel="noopener">PromQL 函数以及表达式</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/operators/" target="_blank" rel="noopener">PromQL 运算符</a></li>
+<li><a href="https://www.robustperception.io/common-query-patterns-in-promql" target="_blank" rel="noopener">常见的查询模式</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/functions/" target="_blank" rel="noopener">PromQL 方法</a></li>
+<li><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/#range-vector-selectors" target="_blank" rel="noopener">范围向量选择器</a></li>
+<li><a href="https://github.com/davkal/promeditor" target="_blank" rel="noopener">PromQL 查询编辑器 Promeditor</a></li>
+</ol>
+<h2 id="容量规划"><a class="header-anchor" href="#容量规划">¶ </a>容量规划</h2>
+<p>Prometheus 的性能很难估计，因为它在很大程度上取决于你的配置，所需收集的时间序列的数量以及服务器上规则的复杂性。一般容量规划关注两个问题：内存和磁盘。</p>
+<h3 id="内存"><a class="header-anchor" href="#内存">¶ </a>内存</h3>
+<p>Prometheus 在内存中做了很多工作。每个收集的时间序列，查询和记录规则都会消耗进程内存。关于 Prometheus 的容量规划的参考数据并不多，但一个有用的，粗略的经验法则是将每秒采集的样本数乘以样本的大小。我们可以使用以下查询来查看样本收集率</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(prometheus_tsdb_head_samples_appended_total[1m])</span><br></pre></td></tr></table></figure>
+<p>这将显示你在最后一分钟添加到数据库的每秒样本率。如果想知道收集的指标数量，则可以使用以下语句</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(count by (__name__) (&#123;__name__ =~ <span class="string">".+"</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>这里使用 <code>sum()</code> 聚合来计算所有匹配的指标的计数和，使用 <code>=~</code> 运算符和 <code>.+</code> 的正则表达式来匹配所有指标。</p>
+<p>每个样本的大小通常为 1 到 2 个字节，让我们谨慎一点，按照 2 个字节计算。假设在 12 个小时内每秒收集 100000 个样本，那么我们可以像下面这样计算内存使用情况：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">100000 * 2 bytes * 43200 seconds</span><br></pre></td></tr></table></figure>
+<p>结果大概是 8.64 GB 的内存。</p>
+<p>你还可以考虑在查询和记录规则方面的的内存使用情况。这个不太好计算，并且依赖于许多其他变量，建议根据内存使用情况灵活调整。可以通过检查 process_resident_memory_bytes 指标来查看 Prometheus 进程的内存使用情况。</p>
+<h3 id="磁盘"><a class="header-anchor" href="#磁盘">¶ </a>磁盘</h3>
+<p>磁盘使用量受存储的时间序列数量和这些时间序列的保留时间限制。默认情况下，指标会在本地时间序列数据库中存储 15 天。数据库的位置和保留时间由命令行选项控制。</p>
+<ul>
+<li><code>--storage.tsdb.path</code> 选项: 它的默认数据目录位于运行 Prometheus 的目录中，用于控制时间序列数据库位置。</li>
+<li><code>--storage.tsdb.retention</code> 选项: 控制时间序列的保留期。默认值为15d，代表15天。</li>
+</ul>
+<blockquote>
+<p>建议采用SSD作为时间序列数据库的磁盘。</p>
+</blockquote>
+<p>对于每秒10万个样本的示例，我们知道按时间序列收集的每个样本在磁盘上占用大约1到2个字节。假设每个样本有2个字节，那么保留15天的时间序列意味着需要大约 259 GB的磁盘。</p>
+<p>有关Prometheus磁盘使用情况的更多信息，请参见<a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener">存储文档</a></p>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Prometheus 基础知识</title>
     <url>/2021/05/30/145-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h2 id="Prometheus-架构"><a class="header-anchor" href="#Prometheus-架构">¶ </a>Prometheus 架构</h2>

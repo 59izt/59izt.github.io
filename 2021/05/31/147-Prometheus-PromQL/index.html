@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="PromQL"><meta name="keywords" content="Prometheus,PromQL"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>PromQL【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看-Prometheus"><span class="toc-number">1.</span> <span class="toc-text">¶ 查看 Prometheus</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#表达式语言数据类型"><span class="toc-number">1.1.</span> <span class="toc-text">¶ 表达式语言数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间序列选择器"><span class="toc-number">1.2.</span> <span class="toc-text">¶ 时间序列选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#即时向量选择器-Instant-vector-selectors"><span class="toc-number">1.2.1.</span> <span class="toc-text">¶ 即时向量选择器(Instant vector selectors)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#范围向量选择器-Range-Vector-Selectors"><span class="toc-number">1.2.2.</span> <span class="toc-text">¶ 范围向量选择器(Range Vector Selectors)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#持续时间"><span class="toc-number">1.2.3.</span> <span class="toc-text">¶ 持续时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#偏移和修改"><span class="toc-number">1.2.4.</span> <span class="toc-text">¶ 偏移和修改</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#偏移-offset"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">¶ 偏移 offset</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">¶ 修改 @</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子查询"><span class="toc-number">1.3.</span> <span class="toc-text">¶ 子查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二元运算符"><span class="toc-number">2.</span> <span class="toc-text">¶ 二元运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算术二元运算符"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 算术二元运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#比较二元运算符"><span class="toc-number">2.2.</span> <span class="toc-text">¶ 比较二元运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑-设置二元运算符"><span class="toc-number">2.3.</span> <span class="toc-text">¶ 逻辑&#x2F;设置二元运算符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚合运算符"><span class="toc-number">3.</span> <span class="toc-text">¶ 聚合运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">3.1.</span> <span class="toc-text">¶ 示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二元运算符优先级"><span class="toc-number">3.2.</span> <span class="toc-text">¶ 二元运算符优先级</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color1"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color1"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">143</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">92</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">30</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">PromQL</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-05-31 | 更新于 2021-05-31</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Prometheus/">Prometheus</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Prometheus/">Prometheus</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/PromQL/">PromQL</a></div></div></div><div class="main-content"><h2 id="查看-Prometheus"><a class="header-anchor" href="#查看-Prometheus">¶ </a>查看 Prometheus</h2>
+<p>Prometheus 提供了一种名为 PromQL 的函数式查询语言，可以让用户实时选择和聚合时间序列数据。表达式的结果可以显示为图形，在 Prometheus 的表达式浏览器中查看为表格数据，也可以通过 HTTP API 由外部系统使用。</p>
+<a id="more"></a>
+<h3 id="表达式语言数据类型"><a class="header-anchor" href="#表达式语言数据类型">¶ </a>表达式语言数据类型</h3>
+<p>在 Prometheus 的表达式语言中，表达式或子表达式可以计算为以下四种类型之一：</p>
+<ul>
+<li>即时向量(instant vector): 一组时间序列，包含每个时间序列的单个样本，所有时间序列都共享相同的时间戳；</li>
+<li>范围向量(range vector): 一组时间序列，包含每个时间序列随时间变化的数据点范围；</li>
+<li>标量(Scalar): 一个简单的数字浮点值；</li>
+<li>字符串(String): 一个简单的字符串值；目前未使用。</li>
+</ul>
+<h3 id="时间序列选择器"><a class="header-anchor" href="#时间序列选择器">¶ </a>时间序列选择器</h3>
+<h4 id="即时向量选择器-Instant-vector-selectors"><a class="header-anchor" href="#即时向量选择器-Instant-vector-selectors">¶ </a>即时向量选择器(Instant vector selectors)</h4>
+<p>即时向量选择器允许在给定的时间戳（即时）选择一组时间序列和单个样本值：在最简单的示例中，只指定一个度量名称。这会产生一个包含所有具有此度量名称的时间序列元素的即时向量。</p>
+<ol>
+<li>
+<p>选择具有 prometheus_http_requests_total 指标名称的所有时间序列</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prometheus_http_requests_total</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过在花括号（{}）中附加以逗号分隔的标签匹配器列表，可以进一步过滤这些时间序列。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>, code=<span class="string">"200"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是可用的标签匹配运算符</p>
+<ul>
+<li>= : 选择与提供的字符串完全相同的标签；</li>
+<li>!= : 选择不等于提供的字符串的标签；</li>
+<li>=~ : 选择与提供的字符串正则表达式匹配的标签；</li>
+<li>!~ : 选择与提供的字符串不匹配的标签；</li>
+</ul>
+</li>
+<li>
+<p>示例，这里选择所有 http_requests_total 时间序列用于暂存，测试和开发环境以及除 GET 之外的 HTTP 方法。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total&#123;environment=~<span class="string">"staging|testing|development"</span>, method!=<span class="string">"GET"</span>&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>匹配空标签值的标签匹配器还会选择根本没有设置特定标签的所有时间序列。正则表达式匹配是完全锚定的。同一个标签名称可以有多个匹配器。</p>
+</blockquote>
+</li>
+<li>
+<p>向量选择器必须指定一个名称或至少一个与空字符串不匹配的标签匹配器。以下表达式是错误的：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;job=~<span class="string">".*"</span>&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>相反，这些表达式是有效的，因为它们都有一个不匹配空标签值的选择器。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;job=~<span class="string">".+"</span>&#125;              <span class="comment"># Good!</span></span><br><span class="line">&#123;job=~<span class="string">".*"</span>,method=<span class="string">"get"</span>&#125; <span class="comment"># Good!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>通过与内部 <code>__name__</code> 标签进行匹配，标签匹配器也可以应用于度量标准名称。例如，表达式 <code>http_requests_total</code> 等价于 <code>{__name__ = &quot;http_requests_total&quot;}</code>。也可以使用除 =（!=,=<sub>,!</sub>）以外的匹配器。以下表达式选择名称以 prome 开头的所有指标。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;__name__ =~ <span class="string">"prome.*"</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指标名称不能是关键字 <code>bool</code>, <code>on</code>, <code>ignoring</code>, <code>group_left</code> 和 <code>group_right</code> 之一。以下表达式是错误的</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">on&#123;&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要想使用关键字作为指标名称查询，需要使用 <code>__name__</code> 标签</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;__name__=<span class="string">"on"</span>&#125; <span class="comment"># Good</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="范围向量选择器-Range-Vector-Selectors"><a class="header-anchor" href="#范围向量选择器-Range-Vector-Selectors">¶ </a>范围向量选择器(Range Vector Selectors)</h4>
+<p>范围向量 literals 的工作方式与即时向量 literals 类似，不同之处在于它们从当前时刻选择了一系列样本。从语法上讲，持续时间在向量选择器的末尾附加在方括号 ([]) 中，以指定应该为每个结果范围向量元素提取多远的时间值。</p>
+<ol>
+<li>
+<p>在此示例中，我们为所有具有指标名称 prometheus_http_requests_total 和设置为 prometheus 的作业标签的时间序列选择我们在过去 5 分钟内记录的所有值</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>&#125;[5m]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="持续时间"><a class="header-anchor" href="#持续时间">¶ </a>持续时间</h4>
+<p>持续时间指定为数字，紧随其后的是以下单位之一：</p>
+<ul>
+<li>ms: 毫秒</li>
+<li>s: 秒</li>
+<li>m: 分</li>
+<li>h: 时</li>
+<li>d: 天，一天为 24 小时</li>
+<li>w: 周，一周为 7 天</li>
+<li>y: 年，一年为 365 天</li>
+</ul>
+<p>持续时间可以通过串联来组合。单位必须按从最长到最短的顺序排列。给定的单位在一段时间内只能出现一次。以下是一些有效持续时间的示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">5h</span><br><span class="line">1h30m</span><br><span class="line">5m</span><br><span class="line">10s</span><br></pre></td></tr></table></figure>
+<h4 id="偏移和修改"><a class="header-anchor" href="#偏移和修改">¶ </a>偏移和修改</h4>
+<h5 id="偏移-offset"><a class="header-anchor" href="#偏移-offset">¶ </a>偏移 offset</h5>
+<p>偏移修饰符允许更改查询中单个瞬时和范围向量的时间偏移。</p>
+<ol>
+<li>
+<p>例如，以下表达式返回相对于当前查询评估时间过去 5 分钟的 http_requests_total 值：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total offset 5m</span><br></pre></td></tr></table></figure>
+<ul>
+<li>请注意，偏移修饰符始终需要立即跟随选择器，如下</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125; offset 5m)    // GOOD.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下内容是错误的</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) offset 5m    // INVALID.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这同样适用于范围向量。这将返回 http_requests_total 一周前的 5 分钟速率</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset 1w)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为了与时间上的时间前移进行比较，可以指定负偏移量</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset -1w)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过设置 <code>--enable-feature = promql-negative-offset</code> 标志来启用此功能。有关此标志的更多详细信息，请参阅禁用的功能。</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="修改"><a class="header-anchor" href="#修改">¶ </a>修改 <code>@</code></h5>
+<p><code>@</code> 修饰符允许更改查询中单个即时和范围向量的评估时间。提供给 <code>@</code> 修饰符的时间是一个 unix 时间戳并用浮点文字描述。</p>
+<ol>
+<li>
+<p>例如，以下表达式返回 2021-01-04T07:40:00 +00:00 的 http_requests_total 的值：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total @ 1609746000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>请注意，<code>@</code> 修饰符总是需要立即跟随选择器，即以下是正确的：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125; @ 1609746000)     // GOOD.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下内容是不正确的：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) @ 1609746000     // INVALID.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这同样适用于范围向量。这将返回 http_requests_total 在 2021-01-04T07:40:00+00:00 的 5 分钟速率：</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rate(http_requests_total[5m] @ 1609746000)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>@</code> 修饰符支持上述 int64 限制内的所有浮点文字表示。它也可以与偏移修饰符一起使用，其中偏移是相对于 <code>@</code> 修饰符时间应用的，而不管哪个修饰符首先被写入。这两个查询将产生相同的结果。</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># offset after @</span></span><br><span class="line">http_requests_total @ 1609746000 offset 5m</span><br><span class="line"></span><br><span class="line"><span class="comment"># offset before @</span></span><br><span class="line">http_requests_total offset 5m @ 1609746000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>默认情况下禁用此修饰符，因为它打破了 PromQL 不会提前评估样本的不变性。可以通过设置 <code>--enable-feature=promql-at-modifier</code> 标志来启用它。有关此标志的更多详细信息，请参阅禁用的功能。</p>
+</blockquote>
+<ul>
+<li>此外， <code>start()</code> 和 <code>end()</code> 也可以用作 <code>@</code> 修饰符的值作为特殊值。对于范围查询，它们分别解析为范围查询的开始和结束，并在所有步骤中保持不变。</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于即时查询， start() 和 end() 都解析为评估时间。</span></span><br><span class="line">http_requests_total @ start()</span><br><span class="line">rate(http_requests_total[5m] @ end())</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="子查询"><a class="header-anchor" href="#子查询">¶ </a>子查询</h3>
+<p>子查询允许您对给定的范围和分辨率运行即时查询。子查询的结果是一个范围向量。语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;instant_query&gt; <span class="string">'['</span> &lt;range&gt; <span class="string">':'</span> [&lt;resolution&gt;] <span class="string">']'</span> [ @ &lt;float_literal&gt; ] [ offset &lt;duration&gt; ]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;resolution&gt;</code> 是可选的。默认为全局评估区间。</li>
+</ul>
+<h2 id="二元运算符"><a class="header-anchor" href="#二元运算符">¶ </a>二元运算符</h2>
+<p>Prometheus 的查询语言支持基本的逻辑和算术运算符。对于两个瞬时向量之间的操作，可以修改匹配行为。</p>
+<h3 id="算术二元运算符"><a class="header-anchor" href="#算术二元运算符">¶ </a>算术二元运算符</h3>
+<p>Prometheus 中存在以下二元算术运算符</p>
+<ul>
+<li><code>+</code> : 加</li>
+<li><code>-</code> : 减</li>
+<li><code>*</code> : 乘</li>
+<li><code>/</code> : 除</li>
+<li><code>%</code> : 取余</li>
+<li><code>^</code> : 求幂</li>
+</ul>
+<h3 id="比较二元运算符"><a class="header-anchor" href="#比较二元运算符">¶ </a>比较二元运算符</h3>
+<p>Prometheus 中存在以下二元比较运算符：</p>
+<ul>
+<li><code>==</code> : 等于</li>
+<li><code>!=</code> : 不等于</li>
+<li><code>&gt;</code> : 大于</li>
+<li><code>&lt;</code> : 小于</li>
+<li><code>&gt;=</code> : 大于等于</li>
+<li><code>&lt;=</code> : 小于等于</li>
+</ul>
+<h3 id="逻辑-设置二元运算符"><a class="header-anchor" href="#逻辑-设置二元运算符">¶ </a>逻辑/设置二元运算符</h3>
+<p>这些逻辑/集合二进制运算符仅在即时向量之间定义</p>
+<ul>
+<li>and</li>
+<li>or</li>
+<li>unless</li>
+</ul>
+<h2 id="聚合运算符"><a class="header-anchor" href="#聚合运算符">¶ </a>聚合运算符</h2>
+<p>Prometheus 支持以下内置聚合运算符，可用于聚合单个即时向量的元素，从何生成具有聚合值得更少元素的新向量：</p>
+<ul>
+<li>sum: 计算维度总和</li>
+<li>min: 选择最小值</li>
+<li>max: 选择最大值</li>
+<li>avg: 计算维度的平均值</li>
+<li>group: 结果向量中的所有值都是 1</li>
+<li>stddev: 计算维度上的总体标准差</li>
+<li>stdvar: 计算维度上的总体标准方差</li>
+<li>count: 计算向量中元素的数量</li>
+<li>count_values: 计算具有相同值的元素的数量</li>
+<li>bottomk: 样本值的最小的 k 个元素</li>
+<li>topk: 样本值最大的 k 个元素</li>
+<li>quantile: 在维度上计算分位数 (0 ≤ φ ≤ 1)</li>
+</ul>
+<p>这些运算符既可用于聚合所有标签维度，也可通过包含 without 或 by 子句来保留不同的维度。这些子句可以在表达式之前或之后使用。如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;aggr-op&gt; [without|by (&lt;label list&gt;)] ([parameter,] &lt;vector expression&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">&lt;aggr-op&gt; ([parameter,] &lt;vector expression&gt;) [without|by (&lt;label list&gt;)]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>标签列表是一个未加引号的标签列表，其中可能包含一个尾随逗号，即 (label1, label2) 和 (label1, label2,) 都是有效的语法。</li>
+<li>without 从结果向量中删除列出的标签，而所有其他标签都保留在输出中。 by 执行相反的操作并删除未在 by 子句中列出的标签，即使它们的标签值在向量的所有元素之间都相同。</li>
+<li>只有 count_values、quantile、topk 和 bottomk 需要此参数。</li>
+<li>count_values 为每个唯一样本值输出一个时间序列。每个系列都有一个附加标签。该标签的名称由聚合参数给出，标签值是唯一的样本值。每个时间序列的值是样本值出现的次数。</li>
+<li>topk 和 bottomk 与其他聚合器的不同之处在于，在结果向量中返回输入样本的子集，包括原始标签。 by 和 without 仅用于对输入向量进行分桶。</li>
+<li>quantile 计算 φ-quantile，即在聚合维度的 N 个度量值中排名第 φ*N 的值。 φ 作为聚合参数提供。例如， quantile(0.5, …) 计算中位数， quantile(0.95, …) 计算第 95 个百分位数。</li>
+</ul>
+<h3 id="示例"><a class="header-anchor" href="#示例">¶ </a>示例</h3>
+<ol>
+<li>
+<p>如果指标 http_requests_total 具有按应用程序、实例和组标签扇出的时间序列，我们可以通过以下方式计算每个应用程序和组在所有实例上看到的 HTTP 请求总数：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum without (instance) (http_requests_total)</span><br></pre></td></tr></table></figure>
+<p>这相等同于以下表达式</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum by (application, group) (http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果我们只对我们在所有应用程序中看到的 HTTP 请求总数感兴趣，我们可以简单地编写</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要计算运行每个构建版本的二进制文件的数量，我们可以编写：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count_values(<span class="string">"version"</span>, build_version)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要在所有实例中获得 5 个最大的 HTTP 请求数，我们可以编写：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">topk(5, http_requests_total)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="二元运算符优先级"><a class="header-anchor" href="#二元运算符优先级">¶ </a>二元运算符优先级</h3>
+<p>下面的列表显示了 Prometheus 中二元运算符的优先级，从高到低</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. ^</span><br><span class="line">2. *, /, %</span><br><span class="line">3. +, -</span><br><span class="line">4. ==, !=, &lt;=, &lt;, &gt;=, &gt;</span><br><span class="line">5. and, unless</span><br><span class="line">6. or</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相同优先级的运算符是左结合的。例如，<code>2 * 3 % 2</code> 等价于 <code>(2 * 3) % 2</code>。但是 <code>^</code> 是右结合的，所以 <code>2 ^ 3 ^ 2</code> 等价于 <code>2 ^ (3 ^ 2)</code>。</p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/05/31/147-Prometheus-PromQL/">https://blog.59izt.com/2021/05/31/147-Prometheus-PromQL/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/05/30/146-Prometheus-%E9%85%8D%E7%BD%AE/"><span>Prometheus 配置</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
