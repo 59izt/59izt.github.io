@@ -23,7 +23,7 @@
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>通过在花括号（{}）中附加以逗号分隔的标签匹配器列表，可以进一步过滤这些时间序列。</p>
+<p>通过在花括号（<code>{}</code>）中附加以逗号分隔的标签匹配器列表，可以进一步过滤这些时间序列。</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>, code=<span class="string">"200"</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>以下是可用的标签匹配运算符</p>
 <ul>
@@ -62,10 +62,10 @@
 </li>
 </ol>
 <h4 id="范围向量选择器-Range-Vector-Selectors"><a class="header-anchor" href="#范围向量选择器-Range-Vector-Selectors">¶ </a>范围向量选择器(Range Vector Selectors)</h4>
-<p>范围向量 literals 的工作方式与即时向量 literals 类似，不同之处在于它们从当前时刻选择了一系列样本。从语法上讲，持续时间在向量选择器的末尾附加在方括号 ([]) 中，以指定应该为每个结果范围向量元素提取多远的时间值。</p>
+<p>范围向量 <code>literals</code> 的工作方式与即时向量 <code>literals</code> 类似，不同之处在于它们从当前时刻选择了一系列样本。从语法上讲，持续时间在向量选择器的末尾附加在方括号 (<code>[]</code>) 中，以指定应该为每个结果范围向量元素提取多远的时间值。</p>
 <ol>
 <li>
-<p>在此示例中，我们为所有具有指标名称 prometheus_http_requests_total 和设置为 prometheus 的作业标签的时间序列选择我们在过去 5 分钟内记录的所有值</p>
+<p>在此示例中，我们为所有具有指标名称 <code>prometheus_http_requests_total</code> 和设置为 prometheus 的作业标签的时间序列选择我们在过去 5 分钟内记录的所有值</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>&#125;[5m]</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -87,7 +87,7 @@
 <p>偏移修饰符允许更改查询中单个瞬时和范围向量的时间偏移。</p>
 <ol>
 <li>
-<p>例如，以下表达式返回相对于当前查询评估时间过去 5 分钟的 http_requests_total 值：</p>
+<p>例如，以下表达式返回相对于当前查询评估时间过去 5 分钟的 <code>http_requests_total</code> 值：</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total offset 5m</span><br></pre></td></tr></table></figure>
 <ul>
 <li>请注意，偏移修饰符始终需要立即跟随选择器，如下</li>
@@ -98,7 +98,7 @@
 </ul>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) offset 5m    // INVALID.</span><br></pre></td></tr></table></figure>
 <ul>
-<li>这同样适用于范围向量。这将返回 http_requests_total 一周前的 5 分钟速率</li>
+<li>这同样适用于范围向量。这将返回 <code>http_requests_total</code> 一周前的 5 分钟速率</li>
 </ul>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset 1w)</span><br></pre></td></tr></table></figure>
 <ul>
@@ -114,7 +114,7 @@
 <p><code>@</code> 修饰符允许更改查询中单个即时和范围向量的评估时间。提供给 <code>@</code> 修饰符的时间是一个 unix 时间戳并用浮点文字描述。</p>
 <ol>
 <li>
-<p>例如，以下表达式返回 2021-01-04T07:40:00 +00:00 的 http_requests_total 的值：</p>
+<p>例如，以下表达式返回 <code>2021-01-04T07:40:00 +00:00</code> 的 <code>http_requests_total</code> 的值：</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total @ 1609746000</span><br></pre></td></tr></table></figure>
 <ul>
 <li>请注意，<code>@</code> 修饰符总是需要立即跟随选择器，即以下是正确的：</li>
@@ -125,7 +125,7 @@
 </ul>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) @ 1609746000     // INVALID.</span><br></pre></td></tr></table></figure>
 <ul>
-<li>这同样适用于范围向量。这将返回 http_requests_total 在 2021-01-04T07:40:00+00:00 的 5 分钟速率：</li>
+<li>这同样适用于范围向量。这将返回 <code>http_requests_total</code> 在 <code>2021-01-04T07:40:00+00:00</code> 的 5 分钟速率：</li>
 </ul>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] @ 1609746000)</span><br></pre></td></tr></table></figure>
 <ul>
@@ -192,20 +192,20 @@
 <li>topk: 样本值最大的 k 个元素</li>
 <li>quantile: 在维度上计算分位数 (0 ≤ φ ≤ 1)</li>
 </ul>
-<p>这些运算符既可用于聚合所有标签维度，也可通过包含 without 或 by 子句来保留不同的维度。这些子句可以在表达式之前或之后使用。如下</p>
+<p>这些运算符既可用于聚合所有标签维度，也可通过包含 <code>without</code> 或 <code>by</code> 子句来保留不同的维度。这些子句可以在表达式之前或之后使用。如下</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;aggr-op&gt; [without|by (&lt;label list&gt;)] ([parameter,] &lt;vector expression&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">&lt;aggr-op&gt; ([parameter,] &lt;vector expression&gt;) [without|by (&lt;label list&gt;)]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>标签列表是一个未加引号的标签列表，其中可能包含一个尾随逗号，即 (label1, label2) 和 (label1, label2,) 都是有效的语法。</li>
-<li>without 从结果向量中删除列出的标签，而所有其他标签都保留在输出中。 by 执行相反的操作并删除未在 by 子句中列出的标签，即使它们的标签值在向量的所有元素之间都相同。</li>
-<li>只有 count_values、quantile、topk 和 bottomk 需要此参数。</li>
-<li>count_values 为每个唯一样本值输出一个时间序列。每个系列都有一个附加标签。该标签的名称由聚合参数给出，标签值是唯一的样本值。每个时间序列的值是样本值出现的次数。</li>
-<li>topk 和 bottomk 与其他聚合器的不同之处在于，在结果向量中返回输入样本的子集，包括原始标签。 by 和 without 仅用于对输入向量进行分桶。</li>
-<li>quantile 计算 φ-quantile，即在聚合维度的 N 个度量值中排名第 φ*N 的值。 φ 作为聚合参数提供。例如， quantile(0.5, …) 计算中位数， quantile(0.95, …) 计算第 95 个百分位数。</li>
+<li><code>without</code> 从结果向量中删除列出的标签，而所有其他标签都保留在输出中。 <code>by</code> 执行相反的操作并删除未在 <code>by</code> 子句中列出的标签，即使它们的标签值在向量的所有元素之间都相同。</li>
+<li>只有 <code>count_values</code>、<code>quantile</code>、<code>topk</code> 和 <code>bottomk</code> 需要此参数。</li>
+<li><code>count_values</code> 为每个唯一样本值输出一个时间序列。每个系列都有一个附加标签。该标签的名称由聚合参数给出，标签值是唯一的样本值。每个时间序列的值是样本值出现的次数。</li>
+<li><code>topk</code> 和 <code>bottomk</code> 与其他聚合器的不同之处在于，在结果向量中返回输入样本的子集，包括原始标签。 <code>by</code> 和 <code>without</code> 仅用于对输入向量进行分桶。</li>
+<li><code>quantile</code> 计算 <code>φ-quantile</code>，即在聚合维度的 N 个度量值中排名第 <code>φ*N</code> 的值。 <code>φ</code> 作为聚合参数提供。例如， <code>quantile(0.5, ...)</code> 计算中位数， <code>quantile(0.95, ...)</code> 计算第 95 个百分位数。</li>
 </ul>
 <h3 id="示例"><a class="header-anchor" href="#示例">¶ </a>示例</h3>
 <ol>
 <li>
-<p>如果指标 http_requests_total 具有按应用程序、实例和组标签扇出的时间序列，我们可以通过以下方式计算每个应用程序和组在所有实例上看到的 HTTP 请求总数：</p>
+<p>如果指标 <code>http_requests_total</code> 具有按应用程序、实例和组标签扇出的时间序列，我们可以通过以下方式计算每个应用程序和组在所有实例上看到的 HTTP 请求总数：</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum without (instance) (http_requests_total)</span><br></pre></td></tr></table></figure>
 <p>这相等同于以下表达式</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum by (application, group) (http_requests_total)</span><br></pre></td></tr></table></figure>
@@ -389,7 +389,7 @@
 <p>建议采用SSD作为时间序列数据库的磁盘。</p>
 </blockquote>
 <p>对于每秒10万个样本的示例，我们知道按时间序列收集的每个样本在磁盘上占用大约1到2个字节。假设每个样本有2个字节，那么保留15天的时间序列意味着需要大约 259 GB的磁盘。</p>
-<p>有关Prometheus磁盘使用情况的更多信息，请参见<a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener">存储文档</a></p>
+<p>有关Prometheus磁盘使用情况的更多信息，请参见 <a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener">存储文档</a></p>
 ]]></content>
       <categories>
         <category>Prometheus</category>
