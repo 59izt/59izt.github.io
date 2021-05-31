@@ -61,55 +61,6 @@
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;__name__=<span class="string">"on"</span>&#125; <span class="comment"># Good</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="范围向量选择器-Range-Vector-Selectors"><a class="header-anchor" href="#范围向量选择器-Range-Vector-Selectors">¶ </a>范围向量选择器(Range Vector Selectors)</h4>
-<p>范围向量 <code>literals</code> 的工作方式与即时向量 <code>literals</code> 类似，不同之处在于它们从当前时刻选择了一系列样本。从语法上讲，持续时间在向量选择器的末尾附加在方括号 (<code>[]</code>) 中，以指定应该为每个结果范围向量元素提取多远的时间值。</p>
-<ol>
-<li>
-<p>在此示例中，我们为所有具有指标名称 <code>prometheus_http_requests_total</code> 和设置为 prometheus 的作业标签的时间序列选择我们在过去 5 分钟内记录的所有值</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>&#125;[5m]</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="持续时间"><a class="header-anchor" href="#持续时间">¶ </a>持续时间</h4>
-<p>持续时间指定为数字，紧随其后的是以下单位之一：</p>
-<ul>
-<li>ms: 毫秒</li>
-<li>s: 秒</li>
-<li>m: 分</li>
-<li>h: 时</li>
-<li>d: 天，一天为 24 小时</li>
-<li>w: 周，一周为 7 天</li>
-<li>y: 年，一年为 365 天</li>
-</ul>
-<p>持续时间可以通过串联来组合。单位必须按从最长到最短的顺序排列。给定的单位在一段时间内只能出现一次。以下是一些有效持续时间的示例：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">5h</span><br><span class="line">1h30m</span><br><span class="line">5m</span><br><span class="line">10s</span><br></pre></td></tr></table></figure>
-<h4 id="偏移和修改"><a class="header-anchor" href="#偏移和修改">¶ </a>偏移和修改</h4>
-<h5 id="偏移-offset"><a class="header-anchor" href="#偏移-offset">¶ </a>偏移 offset</h5>
-<p>偏移修饰符允许更改查询中单个瞬时和范围向量的时间偏移。</p>
-<ol>
-<li>
-<p>例如，以下表达式返回相对于当前查询评估时间过去 5 分钟的 <code>http_requests_total</code> 值：</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total offset 5m</span><br></pre></td></tr></table></figure>
-<ul>
-<li>请注意，偏移修饰符始终需要立即跟随选择器，如下</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125; offset 5m)    // GOOD.</span><br></pre></td></tr></table></figure>
-<ul>
-<li>以下内容是错误的</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sum(http_requests_total&#123;method=<span class="string">"GET"</span>&#125;) offset 5m    // INVALID.</span><br></pre></td></tr></table></figure>
-<ul>
-<li>这同样适用于范围向量。这将返回 <code>http_requests_total</code> 一周前的 5 分钟速率</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset 1w)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>为了与时间上的时间前移进行比较，可以指定负偏移量</li>
-</ul>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rate(http_requests_total[5m] offset -1w)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>通过设置 <code>--enable-feature = promql-negative-offset</code> 标志来启用此功能。有关此标志的更多详细信息，请参阅禁用的功能。</p>
-</blockquote>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>Prometheus</category>
