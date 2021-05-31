@@ -14,53 +14,6 @@
 <li>标量(Scalar): 一个简单的数字浮点值；</li>
 <li>字符串(String): 一个简单的字符串值；目前未使用。</li>
 </ul>
-<h3 id="时间序列选择器"><a class="header-anchor" href="#时间序列选择器">¶ </a>时间序列选择器</h3>
-<h4 id="即时向量选择器-Instant-vector-selectors"><a class="header-anchor" href="#即时向量选择器-Instant-vector-selectors">¶ </a>即时向量选择器(Instant vector selectors)</h4>
-<p>即时向量选择器允许在给定的时间戳（即时）选择一组时间序列和单个样本值：在最简单的示例中，只指定一个度量名称。这会产生一个包含所有具有此度量名称的时间序列元素的即时向量。</p>
-<ol>
-<li>
-<p>选择具有 <code>prometheus_http_requests_total</code> 指标名称的所有时间序列</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>通过在花括号（<code>{}</code>）中附加以逗号分隔的标签匹配器列表，可以进一步过滤这些时间序列。</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">prometheus_http_requests_total&#123;job=<span class="string">"prometheus"</span>, code=<span class="string">"200"</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>以下是可用的标签匹配运算符</p>
-<ul>
-<li><code>=</code> : 选择与提供的字符串完全相同的标签；</li>
-<li><code>!=</code> : 选择不等于提供的字符串的标签；</li>
-<li><code>=~</code> : 选择与提供的字符串正则表达式匹配的标签；</li>
-<li><code>!~</code> : 选择与提供的字符串不匹配的标签；</li>
-</ul>
-</li>
-<li>
-<p>示例，这里选择所有 <code>http_requests_total</code> 时间序列用于暂存，测试和开发环境以及除 GET 之外的 HTTP 方法。</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http_requests_total&#123;environment=~<span class="string">"staging|testing|development"</span>, method!=<span class="string">"GET"</span>&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>匹配空标签值的标签匹配器还会选择根本没有设置特定标签的所有时间序列。正则表达式匹配是完全锚定的。同一个标签名称可以有多个匹配器。</p>
-</blockquote>
-</li>
-<li>
-<p>向量选择器必须指定一个名称或至少一个与空字符串不匹配的标签匹配器。以下表达式是错误的：</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;job=~<span class="string">".*"</span>&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>相反，这些表达式是有效的，因为它们都有一个不匹配空标签值的选择器。</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;job=~<span class="string">".+"</span>&#125;              <span class="comment"># Good!</span></span><br><span class="line">&#123;job=~<span class="string">".*"</span>,method=<span class="string">"get"</span>&#125; <span class="comment"># Good!</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>通过与内部 <code>__name__</code> 标签进行匹配，标签匹配器也可以应用于度量标准名称。例如，表达式 <code>http_requests_total</code> 等价于 <code>{__name__ = &quot;http_requests_total&quot;}</code>。也可以使用除 <code>=（!=,=~,!~）</code>以外的匹配器。以下表达式选择名称以 prome 开头的所有指标。</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;__name__ =~ <span class="string">"prome.*"</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>指标名称不能是关键字 <code>bool</code>, <code>on</code>, <code>ignoring</code>, <code>group_left</code> 和 <code>group_right</code> 之一。以下表达式是错误的</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">on&#123;&#125; <span class="comment"># Bad!</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>要想使用关键字作为指标名称查询，需要使用 <code>__name__</code> 标签</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;__name__=<span class="string">"on"</span>&#125; <span class="comment"># Good</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>Prometheus</category>
