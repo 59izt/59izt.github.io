@@ -117,11 +117,11 @@
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">configure exclude for tablespace [CLEAR];</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>将备份文件存储到e:\backupb，后面的%d_db_%u是存储格式。</p>
+<p>将备份文件存储到 <code>e:\backupb</code>，后面的 <code>%d_db_%u</code> 是存储格式。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">configure channel device type disk format 'e:\backupb%d_db_%u';</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>指定 control file 存储在另一个路径: e:\backupcontrol，后面的%F是存储格式。</p>
+<p>指定 control file 存储在另一个路径: <code>e:\backupcontrol</code>，后面的 <code>%F</code> 是存储格式。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">configure controlfile autobackup format for device type disk to 'e:\backupcontrol%F';</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
