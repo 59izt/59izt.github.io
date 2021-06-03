@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="RMAN 基本命令"><meta name="keywords" content="Oracle,RMAN"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>RMAN 基本命令【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMAN-基本命令"><span class="toc-number">1.</span> <span class="toc-text">¶ RMAN 基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#target-连接目标"><span class="toc-number">1.1.</span> <span class="toc-text">¶ target - 连接目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#show-查看配置"><span class="toc-number">1.2.</span> <span class="toc-text">¶ show - 查看配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#configure-调整配置"><span class="toc-number">1.3.</span> <span class="toc-text">¶ configure - 调整配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list-查看备份"><span class="toc-number">1.4.</span> <span class="toc-text">¶ list - 查看备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#report-报告"><span class="toc-number">1.5.</span> <span class="toc-text">¶ report - 报告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-删除"><span class="toc-number">1.6.</span> <span class="toc-text">¶ delete - 删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crosscheck-检查状态"><span class="toc-number">1.7.</span> <span class="toc-text">¶ crosscheck - 检查状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#backup-常用命令"><span class="toc-number">1.8.</span> <span class="toc-text">¶ backup - 常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#format-格式化参数"><span class="toc-number">1.9.</span> <span class="toc-text">¶ format - 格式化参数</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color7"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">144</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">93</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">30</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">RMAN 基本命令</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-06-01 | 更新于 2021-06-03</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/RMAN/">RMAN</a></div></div></div><div class="main-content"><p>原文地址: <a href="https://www.cnblogs.com/WoLykos/p/11585744.html" target="_blank" rel="noopener">RMAN详细教程(一)：基本命令代码</a></p>
+<h2 id="RMAN-基本命令"><a class="header-anchor" href="#RMAN-基本命令">¶ </a>RMAN 基本命令</h2>
+<h3 id="target-连接目标"><a class="header-anchor" href="#target-连接目标">¶ </a>target - 连接目标</h3>
+<a id="more"></a>
+<ol>
+<li>
+<p>连接本地</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oracle ~]$ rman target /</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>连接远程</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@oracle ~]$ rman target username/password@oracle_host:1521/server_name</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：RMAN中（在远程机器或服务器上）使用 tnsname 连接 target 数据库时，需要用户具有 SYSDBA 权限；</p>
+</blockquote>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">sysdba</span> <span class="keyword">to</span> username;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="show-查看配置"><a class="header-anchor" href="#show-查看配置">¶ </a>show - 查看配置</h3>
+<ol>
+<li>
+<p>查看所有配置，总配置参数。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show all;</span><br><span class="line"></span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">RMAN configuration parameters for database <span class="keyword">with</span> db_unique_name ORCL <span class="keyword">are</span>:</span><br><span class="line">CONFIGURE <span class="keyword">RETENTION</span> <span class="keyword">POLICY</span> <span class="keyword">TO</span> REDUNDANCY <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE <span class="keyword">BACKUP</span> OPTIMIZATION <span class="keyword">OFF</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DEFAULT DEVICE TYPE TO DISK; <span class="comment"># default</span></span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP OFF; <span class="comment"># default</span></span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '%F'; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DEVICE TYPE DISK PARALLELISM 1 <span class="keyword">BACKUP</span> <span class="keyword">TYPE</span> <span class="keyword">TO</span> BACKUPSET; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DATAFILE <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ARCHIVELOG <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE MAXSETSIZE TO UNLIMITED; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ENCRYPTION FOR DATABASE OFF; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ENCRYPTION ALGORITHM 'AES128'; <span class="comment"># default</span></span><br><span class="line">CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF <span class="keyword">RELEASE</span> <span class="string">'DEFAULT'</span> <span class="keyword">OPTIMIZE</span> <span class="keyword">FOR</span> <span class="keyword">LOAD</span> <span class="literal">TRUE</span> ; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; <span class="comment"># default</span></span><br><span class="line">CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/app/oracle/product/11.2.0/dbs/snapcf_qdmwms.f'; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看通道分配</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show channel;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">RMAN configuration has no stored or default parameters</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 IO 设备类型</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show device <span class="built_in">type</span>;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看保存策略</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show retention policy;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">CONFIGURE RETENTION POLICY TO REDUNDANCY 1; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看多个备份的拷贝数目</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show datafile backup copies;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看备份集大小的最大值</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show maxsetsize;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">CONFIGURE MAXSETSIZE TO UNLIMITED; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看不必备份的表空间</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show exclude;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">RMAN configuration has no stored or default parameters</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看备份的优化</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; show backup optimization;</span><br><span class="line"></span><br><span class="line">RMAN configuration parameters <span class="keyword">for</span> database with db_unique_name ORCL are:</span><br><span class="line">CONFIGURE BACKUP OPTIMIZATION OFF; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="configure-调整配置"><a class="header-anchor" href="#configure-调整配置">¶ </a>configure - 调整配置</h3>
+<ol>
+<li>
+<p>备份保留策略</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure retention policy to redundancy 1;</span><br></pre></td></tr></table></figure>
+<p>备份保留策略共有三种，分别是:</p>
+<ol>
+<li>CONFIGURE RETENTION POLICY TO RECOVERY WINDOW OF 7 DAYS;  # 保持所有足够的备份，可以将数据库系统恢复到最近7天内的任意时刻。任何超过最近7天的数据库备份将被标记为 <code>obsolete</code>;</li>
+<li>CONFIGURE RETENTION POLICY TO REDUNDANCY 5;  # 保持可以恢复的最新的5份数据库备份，任何超过最新5份的备份都将被标记为 redundancy。一般采用的方法，默认值为 1，可以设置为 5.</li>
+<li>CONFIGURE RETENTION POLICY TO NONE;  # 不需要保持策略，clear 将恢复回默认的保持策略。</li>
+</ol>
+</li>
+<li>
+<p>是否启用优化算法，默认为关闭，如果打开，rman 将对备份的数据文件及归档等文件进行一种优化的算法</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure <span class="keyword">backup</span> optimization <span class="keyword">off</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指定所有 I/O 操作的设备类型，默认值是硬盘，可以是硬盘或磁带（SBT)</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure default device type to disk;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>强制数据库在备份文件或者执行改变数据库结构的命令之后将控制文件自动备份，默认值为关闭。这样在控制文件和catalog丢失后，控制文件仍然可以恢复。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure controlfile autobackup off;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置控制文件的备份路径和备份格式</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure controlfile autobackup format for device type disk to '%F';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置数据库设备类型的并行度，默认为 1</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure device type disk parallelism 1;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置每次备份的 copy 数量</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure datafile <span class="keyword">backup</span> copies <span class="keyword">for</span> device <span class="keyword">type</span> disk <span class="keyword">to</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置归档日志存放的设备类型</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure archivelog <span class="keyword">backup</span> copies <span class="keyword">for</span> device <span class="keyword">type</span> disk <span class="keyword">to</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置备份集的最大尺寸，默认值是 unlimited，单位为 bytes, K, M, G;</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure maxsetsize xxxxG;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置控制文件的快照文件的存放路径和文件名，这个快照文件是在备份期间产生的，用于控制文件的读一致性。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure snapshot controlfile name to '/u01/app/oracle/product/11.2.0/dbs/snapcf_qdmwms.f';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>配置备份文件的备份路径和备份格式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure channel device type disk format '/u01/<span class="keyword">backup</span>/<span class="keyword">oracle</span>/%d_DB_%u_%s_%p<span class="string">';</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>用于清除上面的信道配置。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure channel disk clear;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>不备份指定的表空间到备份集中，对只读表空间是非常有用的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure exclude for tablespace [CLEAR];</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将备份文件存储到e:\backupb，后面的%d_db_%u是存储格式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure channel device type disk format 'e:\backupb%d_db_%u';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指定 control file 存储在另一个路径: e:\backupcontrol，后面的%F是存储格式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure controlfile autobackup format for device type disk to 'e:\backupcontrol%F';</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="list-查看备份"><a class="header-anchor" href="#list-查看备份">¶ </a>list - 查看备份</h3>
+<p>列出备份集和数据文件镜像</p>
+<ol>
+<li>
+<p>汇总查询，多备份文件时，可以对备份文件有个总体了解</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list incarnation;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列出备份详细信息</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列出可用的备份</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup summary;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>按照文件类型列出以下四种类型列表，数据文件备份列表，已存档的日志备份列表，控制文件备份列表，SPFILE 备份的列表</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup by file;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看可用的数据库备份</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of database summary;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看用户表空间备份</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of tablespace users;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看已经备份的 archive log 情况</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of archivelog all;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看目前所有的 archivelog 文件 (可能包含已经备份的, 除非你在备份时有参数 delete input file 删除了).</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list archivelog all;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 spfile 备份</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of spfile;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 controlfile 备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of controlfile;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看备份详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup verbose;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看数据文件备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of datafile 1 [n|&lt;dir&gt;];</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列出指定序号的归档日志备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backup of archivelog from sequence 1000 until sequence 1020;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列出指定 tag 的备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list backupset tag=TAG20140317T155753;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列出过去的备份文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; list expired backup;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="report-报告"><a class="header-anchor" href="#report-报告">¶ </a>report - 报告</h3>
+<p>显示存储仓库中详细的分析信息</p>
+<ol>
+<li>
+<p>查看目标数据库的物理结构</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report schema;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看需要备份的数据文件（根据条件不同）</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report need backup;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>最近三天没有备份的数据文件(如果出问题的话，这些数据文件将需要最近3天的归档日志才能恢复)。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report need backup days 3;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报告出冗余次数小于3的数据文件。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report need backup redundancy 3;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报告出恢复需要3天归档日志的数据文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report need backup recovery window of 3 days;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报告已经丢弃的备份(前提是设置了备份策略)。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report obsolete;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>报告当前数据库中不可恢复的数据文件(即没有这个数据文件的备份、或者该数据文件的备份已经过期)。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; report unrecoverable;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>report schema at time ‘sysdate – 7’;</p>
+</li>
+<li>
+<p>report need backup days 2 tablespace system;</p>
+</li>
+</ol>
+<h3 id="delete-删除"><a class="header-anchor" href="#delete-删除">¶ </a>delete - 删除</h3>
+<p>删除相关的备份集或镜像副本的物理文件, 同时将删除标记 delete 更新到控制文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delete backupset;</span><br><span class="line">delete backupset n;</span><br><span class="line">delete obsolete;   -- 删除荒废</span><br><span class="line">delete noprompt obsolete;  -- 不提示, 删除荒废</span><br><span class="line">delete noprompt expired backup;  -- 不提示, 删除不在磁盘上的备份集(可以先用crosscheck同步确认一下)</span><br><span class="line">delete obsolete redundancy 2;</span><br><span class="line">delete noprompt copy</span><br><span class="line">delete noprompt backupset tag TAG20140317T14432;</span><br><span class="line">delete obsolete recovery window of 7 days;</span><br><span class="line">delete expired backupset;</span><br><span class="line">delete expired copy;</span><br><span class="line">delete expired archivelog all;</span><br></pre></td></tr></table></figure>
+<h3 id="crosscheck-检查状态"><a class="header-anchor" href="#crosscheck-检查状态">¶ </a>crosscheck - 检查状态</h3>
+<p>设置状态为AVAILABLE(可用)或者EXPIRED(不可用)</p>
+<p>执行crosscheck时，RMAN检查目录中列出的每个备份集或副本并且判断他们是否存在于备份介质上。</p>
+<ul>
+<li>如果备份集或副本不存在于备份介质上，它就会被标记为 expired, 并且不能用于任何还原操作；</li>
+<li>如果备份集或副本存在于备份介质上，它就会维持 available 状态。</li>
+<li>如果以前被标记为 expired 的备份集或副本再次存在于备份介质上，crosscheck 命令就会将它标记回available。</li>
+</ul>
+<ol>
+<li>
+<p>RMAN 备份检验的几种状态</p>
+<ul>
+<li>expired: 对象不存在于磁盘或磁带。</li>
+<li>available: 对象处于可用状态。</li>
+<li>unavailable: 对象处于不可用状态。</li>
+</ul>
+</li>
+<li>
+<p>expired 与 obsolette 的区别:</p>
+<ul>
+<li>对于EXPIRED状态，与crosscheck命令是密切相关的，RMAN通过crosscheck命令检查备份是否存在于备份介质上, 如果不存在，则状态由AVAILABLE改为EXPIRED。</li>
+<li>对于obsolete状态，是针对MAN备份保留策略来说的，超过了这个保留策略的备份，会被标记为obsolete，但其状态依旧为AVAILABLE，我们可以使用report obsolete来查看已废弃的备份。</li>
+</ul>
+</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; crosscheck backup; --校验备份片（？？？）</span><br><span class="line">RMAN&gt; crosscheck backupset; --校验备份集</span><br><span class="line">RMAN&gt; crosscheck copy； --校验镜像副本</span><br><span class="line">RMAN&gt; crosscheck backup of controlfile; --校验备份的控制文件</span><br><span class="line">RMAN&gt; crosscheck backup of archivelog all; --校验所有备份的归档日志</span><br><span class="line">RMAN&gt; crosscheck backup of datafile 1,2; --校验datafile 1,2</span><br><span class="line">RMAN&gt; crosscheck backup of tablespace sysaux,system; --校验表空间sysaux,system</span><br><span class="line">RMAN&gt; crosscheck backup completed between <span class="string">'13-OCT-10'</span> and <span class="string">'23-OCT-10'</span>; --校验时间段,时间段格式由NLS_DATE_FORMAT设置</span><br><span class="line">RMAN&gt; crosscheck backupset 1067,1068; --校验指定的备份集</span><br></pre></td></tr></table></figure>
+<h3 id="backup-常用命令"><a class="header-anchor" href="#backup-常用命令">¶ </a>backup - 常用命令</h3>
+<ol>
+<li>
+<p>将备份集放到快速恢复区：</p>
+<ul>
+<li>归档模式下</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database plus archivelog;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>非归档模式</li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shutdown immediate;     <span class="comment"># 关闭一致性后，打开到 mount 状态</span></span><br><span class="line">backup database;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指定备份片段的存放路径和命名规则</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup format <span class="string">'/u01/app/oracle/oradata/enmo1/AL_%d/%t/%s/%p'</span> archivelog like <span class="string">'%arc_dest%'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>备份成镜像文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup as copy</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置备份标记（每个标记必须唯一，相同的标记可以用于多个备份只还原最新的备份）。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database tag=<span class="string">'full_bak1'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置备份集大小（必须大于数据库总数据文件的大小，否则会报错）。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database maxsetsize=100m tag=<span class="string">'datafile1'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>设置备份片大小（磁带或文件系统限制）</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">run &#123;</span><br><span class="line">    allocate channel c1 <span class="built_in">type</span> disk maxpicecsize 100m format <span class="string">'/data/backup/full_0_%U_%T'</span>;        </span><br><span class="line">    backup database tag=<span class="string">'full_0'</span>;        </span><br><span class="line">    release channel c1;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>PS:<br>
+可以在allocate子句中设定每个备份片的大小，以达到磁带或系统限制。<br>
+也可以在configure中设置备份片大小。</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">configure channel device <span class="built_in">type</span> disk maxpiecesize 100 m        </span><br><span class="line">configure channel device <span class="built_in">type</span> disk clear;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>备份集保存策略</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">backup database keep forever;  --永久保留备份文件, 这种需要有恢复目录的支持</span><br><span class="line">backup database keep until time=<span class="string">'sysdate+30'</span>; --保存备份30天</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重写configure exclude 命令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup databas noexclude keep forever tag=<span class="string">'test backup'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>检查数据库错误，使用 RMAN 来扫描数据库的物理/逻辑错误，并不执行实际备份。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup validate database;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>跳过脱机，不可存取或只读文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">backup database skip <span class="built_in">readonly</span>;</span><br><span class="line">backup database skip offline;</span><br><span class="line">backup database skip inaccessible;</span><br><span class="line">backup database ship <span class="built_in">readonly</span> skip offline ship inaccessible;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>强制备份</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database force;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>基于上次备份时间备份数据文件</p>
+<ul>
+<li>只备份添加的新数据文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database not backend up;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>备份在现行时间周期内没有备份的数据文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database not backend up since time=<span class="string">'sysdate-2'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>备份操作期间检查逻辑错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">backup check logical database;</span><br><span class="line">backup validate check logical database;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>生成备份副本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database copies=2;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>备份控制文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backup database device <span class="built_in">type</span> disk includ current controlfile;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="format-格式化参数"><a class="header-anchor" href="#format-格式化参数">¶ </a>format - 格式化参数</h3>
+<ul>
+<li><code>%a</code>: Oracle 数据库的 activation ID，即 RESETLOG_ID;</li>
+<li><code>%c</code>: 备份片段的赋值数（从1开始编号，最大不超过 256）;</li>
+<li><code>%d</code>: Oracle 数据库的名称;</li>
+<li><code>%D</code>: 当前时间中的日，格式为 DD;</li>
+<li><code>%e</code>: 归档序号;</li>
+<li><code>%f</code>: 绝对文件编号;</li>
+<li><code>%F</code>: 基于 “DBID+时间” 确定的唯一名称，格式的形式为 c-IIIIII-YYYYMMDD-QQ，其中 IIIIII 为该数据库的 DBID，YYYYMMDD 为日期，QQ是一个 1~25 的序列;</li>
+<li><code>%h</code>: 归档日志线程号;</li>
+<li><code>%I</code>: Oracle 数据库的 DBID;</li>
+<li><code>%M</code>: 当前时间中的月，格式为 MM;</li>
+<li><code>%N</code>: 表空间名称;</li>
+<li><code>%n</code>: 数据库的名称，并且会在右侧用x字符进行填充，使其保持长度为8。</li>
+<li><code>%p</code>: 备份集中备份片段的编号，从 1 开始;</li>
+<li><code>%s</code>: 备份集号;</li>
+<li><code>%t</code>: 备份集时间戳;</li>
+<li><code>%T</code>: 当前时间的年月日格式（YYYYMMDD）;</li>
+<li><code>%u</code>: 是一个由备份集编号和建立时间压缩后组成的8字符名称。利用 <code>%u</code> 可以为每个备份集生成一个唯一的名称。</li>
+<li><code>%U</code>: 默认是 <code>%u_%p_%c</code> 的简写形式，利用它可以为每一个备份片段（即磁盘文件）生成一个唯一名称，这是最常用的命名方式。执行不同备份操作时，生成的规则也不同，如下所示：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">生成备份片段时，%U=%u_%p_%c；</span><br><span class="line">生成数据文件镜像复制时，%U=data-D-%d_id-%I_TS-%N_FNO-%f_%u；</span><br><span class="line">生成归档文件镜像复制时，%U=arch-D_%d-id-%I_S-%e_T-%h_A-%a_%u；</span><br><span class="line">生成控制文件镜像复制时，%U=cf-D_%d-id-%I_%u。</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>%Y</code>: 当前时间中的年，格式为YYYY。</li>
+</ul>
+<blockquote>
+<p>PS：<br>
+如果在 BACKUP 命令中没有指定 FORMAT 选项，则RMAN默认使用 <code>%U</code> 为备份片段命名。</p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/06/01/148-RMAN-%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E4%BB%A3%E7%A0%81/">https://blog.59izt.com/2021/06/01/148-RMAN-%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E4%BB%A3%E7%A0%81/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/05/31/147-Prometheus-PromQL/"><span>PromQL</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
