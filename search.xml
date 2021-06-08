@@ -1,6 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Maven 部署 jar 包到 Nexus 仓库配置</title>
+    <url>/2021/06/05/151-maven-%E9%83%A8%E7%BD%B2%E6%88%90%E5%93%81%E5%88%B0-Nexus/</url>
+    <content><![CDATA[<h2 id="说明"><a class="header-anchor" href="#说明">¶ </a>说明</h2>
+<p>为保留项目的历史发布版本，以及方便后续自动化部署脚本的编写，需要将每次发布的软件包上传到中央仓库进行保留，以下是前后端的配置方式。</p>
+<a id="more"></a>
+<p>==注意==</p>
+<ol>
+<li>为方便统计，所有软件版本从 0.0.1 开始，即 主版本.次版本.编译版本；</li>
+<li>每次发布版本，版本号必须不同，主版本未经项目组领导同意，禁止升级，次版本号只有在发布重大BUG修复或增加新功能后，由开发人员决定是否升级次版本号，编译版本号每次发布都往上递增；</li>
+<li>后端修改好 maven 和 pom 配置后，使用 maven deploy 的方式打包时会自动将包上传一份到 Nexus 中央仓库，无需人为干涉；</li>
+<li>为方便管理，后端测试和正式环境必须统一使用 RELEASE 格式的版本包，因为 只有 RELEASE 格式的包才能手动上传；开发环境可以打包成 SNAPSHOT，也可以打包成 RELEASE；</li>
+<li>前端必须将 zip 包命名成 <code>项目名-版本号-RELEASE.zip</code> 格式后，再登录 <code>nexus.china-snow.net</code> 按要求填写上传表单手动上传；</li>
+<li>当在 nexus 中保留了历史版本文件后，服务器上可以不必再保留历史文件了，需要回滚时可以从 Nexus 中央仓库下载历史文件;</li>
+</ol>
+<h2 id="配置使用-Nexus-中央仓库加速"><a class="header-anchor" href="#配置使用-Nexus-中央仓库加速">¶ </a>配置使用 Nexus 中央仓库加速</h2>
+<ol>
+<li>
+<p>修改 Maven 配置文件 <code>settings.xml</code> 文件，修改 内容</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;mirrors&gt;</span></span><br><span class="line">  <span class="string">&lt;mirror&gt;</span></span><br><span class="line">    <span class="string">&lt;id&gt;nexus&lt;/id&gt;</span></span><br><span class="line">    <span class="string">&lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</span></span><br><span class="line">    <span class="string">&lt;name&gt;Nexus</span> <span class="number">15</span><span class="string">&lt;/name&gt;</span></span><br><span class="line">    <span class="string">&lt;url&gt;http://nexus.china-snow.net/repository/maven-public/&lt;/url&gt;</span> </span><br><span class="line">  <span class="string">&lt;/mirror&gt;</span></span><br><span class="line"><span class="string">&lt;/mirrors&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如下图所示：<br>
+<img src="https://z3.ax1x.com/2021/06/05/2NWeXT.png" alt="image"></p>
+</li>
+</ol>
+<h2 id="配置-Maven-部署成品到-Nexus"><a class="header-anchor" href="#配置-Maven-部署成品到-Nexus">¶ </a>配置 Maven 部署成品到 Nexus</h2>
+<ol>
+<li>
+<p>修改 Maven 的配置文件 <code>settings.xml</code> 文件，增加 <code>servers</code> 内容，如下</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;servers&gt;</span></span><br><span class="line">  <span class="string">&lt;server&gt;</span></span><br><span class="line">    <span class="string">&lt;id&gt;releases&lt;/id&gt;</span></span><br><span class="line">    <span class="string">&lt;username&gt;deployer&lt;/username&gt;</span></span><br><span class="line">    <span class="string">&lt;password&gt;123456&lt;/password&gt;</span></span><br><span class="line">  <span class="string">&lt;/server&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="string">&lt;server&gt;</span></span><br><span class="line">    <span class="string">&lt;id&gt;snapshots&lt;/id&gt;</span></span><br><span class="line">    <span class="string">&lt;username&gt;deployer&lt;/username&gt;</span></span><br><span class="line">    <span class="string">&lt;password&gt;123456&lt;/password&gt;</span></span><br><span class="line">  <span class="string">&lt;/server&gt;</span></span><br><span class="line"><span class="string">&lt;/servers&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改项目的 <code>pom.xml</code> 文件，添加以下内容：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;distributionManagement&gt;</span> </span><br><span class="line">    <span class="string">&lt;repository&gt;</span> </span><br><span class="line">        <span class="string">&lt;id&gt;releases&lt;/id&gt;</span></span><br><span class="line">        <span class="string">&lt;name&gt;API</span> <span class="string">Release</span> <span class="string">Repositories&lt;/name&gt;</span></span><br><span class="line">        <span class="string">&lt;url&gt;http://nexus.china-snow.net/repository/api-releases/&lt;/url&gt;</span> </span><br><span class="line">    <span class="string">&lt;/repository&gt;</span> </span><br><span class="line">    <span class="string">&lt;snapshotRepository&gt;</span> </span><br><span class="line">        <span class="string">&lt;id&gt;snapshots&lt;/id&gt;</span></span><br><span class="line">        <span class="string">&lt;name&gt;API</span> <span class="string">Snapshot</span> <span class="string">Repositories&lt;/name&gt;</span></span><br><span class="line">        <span class="string">&lt;url&gt;http://nexus.china-snow.net/repository/api-snapshots/&lt;/url&gt;</span> </span><br><span class="line">    <span class="string">&lt;/snapshotRepository&gt;</span> </span><br><span class="line"><span class="string">&lt;/distributionManagement&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<ul>
+<li><code>distributionManagement</code> 模块需要与 <code>build</code> 模块同级</li>
+<li><code>id</code> 的值必须与 Maven 配置文件中 <code>server</code> 的 <code>id</code> 值一样；</li>
+<li><code>name</code> 随便填，能自己看懂就好，最好是能说明该仓库是什么仓库；</li>
+<li><code>url</code> 仓库的 URL 地址，需要登录 Nexus 查看每个项目的仓库地址，然后这里更换为项目对应的仓库地址；</li>
+</ul>
+</li>
+<li>
+<p>每次发布时，需要修改 pom 中 version 的值，当值为 SNATSHOT 时，会自动上传 jar 包到 snapshotRepository 分支，当值为 RELEASE 时，会将 jar 包上传到 repository 分支；如下如所示：<br>
+<img src="https://z3.ax1x.com/2021/06/05/2NWXE4.png" alt="image"></p>
+</li>
+<li>
+<p>部署 jar 包到中央仓库，出现如下提示说明部署成功了</p>
+<p><img src="https://z3.ax1x.com/2021/06/05/2NhWfs.png" alt="image"></p>
+</li>
+</ol>
+<h2 id="前端上传文件到仓库"><a class="header-anchor" href="#前端上传文件到仓库">¶ </a>前端上传文件到仓库</h2>
+<ol>
+<li>
+<p>将前端打包成 zip 文件，然后修改文件名为 <code>项目名称-版本号-RELEASE.zip</code>;</p>
+</li>
+<li>
+<p>打开浏览器访问网址 <a href="http://nexus.china-snow.net" target="_blank" rel="noopener">nexus.china-snow.net</a>，点击右上角 <code>Sign in</code> 进行登录;</p>
+</li>
+<li>
+<p>登录后点击左边 Upload 选项，然后在右边网页选择自己的项目名称，点击项目名，进入上传文件表单填写页面<br>
+<img src="https://z3.ax1x.com/2021/06/07/2dYl2d.png" alt="image"></p>
+</li>
+<li>
+<p>点击 Browse 按钮，选择需要上传的文件，以及手动输入以下表单内容</p>
+<ul>
+<li>Group ID: 软件包分组，前端值为 <code>com.chinasnow.web</code>; 后端值为 <code>com.chinasnow.app</code>;</li>
+<li>Artifact ID: 软件包名称(项目名称)，如 <code>qdmwms</code>, <code>sal</code>, <code>hr</code>;</li>
+<li>Version: 版本号，如: 0.0.1，代表 主版本号.次版本号.编译版本号;</li>
+</ul>
+</li>
+<li>
+<p>填好表单后点击 Upload 即可将包上传到 Nexus 中央仓库，如下图;<br>
+<img src="https://z3.ax1x.com/2021/06/07/2dYHZ6.png" alt="image"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Maven</category>
+      </categories>
+      <tags>
+        <tag>Nexus</tag>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle 使用模板新建数据库实例</title>
+    <url>/2021/06/04/150-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/</url>
+    <content><![CDATA[<h2 id="创建模板"><a class="header-anchor" href="#创建模板">¶ </a>创建模板</h2>
+<ol>
+<li>
+<p>使用新装好的 Oracle 数据库，创建模板</p>
+ <a id="more"></a>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[oracle@dbs ~]$ dbca -silent -createCloneTemplate -sourceSID orcl -templateName orcl</span><br><span class="line">Gathering information from the <span class="built_in">source</span> database</span><br><span class="line">4% complete</span><br><span class="line">8% complete</span><br><span class="line">13% complete</span><br><span class="line">17% complete</span><br><span class="line">22% complete</span><br><span class="line">Backup datafiles </span><br><span class="line">28% complete</span><br><span class="line">88% complete</span><br><span class="line">Creating template file</span><br><span class="line">100% complete</span><br><span class="line">Look at the <span class="built_in">log</span> file <span class="string">"/u01/app/oracle/cfgtoollogs/dbca/silent.log_2021-06-04_01-20-40-PM"</span> <span class="keyword">for</span> further details.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>模板文件目录查看</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[oracle@dbs ~]$ ls /u01/app/oracle/product/11.2.0/assistants/dbca/templates/</span><br><span class="line">Data_Warehouse.dbc  example01.dfb  example.dmp  General_Purpose.dbc  New_Database.dbt  orcl.ctl  orcl.dbc  orcl.dfb  Seed_Database.ctl  Seed_Database.dfb</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="使用模板创建数据库"><a class="header-anchor" href="#使用模板创建数据库">¶ </a>使用模板创建数据库</h2>
+<ol>
+<li>
+<p>使用上面创建的 orcl 模板创建 ahwms 新实例</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dbca -silent -createDatabase \</span><br><span class="line">  -templateName <span class="variable">$ORACLE_HOME</span>/assistants/dbca/templates/orcl.dbc \</span><br><span class="line">  -gdbName ahwms \</span><br><span class="line">  -sid ahwms \</span><br><span class="line">  -sysPassword <span class="string">"xxxxx"</span> \</span><br><span class="line">  -systemPassword <span class="string">"xxxxx"</span> \</span><br><span class="line">  -datafileDestination <span class="variable">$ORACLE_BASE</span>/oradata \</span><br><span class="line">  -recoveryAreaDestination <span class="variable">$ORACLE_BASE</span>/flash_recovery_area \</span><br><span class="line">  -characterSet ZHS16GBK</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出如下</span></span><br><span class="line">Copying database files</span><br><span class="line">1% complete</span><br><span class="line">3% complete</span><br><span class="line">11% complete</span><br><span class="line">18% complete</span><br><span class="line">26% complete</span><br><span class="line">37% complete</span><br><span class="line">Creating and starting Oracle instance</span><br><span class="line">40% complete</span><br><span class="line">45% complete</span><br><span class="line">50% complete</span><br><span class="line">55% complete</span><br><span class="line">56% complete</span><br><span class="line">60% complete</span><br><span class="line">62% complete</span><br><span class="line">Completing Database Creation</span><br><span class="line">66% complete</span><br><span class="line">70% complete</span><br><span class="line">73% complete</span><br><span class="line">85% complete</span><br><span class="line">96% complete</span><br><span class="line">100% complete</span><br><span class="line">Look at the <span class="built_in">log</span> file <span class="string">"/u01/app/oracle/cfgtoollogs/dbca/ahwms/ahwms.log"</span> <span class="keyword">for</span> further details.</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看监听</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[oracle@dbs database]$ lsnrctl status</span><br><span class="line"></span><br><span class="line">LSNRCTL <span class="keyword">for</span> Linux: Version 11.2.0.4.0 - Production on 04-JUN-2021 13:31:09</span><br><span class="line"></span><br><span class="line">Copyright (c) 1991, 2013, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1521)))</span><br><span class="line">STATUS of the LISTENER</span><br><span class="line">------------------------</span><br><span class="line">Alias                     LISTENER</span><br><span class="line">Version                   TNSLSNR <span class="keyword">for</span> Linux: Version 11.2.0.4.0 - Production</span><br><span class="line">Start Date                04-JUN-2021 13:15:36</span><br><span class="line">Uptime                    0 days 0 hr. 15 min. 32 sec</span><br><span class="line">Trace Level               off</span><br><span class="line">Security                  ON: Local OS Authentication</span><br><span class="line">SNMP                      OFF</span><br><span class="line">Listener Parameter File   /u01/app/oracle/product/11.2.0/network/admin/listener.ora</span><br><span class="line">Listener Log File         /u01/app/oracle/diag/tnslsnr/dbs/listener/alert/log.xml</span><br><span class="line">Listening Endpoints Summary...</span><br><span class="line">(DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1521)))</span><br><span class="line">(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=dbs)(PORT=1521)))</span><br><span class="line">Services Summary...</span><br><span class="line">Service <span class="string">"ahwms"</span> has 1 instance(s).</span><br><span class="line">Instance <span class="string">"ahwms"</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">Service <span class="string">"ahwmsXDB"</span> has 1 instance(s).</span><br><span class="line">Instance <span class="string">"ahwms"</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">Service <span class="string">"orcl"</span> has 1 instance(s).</span><br><span class="line">Instance <span class="string">"orcl"</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">Service <span class="string">"orclXDB"</span> has 1 instance(s).</span><br><span class="line">Instance <span class="string">"orcl"</span>, status READY, has 1 handler(s) <span class="keyword">for</span> this service...</span><br><span class="line">The <span class="built_in">command</span> completed successfully</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>测试访问数据库</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先访问默认的 orcl 实例</span></span><br><span class="line">[oracle@dbs database]$ <span class="built_in">echo</span> <span class="variable">$ORACLE_SID</span> </span><br><span class="line">orcl</span><br><span class="line">[oracle@dbs database]$ sqlplus / as sysdba</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.4.0 Production on Fri Jun 4 13:32:26 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2013, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line"></span><br><span class="line">SQL&gt; show parameter name;</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line">------------------------------------ ----------- ------------------------------</span><br><span class="line">cell_offloadgroup_name               string</span><br><span class="line">db_file_name_convert                 string</span><br><span class="line">db_name                              string      orcl</span><br><span class="line">db_unique_name                       string      orcl</span><br><span class="line">global_names                         boolean     FALSE</span><br><span class="line">instance_name                        string      orcl</span><br><span class="line">lock_name_space                      string</span><br><span class="line">log_file_name_convert                string</span><br><span class="line">processor_group_name                 string</span><br><span class="line">service_names                        string      orcl</span><br><span class="line">SQL&gt; Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 SID 为 ahwms</span></span><br><span class="line">[oracle@dbs database]$ <span class="built_in">export</span> ORACLE_SID=ahwms</span><br><span class="line">[oracle@dbs database]$ sqlplus / as sysdba</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.4.0 Production on Fri Jun 4 13:32:57 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2013, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Data Mining and Real Application Testing options</span><br><span class="line"></span><br><span class="line">SQL&gt; show parameter name;</span><br><span class="line"></span><br><span class="line">NAME                                 TYPE        VALUE</span><br><span class="line">------------------------------------ ----------- ------------------------------</span><br><span class="line">cell_offloadgroup_name               string</span><br><span class="line">db_file_name_convert                 string</span><br><span class="line">db_name                              string      ahwms</span><br><span class="line">db_unique_name                       string      ahwms</span><br><span class="line">global_names                         boolean     FALSE</span><br><span class="line">instance_name                        string      ahwms</span><br><span class="line">lock_name_space                      string</span><br><span class="line">log_file_name_convert                string</span><br><span class="line">processor_group_name                 string</span><br><span class="line">service_names                        string      ahwms</span><br><span class="line">SQL&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Oracle</category>
+      </categories>
+      <tags>
+        <tag>Database</tag>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Oracle 常用语句</title>
+    <url>/2021/06/04/149-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/</url>
+    <content><![CDATA[<h2 id="Oracle-日常操作"><a class="header-anchor" href="#Oracle-日常操作">¶ </a>Oracle 日常操作</h2>
+<ol>
+<li>
+<p>查看表空间对应的数据文件</p>
+ <a id="more"></a>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; SELECT tablespace_name,file_id,file_name FROM dba_data_files ORDER BY file_id;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查询用户和表空间的对应关系</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; SELECT username,default_tablespace FROM dba_users;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看当前数据库实例</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; SHOW PARAMETER NAME;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看数据库目录</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; SELECT * FROM dba_directories;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查询会话信息</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; select sid,serial# from v$session where username = 'AHWMS';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>杀掉会话</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'1283,211'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Expdp-和-Impdp-相关"><a class="header-anchor" href="#Expdp-和-Impdp-相关">¶ </a>Expdp 和 Impdp 相关</h2>
+<ol>
+<li>
+<p>创建备份文件存放目录</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@dbs ~]<span class="comment"># mkdir -p /backup/oracle/dump_dir</span></span><br><span class="line">[root@dbs ~]<span class="comment"># chown -R oracle:oinstall /backup/oracle/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>数据库创建目录</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建</span></span><br><span class="line">SQL&gt; CREATE directory dump_dir AS '/backup/oracle/dump_dir'; </span><br><span class="line"><span class="comment"># 授权备份用户对该目录的访问权</span></span><br><span class="line">SQL&gt; GRANT read,write ON directory dump_dir TO ahwms;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看目录是否存在</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; SELECT * FROM dba_directories;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>按用户导出</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">expdp username/password@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果用户密码包含特殊字符，需要使用以下方式</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">expdp <span class="string">'username/"password!@#"'</span>@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>还原数据</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">impdp usernem/password@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp full=<span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果用户密码包含特殊字符，需要使用以下方式</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">impdp <span class="string">'username/"password!@#"'</span>@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>源库和目标库用户和表空间不一样，要用 <code>remap_schema=user1:user2</code> 和 <code>remap_tablespace=tablespace1:tablespace2</code>; 其中源是 1，目标是 2</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="用户相关的操作"><a class="header-anchor" href="#用户相关的操作">¶ </a>用户相关的操作</h2>
+<ol>
+<li>
+<p>创建表空间</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; CREATE bigfile tablespace ahwms datafile '/u01/app/oracle/oradata/ahwms/ahwms.dbf' size 1G autoextend ON NEXT 1G maxsize unlimited;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建用户并指定默认表空间</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; CREATE USER ahwms IDENTIFIED BY "xxxxxxx" DEFAULT TABLESPACE ahwms;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>授权用户角色</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; grant connect,resource to ahwms;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>授权用户对备份目录的读写权限</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; grant read,write on directory dump_dir to ahwms;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除用户</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; drop user qdmwms_pre cascade;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除表空间以及数据文件</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; drop tablespace qdmwms including contents and datafiles;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>禁用用户</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; ALTER USER ahwms ACCOUNT LOCK;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Oracle</category>
+      </categories>
+      <tags>
+        <tag>Database</tag>
+        <tag>Oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RMAN 基本命令</title>
     <url>/2021/06/01/148-RMAN-%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<p>原文地址: <a href="https://www.cnblogs.com/WoLykos/p/11585744.html" target="_blank" rel="noopener">RMAN详细教程(一)：基本命令代码</a></p>
