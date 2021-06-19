@@ -16,24 +16,24 @@ if (isPassword) {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle-日常操作"><span class="toc-number">1.</span> <span class="toc-text">¶ Oracle 日常操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Expdp-和-Impdp-相关"><span class="toc-number">2.</span> <span class="toc-text">¶ Expdp 和 Impdp 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户相关的操作"><span class="toc-number">3.</span> <span class="toc-text">¶ 用户相关的操作</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color8"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">147</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">94</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">31</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle 常用语句</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-06-04 | 更新于 2021-06-08</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Database/">Database</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a></div></div></div><div class="main-content"><h2 id="Oracle-日常操作"><a class="header-anchor" href="#Oracle-日常操作">¶ </a>Oracle 日常操作</h2>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle-日常操作"><span class="toc-number">1.</span> <span class="toc-text">¶ Oracle 日常操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户相关的操作"><span class="toc-number">2.</span> <span class="toc-text">¶ 用户相关的操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户角色权限查看"><span class="toc-number">3.</span> <span class="toc-text">¶ 用户角色权限查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户对象相关"><span class="toc-number">4.</span> <span class="toc-text">¶ 用户对象相关</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color3"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">148</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">94</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">31</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle 常用语句</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-06-04 | 更新于 2021-06-16</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Database/">Database</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a></div></div></div><div class="main-content"><h2 id="Oracle-日常操作"><a class="header-anchor" href="#Oracle-日常操作">¶ </a>Oracle 日常操作</h2>
 <ol>
 <li>
 <p>查看表空间对应的数据文件</p>
  <a id="more"></a>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT tablespace_name,file_id,file_name FROM dba_data_files ORDER BY file_id;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select tablespace_name,file_id,file_name from dba_data_files order by file_id;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>查询用户和表空间的对应关系</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT username,default_tablespace FROM dba_users;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select username,default_tablespace from dba_users;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>查看当前数据库实例</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SHOW PARAMETER NAME;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; show parameter name;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>查看数据库目录</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT * FROM dba_directories;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from dba_directories;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>查询会话信息</p>
@@ -42,51 +42,39 @@ if (isPassword) {
 <li>
 <p>杀掉会话</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'1283,211'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="Expdp-和-Impdp-相关"><a class="header-anchor" href="#Expdp-和-Impdp-相关">¶ </a>Expdp 和 Impdp 相关</h2>
-<ol>
-<li>
-<p>创建备份文件存放目录</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@dbs ~]<span class="comment"># mkdir -p /backup/oracle/dump_dir</span></span><br><span class="line">[root@dbs ~]<span class="comment"># chown -R oracle:oinstall /backup/oracle/</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>数据库创建目录</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建</span></span><br><span class="line">SQL&gt; CREATE directory dump_dir AS '/backup/oracle/dump_dir'; </span><br><span class="line"><span class="comment"># 授权备份用户对该目录的访问权</span></span><br><span class="line">SQL&gt; GRANT read,write ON directory dump_dir TO ahwms;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看目录是否存在</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; SELECT * FROM dba_directories;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>按用户导出</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expdp username/password@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果用户密码包含特殊字符，需要使用以下方式</p>
+<p>其中 1283 为 <code>sid</code>, 211 为 <code>serial#</code>.</p>
 </blockquote>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expdp <span class="string">'username/"password!@#"'</span>@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
 </li>
 <li>
-<p>还原数据</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impdp usernem/password@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp full=<span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果用户密码包含特殊字符，需要使用以下方式</p>
-</blockquote>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impdp <span class="string">'username/"password!@#"'</span>@sid directory=dump_dir dumpfile=schema_ahwms_collect.dmp schemas=username logfile=ahwms.log</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>源库和目标库用户和表空间不一样，要用 <code>remap_schema=user1:user2</code> 和 <code>remap_tablespace=tablespace1:tablespace2</code>; 其中源是 1，目标是 2</p>
-</blockquote>
+<p>查看那张表被锁</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select b.owner,b.object_name,a.session_id,a.locked_mode </span><br><span class="line">     from v$locked_object a,dba_objects b </span><br><span class="line">     where b.object_id = a.object_id;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看是哪个session引起的</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select a.OS_USER_NAME, c.owner, c.object_name, b.sid, b.serial#, logon_time</span><br><span class="line">     from v$locked_object a, v$session b, dba_objects c</span><br><span class="line">     where a.session_id = b.sid</span><br><span class="line">     and a.object_id = c.object_id</span><br><span class="line">     order by b.logon_time;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>杀掉进程，执行命令 <code>alter system kill session '1025,41';</code>。需要用户有权限操作，其中 1025 为 <code>sid</code>, 41 为 <code>serial#</code>.</p>
+</li>
+<li>
+<p>查看是否锁表以及自动生成释放表语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select object_name,machine,s.sid,'alter system kill session ' || '''' || s.sid || ',' || s.serial# || ''';'</span><br><span class="line">     from v$locked_object l,dba_objects o ,v$session s</span><br><span class="line">     where l.object_id = o.object_id</span><br><span class="line">     and l.session_id=s.sid</span><br><span class="line">     and object_name = 'SY_BUSINESS';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看表结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">desc table_name;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> user_tab_columns <span class="keyword">where</span> table_name = <span class="string">'大写的表名称'</span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="用户相关的操作"><a class="header-anchor" href="#用户相关的操作">¶ </a>用户相关的操作</h2>
 <ol>
 <li>
 <p>创建表空间</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; CREATE bigfile tablespace ahwms datafile '/u01/app/oracle/oradata/ahwms/ahwms.dbf' size 1G autoextend ON NEXT 1G maxsize unlimited;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; create bigfile tablespace ahwms datafile '/u01/app/oracle/oradata/ahwms/ahwms.dbf' size 1G autoextend on next 1G maxsize unlimited;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>创建用户并指定默认表空间</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; CREATE USER ahwms IDENTIFIED BY "xxxxxxx" DEFAULT TABLESPACE ahwms;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; create user ahwms identified by "xxxxxxx" default tablespace ahwms;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>授权用户角色</p>
@@ -106,7 +94,60 @@ if (isPassword) {
 </li>
 <li>
 <p>禁用用户</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; ALTER USER ahwms ACCOUNT LOCK;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter user ahwms account lock;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="用户角色权限查看"><a class="header-anchor" href="#用户角色权限查看">¶ </a>用户角色权限查看</h2>
+<ol>
+<li>
+<p>查看某用户拥有的权限</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dba_sys_privs <span class="keyword">where</span> grantee=<span class="string">'SCOTT'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看某用户拥有的角色</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dba_role_privs <span class="keyword">where</span> grantee=<span class="string">'SCOTT'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看一个用户所有的权限及角色</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> privilege <span class="keyword">from</span> dba_sys_privs <span class="keyword">where</span> grantee=<span class="string">'SCOTT'</span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> privilege <span class="keyword">from</span> dba_sys_privs <span class="keyword">where</span> grantee <span class="keyword">in</span> </span><br><span class="line">(<span class="keyword">select</span> granted_role <span class="keyword">from</span> dba_role_privs <span class="keyword">where</span> grantee=<span class="string">'SCOTT'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看哪些用户有 sysdba 或 sysoper 系统权限(查询时需要相应权限)</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> V$PWFILE_USERS;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看所有的角色</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dba_roles;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="用户对象相关"><a class="header-anchor" href="#用户对象相关">¶ </a>用户对象相关</h2>
+<ol>
+<li>
+<p>查看用户无效的对象</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">col object_name for a30;</span><br><span class="line"><span class="keyword">select</span> owner,object_name,object_type,<span class="keyword">status</span> <span class="keyword">from</span> dba_objects <span class="keyword">where</span> <span class="keyword">status</span> !=<span class="string">'VALID'</span> <span class="keyword">and</span> owner <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">'SYS'</span>,<span class="string">'SYSTEM'</span>)</span><br><span class="line">/</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>编译用户对象</p>
+<ul>
+<li>view 视图</li>
+</ul>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter view view_name compile;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>function 函数</li>
+</ul>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter function function_name compile;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>procedure 存储过程</li>
+</ul>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter procedure procedure_name compile;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>trigger 触发器</li>
+</ul>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; alter trigger trigger_name compile;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看编译错误</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; show errors trigger "SAL"."TG_PURCHASE_INVITE";</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/06/04/149-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/">https://blog.59izt.com/2021/06/04/149-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="prev-post pull-left"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/06/04/150-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/"><i class="fas fa-angle-left">&nbsp;</i><span>Oracle 使用模板新建数据库实例</span></a></div><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/06/01/148-RMAN-%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E4%BB%A3%E7%A0%81/"><span>RMAN 基本命令</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
