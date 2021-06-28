@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Pod 的生命周期"><meta name="keywords" content="Kubernetes,Pod"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Pod 的生命周期【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-的生命周期"><span class="toc-number">1.</span> <span class="toc-text">¶ Pod 的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-生命期"><span class="toc-number">2.</span> <span class="toc-text">¶ Pod 生命期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-的阶段"><span class="toc-number">3.</span> <span class="toc-text">¶ Pod 的阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器的状态"><span class="toc-number">4.</span> <span class="toc-text">¶ 容器的状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#waiting-等待"><span class="toc-number">4.1.</span> <span class="toc-text">¶ waiting(等待)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Running-运行中"><span class="toc-number">4.2.</span> <span class="toc-text">¶ Running(运行中)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Terminated-已终止"><span class="toc-number">4.3.</span> <span class="toc-text">¶ Terminated(已终止)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器的重启策略"><span class="toc-number">5.</span> <span class="toc-text">¶ 容器的重启策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-的状况"><span class="toc-number">6.</span> <span class="toc-text">¶ Pod 的状况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-readiness"><span class="toc-number">6.1.</span> <span class="toc-text">¶ Pod readiness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod-readiness-的-状态"><span class="toc-number">6.2.</span> <span class="toc-text">¶ Pod readiness 的 状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容器探针"><span class="toc-number">7.</span> <span class="toc-text">¶ 容器探针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#何时该使用-livenessProbe"><span class="toc-number">7.1.</span> <span class="toc-text">¶ 何时该使用 livenessProbe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时该使用-readinessProbe"><span class="toc-number">7.2.</span> <span class="toc-text">¶ 何时该使用 readinessProbe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时该使用-startupProbe"><span class="toc-number">7.3.</span> <span class="toc-text">¶ 何时该使用 startupProbe</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pod-的终止"><span class="toc-number">8.</span> <span class="toc-text">¶ Pod 的终止</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#强制终止-Pod"><span class="toc-number">8.1.</span> <span class="toc-text">¶ 强制终止 Pod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#失效-Pod-的垃圾收集"><span class="toc-number">8.2.</span> <span class="toc-text">¶ 失效 Pod 的垃圾收集</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color7"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color2"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color5"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">152</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">94</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">31</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Pod 的生命周期</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-06-28 | 更新于 2021-06-28</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Kubernetes/">Kubernetes</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Kubernetes/">Kubernetes</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Pod/">Pod</a></div></div></div><div class="main-content"><p>官方文档: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/" target="_blank" rel="noopener">Pod 的生命周期</a></p>
+<h2 id="Pod-的生命周期"><a class="header-anchor" href="#Pod-的生命周期">¶ </a>Pod 的生命周期</h2>
+<p>Pod 遵循定义的生命周期，从 Pending 阶段开始，如果一个主容器启动正常，则进入 Running 阶段，然后根据 Pod 中的任何容器是否因故障终止而经历 Succeeded 或者 Failed 阶段。</p>
+<a id="more"></a>
+<p>在 Pod 运行期间，kubelet 能够重启容器以处理一些失效场景。在 Pod 中，Kubernetes 会跟踪不同的容器状态，并确定要采取什么措施使 Pod 再次恢复健康状态；<br>
+Pod 在其生命周期中仅被调度一次。一旦 Pod 被调度到一个节点，Pod 就会在该节点上运行，直到它终止。</p>
+<h2 id="Pod-生命期"><a class="header-anchor" href="#Pod-生命期">¶ </a>Pod 生命期</h2>
+<p>和一个个独立的应用容器一样，Pod 也被认为是相对临时性（而不是长期存在）的实体。Pod 会被创建，赋予一个唯一的 ID(UID)，并被调度到节点，并在终止（根据重启策略）或删除之前一直运行在该节点。<br>
+如果一个节点宕机了，调度到该节点的 Pod 也被计划在给定的超时时间结束后被删除。</p>
+<p>Pod 本身不具备自愈能力。如果 Pod 被调度到某节点而该节点之后失效，Pod 会被删除；类似的，Pod 无法在因节点资源耗尽或节点维护而被驱逐期间继续存活。Kubernetes 使用一种高级的抽象来管理这些相对而言可随时丢弃的 Pod 实例，称作控制器。</p>
+<p>任何给定的 Pod（由 UID 定义）从不会被重新调度到不同的节点；相反，这一 Pod 可以被一个新的，几乎完全相同的 Pod 替换掉。如果需要，新 Pod 的名字可以不变，但是其 UID 会不同。</p>
+<p>如果某对象声称其生命周期与某 Pod 相同，例如存储卷，这就意味着该对象在此 Pod （UID也相同）存在期间也一直存在。如果 Pod 因为任何原因被删除，甚至某完全相同的替代 Pod 被创建时，这个相关对象也会被删除并重建。</p>
+<h2 id="Pod-的阶段"><a class="header-anchor" href="#Pod-的阶段">¶ </a>Pod 的阶段</h2>
+<p>Pod 的 status 字段是一个 PodStatus 对象，其中包含一个 phase 字段。<br>
+Pod 的阶段（phase）是 Pod 在其生命周期中所处位置的简单宏观概述。该阶段并不是对容器或 Pod 状态的综合汇总，也不是为了成为完整的状态机。<br>
+Pod 阶段的数量和含义是严格定义的。 除了本文档中列举的内容外，不应该再假定 Pod 有其他的 phase 值。</p>
+<p>下面是 phase 可能的值</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Pending</td>
+<td style="text-align:left">Pod 已经被 Kubernetes 系统接受，但有一个或者多个容器尚未创建亦未运行。此阶段包括等待 Pod 被调度的时间和通过网络下载镜像的时间</td>
+</tr>
+<tr>
+<td style="text-align:center">Running</td>
+<td style="text-align:left">Pod 已经绑定到某个节点，Pod 中所有的容器都已被创建。至少有一个容器处于运行或者正处于启动或重启状态</td>
+</tr>
+<tr>
+<td style="text-align:center">Succeeded</td>
+<td style="text-align:left">Pod 中的所有容器都已经成功终止，并且不会再重启</td>
+</tr>
+<tr>
+<td style="text-align:center">Failed</td>
+<td style="text-align:left">Pod 中的所有容器都已终止，并且至少有一个容器是因为失败而终止。也就是说，容器以非 0 状态退出或者被系统终止。</td>
+</tr>
+<tr>
+<td style="text-align:center">Unknown</td>
+<td style="text-align:left">因为某些原因无法取得 Pod 的状态，这种情况通常是因为与 Pod 所在的主机通信失败而造成的。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="容器的状态"><a class="header-anchor" href="#容器的状态">¶ </a>容器的状态</h2>
+<p>kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体上的 phase 一样。你可以使用容器生命周期回调来在容器生命周期中的特定时间点触发事件。<br>
+一旦调度器将 Pod 分派给某个节点，kubelet 就通过容器运行时开始为 Pod 创建容器。容器的状态有三种：waiting（等待），Running（运行中）和 Terminated（已终止）。</p>
+<p>要检查 Pod 中容器的状态，可以使用 <code>kubectl describe pod &lt;pod 名称&gt;</code>。其输出中包含 Pod 中每个容器的状态。每种状态都有特定的含义，如下：</p>
+<h3 id="waiting-等待"><a class="header-anchor" href="#waiting-等待">¶ </a>waiting(等待)</h3>
+<p>如果容器如果并不处在 Running 或 Terminated 状态之一，它就处在 Waiting 状态。 处于 Waiting 状态的容器仍在运行它完成启动所需要的操作：例如，从某个容器镜像 仓库拉取容器镜像，或者向容器应用 Secret 数据等等。 当你使用 kubectl 来查询包含 Waiting 状态的容器的 Pod 时，你也会看到一个 Reason 字段，其中给出了容器处于等待状态的原因。</p>
+<h3 id="Running-运行中"><a class="header-anchor" href="#Running-运行中">¶ </a>Running(运行中)</h3>
+<p>Running 状态表明容器正在执行状态并且没有问题发生。如果配置了 postStart 回调，那么该回调已经执行且已完成。如果你使用 kubectl 来查询包含 Running 状态的容器的 Pod 时，你也会看到关于容器进入 Running 状态的信息。</p>
+<h3 id="Terminated-已终止"><a class="header-anchor" href="#Terminated-已终止">¶ </a>Terminated(已终止)</h3>
+<p>处于 Terminated 状态的容器已经开始执行并且或者正常结束或者因为某些原因失败。 如果你使用 kubectl 来查询包含 Terminated 状态的容器的 Pod 时，你会看到 容器进入此状态的原因、退出代码以及容器执行期间的起止时间。如果容器配置了 preStop 回调，则该回调会在容器进入 Terminated 状态之前执行。</p>
+<h2 id="容器的重启策略"><a class="header-anchor" href="#容器的重启策略">¶ </a>容器的重启策略</h2>
+<p>Pod 的 spec 中包含了一个 restartPolicy 字段，其取值可以是 Always, OnFailure 和 Never。默认值是 Always；</p>
+<p>restartPolicy 适用于 Pod 中的所有容器。restartPolicy 仅针对同一节点上 kubelet 的容器重启动作。当 Pod 中的容器退出时，kubelet 会按指数回退的方式计算重启的延迟（10s,20s,40s…）最长延迟为 5 分钟。一旦某容器执行了 10 分钟并且没有出现问题，kubelet 对该容器的重启回退计时器执行重置操作。</p>
+<h2 id="Pod-的状况"><a class="header-anchor" href="#Pod-的状况">¶ </a>Pod 的状况</h2>
+<p>Pod 有一个 PodStatus 对象，其中包含一个 PodConditions 数组。Pod 可能通过也可能未通过其中的一些状况测试。</p>
+<ul>
+<li>PodScheduled: Pod 已经被调度到某节点；</li>
+<li>ContainersRead: Pod 中所有容器都已就绪；</li>
+<li>Initialized: 所有 init 容器都已经成功启动；</li>
+<li>Ready: Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名称</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:left">Pod 的状况名称</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:left">表明该状况是否适用，可能的取值有 “True”, “False” 或 “Unknow”</td>
+</tr>
+<tr>
+<td style="text-align:center">lastProbeTime</td>
+<td style="text-align:left">上此探测 Pod 状况时的时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">lastTransitionTime</td>
+<td style="text-align:left">Pod 上次从一种状态转换到另一种状态时的时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">reason</td>
+<td style="text-align:left">机器可读取的，驼峰编码的文字，表示上次状况变化的原因</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:left">人类可读的消息，给出上次状态转换的详细信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Pod-readiness"><a class="header-anchor" href="#Pod-readiness">¶ </a>Pod readiness</h3>
+<p>readiness : kubernetes v1.14 之后可用；</p>
+<p>应用可以向 PodStatus 中注入额外的反馈或者信号：Pod readiness。要使用这一特性，可以设置 Pod 规约中的 readinessGates 列表，为 kubelet 提供一组额外的状况供其评估 Pod readiness 状态时使用。</p>
+<p>readinessGates 基于 Pod 的 status.conditions 字段的当前值来做决定。如果 Kubernetes 无法在 status.conditions 字段中找到某状况，则该状况的状态值默认为 “False”。</p>
+<p>如下是一个例子：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">readinessGates:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">conditionType:</span> <span class="string">"www.example.com/feature-1"</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line">  <span class="attr">conditions:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">Ready</span>                              <span class="comment"># 内置的 Pod 状况</span></span><br><span class="line">      <span class="attr">status:</span> <span class="string">"False"</span></span><br><span class="line">      <span class="attr">lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">lastTransitionTime:</span> <span class="number">2018</span><span class="number">-01</span><span class="string">-01T00:00:00Z</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">"www.example.com/feature-1"</span>        <span class="comment"># 额外的 Pod 状况</span></span><br><span class="line">      <span class="attr">status:</span> <span class="string">"False"</span></span><br><span class="line">      <span class="attr">lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">lastTransitionTime:</span> <span class="number">2018</span><span class="number">-01</span><span class="string">-01T00:00:00Z</span></span><br><span class="line">  <span class="attr">containerStatuses:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerID:</span> <span class="string">docker://abcd...</span></span><br><span class="line">      <span class="attr">ready:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+<h3 id="Pod-readiness-的-状态"><a class="header-anchor" href="#Pod-readiness-的-状态">¶ </a>Pod readiness 的 状态</h3>
+<p><code>kubectl path</code> 命令不支持修改对象的状态。如果需要设置 Pod 的 status.conditions，应用或者 Operators 需要使用 PATCH 操作。可以使用 Kubernetes<a href="https://kubernetes.io/zh/docs/reference/using-api/client-libraries/" target="_blank" rel="noopener">客户端库</a> 来编写代码，针对 Pod readiness 设置定制的 Pod 状况。</p>
+<p>对于使用定制状况的 Pod 而言，只有当下面的要求都满足时，该 Pod 才会被评估为就绪</p>
+<ul>
+<li>Pod 中的所有容器都已就绪</li>
+<li>readinessGates 中的所有状况都为 True 值.</li>
+</ul>
+<p>当 Pod 的容器都已就绪，但只要有一个定制状况没有取值或者取值为 False，kubelet 会将 Pod 的状况设置为 ContainersReady。</p>
+<h2 id="容器探针"><a class="header-anchor" href="#容器探针">¶ </a>容器探针</h2>
+<p>Probe 是由 kubelet 对容器执行的定期诊断。要执行诊断，kubelet 调用由容器实现的 Handler（处理程序）。</p>
+<p>有三种类型的处理程序：</p>
+<ul>
+<li>ExecAction: 在容器内部执行指定命令。如果命令退出时返回码为 0 则认为诊断成功；</li>
+<li>TCPSocketAction: 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的；</li>
+<li>HTTPGetAction: 对容器的 IP 地址上指定端口和路径执行 HTTP Get 请求。如果响应的状态码大于等于 200 且小于 400，则诊断被认为是成功的。</li>
+</ul>
+<p>每次探测都将获得以下三种结果之一：</p>
+<ul>
+<li>Success: 容器通过了诊断；</li>
+<li>Failure: 容器未通过诊断；</li>
+<li>Unknown: 诊断失败，因此不会采取任何行动。</li>
+</ul>
+<p>针对运行中的容器，kubelet 可以选择是否执行以下三种探针，以及如何针对探测结果做出反应：</p>
+<ul>
+<li>livenessProbe 存活状态探针: 指示容器是否正在运行。如果存活状态探测失败，则 kubelet 会杀死容器，并且将容器根据其重启策略决定是否重启。如果容器不提供存活探针，则默认状态为 Success；</li>
+<li>readinessProbe 就绪状态探测: 指示容器是否准备好为请求提供服务。如果就绪状态探测失败，端点控制器将从与 Pod 匹配的所有服务的端点列表中删除该 Pod 的 IP 地址。初始延迟之前的就绪状态值默认为 Failure。如果容器不提供就绪状态探针，则默认状态为 Success；</li>
+<li>startupProbe 启动状态探针: 指示容器中的应用是否已经启动。如果提供了启动探针，则所有其他探针都会被禁用，知道此探针成功为止。如果启动探针探测失败，kubelet 将杀死容器，而容器依据其重启策略进行重启。如果容器没有提供启动探测，则默认状态为 Success。</li>
+</ul>
+<p>如果想了解如何设置存活探针，就绪探针和启动探针的进一步细节，可以参阅 <a href="https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener">配置 livenessProbe，readinessProbe 和 startupProbe</a></p>
+<h3 id="何时该使用-livenessProbe"><a class="header-anchor" href="#何时该使用-livenessProbe">¶ </a>何时该使用 livenessProbe</h3>
+<p>如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针; kubelet 将根据 Pod 的 restartPolicy 自动执行修复操作。<br>
+如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，并指定 restartPolicy 为 “Always” 或 “OnFailure”。</p>
+<h3 id="何时该使用-readinessProbe"><a class="header-anchor" href="#何时该使用-readinessProbe">¶ </a>何时该使用 readinessProbe</h3>
+<ul>
+<li>如果要仅在探测成功时才开始向 Pod 发送请求流量，请指定就绪态探针。 在这种情况下，就绪态探针可能与存活态探针相同，但是规约中的就绪态探针的存在意味着 Pod 将在启动阶段不接收任何数据，并且只有在探针探测成功后才开始接收数据。</li>
+<li>如果你的容器需要加载大规模的数据、配置文件或者在启动期间执行迁移操作，可以添加一个 就绪态探针。</li>
+<li>如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，检查某个特定于就绪态的因此不同于存活态探测的端点。</li>
+</ul>
+<blockquote>
+<p>请注意，如果你只是想在 Pod 被删除时能够排空请求，则不一定需要使用就绪态探针；在删除 Pod 时，Pod 会自动将自身置于未就绪状态，无论就绪态探针是否存在。等待 Pod 中的容器停止期间，Pod 会一直处于未就绪状态。</p>
+</blockquote>
+<h3 id="何时该使用-startupProbe"><a class="header-anchor" href="#何时该使用-startupProbe">¶ </a>何时该使用 startupProbe</h3>
+<p>对于所包含的容器需要较长时间才能启动就绪的 Pod 而言，启动探针是有用的。你不再需要配置一个较长的存活态探测时间间隔，只需要设置另一个独立的配置选定，对启动期间的容器执行探测，从而允许使用远远超出存活态时间间隔所允许的时长。</p>
+<p>如果你的容器启动时间通常超出 initialDelaySeconds + failureThreshold × periodSeconds 总值，你应该设置一个启动探测，对存活态探针所使用的同一端点执行检查。periodSeconds 的默认值是 10 秒。你应该将其 failureThreshold 设置得足够高， 以便容器有充足的时间完成启动，并且避免更改存活态探针所使用的默认值。 这一设置有助于减少死锁状况的发生。</p>
+<ul>
+<li>periodSeconds: 存活探测的间隔时间，默认值是 10s；</li>
+<li>initialDelaySeconds: 在执行第一次探测前应该等待的时间，默认值是 0s</li>
+<li>failureThreshold: 当探测失败时，Kubernetes 的重试次数，默认值是 3</li>
+</ul>
+<h2 id="Pod-的终止"><a class="header-anchor" href="#Pod-的终止">¶ </a>Pod 的终止</h2>
+<p>由于 Pod 所代表的是在集群中节点上运行的进程，当不再需要这些进程时允许其体面地终止是很重要的。一般不应武断地使用 KILL 信号终止它们，导致这些进程没有机会完成清理操作。</p>
+<p>设计的目标是令你能够请求删除进程，并且知道进程何时被终止，同时也能够确保删除操作终将完成。当你请求删除某个 Pod 时，集群会记录并跟踪 Pod 的终止时间，而不是直接强制地杀死 Pod。在存在强制关闭设备的前提下，kubelet 会尝试体面地终止 Pod。</p>
+<p>通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。很多容器运行时都能够注意到容器镜像中 STOPSIGNAL 的值，并发送该信号而不是 TERM。一旦超出了体面终止时间，容器运行时会想所有剩余进程发送 KILL 信号，之后 Pod 就会被从 API 服务器上移除。如果 kubelet 或者容器运行时的管理服务在等待进程终止期间被重启，集群会从头开始重试，赋予 Pod 完整的体面终止期限。</p>
+<p>下面是一个 Pod 退出流程：</p>
+<ol>
+<li>
+<p>使用 kubectl 工具手动删除某个特定的 Pod，而该 Pod 的体面终止期限是默认值（30秒）。</p>
+</li>
+<li>
+<p>API 服务器中的 Pod 对象被更新，记录涵盖体面终止时间在内 Pod 的最后终止时间，超出所计算时间点则认为 Pod 已死（dead）。如果你使用 kubectl describe 来查验你正在删除的 Pod，该 Pod 会显示为 “Terminating”（正在终止）。在 Pod 运行所在的节点上，kubelet 一旦看到 Pod 被标记为正在终止（已经设置了体面终止限期），kubelet 即开始本地的 Pod 关闭过程。</p>
+<ul>
+<li>如果 Pod 中的某个容器定义了 preStop 回调，kubelet 则开始在容器内运行该回调逻辑。如果超出体面终止限期时，preStop 回调逻辑仍在运行，kubelet 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。</li>
+</ul>
+<blockquote>
+<p>如果 preStop 回调所需要的时间长于默认的体面终止限期，你必须修改 terminationGracePeriodSeconds 属性值来使其正常工作。</p>
+</blockquote>
+<ul>
+<li>kubelet 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。</li>
+</ul>
+<blockquote>
+<p>Pod 中的容器会在不同时刻收到 TERM 信号，接收顺序也是不确定的。 如果关闭的顺序很重要，可以考虑使用 preStop 回调逻辑来协调。</p>
+</blockquote>
+</li>
+<li>
+<p>与此同时，kubelet 启动体面关闭逻辑，Controller 会将 Pod 从对应的 Endpoint 列表（以及端点切片列表， 如果启用了的话）中移除，过滤条件是 Pod 被对应的 Service 以某 Selector 选定。 ReplicaSets 和其他工作负载资源不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。关闭动作很慢的 Pod 也无法继续处理请求数据，因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候将其从 Endpoint 列表中移除。</p>
+</li>
+<li>
+<p>超出终止宽限期限时，kubelet 会触发强制关闭过程。容器运行时会向 Pod 中所有容器内仍在运行的进程发送 SIGKILL 信号。 kubelet 也会清理隐藏的 pause 容器，如果容器运行时使用了这种容器的话。</p>
+</li>
+<li>
+<p>kubelet 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0 （这意味着马上删除）。</p>
+</li>
+<li>
+<p>API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。</p>
+</li>
+</ol>
+<h3 id="强制终止-Pod"><a class="header-anchor" href="#强制终止-Pod">¶ </a>强制终止 Pod</h3>
+<blockquote>
+<p>注意：对于某些工作负载及其 Pod 而言，强制删除很可能会带来某种破坏。</p>
+</blockquote>
+<p>默认情况下，所有的删除操作都会有 30 秒钟的宽限期限。 kubectl delete 命令支持 <code>--grace-period=&lt;seconds&gt;</code> 选项，允许你重载默认值，设定自己希望的期限值。<br>
+将宽限期限强制设置为 0 意味着立即从 API 服务器删除 Pod。 如果 Pod 仍然运行于某节点上，强制删除操作会触发 kubelet 立即执行清理操作。</p>
+<blockquote>
+<p>说明：你必须在设置 <code>--grace-period=0</code> 的同时额外设置 <code>--force</code> 参数才能发起强制删除请求。</p>
+</blockquote>
+<p>执行强制删除操作时，API 服务器不再等待来自 kubelet 的关于 Pod 已经在原来运行的节点上终止执行的确认消息。API 服务器直接删除 Pod 对象，这样新的与之同名的 Pod 即可以被创建。在节点侧，被设置为立即终止的 Pod 仍然会在被强行杀死之前获得一点点的宽限时间。</p>
+<p>如果你需要强制删除 StatefulSet 的 Pod，请参阅 <a href="https://kubernetes.io/zh/docs/tasks/run-application/force-delete-stateful-set-pod/" target="_blank" rel="noopener">从 StatefulSet 中删除 Pod</a> 的任务文档。</p>
+<h3 id="失效-Pod-的垃圾收集"><a class="header-anchor" href="#失效-Pod-的垃圾收集">¶ </a>失效 Pod 的垃圾收集</h3>
+<p>对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到用户或者控制器进程显式地将其删除。</p>
+<p>控制面组件会在 Pod 个数超出所配置的阈值 （根据 kube-controller-manager 的 terminated-pod-gc-threshold 设置）时 删除已终止的 Pod（阶段值为 Succeeded 或 Failed）。 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题。</p>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/06/28/121-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">https://blog.59izt.com/2021/06/28/121-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/06/28/154-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/"><span>Prometheus 监控 Oracle 数据库</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
