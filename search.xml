@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Prometheus 配置告警规则</title>
+    <url>/2021/06/29/155-Prometheus-%E9%85%8D%E7%BD%AE%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/" target="_blank" rel="noopener">Alerting Rules</a><br>
+Prometheus 中文文档: <a href="https://www.prometheus.wang" target="_blank" rel="noopener">Prometheus 中文文档</a></p>
+<h2 id="Prometheus-告警处理"><a class="header-anchor" href="#Prometheus-告警处理">¶ </a>Prometheus 告警处理</h2>
+<p>告警能力在Prometheus的架构中被划分为两个部分:</p>
+<a id="more"></a>
+<ul>
+<li>在Prometheus Server中定义告警规则以及产生告警;</li>
+<li>Alertmanager组件则用于处理这些由Prometheus产生的告警。</li>
+</ul>
+<p>Alertmanager 即 Prometheus 体系中告警的统一处理中心。Alertmanager 提供了多种内置第三方告警通知方式，同时还提供了对 Webhook 通知的支持，通过Webhook用户可以完成对告警更多个性化的扩展。</p>
+<h3 id="Prometheus-告警简介"><a class="header-anchor" href="#Prometheus-告警简介">¶ </a>Prometheus 告警简介</h3>
+<p>在Prometheus中一条告警规则主要由以下几部分组成：</p>
+<ul>
+<li>告警名称: 用户需要为告警规则命名，当然对于命名而言，需要能够直接表达出该告警的主要内容</li>
+<li>告警规则: 告警规则实际上主要由 PromQL 进行定义，其实际意义是当表达式（PromQL）查询结果持续多长时间（During）后出发告警</li>
+</ul>
+<p>在Prometheus中，还可以通过Group（告警组）对一组相关的告警进行统一定义。当然这些定义都是通过YAML文件来统一管理的。</p>
+<h3 id="Alertmanager特性"><a class="header-anchor" href="#Alertmanager特性">¶ </a>Alertmanager特性</h3>
+<p>Alertmanager除了提供基本的告警通知能力以外，还主要提供了如：分组、抑制以及静默等告警特性：</p>
+<h4 id="分组"><a class="header-anchor" href="#分组">¶ </a>分组</h4>
+<p>分组机制可以将详细的告警信息合并成一个通知。在某些情况下，比如由于系统宕机导致大量的告警被同时触发，在这种情况下分组机制可以将这些被触发的告警合并为一个告警通知，避免一次性接受大量的告警通知，而无法对问题进行快速定位。告警分组，告警时间，以及告警的接受方式可以通过Alertmanager的配置文件进行配置</p>
+<h4 id="抑制"><a class="header-anchor" href="#抑制">¶ </a>抑制</h4>
+<p>抑制是指当某一告警发出后，可以停止重复发送由此告警引发的其它告警的机制。抑制机制同样通过Alertmanager的配置文件进行设置。</p>
+<h4 id="静默"><a class="header-anchor" href="#静默">¶ </a>静默</h4>
+<p>静默提供了一个简单的机制可以快速根据标签对告警进行静默处理。如果接收到的告警符合静默的配置，Alertmanager则不会发送告警通知。静默设置需要在Alertmanager的Werb页面上进行设置。</p>
+<h3 id="自定义-Prometheus-告警规则"><a class="header-anchor" href="#自定义-Prometheus-告警规则">¶ </a>自定义 Prometheus 告警规则</h3>
+<p>Prometheus中的告警规则允许你基于PromQL表达式定义告警触发条件，Prometheus后端对这些触发规则进行周期性计算，当满足触发条件后则会触发告警通知。默认情况下，用户可以通过Prometheus的Web界面查看这些告警规则以及告警的触发状态。当Promthues与Alertmanager关联之后，可以将告警发送到外部服务如Alertmanager中并通过Alertmanager可以对这些告警进行进一步的处理。</p>
+<h4 id="定义告警规则"><a class="header-anchor" href="#定义告警规则">¶ </a>定义告警规则</h4>
+<p>一条典型的告警规则如下所示：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">example</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">HighErrorRate</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">job:request_latency_seconds:mean5m&#123;job="myjob"&#125;</span> <span class="string">&gt;</span> <span class="number">0.5</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">10m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">severity:</span> <span class="string">page</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">        <span class="attr">summary:</span> <span class="string">High</span> <span class="string">request</span> <span class="string">latency</span></span><br><span class="line">        <span class="attr">description:</span> <span class="string">description</span> <span class="string">info</span></span><br></pre></td></tr></table></figure>
+<p>在告警规则文件中，我们可以将一组相关的规则设置定义在一个 groups 下。在每一个 group 中我们可以定义多个告警规则（rule）。</p>
+<p>一条告警规则主要由以下几部分组成：</p>
+<ul>
+<li>alert: 告警规则的名称；</li>
+<li>expr: 基于 PromQL 表达式的告警触发条件，用于计算是否有时间序列满足该条件；</li>
+<li>for: 评估等待时间，可选参数。用于表示只有当触发条件持续一段时间后才发送告警。在等待期间新产生告警的状态为 pending；</li>
+<li>labels: 自定义标签，允许用户指定要附加到告警上的一组附加标签；</li>
+<li>annotations: 用于指定一组附加信息，比如用于描述告警详细信息的文字等，annotations 的内容在告警产生时会一同作为参数发送到 Alertmanager。</li>
+</ul>
+<p>为了能够让 Prometheus 能够启用定义的告警规则，我们需要在 Prometheus 全局配置文件中通过 rule_files 指定一组告警规则文件的访问路径，Prometheus 启动后会自动扫描这些路径下规则文件中定义的内容，并且根据这些规则计算是否向外部发送通知</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="string">[</span> <span class="bullet">-</span> <span class="string">&lt;filepath_glob&gt;</span> <span class="string">...</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下 Prometheus 会每分钟对这些告警规则进行计算，如果用户想定义自己的告警计算周期，则可以通过 evaluation_interval 来覆盖默认的计算周期：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="string">[</span> <span class="attr">evaluation_interval:</span> <span class="string">&lt;duration&gt;</span> <span class="string">|</span> <span class="string">default</span> <span class="string">=</span> <span class="string">1m</span> <span class="string">]</span></span><br></pre></td></tr></table></figure>
+<h4 id="模板化"><a class="header-anchor" href="#模板化">¶ </a>模板化</h4>
+<p>一般来说，在告警规则文件的 annotations 中使用 summary 描述告警的概要信息，description 用于描述告警的详细信息。同时 Alertmanager 的UI也会根据这两个标签值，显示告警信息。为了让告警信息具有更好的可读性，Prometheus 支持模板化 labels 和 annotations 中标签的值。</p>
+<p>通过 <code>$labels.&lt;labelname&gt;</code> 变量可以访问当前告警实例中指定标签的值。<code>$value</code> 则可以获取当前 PromQL 表达式计算的样本值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># To insert a firing element&#39;s label values:</span><br><span class="line">&#123;&#123; $labels.&lt;labelname&gt; &#125;&#125;</span><br><span class="line"># To insert the numeric expression value of the firing element:</span><br><span class="line">&#123;&#123; $value &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，可以通过模板化优化 summary 以及 description 的内容以提高可读性：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">example</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Alert for any instance that is unreachable for &gt;5 minutes.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">InstanceDown</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">5m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">page</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Instance <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 5 minutes."</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Alert for any instance that has a median request latency &gt;1s.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">APIHighRequestLatency</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">api_http_request_latencies_second&#123;quantile="0.5"&#125;</span> <span class="string">&gt;</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">10m</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"High request latency on <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> has a median request latency above 1s (current value: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>s)"</span></span><br></pre></td></tr></table></figure>
+<h4 id="查看告警状态"><a class="header-anchor" href="#查看告警状态">¶ </a>查看告警状态</h4>
+<p>如下所示，用户可以通过Prometheus WEB界面中的Alerts菜单查看当前Prometheus下的所有告警规则，以及其当前所处的活动状态。<br>
+<img src="https://z3.ax1x.com/2021/06/29/RdCMVJ.png" alt="image"></p>
+<p>同时对于已经 pending 或者 firing 的告警，Prometheus 也会将它们存储到时间序列 <code>ALERTS{}</code> 中。可以通过以下表达式查询告警实例</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ALERTS&#123;alertname&#x3D;&quot;&lt;alert name&gt;&quot;, alertstate&#x3D;&quot;pending|firing&quot;, &lt;additional alert labels&gt;&#125;</span><br></pre></td></tr></table></figure>
+<p>样本值为1表示当前告警处于活动状态（pending或者firing），当告警从活动状态转换为非活动状态时，样本值则为 0。</p>
+<h4 id="实例-定义主机监控告警"><a class="header-anchor" href="#实例-定义主机监控告警">¶ </a>实例-定义主机监控告警</h4>
+<ol>
+<li>
+<p>修改 Prometheus 配置文件 <code>prometheus.yml</code> ,添加以下配置：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">rule_files:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">"rules/host_status.yml"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在目录 /usr/local/prometheus/rules/ 目录下创建告警文件 host_status.yml 文件，内容如下：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'Host Status Monitor'</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">HostDown</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'Critical'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Host <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> down"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> of job <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> has been down for more than 1 minutes."</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">HostCpuUsageAlert</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">sum(avg</span> <span class="string">without</span> <span class="string">(cpu)(irate(node_cpu_seconds_total&#123;mode!='idle'&#125;[5m])))</span> <span class="string">by</span> <span class="string">(instance)</span> <span class="string">&gt;</span> <span class="number">0.85</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">5m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'Warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Host <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU usage high"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU usage above 85% (current value: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">HostMemUsageAlert</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(node_memory_MemTotal_bytes</span> <span class="bullet">-</span> <span class="string">node_memory_MemAvailable_bytes)/node_memory_MemTotal_bytes</span> <span class="string">&gt;</span> <span class="number">0.85</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">5m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">serverity:</span> <span class="string">'Warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Host <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> MEM usage high"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">"<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> MEM usage above 85% (current value: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>)"</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">HostDiskUsageAlert</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(node_filesystem_size_bytes</span> <span class="bullet">-</span> <span class="string">node_filesystem_free_bytes)</span> <span class="string">/</span> <span class="string">node_filesystem_size_bytes</span> <span class="string">&gt;</span> <span class="number">0.85</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">serverity:</span> <span class="string">'Warning'</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">"Host <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> Disk partition usage high"</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">'Host <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> Disk partition "<span class="template-variable">&#123;&#123; $labels.mountpoint &#125;&#125;</span>" usage above 85% (current value: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>).'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重启 Prometheus 服务或者使用以下命令重新加载配置文件</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -X POST http://localhost:9090/-/reload</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开浏览器访问 <code>http://localhost:9090/rules</code> 可以查看当前所有已经加载的规则文件。<br>
+<img src="https://z3.ax1x.com/2021/06/29/Rdkcfs.png" alt="image"></p>
+<p>切换到 Alerts 标签 <code>http://127.0.0.1:9090/alerts</code> 可以查看当前告警的活动状态。<br>
+<img src="https://z3.ax1x.com/2021/06/29/RdENsP.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="部署-AlertManager"><a class="header-anchor" href="#部署-AlertManager">¶ </a>部署 AlertManager</h3>
+<p>Alertmanager和Prometheus Server一样均采用Golang实现，并且没有第三方依赖。一般来说我们可以通过以下几种方式来部署Alertmanager：二进制包、容器以及源码方式安装。(此处略…)</p>
+<h4 id="创建-alertmanager-配置文件"><a class="header-anchor" href="#创建-alertmanager-配置文件">¶ </a>创建 alertmanager 配置文件</h4>
+<p>AlertManager 解压后会包含一个默认的 alertmanager.yml 配置文件，内容如下所示：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">resolve_timeout:</span> <span class="string">5m</span></span><br><span class="line"></span><br><span class="line"><span class="attr">route:</span></span><br><span class="line">  <span class="attr">group_by:</span> <span class="string">['alertname']</span></span><br><span class="line">  <span class="attr">group_wait:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">group_interval:</span> <span class="string">10s</span></span><br><span class="line">  <span class="attr">repeat_interval:</span> <span class="string">1h</span></span><br><span class="line">  <span class="attr">receiver:</span> <span class="string">'web.hook'</span></span><br><span class="line"><span class="attr">receivers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">'web.hook'</span></span><br><span class="line">  <span class="attr">webhook_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">'http://127.0.0.1:5001/'</span></span><br><span class="line"><span class="attr">inhibit_rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">source_match:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'critical'</span></span><br><span class="line">    <span class="attr">target_match:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">'warning'</span></span><br><span class="line">    <span class="attr">equal:</span> <span class="string">['alertname',</span> <span class="string">'dev'</span><span class="string">,</span> <span class="string">'instance'</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
+<p>AlertManager 的配置主要包含两个部分：路由(route)以及接收器(receivers)。所有的告警信息都会从配置中的顶级路由(route)进入路由树，根据路由规则将告警信息发送给相应的接收器。</p>
+<p>在 Alertmanager 中可以定义一组接收器，比如可以按照角色(比如系统运维，数据库管理员)来划分多个接收器。接收器可以关联邮件，Slack以及其它方式接收告警信息。当前配置文件中定义了一个默认的接收者 default-receiver 由于这里没有设置接收方式，目前只相当于一个占位符。关于接收器的详细介绍会在后续章节介绍。</p>
+<p>在配置文件中使用 route 定义了顶级的路由，路由是一个基于标签匹配规则的树状结构。所有的告警信息从顶级路由开始，根据标签匹配规则进入到不同的子路由，并且根据子路由设置的接收器发送告警。目前配置文件中只设置了一个顶级路由route并且定义的接收器为default-receiver。因此，所有的告警都会发送给default-receiver。关于路由的详细内容会在后续进行详细介绍。</p>
+<h4 id="查看-AlertManager-运行状态"><a class="header-anchor" href="#查看-AlertManager-运行状态">¶ </a>查看 AlertManager 运行状态</h4>
+<p>Alertmanager 启动后可以通过 <code>http://serverIP:9093</code> 访问，如下<br>
+<img src="https://z3.ax1x.com/2021/06/29/RdlZkt.png" alt="image"></p>
+<p>Alerts 菜单下可以查看 Alertmanager 接收到的告警内容。Silences 菜单下则可以通过UI创建静默规则，这部分我们会在后续部分介绍。进入 Status 菜单，可以看到当前系统的运行状态以及配置信息。</p>
+<h4 id="关联-Prometheus-与-Alertmanager"><a class="header-anchor" href="#关联-Prometheus-与-Alertmanager">¶ </a>关联 Prometheus 与 Alertmanager</h4>
+<p>在 Prometheus 的架构中被划分成两个独立的部分。Prometheus 负责产生告警，而 Alertmanager 负责告警产生后的后续处理。因此 Alertmanager 部署完成后，需要在Prometheus 中设置 Alertmanager 相关的信息。</p>
+<p>编辑 Prometheus 配置文件 <code>prometheus.yml</code>,并添加以下内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9093']</span></span><br></pre></td></tr></table></figure>
+<p>重启 Prometheus 服务，成功后，可以从 <code>http://192.168.33.10:9090/config</code> 查看 alerting 配置是否生效。</p>
+<p>此时，手动关闭被监控节点的 node_exporter 服务，模仿服务器宕机状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl stop node_exporter</span><br></pre></td></tr></table></figure>
+<p>等待 Prometheus 告警进行触发状态：<br>
+<img src="https://z3.ax1x.com/2021/06/29/Rd8tht.png" alt="image"></p>
+<p>查看 Alertmanager UI此时可以看到 Alertmanager 接收到的告警信息<br>
+<img src="https://z3.ax1x.com/2021/06/29/Rd8H41.png" alt="image"></p>
+<p>目前为止，我们已经成功安装部署了Alertmanager 并且与 Prometheus 关联，能够正常接收来自 Prometheus 的告警信息。</p>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+        <tag>AlertRule</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pod 的生命周期</title>
     <url>/2021/06/28/121-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/" target="_blank" rel="noopener">Pod 的生命周期</a></p>
