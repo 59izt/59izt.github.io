@@ -1,6 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kubernetes PKI 证书和要求</title>
+    <url>/2021/06/30/123-kubernetes-PKI%E8%AF%81%E4%B9%A6%E5%92%8C%E8%A6%81%E6%B1%82/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/zh/docs/setup/best-practices/certificates/" target="_blank" rel="noopener">最佳实践-PKI证书和要求</a></p>
+<h2 id="PKI-证书和要求"><a class="header-anchor" href="#PKI-证书和要求">¶ </a>PKI 证书和要求</h2>
+<p>Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你使用 kubeadm 安装的 Kubernetes，则会自动生成集群所需的证书。我们可以生成自己的证书。例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。</p>
+<a id="more"></a>
+<h3 id="集群是如何使用证书的"><a class="header-anchor" href="#集群是如何使用证书的">¶ </a>集群是如何使用证书的</h3>
+<p>Kubernetes 需要 PKI 才能执行以下操作：</p>
+<ul>
+<li>kubelet 的客户端证书，用于 API 服务器身份验证；</li>
+<li>API 服务器端点的证书；</li>
+<li>集群管理员的客户端证书，用于 API 服务器身份认证；</li>
+<li>API 服务器的客户端证书，用于和 kubelet 的会话；</li>
+<li>API 服务器的客户端证书，用于和 ETCD 的会话；</li>
+<li>Controller-manager 的客户端证书/kubeconfig，用于和 API 服务器的会话；</li>
+<li>Scheduler 的客户端证书/kubeconfig，用于和 API 服务器的会话；</li>
+<li>前端代理的客户端以及服务端证书</li>
+</ul>
+<blockquote>
+<p>说明: 只有当你运行 kube-proxy 并要支持 扩展 API 服务器 时，才需要 front-proxy 证书</p>
+</blockquote>
+<p>ETCD 还实现了双向 TLS 来对客户端和对其他对等节点进行身份验证。</p>
+<h3 id="证书存放的位置"><a class="header-anchor" href="#证书存放的位置">¶ </a>证书存放的位置</h3>
+<p>如果你是通过 kubeadm 安装的 Kubernetes，所有证书都存放在 <code>/etc/kubernetes/pki</code> 目录下。如果是使用二进制安装的，可以自定义证书存放位置。</p>
+<h3 id="手动配置证书"><a class="header-anchor" href="#手动配置证书">¶ </a>手动配置证书</h3>
+<p>如果不想通过 kubeadm 生成这些必需的证书，你可以通过下面两种方式之一来手动创建它们。</p>
+<h4 id="单根-CA"><a class="header-anchor" href="#单根-CA">¶ </a>单根 CA</h4>
+<p>你可以创建一个单根 CA，由管理员控制它，该根 CA 可以创建多个中间 CA，并将所有进一步的创建委托给 Kubernetes。需要创建的 CA 如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件名</th>
+<th style="text-align:left">默认 CN</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ca.crt, ca.key</td>
+<td style="text-align:left">kubernetes-ca</td>
+<td style="text-align:left">Kubernetes 通用 CA</td>
+</tr>
+<tr>
+<td style="text-align:left">etcd-ca.crt, etcd-ca.key</td>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:left">与 etcd 相关的所有功能</td>
+</tr>
+<tr>
+<td style="text-align:left">front-proxy-ca.crt, front-proxy-ca.key</td>
+<td style="text-align:left">kubernetes-front-proxy-ca</td>
+<td style="text-align:left">用于前端代理</td>
+</tr>
+</tbody>
+</table>
+<p>除了上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 <code>sa.key</code> 和 <code>sa.pub</code>。</p>
+<h4 id="所有的证书"><a class="header-anchor" href="#所有的证书">¶ </a>所有的证书</h4>
+<p>如果不想将 CA 的私钥拷贝到集群中，你也可以自己生成全部的证书。集群中需要创建的证书信息如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">默认 CN</th>
+<th style="text-align:left">父级 CA</th>
+<th style="text-align:center">O(位于 Subject中)</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">主机（SAN）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">kube-etcd</td>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:center"> </td>
+<td style="text-align:left">server, client</td>
+<td style="text-align:left">localhost, 127.0.0.1</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-etcd-peer</td>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:center"> </td>
+<td style="text-align:left">server, client</td>
+<td style="text-align:left">hostname, host_ip, localhost, 127.0.0.1</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-etcd-healthcheck-client</td>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:center"> </td>
+<td style="text-align:left">client</td>
+<td style="text-align:left"> </td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver-etcd-client</td>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:center">system:masters</td>
+<td style="text-align:left">client</td>
+<td style="text-align:left"> </td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">kubernetes-ca</td>
+<td style="text-align:center"> </td>
+<td style="text-align:left">server</td>
+<td style="text-align:left">hostname, host_IP, advertise_IP, [1]</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver-kubelet-client</td>
+<td style="text-align:left">kubernetes-ca</td>
+<td style="text-align:center">system:masters</td>
+<td style="text-align:left">client</td>
+<td style="text-align:left"> </td>
+</tr>
+<tr>
+<td style="text-align:left">front-proxy-client</td>
+<td style="text-align:left">kubernetes-front-proxy-ca</td>
+<td style="text-align:center"> </td>
+<td style="text-align:left">client</td>
+<td style="text-align:left"> </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>[1]: 用来连接到集群的不同 IP 或 DNS 名。（就像 kubeadm 为负载均衡所使用的的固定 IP 或 DNS 名，kubernetes、kubernetes.default、kubernetes.default.svc、 kubernetes.default.svc.cluster、kubernetes.default.svc.cluster.local）</li>
+</ul>
+<p>其中，类型对应一种或多种类型的 x509 秘钥用途</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">秘钥用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">server</td>
+<td style="text-align:left">数字签名、密钥加密、服务端认证</td>
+</tr>
+<tr>
+<td style="text-align:center">client</td>
+<td style="text-align:left">数字签名、密钥加密、服务端认证</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>说明：上面列出的 主机/SAN 是推荐的配置方式；如果需要特殊安装，则可以在所有服务器证书上添加其他 SAN。</p>
+</blockquote>
+<p>对于 kubeadm 用户：</p>
+<ul>
+<li>不使用私钥，将证书复制到集群 CA 的方案，在 kubeadm 文档中将这种方案称为外部 CA。</li>
+<li>如果将以上列表与 kubeadm 生成的 PKI 进行比较，你会注意到，如果使用外部 etcd，则不会生成 kube-etcd、kube-etcd-peer 和 kube-etcd-healthcheck-client 证书。</li>
+</ul>
+<h4 id="证书路径"><a class="header-anchor" href="#证书路径">¶ </a>证书路径</h4>
+<p>证书应放置在建议的路径中（以便 kubeadm使用）。无论使用什么位置，都应使用给定的参数指定路径。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">默认 CN</th>
+<th style="text-align:left">建议的秘钥路径</th>
+<th style="text-align:left">建议的证书路径</th>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">秘钥参数</th>
+<th style="text-align:left">证书参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:left">etcd/ca.key</td>
+<td style="text-align:left">etcd/ca.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">–etcd-cafile</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver-etcd-client</td>
+<td style="text-align:left">apiserver-etcd-client.key</td>
+<td style="text-align:left">apiserver-etcd-client.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">–etcd-keyfile</td>
+<td style="text-align:left">–etcd-certfile</td>
+</tr>
+<tr>
+<td style="text-align:left">kubernetes-ca</td>
+<td style="text-align:left">ca.key</td>
+<td style="text-align:left">ca.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">–client-ca-file</td>
+</tr>
+<tr>
+<td style="text-align:left">kubernetes-ca</td>
+<td style="text-align:left">ca.key</td>
+<td style="text-align:left">ca.crt</td>
+<td style="text-align:left">kube-controller-manager</td>
+<td style="text-align:left">–cluster-signing-key-file</td>
+<td style="text-align:left">–client-ca-file, --root-ca-file, --cluster-signing-cert-file</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">apiserver.key</td>
+<td style="text-align:left">apiserver.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">–tls-private-key-file</td>
+<td style="text-align:left">–tls-cert-file</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-apiserver-kubelet-client</td>
+<td style="text-align:left">apiserver-kubelet-client.key</td>
+<td style="text-align:left">apiserver-kubelet-client.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">–kubelet-client-key</td>
+<td style="text-align:left">–kubelet-client-certificate</td>
+</tr>
+<tr>
+<td style="text-align:left">front-proxy-ca</td>
+<td style="text-align:left">front-proxy-ca.key</td>
+<td style="text-align:left">front-proxy-ca.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">–requestheader-client-ca-file</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">front-proxy-ca</td>
+<td style="text-align:left">front-proxy-ca.key</td>
+<td style="text-align:left">front-proxy-ca.crt</td>
+<td style="text-align:left">kube-controller-manager</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">–requestheader-client-ca-file</td>
+</tr>
+<tr>
+<td style="text-align:left">front-proxy-client</td>
+<td style="text-align:left">front-proxy-client.key</td>
+<td style="text-align:left">front-proxy-client.crt</td>
+<td style="text-align:left">kube-apiserver</td>
+<td style="text-align:left">–proxy-client-key-file</td>
+<td style="text-align:left">–proxy-client-cert-file</td>
+</tr>
+<tr>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:left">etcd/ca.key</td>
+<td style="text-align:left">etcd/ca.crt</td>
+<td style="text-align:left">etcd</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">–trusted-ca-file, --peer-trusted-ca-file</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-etcd</td>
+<td style="text-align:left">etcd/server.key</td>
+<td style="text-align:left">etcd/server.crt</td>
+<td style="text-align:left">etcd</td>
+<td style="text-align:left">–key-file</td>
+<td style="text-align:left">–cert-file</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-etcd-peer</td>
+<td style="text-align:left">etcd/peer.key</td>
+<td style="text-align:left">etcd/peer.crt</td>
+<td style="text-align:left">etcd</td>
+<td style="text-align:left">–peer-key-file</td>
+<td style="text-align:left">–peer-cert-file</td>
+</tr>
+<tr>
+<td style="text-align:left">etcd-ca</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">etcd/ca.crt</td>
+<td style="text-align:left">etcdctl</td>
+<td style="text-align:left"> </td>
+<td style="text-align:left">–cacert</td>
+</tr>
+<tr>
+<td style="text-align:left">kube-etcd-healthcheck-client</td>
+<td style="text-align:left">etcd/healthcheck-client.key</td>
+<td style="text-align:left">etcd/healthcheck-client.crt</td>
+<td style="text-align:left">etcdctl</td>
+<td style="text-align:left">–key</td>
+<td style="text-align:left">–cert</td>
+</tr>
+</tbody>
+</table>
+<p>注意事项同样适用于服务帐户密钥对：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">私钥路径</th>
+<th style="text-align:left">公钥路径</th>
+<th style="text-align:center">命令</th>
+<th style="text-align:left">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sa.key</td>
+<td style="text-align:left"> </td>
+<td style="text-align:center">kube-controller-manager</td>
+<td style="text-align:left">–service-account-private-key-file</td>
+</tr>
+<tr>
+<td style="text-align:left"> </td>
+<td style="text-align:left">sa.pub</td>
+<td style="text-align:center">kube-apiserver</td>
+<td style="text-align:left">–service-account-key-file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="为用户账户配置证书-kubeconfig"><a class="header-anchor" href="#为用户账户配置证书-kubeconfig">¶ </a>为用户账户配置证书 (kubeconfig)</h3>
+<p>你必须手动配置以下管理员帐户和服务帐户：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件名</th>
+<th style="text-align:left">凭据名称</th>
+<th style="text-align:left">默认 CN</th>
+<th style="text-align:center">O(位于 Subject 中)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">admin.conf</td>
+<td style="text-align:left">default-admin</td>
+<td style="text-align:left">kubernetes-admin</td>
+<td style="text-align:center">system:masters</td>
+</tr>
+<tr>
+<td style="text-align:left">kubelet.conf</td>
+<td style="text-align:left">default-auth</td>
+<td style="text-align:left">system:node:&lt;nodeName&gt; （参阅注释）</td>
+<td style="text-align:center">system:nodes</td>
+</tr>
+<tr>
+<td style="text-align:left">controller-manager.conf</td>
+<td style="text-align:left">default-controller-manager</td>
+<td style="text-align:left">system:kube-controller-manager</td>
+<td style="text-align:center"> </td>
+</tr>
+<tr>
+<td style="text-align:left">scheduler.conf</td>
+<td style="text-align:left">default-scheduler</td>
+<td style="text-align:left">system:kube-scheduler</td>
+<td style="text-align:center"> </td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>说明: kubelet.conf 中 <code>&lt;nodeName&gt;</code> 的值 必须 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。 有关更多详细信息，请阅读<a href="https://kubernetes.io/zh/docs/reference/access-authn-authz/node/" target="_blank" rel="noopener">节点授权</a>。</p>
+</blockquote>
+<ol>
+<li>
+<p>对于每个配置，请都使用给定的 CN 和 O 生成 x509 证书/密钥偶对。</p>
+</li>
+<li>
+<p>为每个配置运行下面的 kubectl 命令：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl config <span class="built_in">set</span>-cluster default-cluster \</span><br><span class="line">  --server=https://&lt;host ip&gt;:6443 \</span><br><span class="line">  --certificate-authority &lt;path-to-kubernetes-ca&gt; \</span><br><span class="line">  --embed-certs \</span><br><span class="line">  KUBECONFIG=&lt;filename&gt; </span><br><span class="line"></span><br><span class="line">kubectl config <span class="built_in">set</span>-credentials &lt;credential-name&gt; \</span><br><span class="line">  --client-key &lt;path-to-key&gt;.pem \</span><br><span class="line">  --client-certificate &lt;path-to-cert&gt;.pem \</span><br><span class="line">  --embed-certs \</span><br><span class="line">  KUBECONFIG=&lt;filename&gt; </span><br><span class="line"></span><br><span class="line">kubectl config <span class="built_in">set</span>-context default-system \</span><br><span class="line">  --cluster default-cluster \</span><br><span class="line">  --user &lt;credential-name&gt; \</span><br><span class="line">  KUBECONFIG=&lt;filename&gt; </span><br><span class="line"></span><br><span class="line">kubectl config use-context default-system KUBECONFIG=&lt;filename&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这些文件的用途：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件名</th>
+<th style="text-align:left">适用组件</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">admin.conf</td>
+<td style="text-align:left">kubectl</td>
+<td style="text-align:left">配置集群的管理员</td>
+</tr>
+<tr>
+<td style="text-align:left">kubelet.conf</td>
+<td style="text-align:left">kubelet</td>
+<td style="text-align:left">集群中的每个节点都需要一份</td>
+</tr>
+<tr>
+<td style="text-align:left">controller-manager.conf</td>
+<td style="text-align:left">kube-controller-manager</td>
+<td style="text-align:left">必需添加到 <code>manifests/kube-controller-manager.yaml</code> 清单中</td>
+</tr>
+<tr>
+<td style="text-align:left">scheduler.conf</td>
+<td style="text-align:left">kube-scheduler</td>
+<td style="text-align:left">必需添加到 manifests/kube-scheduler.yaml 清单中</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>PKI</tag>
+        <tag>TLS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Prometheus 监控 MySQL 数据库</title>
     <url>/2021/06/30/157-Prometheus-%E7%9B%91%E6%8E%A7MySQL/</url>
     <content><![CDATA[<p>官方文档: <a href="https://github.com/prometheus/mysqld_exporter" target="_blank" rel="noopener">MySQL Server Exporter</a><br>
