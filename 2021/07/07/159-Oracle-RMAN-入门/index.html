@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Oracle RMAN 入门"><meta name="keywords" content="Oracle,RMAN"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Oracle RMAN 入门【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMAN-环境概述"><span class="toc-number">1.</span> <span class="toc-text">¶ RMAN 环境概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动-RMAN-并连接到数据库"><span class="toc-number">2.</span> <span class="toc-text">¶ 启动 RMAN 并连接到数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用-RMAN-命令行选项的语法"><span class="toc-number">2.1.</span> <span class="toc-text">¶ 常用 RMAN 命令行选项的语法</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color6"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color10"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color5"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">159</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">102</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">31</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle RMAN 入门</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-07-07 | 更新于 2021-07-07</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/RMAN/">RMAN</a></div></div></div><div class="main-content"><p>官方文档: <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmquick.htm#BRADV89346" target="_blank" rel="noopener">Getting Started with RMAN</a></p>
+<p>本章适用于希望立即开始使用 RMAN 而不先阅读本书中更详细章节的新用户。本章包含以下主题:</p>
+<a id="more"></a>
+<ul>
+<li>RMAN 环境概述</li>
+<li>启动 RMAN 并连接到数据库</li>
+<li>显示默认的 RMAN 配置</li>
+<li>备份数据库</li>
+<li>报告 RMAN 操作</li>
+<li>管理 RMAN 备份</li>
+<li>使用 Data Recovery Advisor 诊断和修复故障</li>
+<li>使用闪回数据库倒带数据库</li>
+<li>还原和恢复数据库文件</li>
+</ul>
+<h2 id="RMAN-环境概述"><a class="header-anchor" href="#RMAN-环境概述">¶ </a>RMAN 环境概述</h2>
+<p>恢复管理器 (RMAN) 是一个 Oracle 数据库客户端，可对您的数据库执行备份和恢复任务并自动管理您的备份策略。它极大地简化了备份、还原和恢复数据库文件。</p>
+<p>RMAN 环境由用于备份数据的实用程序和数据库组成。 RMAN 的环境至少必须包括以下组件：</p>
+<ul>
+<li>一个目标数据库: RMAN 使用 <code>TARGET</code> 关键字连接到的 Oracle 数据库。目标数据库是 RMAN 在其上执行备份和恢复操作的数据库。RMAN 始终在数据库的控制文件中维护有关其对数据库的操作的元数据。RMAN 元数据被称为 RMAN 存储库。</li>
+<li>RMAN 客户端: 一个 Oracle 数据库可执行文件，用于解释命令、引导服务器会话执行这些命令，并在目标数据库控制文件中记录其活动。 RMAN 可执行文件随数据库自动安装，通常与其他数据库可执行文件位于同一目录中。例如，Linux 上的 RMAN 客户端位于 <code>$ORACLE_HOME/bin</code> 中。</li>
+</ul>
+<p>某些环境使用以下可选组件：</p>
+<ul>
+<li>快速恢复区: 数据库可以在其中存储和管理与备份和恢复相关的文件的磁盘位置。您可以使用 <code>DB_RECOVERY_FILE_DEST</code> 和 <code>DB_RECOVERY_FILE_DEST_SIZE</code> 初始化参数设置快速恢复区的位置和大小。</li>
+<li>介质管理器: RMAN 与顺序介质设备（如磁带库）交互所需的应用程序。介质管理器在备份和恢复期间控制这些设备，管理介质的加载、标记和卸载。介质管理设备有时称为 SBT（系统备份到磁带）设备。</li>
+<li>恢复目录: 一种单独的数据库模式，用于记录针对一个或多个目标数据库的 RMAN 活动。如果控制文件丢失，恢复目录会保留 RMAN 存储库元数据，从而在控制文件丢失后更容易恢复和恢复。数据库可能会覆盖控制文件中的旧记录，但 RMAN 会在目录中永远保留记录，除非用户删除这些记录。</li>
+</ul>
+<p>本章介绍了如何在没有恢复目录或介质管理器的最基本配置中使用 RMAN。</p>
+<blockquote>
+<p><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmarchi.htm#BGBGEHJJ" target="_blank" rel="noopener">第 3 章，恢复管理器体系结构</a>，了解 RMAN 环境的更详细概述<br>
+<a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10643/rcmsynta007.htm#RCMRF107" target="_blank" rel="noopener">Oracle 数据库备份和恢复参考</a>，查看用于 BACKUP 命令的语法和语义</p>
+</blockquote>
+<h2 id="启动-RMAN-并连接到数据库"><a class="header-anchor" href="#启动-RMAN-并连接到数据库">¶ </a>启动 RMAN 并连接到数据库</h2>
+<ol>
+<li>
+<p>通过在操作系统的命令提示符下发出 <code>rman</code> 命令来启动 RMAN 客户端。然后 RMAN 会显示命令提示，如以下示例所示：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">% rman</span><br><span class="line">RMAN&gt;</span><br></pre></td></tr></table></figure>
+<p>RMAN 连接到指定数据库的验证方式与 SQL*Plus 连接到指定数据库的连接方式相同。唯一的区别是到目标或辅助数据库的 RMAN 连接需要 SYSDBA 权限。但是 <code>AS SYSDBA</code> 关键字是隐含的，不能明确指定。</p>
+</li>
+<li>
+<p>您可以使用命令行选项或使用 <code>CONNECT TARGET</code> 命令连接到数据库。<br>
+以下示例启动 RMAN，然后通过 Oracle Net 连接到目标数据库，未指定 <code>AS SYSDBA</code>，因为它是隐含的。RMAN 提示输入密码。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">% rman</span><br><span class="line">RMAN&gt; connect target sys@qdmwms</span><br><span class="line"></span><br><span class="line">target database Password: </span><br><span class="line">connected to target database: QDMWMS (DBID=93333325)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>以下方式是启动 RMAN，然后使用操作系统身份验证连接到目标数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">% rman</span><br><span class="line">RMAN&gt; connect target /</span><br><span class="line"></span><br><span class="line">connected to target database: QDMWMS (DBID=93333325)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>要退出 RMAN 客户端，请在 RMAN 提示符下输入 <code>EXIT</code></p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RMAN&gt; EXIT</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="常用-RMAN-命令行选项的语法"><a class="header-anchor" href="#常用-RMAN-命令行选项的语法">¶ </a>常用 RMAN 命令行选项的语法</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RMAN </span><br><span class="line">[ TARGET connectStringSpec </span><br><span class="line">| &#123; CATALOG connectStringSpec &#125; </span><br><span class="line">| LOG [<span class="string">'] filename ['</span>] [ APPEND ]</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">. </span><br><span class="line">]...</span><br><span class="line"></span><br><span class="line">connectStringSpec::=</span><br><span class="line">[<span class="string">'] [userid] [/ [password]] [@net_service_name] ['</span>]</span><br></pre></td></tr></table></figure>
+<p>以下示例将 RMAN 会话的输出附加到位于 <code>/tmp/msglog.log</code> 的文本文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% rman TARGET / LOG /tmp/msglog.log APPEND</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看 <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmcnctg.htm#CEGGAIIE" target="_blank" rel="noopener">第 4 章，启动 RMAN 客户端并与之交互</a>，了解有关启动和使用 RMAN 客户端的更多信息]</p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/07/07/159-Oracle-RMAN-%E5%85%A5%E9%97%A8/">https://blog.59izt.com/2021/07/07/159-Oracle-RMAN-%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/07/07/158-Oracle-%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D%E7%AE%80%E4%BB%8B/"><span>Oracle 备份和恢复简介</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
