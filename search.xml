@@ -63,6 +63,466 @@
 <blockquote>
 <p>查看 <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmcnctg.htm#CEGGAIIE" target="_blank" rel="noopener">第 4 章，启动 RMAN 客户端并与之交互</a>，了解有关启动和使用 RMAN 客户端的更多信息]</p>
 </blockquote>
+<h2 id="显示默认的-RMAN-配置"><a class="header-anchor" href="#显示默认的-RMAN-配置">¶ </a>显示默认的 RMAN 配置</h2>
+<p>RMAN 备份和恢复环境是为每个目标数据库预先配置的。即使您退出并重新启动 RMAN，该配置也是持久的并适用于此目标数据库上的所有后续操作。<br>
+RMAN 配置的设置可以指定备份设备、配置到备份设备的连接（称为通道）、影响备份策略的策略等。默认配置足以满足大多数用途。</p>
+<h3 id="查看数据库的当前配置"><a class="header-anchor" href="#查看数据库的当前配置">¶ </a>查看数据库的当前配置</h3>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[oracle@qdmwms-db ~]$ rman target /</span><br><span class="line"></span><br><span class="line">Recovery Manager: Release 11.2.0.4.0 - Production on Thu Jul 8 08:39:43 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line"></span><br><span class="line">connected to target database: QDMWMS (DBID=93333325)</span><br><span class="line"></span><br><span class="line">RMAN&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 <code>SHOW ALL</code> 命令;</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">RMAN&gt; show all;</span><br><span class="line"></span><br><span class="line">using target database control file instead of recovery catalog</span><br><span class="line">RMAN configuration parameters for database <span class="keyword">with</span> db_unique_name QDMWMS <span class="keyword">are</span>:</span><br><span class="line">CONFIGURE <span class="keyword">RETENTION</span> <span class="keyword">POLICY</span> <span class="keyword">TO</span> REDUNDANCY <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE <span class="keyword">BACKUP</span> OPTIMIZATION <span class="keyword">OFF</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DEFAULT DEVICE TYPE TO DISK; <span class="comment"># default</span></span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP OFF; <span class="comment"># default</span></span><br><span class="line">CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '%F'; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DEVICE TYPE DISK PARALLELISM 1 <span class="keyword">BACKUP</span> <span class="keyword">TYPE</span> <span class="keyword">TO</span> BACKUPSET; <span class="comment"># default</span></span><br><span class="line">CONFIGURE DATAFILE <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ARCHIVELOG <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">1</span>; <span class="comment"># default</span></span><br><span class="line">CONFIGURE MAXSETSIZE TO UNLIMITED; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ENCRYPTION FOR DATABASE OFF; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ENCRYPTION ALGORITHM 'AES128'; <span class="comment"># default</span></span><br><span class="line">CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF <span class="keyword">RELEASE</span> <span class="string">'DEFAULT'</span> <span class="keyword">OPTIMIZE</span> <span class="keyword">FOR</span> <span class="keyword">LOAD</span> <span class="literal">TRUE</span> ; <span class="comment"># default</span></span><br><span class="line">CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; <span class="comment"># default</span></span><br><span class="line">CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/u01/app/oracle/product/11.2.0/dbs/snapcf_qdmwms.f'; <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>输出内容列出了用于重新创建此配置的 <code>CONFIGURE</code> 命令。更详细的配置方式请查看:</p>
+<ul>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmconfb.htm#g1026663" target="_blank" rel="noopener">第 5 章，配置 RMAN 环境</a></li>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmconfa.htm#CEGCJFEH" target="_blank" rel="noopener">第 6 章，配置 RMAN 环境: 高级</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="备份数据库"><a class="header-anchor" href="#备份数据库">¶ </a>备份数据库</h2>
+<p>使用 <code>BACKUP</code> 命令备份文件，RMAN 将数据备份到为请求的备份类型配置的默认设备。默认情况下，RMAN 在磁盘上创建备份。如果启用了快速恢复区，并且未指定 <code>FORMAT</code> 参数，则 RMAN 在恢复区中创建备份并自动为其指定唯一名称。<br>
+默认情况下，RMAN 创建备份集而不是映像副本。一个备份集由一个或多个备份片段组成，这些备份片段是以只有 RMAN 可以访问的格式编写的物理文件。多路复用备份集包含来自多个输入文件的块。RMAN 可以将备份集写入磁盘或磁带。</p>
+<p>如果指定 <code>BACKUP AS COPY</code>，则 RMAN 会将每个文件复制为映像副本，这是在磁盘上创建的数据库文件的逐位副本。映像副本与使用操作系统命令（如 Linux 上的 <code>cp</code> 或 Windows 上的 <code>COPY</code>）创建的副本相同，但记录在 RMAN 存储库中，因此可供 RMAN 使用。您可以在数据库打开时使用 RMAN 制作映像副本。</p>
+<h3 id="以-ARCHIVELOG-模式备份数据库"><a class="header-anchor" href="#以-ARCHIVELOG-模式备份数据库">¶ </a>以 ARCHIVELOG 模式备份数据库</h3>
+<p>如果数据库在 <code>ARCHIVELOG</code> 模式下运行，则您可以在数据库打开时对其进行备份。该备份称为不一致备份，因为在恢复期间需要重做以使数据库处于一致状态。如果您有恢复备份所需的归档重做日志，则开放式数据库备份对于数据保护与一致备份一样有效。</p>
+<h4 id="在数据库打开时备份数据库和归档重做日志"><a class="header-anchor" href="#在数据库打开时备份数据库和归档重做日志">¶ </a>在数据库打开时备份数据库和归档重做日志</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[oracle@qdmwms-db ~]$ rman target /</span><br><span class="line"></span><br><span class="line">Recovery Manager: Release 11.2.0.4.0 - Production on Thu Jul 8 08:39:43 2021</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.</span><br><span class="line"></span><br><span class="line">connected to target database: QDMWMS (DBID=93333325)</span><br><span class="line"></span><br><span class="line">RMAN&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 BACKUP DATABASE 命令，例如，在 RMAN 提示符下输入以下命令将数据库和所有归档重做日志文件备份到默认备份设备：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; BACKUP DATABASE PLUS ARCHIVELOG;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="在-NOARCHIVELOG-模式下备份数据库"><a class="header-anchor" href="#在-NOARCHIVELOG-模式下备份数据库">¶ </a>在 NOARCHIVELOG 模式下备份数据库</h3>
+<p>如果数据库在 <code>NOARCHIVELOG</code> 模式下运行，则唯一有效的数据库备份是一致备份。为了使备份保持一致，必须在一致关闭后装入数据库。恢复备份后无需恢复。</p>
+<h4 id="要进行一致的数据库备份"><a class="header-anchor" href="#要进行一致的数据库备份">¶ </a>要进行一致的数据库备份</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库;</p>
+</li>
+<li>
+<p>关闭数据库，然后使用 mount 方式启动，例如，输入以下命令以保证数据库处于备份的一致状态：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">RMAN&gt; STARTUP FORCE DBA;</span><br><span class="line">RMAN&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">RMAN&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行备份数据库命令。例如，在 RMAN 提示符下输入以下命令将数据库备份到默认备份设备：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; BACKUP DATABASE;</span><br></pre></td></tr></table></figure>
+<p>或者创建数据库中所有数据文件的映像副本备份：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; BACKUP AS COPY DATABASE;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开数据库并恢复正常操作。输入以下命令打开数据库</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; ALTER DATABASE OPEN;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="常用的备份选项"><a class="header-anchor" href="#常用的备份选项">¶ </a>常用的备份选项</h3>
+<p><code>BACKUP</code> 命令包括许多控制备份输出的选项、参数和子句。下表列出了一些常用的备份选项。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">FORMAT</td>
+<td style="text-align:left">指定备份片段和副本的位置和名称。您必须使用替换变量来生成唯一的文件名。最常见的替换变量是 %U，它生成一个唯一的名称。其他包括 DB_NAME 的 %d、备份集时间戳的 %t、备份集编号的 %s 和备份片编号的 %p。</td>
+<td style="text-align:left">BACKUP FORMAT ‘AL_%d/%t/%s/%p’ ARCHIVELOG LIKE ‘%arc_dest%’;</td>
+</tr>
+<tr>
+<td style="text-align:center">TAG</td>
+<td style="text-align:left">指定用户定义的字符串作为备份的标签。如果您不指定 tag ，则 RMAN 会分配一个带有日期和时间的默认标记。标记始终以大写形式存储在 RMAN 存储库中。</td>
+<td style="text-align:left">BACKUP TAG ‘weekly_full_db_bkup’ DATABASE MAXSETSIZE 10M;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="增量备份"><a class="header-anchor" href="#增量备份">¶ </a>增量备份</h3>
+<p>如果指定 <code>BACKUP INCREMENTAL</code>，则 RMAN 会创建数据库的增量备份。增量备份捕获在上一次增量备份之后对数据库所做的块级更改。增量备份通常比完整数据库备份更小、更快。使用增量备份进行恢复比单独使用重做日志要快。</p>
+<p>增量备份策略的起点是 0 级增量备份，它备份数据库中的所有块。级别 0 的增量备份与完整备份的内容相同，但是，与完整备份不同的是，级别 0 备份被视为增量备份策略的一部分。<br>
+1 级增量备份仅包含在上一次增量备份后更改的块。如果在运行 1 级备份时当前或父数据库化身中不存在 0 级备份，则 RMAN 会自动进行 0 级备份。</p>
+<blockquote>
+<p>当 <code>NOARCHIVELOG</code> 数据库打开时，您不能进行增量备份，尽管您可以在持续关闭后装入数据库时​​进行增量备份</p>
+</blockquote>
+<p>级别 1 的备份可以是累积增量备份，其中包括自最近的级别 0 备份以来更改的所有块，或差异增量备份，其中仅包括自最近的增量备份以来更改的块。默认情况下，增量备份是差异备份。</p>
+<p>在恢复增量备份时，RMAN 使用 0 级备份作为起点，然后在可能的情况下根据 1 级备份更新更改的块，以避免一次重做一次重新应用更改。使用增量备份进行恢复不需要您付出额外的努力。如果增量备份可用，则 RMAN 在恢复期间使用它们。</p>
+<h4 id="对数据库进行增量备份"><a class="header-anchor" href="#对数据库进行增量备份">¶ </a>对数据库进行增量备份</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库;</p>
+</li>
+<li>
+<p>运行 BACKUP INCREMENTAL 命令；例如，以下示例创建了一个 0 级增量备份，作为增量备份策略的基础</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BACKUP</span> INCREMENTAL <span class="keyword">LEVEL</span> <span class="number">0</span> <span class="keyword">DATABASE</span>;</span><br></pre></td></tr></table></figure>
+<p>以下示例创建 1 级累积增量备份：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BACKUP</span> INCREMENTAL <span class="keyword">LEVEL</span> <span class="number">1</span> CUMULATIVE <span class="keyword">DATABASE</span>;</span><br></pre></td></tr></table></figure>
+<p>以下示例创建 1 级差异增量备份</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BACKUP</span> INCREMENTAL <span class="keyword">LEVEL</span> <span class="number">1</span> <span class="keyword">DATABASE</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>有关增量备份的更详细信息请查看 <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmcncpt.htm#i1007616" target="_blank" rel="noopener">增量备份</a> 和 <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmbckba.htm#i1034163" target="_blank" rel="noopener">制作和更新增量备份</a></p>
+</blockquote>
+<h4 id="进行增量更新备份"><a class="header-anchor" href="#进行增量更新备份">¶ </a>进行增量更新备份</h4>
+<p>RMAN 增量更新备份功能是一种高效的增量备份策略。该策略具有以下主要特点：</p>
+<ul>
+<li>该策略需要一个 0 级数据文件副本作为基础。此副本具有系统定义或用户定义的标记。</li>
+<li>定期使用与 0 级数据文件副本相同的标记创建 1 级差异备份。 <code>BACKUP FOR RECOVER OF COPY</code> 命令指定增量备份应仅包含自最近一次增量备份以来更改的具有相同标记的块。</li>
+<li>增量备份会定期应用于 0 级数据文件副本。由于数据文件副本已更新为最近的更改，因此现在需要更少的介质恢复。</li>
+</ul>
+<p>下表说明了与 <code>FOR RECOVER OF COPY</code> 一起使用的哪些选项来实施增量更新的备份策略。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">备份选项</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FOR RECOVER OF COPY WITH TAG ‘tag_name’</td>
+<td style="text-align:left">使用 TAG 标识作为备份策略依据的数据文件副本的标签。RMAN 会自动为该副本的每个 1 级备份分配相同的标记，如果当前或父数据库化身中不存在具有指定标记的 0 级数据文件副本，则 RMAN 会创建具有指定标记的 0 级数据文件副本。</td>
+<td style="text-align:left">BACKUP INCREMENTAL LEVEL 1 FOR RECOVER OF COPY WITH TAG ‘incr_update’ DATABASE;</td>
+</tr>
+<tr>
+<td style="text-align:left">FOR RECOVER OF COPY DATAFILECOPY FORMAT ‘format’</td>
+<td style="text-align:left">如果副本不存在，则指定 RMAN 在何处创建数据文件副本。如果向数据库添加新数据文件，则无需更改脚本，因为 RMAN 会自动创建增量备份例程所需的 0 级副本。</td>
+<td style="text-align:left">BACKUP INCREMENTAL LEVEL 1 FOR RECOVER OF COPY DATAFILECOPY FORMAT ‘/disk2/df1.cpy’ DATABASE;</td>
+</tr>
+</tbody>
+</table>
+<h4 id="实施增量更新的备份策略"><a class="header-anchor" href="#实施增量更新的备份策略">¶ </a>实施增量更新的备份策略</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库;</p>
+</li>
+<li>
+<p>运行 <code>RECOVER COPY</code> 和 <code>BACKUP INCREMENTAL</code> 命令。以下脚本定期运行，是实施基于增量更新备份的策略所需的全部内容。</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">RECOVER COPY OF DATABASE </span><br><span class="line">  <span class="keyword">WITH</span> TAG <span class="string">'incr_update'</span>;</span><br><span class="line"><span class="keyword">BACKUP</span> </span><br><span class="line">  INCREMENTAL <span class="keyword">LEVEL</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">FOR</span> <span class="keyword">RECOVER</span> <span class="keyword">OF</span> COPY <span class="keyword">WITH</span> TAG <span class="string">'incr_update'</span></span><br><span class="line">  <span class="keyword">DATABASE</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="验证数据库文件和备份"><a class="header-anchor" href="#验证数据库文件和备份">¶ </a>验证数据库文件和备份</h3>
+<p>您可以使用 <code>VALIDATE</code> 命令来确认所有数据库文件都存在、位于正确的位置并且没有物理损坏。 <code>CHECK LOGICAL</code> 选项还检查逻辑块损坏。</p>
+<h4 id="验证数据库文件"><a class="header-anchor" href="#验证数据库文件">¶ </a>验证数据库文件</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+</li>
+<li>
+<p>对于所需的文件运行 <code>BACKUP VALIDATE ...</code> 命令；例如，输入以下命令以验证所有数据库文件和归档重做日志文件是否存在物理和逻辑损坏：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BACKUP</span> <span class="keyword">VALIDATE</span> <span class="keyword">CHECK</span> <span class="keyword">LOGICAL</span></span><br><span class="line">  <span class="keyword">DATABASE</span> <span class="keyword">ARCHIVELOG</span> <span class="keyword">ALL</span>;</span><br></pre></td></tr></table></figure>
+<p>还可以使用 <code>VALIDATE</code> 命令来检查单个数据块，如以下示例所示：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">VALIDATE DATAFILE 4 BLOCK 10 TO 13;</span><br></pre></td></tr></table></figure>
+<p>还可以验证备份集，如以下示例所示：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">VALIDATE BACKUPSET 3;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>您可以按主键指定备份集，这显示在 <code>LIST BACKUP</code> 命令的输出中。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="编写-RMAN-操作脚本"><a class="header-anchor" href="#编写-RMAN-操作脚本">¶ </a>编写 RMAN 操作脚本</h3>
+<p>RMAN 支持使用命令文件来管理重复性任务，例如每周备份。命令文件是包含 RMAN 命令的客户端文本文件，与您在 RMAN 提示符下输入的命令完全相同。您可以使用任何文件扩展名。 RUN 命令在您的脚本中提供了一定程度的控制流。</p>
+<h4 id="创建并运行命令文件"><a class="header-anchor" href="#创建并运行命令文件">¶ </a>创建并运行命令文件</h4>
+<ol>
+<li>
+<p>使用文本编辑器创建命令文件；例如，创建一个包含以下内容的命令文件：</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># my_command_file.txt</span></span><br><span class="line">CONNECT TARGET /</span><br><span class="line">BACKUP DATABASE PLUS ARCHIVELOG;</span><br><span class="line">LIST BACKUP;</span><br><span class="line">EXIT;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>启动 RMAN，然后通过在 RMAN 提示符下运行 <code>@</code> 命令来执行命令文件的内容：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; @/my_dir/my_command_file.txt  # runs specified command file</span><br></pre></td></tr></table></figure>
+<p>您还可以使用要运行的命令文件启动 RMAN，如下所示</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rman @/my_dir/my_command_file.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="报告-RMAN-操作"><a class="header-anchor" href="#报告-RMAN-操作">¶ </a>报告 RMAN 操作</h2>
+<p>RMAN <code>LIST</code> 和 <code>REPORT</code> 命令可以根据 RMAN 存储库生成有关备份活动的报告。使用 <code>SHOW ALL</code> 命令显示当前的 RMAN 配置。</p>
+<h3 id="列出备份-LIST"><a class="header-anchor" href="#列出备份-LIST">¶ </a>列出备份(LIST)</h3>
+<p>运行 <code>LIST BACKUP</code> 和 <code>LIST COPY</code> 命令以显示有关存储库中列出的备份和数据文件副本的信息。对于备份，您可以使用表 2-3 和表 2-4 中的选项控制 LIST 输出的格式。</p>
+<ul>
+<li>表 2-3 备份的 LIST 选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BY BACKUP</td>
+<td style="text-align:left">LIST BACKUP OF DATABASE BY BACKUP</td>
+<td style="text-align:left">按备份集组织输出。这是默认的演示模式。</td>
+</tr>
+<tr>
+<td style="text-align:center">BY FILE</td>
+<td style="text-align:left">LIST BACKUP BY FILE</td>
+<td style="text-align:left">根据备份的文件列出备份。</td>
+</tr>
+<tr>
+<td style="text-align:center">SUMMARY</td>
+<td style="text-align:left">LIST BACKUP SUMMARY</td>
+<td style="text-align:left">显示摘要输出</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>表 2-4 附加 LIST 选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">EXPIRED</td>
+<td style="text-align:left">LIST EXPIRED COPY</td>
+<td style="text-align:left">列出在 RMAN 存储库中记录但在上次 CROSSCHECK 命令期间未出现在磁盘或磁带上的预期位置的备份。过期的备份可能已被操作系统实用程序删除。</td>
+</tr>
+<tr>
+<td style="text-align:center">RECOVERABLE</td>
+<td style="text-align:left">LIST BACKUP RECOVERABLE</td>
+<td style="text-align:left">列出 RMAN 存储库中状态为 AVAILABLE 并且可以还原和恢复的数据文件备份或副本。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="列出备份和副本"><a class="header-anchor" href="#列出备份和副本">¶ </a>列出备份和副本</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库</p>
+</li>
+<li>
+<p>在 RMAN 提示符下执行 <code>LIST</code> 命令，您可以显示特定对象，如下例所示：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">LIST <span class="keyword">BACKUP</span> <span class="keyword">OF</span> <span class="keyword">DATABASE</span>;</span><br><span class="line">LIST COPY OF DATAFILE 1, 2;</span><br><span class="line">LIST <span class="keyword">BACKUP</span> <span class="keyword">OF</span> <span class="keyword">ARCHIVELOG</span> <span class="keyword">FROM</span> <span class="keyword">SEQUENCE</span> <span class="number">10</span>;</span><br><span class="line">LIST BACKUPSET OF DATAFILE 1;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="报告数据库文件和备份-REPORT"><a class="header-anchor" href="#报告数据库文件和备份-REPORT">¶ </a>报告数据库文件和备份(REPORT)</h3>
+<p><code>REPORT</code> 命令执行比 <code>LIST</code> 更复杂的分析。一些主要选项如表 2-5 所示。</p>
+<ul>
+<li>表 2-5 报告选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">NEED BACKUP</td>
+<td style="text-align:left">REPORT NEED BACKUP DATABASE</td>
+<td style="text-align:left">显示在当前保留策略下哪些文件需要备份。使用可选的 REDUNDANCY 和 RECOVERY WINDOW 参数来指定不同的标准。</td>
+</tr>
+<tr>
+<td style="text-align:center">OBSOLETE</td>
+<td style="text-align:left">REPORT OBSOLETE</td>
+<td style="text-align:left">列出在配置的备份保留策略下过时的备份。使用可选的 REDUNDANCY 和 RECOVERY WINDOW 参数来覆盖默认值。</td>
+</tr>
+<tr>
+<td style="text-align:center">SCHEMA</td>
+<td style="text-align:left">REPORT SCHEMA</td>
+<td style="text-align:left">报告当前时间（默认）或不同时间数据库中的表空间和数据文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">UNRECOVERABLE</td>
+<td style="text-align:left">REPORT UNRECOVERABLE</td>
+<td style="text-align:left">列出自上次备份数据文件以来对数据文件中的对象执行了不可恢复操作的所有数据文件。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="生成数据库文件和备份的报告"><a class="header-anchor" href="#生成数据库文件和备份的报告">¶ </a>生成数据库文件和备份的报告</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+</li>
+<li>
+<p>在 RMAN 提示符下运行 <code>REPORT</code> 命令；以下示例报告根据当前配置的备份保留策略过时的备份</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">REPORT OBSOLETE;</span><br></pre></td></tr></table></figure>
+<p>以下示例报告数据库中的数据文件和临时文件</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">REPORT SCHEMA;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="管理-RMAN-备份"><a class="header-anchor" href="#管理-RMAN-备份">¶ </a>管理 RMAN 备份</h2>
+<p>RMAN 存储库元数据始终存储在目标数据库的控制文件中。 RMAN 维护命令在管理备份时使用此元数据</p>
+<h3 id="检查备份-CROSSCHECK"><a class="header-anchor" href="#检查备份-CROSSCHECK">¶ </a>检查备份(CROSSCHECK)</h3>
+<p><code>CROSSCHECK</code> 命令将 RMAN 备份和副本的逻辑记录与存储介质上的文件同步。如果备份在磁盘上，则 <code>CROSSCHECK</code> 确定文件头是否有效。如果备份在磁带上，则 RMAN 会查询 RMAN 存储库以获取备份片段的名称和位置。在删除之前交叉检查备份和副本是个好主意。</p>
+<h4 id="检查磁盘上的所有备份和副本"><a class="header-anchor" href="#检查磁盘上的所有备份和副本">¶ </a>检查磁盘上的所有备份和副本</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+</li>
+<li>
+<p>运行 CROSSCHECK 命令，如以下示例所示：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">CROSSCHECK <span class="keyword">BACKUP</span>;</span><br><span class="line">CROSSCHECK COPY;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="删除过时的备份-DELETE"><a class="header-anchor" href="#删除过时的备份-DELETE">¶ </a>删除过时的备份(DELETE)</h3>
+<p><code>DELETE</code> 命令从磁盘和磁带中删除 RMAN 备份和副本，将控制文件存储库中的文件状态更新为 DELETED，并从恢复目录中删除记录（如果您使用目录）。如果以交互方式运行 RMAN，并且未指定 <code>NOPROMPT</code> 选项，则 DELETE 将显示文件列表并在删除列表中的任何文件之前提示确认。<br>
+<code>DELETE OBSOLETE</code> 命令特别有用，因为 RMAN 会删除 RMAN 存储库中记录的过时（即不再需要）的备份和数据文件副本。您可以使用 DELETE 命令上的选项来指定过时的内容或使用配置的备份保留策略。</p>
+<h4 id="删除过时的备份和副本"><a class="header-anchor" href="#删除过时的备份和副本">¶ </a>删除过时的备份和副本</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+</li>
+<li>
+<p>运行 DELETE OBSOLETE 命令，如以下示例所示：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> OBSOLETE;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>查看 <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmmaint.htm#i1006215" target="_blank" rel="noopener">删除 RMAN 备份和归档重做日志</a> 详细了解如何使用 DELETE 命令</p>
+</blockquote>
+<h2 id="使用-Data-Recovery-Advisor-诊断和修复故障"><a class="header-anchor" href="#使用-Data-Recovery-Advisor-诊断和修复故障">¶ </a>使用 Data Recovery Advisor 诊断和修复故障</h2>
+<p>诊断和修复数据库问题的最简单方法是使用 Data Recovery Advisor。该 Oracle 数据库工具提供了用于诊断持续数据故障、向用户提供修复选项以及自动执行修复的基础架构。</p>
+<blockquote>
+<p><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmrepai.htm#CHDDBECC" target="_blank" rel="noopener">数据恢复顾问概述</a></p>
+</blockquote>
+<h3 id="列出故障并确定修复选项"><a class="header-anchor" href="#列出故障并确定修复选项">¶ </a>列出故障并确定修复选项</h3>
+<p>故障是 Health Monitor 检测到的持续数据损坏。示例包括物理和逻辑数据块损坏和数据文件丢失。每个故障都有一个故障优先级和故障状态。优先级可以是 CRITICAL、HIGH 或 LOW。状态可以是打开或关闭。<br>
+您可以运行 <code>LIST FAILURE</code> 命令来显示所有已知故障。如果存在故障，则在同一会话中运行 <code>ADVISE FAILURE</code> 命令以确定手动和自动修复选项。以下示例说明了这两个命令（包括示例输出）。</p>
+<ul>
+<li>
+<p>示例：<code>LIST FAILURE</code> 和 <code>ADVISE FAILURE</code>；（此处引用官方的代码）</p>
+  <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">RMAN&gt; LIST FAILURE;</span><br><span class="line"></span><br><span class="line">List of Database Failures</span><br><span class="line">=========================</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected Summary</span><br><span class="line"><span class="comment">---------- -------- --------- ------------- -------</span></span><br><span class="line">142        HIGH     OPEN      23-APR-07     One or more non-system datafiles are missing</span><br><span class="line">101        HIGH     OPEN      23-APR-07     Datafile 1: '/disk1/oradata/prod/system01.dbf' </span><br><span class="line">                                            contains one or more corrupt blocks</span><br><span class="line"></span><br><span class="line">RMAN&gt; ADVISE FAILURE;</span><br><span class="line"></span><br><span class="line">List of Database Failures</span><br><span class="line">=========================</span><br><span class="line"></span><br><span class="line">Failure ID Priority Status    Time Detected Summary</span><br><span class="line"><span class="comment">---------- -------- --------- ------------- -------</span></span><br><span class="line">142        HIGH     OPEN      23-APR-07     One or more non-system datafiles are missing</span><br><span class="line">101        HIGH     OPEN      23-APR-07     Datafile 1: '/disk1/oradata/prod/system01.dbf' </span><br><span class="line">                                            contains one or more corrupt blocks</span><br><span class="line"></span><br><span class="line">analyzing automatic <span class="keyword">repair</span> options; this may take some time</span><br><span class="line">using channel ORA_DISK_1</span><br><span class="line">analyzing automatic <span class="keyword">repair</span> options <span class="keyword">complete</span></span><br><span class="line"></span><br><span class="line">Mandatory <span class="keyword">Manual</span> Actions</span><br><span class="line">========================</span><br><span class="line"><span class="keyword">no</span> <span class="keyword">manual</span> actions available</span><br><span class="line"></span><br><span class="line">Optional <span class="keyword">Manual</span> Actions</span><br><span class="line">=======================</span><br><span class="line"><span class="number">1.</span> <span class="keyword">If</span> <span class="keyword">file</span> /disk1/<span class="keyword">oradata</span>/prod/users01.dbf was unintentionally renamed <span class="keyword">or</span> moved, <span class="keyword">restore</span> it</span><br><span class="line"></span><br><span class="line">Automated <span class="keyword">Repair</span> Options</span><br><span class="line">========================</span><br><span class="line"><span class="keyword">Option</span> <span class="keyword">Repair</span> Description</span><br><span class="line"><span class="comment">------ ------------------</span></span><br><span class="line"><span class="number">1</span>      <span class="keyword">Restore</span> <span class="keyword">and</span> <span class="keyword">recover</span> <span class="keyword">datafile</span> <span class="number">28</span>; Perform block media recovery of </span><br><span class="line">    block 56416 in file 1</span><br><span class="line">Strategy: The <span class="keyword">repair</span> includes <span class="keyword">complete</span> media <span class="keyword">recovery</span> <span class="keyword">with</span> <span class="keyword">no</span> <span class="keyword">data</span> loss</span><br><span class="line"><span class="keyword">Repair</span> script: /disk1/<span class="keyword">oracle</span>/<span class="keyword">log</span>/diag/rdbms/prod/prod/hm/reco_660500184.hm</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ADVISE FAILURE 输出显示手动和自动修复选项。首先尝试手动修复问题。如果您无法手动修复问题，请查看自动修复部分。<br>
+自动修复选项描述了针对一个或多个故障的服务器管理修复。在可能的情况下合并修复，以便一次修复可以修复多个故障。修复选项通过执行修复操作指示执行哪种修复以及数据是否丢失。</p>
+</blockquote>
+<p>上个例子中，输出指示包含 RMAN 命令的修复脚本的文件名。如果您不想使用 Data Recovery Advisor 自动修复故障，那么您可以使用该脚本作为您自己的恢复策略的基础。</p>
+</li>
+</ul>
+<h3 id="修复故障"><a class="header-anchor" href="#修复故障">¶ </a>修复故障</h3>
+<p>在 RMAN 会话中运行 <code>LIST FAILURE</code> 和 <code>ADVISE FAILURE</code> 后，您可以运行 <code>REPAIR FAILURE</code> 来执行修复选项。如果您在没有其他命令选项的情况下执行 <code>REPAIR FAILURE</code>，则 RMAN 将使用当前会话中最新的 <code>ADVISE FAILURE</code> 命令的第一个修复选项。或者，指定从最近的 ADVISE FAILURE 命令获得的修复选项编号。</p>
+<p>下面的例子说明了如何修复上面发现的故障</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; REPAIR FAILURE;</span><br></pre></td></tr></table></figure>
+<p>默认情况下，<code>REPAIR FAILURE</code> 在开始执行之前会提示确认。执行修复后，Data Recovery Advisor 会重新评估所有现有故障，以确定它们也可能已修复的可能性。 Data Recovery Advisor 始终验证故障是否仍然相关并自动关闭已修复的故障。如果修复因错误而未能完成，则该错误会触发对现有故障和修复的新评估和重新评估。</p>
+<h2 id="使用闪回数据库倒带数据库"><a class="header-anchor" href="#使用闪回数据库倒带数据库">¶ </a>使用闪回数据库倒带数据库</h2>
+<p>您可以使用 Oracle 闪回数据库将整个数据库倒回过去的时间。与介质恢复不同，您无需恢复数据文件即可将数据库恢复到过去的状态。<br>
+要使用 RMAN <code>FLASHBACK DATABASE</code> 命令，您的数据库必须先前已配置为生成闪回日志。此配置任务在<a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/flashdb.htm#BGBJAGBC" target="_blank" rel="noopener">闪回数据库</a>中进行了描述。闪回数据库的工作原理是回滚对运行命令时存在的数据文件的更改。您不能使用该命令来修复媒体故障或丢失的数据文件。<br>
+发出 <code>FLASHBACK DATABASE</code> 时，必须装入数据库。如果您之前创建了一个还原点，那么如果它在闪回数据库窗口内，您可以闪回到这个还原点。</p>
+<h3 id="使用闪回数据库回滚数据库"><a class="header-anchor" href="#使用闪回数据库回滚数据库">¶ </a>使用闪回数据库回滚数据库</h3>
+<ol>
+<li>
+<p>启动 RMAN 并连接到一个目标数据库；</p>
+</li>
+<li>
+<p>确保数据库处于挂载状态；使用以下命令关闭然后挂载数据库</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; SHUTDOWN IMMEDIATE;</span><br><span class="line">RMAN&gt; STARTUP MOUNT;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 FLASHBACK DATABASE 命令; 以下示例说明了命令的不同形式</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">FLASHBACK DATABASE TO SCN 861150;</span><br><span class="line"></span><br><span class="line">FLASHBACK DATABASE </span><br><span class="line">TO <span class="keyword">RESTORE</span> POINT BEFORE_CHANGES;</span><br><span class="line"></span><br><span class="line">FLASHBACK DATABASE    </span><br><span class="line">TO TIMESTAMP TO_DATE(04-DEC-2009  03:30:00','DD-MON-YYYY HH24:MI:SS');</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行闪回数据库后，在 SQL*Plus 中以只读方式打开数据库并运行一些查询以验证数据库内容。以只读方式打开数据库如下：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; "ALTER DATABASE OPEN READ ONLY";</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果对结果满意，则发出以下命令序列关闭然后打开数据库：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">SHUTDOWN IMMEDIATE;</span><br><span class="line">STARTUP MOUNT;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">OPEN</span> <span class="keyword">RESETLOGS</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="还原和恢复数据库文件"><a class="header-anchor" href="#还原和恢复数据库文件">¶ </a>还原和恢复数据库文件</h2>
+<p>使用 <code>RESTORE</code> 和 <code>RECOVER</code> 命令进行 RMAN 还原和物理数据库文件的恢复。恢复数据文件是根据恢复操作的需要从备份中检索它们。介质恢复是应用从重做日志和增量备份到恢复的数据文件的更改，以将数据文件转发到所需的 SCN 或时间点。</p>
+<h3 id="准备还原和恢复数据库文件"><a class="header-anchor" href="#准备还原和恢复数据库文件">¶ </a>准备还原和恢复数据库文件</h3>
+<p>如果由于介质故障损坏了数据库文件而必须恢复数据库，则应首先确保拥有必要的备份。您可以使用 <code>RESTORE ... PREVIEW</code> 命令查看报告但不还原 RMAN 可用于恢复到指定时间的备份。 RMAN 会查询元数据，但实际上并不读取备份文件。运行此命令时可以打开数据库。</p>
+<h4 id="预览数据库还原和恢复"><a class="header-anchor" href="#预览数据库还原和恢复">¶ </a>预览数据库还原和恢复</h4>
+<ol>
+<li>
+<p>启动 RMAN 并连接到目标数据库</p>
+</li>
+<li>
+<p>（可选）列出当前表空间和数据文件，如以下命令所示</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; REPORT SCHEMA;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 PREVIEW 选项运行 RESTORE DATABASE 命令。</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">RMAN&gt; restore database preview summary;</span><br><span class="line"></span><br><span class="line">Starting <span class="keyword">restore</span> <span class="keyword">at</span> <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">57</span>:<span class="number">05</span></span><br><span class="line"><span class="keyword">using</span> channel ORA_DISK_1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">List</span> <span class="keyword">of</span> Backups</span><br><span class="line">===============</span><br><span class="line"><span class="keyword">Key</span>     TY LV S Device <span class="keyword">Type</span> Completion <span class="built_in">Time</span>     <span class="comment">#Pieces #Copies Compressed Tag</span></span><br><span class="line"><span class="comment">------- -- -- - ----------- ------------------- ------- ------- ---------- ---</span></span><br><span class="line"><span class="number">30</span>      B  F  A DISK        <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">20</span>:<span class="number">51</span> <span class="number">1</span>       <span class="number">1</span>       <span class="keyword">NO</span>         TAG20210708T101816</span><br><span class="line"></span><br><span class="line"><span class="keyword">List</span> <span class="keyword">of</span> <span class="keyword">Archived</span> <span class="keyword">Log</span> Copies <span class="keyword">for</span> <span class="keyword">database</span> <span class="keyword">with</span> db_unique_name QDMWMS</span><br><span class="line">=====================================================================</span><br><span class="line"></span><br><span class="line"><span class="keyword">Key</span>     Thrd Seq     S <span class="keyword">Low</span> <span class="built_in">Time</span>           </span><br><span class="line"><span class="comment">------- ---- ------- - -------------------</span></span><br><span class="line"><span class="number">1611</span>    <span class="number">1</span>    <span class="number">1615</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">15</span>:<span class="number">59</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1615_jgdrgv0y_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1612</span>    <span class="number">1</span>    <span class="number">1616</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">24</span>:<span class="number">26</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1616_jgds10rh_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1613</span>    <span class="number">1</span>    <span class="number">1617</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">34</span>:<span class="number">08</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1617_jgdsmotb_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1614</span>    <span class="number">1</span>    <span class="number">1618</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">44</span>:<span class="number">05</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1618_jgdt6dz4_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1615</span>    <span class="number">1</span>    <span class="number">1619</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">10</span>:<span class="number">54</span>:<span class="number">04</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1619_jgdtt7gy_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1616</span>    <span class="number">1</span>    <span class="number">1620</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">04</span>:<span class="number">38</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1620_jgdvd1cg_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1617</span>    <span class="number">1</span>    <span class="number">1621</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">14</span>:<span class="number">09</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1621_jgdvz0kd_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1618</span>    <span class="number">1</span>    <span class="number">1622</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">24</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1622_jgdwkm5g_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1619</span>    <span class="number">1</span>    <span class="number">1623</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">34</span>:<span class="number">10</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1623_jgdx4d3g_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1620</span>    <span class="number">1</span>    <span class="number">1624</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">44</span>:<span class="number">11</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1624_jgdxq6gw_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1621</span>    <span class="number">1</span>    <span class="number">1625</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">11</span>:<span class="number">54</span>:<span class="number">14</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1625_jgdyb0dv_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1622</span>    <span class="number">1</span>    <span class="number">1626</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">04</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1626_jgdywpv6_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1623</span>    <span class="number">1</span>    <span class="number">1627</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">14</span>:<span class="number">14</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1627_jgdzhmw9_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1624</span>    <span class="number">1</span>    <span class="number">1628</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">24</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1628_jgf0253c_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1625</span>    <span class="number">1</span>    <span class="number">1629</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">34</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1629_jgf0nw93_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1626</span>    <span class="number">1</span>    <span class="number">1630</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">44</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1630_jgf17vfd_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1627</span>    <span class="number">1</span>    <span class="number">1631</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">12</span>:<span class="number">54</span>:<span class="number">19</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1631_jgf1tgyk_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1628</span>    <span class="number">1</span>    <span class="number">1632</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">04</span>:<span class="number">14</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1632_jgf2f7ob_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1629</span>    <span class="number">1</span>    <span class="number">1633</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">14</span>:<span class="number">15</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1633_jgf3039s_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1630</span>    <span class="number">1</span>    <span class="number">1634</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">24</span>:<span class="number">19</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1634_jgf3lmgr_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1631</span>    <span class="number">1</span>    <span class="number">1635</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">34</span>:<span class="number">11</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1635_jgf45k82_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1632</span>    <span class="number">1</span>    <span class="number">1636</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">44</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1636_jgf4rhg0_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1633</span>    <span class="number">1</span>    <span class="number">1637</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">13</span>:<span class="number">54</span>:<span class="number">23</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1637_jgf5c3wg_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1634</span>    <span class="number">1</span>    <span class="number">1638</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">04</span>:<span class="number">19</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1638_jgf5xpb8_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1635</span>    <span class="number">1</span>    <span class="number">1639</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">14</span>:<span class="number">14</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1639_jgf6kwo4_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1636</span>    <span class="number">1</span>    <span class="number">1640</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">25</span>:<span class="number">00</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1640_jgf734od_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1637</span>    <span class="number">1</span>    <span class="number">1641</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">34</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1641_jgf7ozxy_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1638</span>    <span class="number">1</span>    <span class="number">1642</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">44</span>:<span class="number">15</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1642_jgf88s7y_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1639</span>    <span class="number">1</span>    <span class="number">1643</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">14</span>:<span class="number">54</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1643_jgf8vfmo_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1640</span>    <span class="number">1</span>    <span class="number">1644</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">04</span>:<span class="number">13</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1644_jgf9g509_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1641</span>    <span class="number">1</span>    <span class="number">1645</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">14</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1645_jgfb10nk_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1642</span>    <span class="number">1</span>    <span class="number">1646</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">24</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1646_jgfbmsfb_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1643</span>    <span class="number">1</span>    <span class="number">1647</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">34</span>:<span class="number">17</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1647_jgfc7zyw_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1644</span>    <span class="number">1</span>    <span class="number">1648</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">45</span>:<span class="number">03</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1648_jgfcs904_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1645</span>    <span class="number">1</span>    <span class="number">1649</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">15</span>:<span class="number">54</span>:<span class="number">16</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1649_jgfdcx6q_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1646</span>    <span class="number">1</span>    <span class="number">1650</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">04</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1650_jgfdyn9x_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1647</span>    <span class="number">1</span>    <span class="number">1651</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">14</span>:<span class="number">12</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1651_jgffko0w_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1648</span>    <span class="number">1</span>    <span class="number">1652</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">24</span>:<span class="number">20</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1652_jgfg47h9_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1649</span>    <span class="number">1</span>    <span class="number">1653</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">34</span>:<span class="number">15</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1653_jgfgq36h_.arc</span><br><span class="line"></span><br><span class="line"><span class="number">1650</span>    <span class="number">1</span>    <span class="number">1654</span>    A <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">44</span>:<span class="number">18</span></span><br><span class="line">        <span class="keyword">Name</span>: /u01/app/<span class="keyword">oracle</span>/flash_recovery_area/QDMWMS/<span class="keyword">archivelog</span>/<span class="number">2021</span>_07_08/o1_mf_1_1654_jgfh9vtb_.arc</span><br><span class="line"></span><br><span class="line">Media <span class="keyword">recovery</span> <span class="keyword">start</span> <span class="keyword">SCN</span> <span class="keyword">is</span> <span class="number">5994424</span></span><br><span class="line"><span class="keyword">Recovery</span> must be done beyond <span class="keyword">SCN</span> <span class="number">5994424</span> <span class="keyword">to</span> <span class="keyword">clear</span> <span class="keyword">datafile</span> fuzziness</span><br><span class="line">Finished <span class="keyword">restore</span> <span class="keyword">at</span> <span class="number">2021</span><span class="number">-07</span><span class="number">-08</span> <span class="number">16</span>:<span class="number">57</span>:<span class="number">05</span></span><br></pre></td></tr></table></figure>
+<h3 id="恢复整个数据库"><a class="header-anchor" href="#恢复整个数据库">¶ </a>恢复整个数据库</h3>
+<p>使用 <code>RESTORE DATABASE</code> 和 <code>RECOVER DATABASE</code> 命令来恢复整个数据库。您必须事先备份所有需要的文件。此方案假定您可以将所有数据文件还原到其原始位置。如果原始位置无法访问，则使用 <code>SET NEWNAME</code> 命令，如“将数据文件恢复到非默认位置”中所述。</p>
+<h4 id="要恢复整个数据库"><a class="header-anchor" href="#要恢复整个数据库">¶ </a>要恢复整个数据库</h4>
+<ol>
+<li>
+<p>按照 <code>准备还原和恢复数据库文件</code> 中的说明准备恢复。</p>
+</li>
+<li>
+<p>将数据库置于挂载状态。以下示例终止数据库实例（如果已启动）并挂载数据库：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; STARTUP FORCE MOUNT;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>恢复数据库。以下示例使用预配置的磁盘通道来恢复数据库：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; RESTORE DATABASE;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>恢复数据库，如以下示例所示：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; RECOVER DATABASE;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>打开数据库，如下例所示</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; ALTER DATABASE OPEN;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="恢复表空间"><a class="header-anchor" href="#恢复表空间">¶ </a>恢复表空间</h3>
+<p>当数据库打开时，在单个表空间上使用 <code>RESTORE TABLESPACE</code> 和 <code>RECOVER TABLESPACE</code> 命令。在这种情况下，您必须将需要恢复的表空间脱机，还原然后恢复该表空间，并使恢复的表空间联机。<br>
+如果需要将数据文件恢复到新位置，请在 RUN 命令中使用 RMAN <code>SET NEWNAME</code> 命令指定新文件名。然后，使用 <code>SWITCH DATAFILE ALL</code> 命令（等效于使用 SQL 语句 <code>ALTER DATABASE RENAME FILE</code>）更新控制文件，以反映在 RUN 命令中为其发出 <code>SET NEWNAME</code> 的所有数据文件的新名称。</p>
+<p>与用户管理的介质恢复不同，您不应将在线表空间置于备份模式。与用户管理的工具不同，RMAN 不需要额外的日志记录或备份模式，因为它知道数据块的格式。</p>
+<h4 id="在数据库打开时恢复单个表空间"><a class="header-anchor" href="#在数据库打开时恢复单个表空间">¶ </a>在数据库打开时恢复单个表空间</h4>
+<ol>
+<li>
+<p>按照 <code>准备还原和恢复数据库文件</code> 中的说明准备恢复。</p>
+</li>
+<li>
+<p>将要恢复的表空间离线；以下示例使 USERS 表空间脱机：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; SQL 'ALTER TABLESPACE users OFFLINE';</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>恢复表空间。在 RMAN 提示符下执行的以下 RUN 命令为 USERS 表空间中的数据文件设置新名称：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RUN</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">SET</span> NEWNAME <span class="keyword">FOR</span> <span class="keyword">DATAFILE</span> <span class="string">'/disk1/oradata/prod/users01.dbf'</span> </span><br><span class="line">    <span class="keyword">TO</span> <span class="string">'/disk2/users01.dbf'</span>;</span><br><span class="line">  <span class="keyword">RESTORE</span> <span class="keyword">TABLESPACE</span> <span class="keyword">users</span>;</span><br><span class="line">  SWITCH DATAFILE ALL;   <span class="comment"># update control file with new file names</span></span><br><span class="line">  RECOVER TABLESPACE users;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使表空间联机，如以下示例所示</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; SQL 'ALTER TABLESPACE users ONLINE';</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>您还可以使用 <code>RESTORE DATAFILE</code> 和 <code>RECOVER DATAFILE</code> 在数据文件级别进行恢复。</p>
+<h3 id="恢复单个数据块"><a class="header-anchor" href="#恢复单个数据块">¶ </a>恢复单个数据块</h3>
+<p>RMAN 可以恢复单个损坏的数据文件块。当 RMAN 为备份执行完整的文件扫描时，任何损坏的块都列在 <code>V$DATABASE_BLOCK_CORRUPTION</code> 中。损坏通常在警报日志、跟踪文件或 SQL 查询结果中报告。</p>
+<h4 id="恢复数据块"><a class="header-anchor" href="#恢复数据块">¶ </a>恢复数据块</h4>
+<ol>
+<li>
+<p>如果您没有此信息，请获取损坏块的块编号。定位跟踪文件和警报日志的最简单方法是将 SQL*Plus 连接到目标数据库并执行以下查询：</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">SQL&gt; SELECT NAME, VALUE </span><br><span class="line">  2  FROM V$DIAG_INFO;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>启动 RMAN 并连接到目标数据库。</p>
+</li>
+<li>
+<p>运行 RECOVER 命令修复块。以下 RMAN 命令恢复所有损坏的块：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; RECOVER CORRUPTION LIST;</span><br></pre></td></tr></table></figure>
+<p>您还可以恢复单个块，如以下示例所示：</p>
+ <figure class="highlight"><table><tr><td class="code"><pre><span class="line">RMAN&gt; RECOVER DATAFILE 1 BLOCK 233, 235 DATAFILE 2 BLOCK 100 TO 200;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Oracle</category>
@@ -2238,6 +2698,10 @@ remap_tablespace=wmstest2:ahwms 源数据库与目标数据库的表空间不同
 <li>
 <p>禁用用户</p>
  <figure class="highlight"><table><tr><td class="code"><pre><span class="line">SQL&gt; alter user ahwms account lock;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看 Schema 相关的会话信息</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">select <span class="string">'alter system kill session '</span><span class="string">''</span>||sid||<span class="string">','</span>||serial<span class="comment">#||''' immediate;' from v$session where username='QDMWMS';</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="用户角色权限查看"><a class="header-anchor" href="#用户角色权限查看">¶ </a>用户角色权限查看</h2>
