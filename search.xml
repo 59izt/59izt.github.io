@@ -1,6 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kubernetes Jobs 和 Cronjob</title>
+    <url>/2021/07/12/124-Kubernetes-Jobs&amp;Cronjob/</url>
+    <content><![CDATA[<p>官方文档: <a href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener">Jobs</a></p>
+<h2 id="Jobs"><a class="header-anchor" href="#Jobs">¶ </a>Jobs</h2>
+<p>Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定 Pods 成功终止。随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。当数量达到指定的成功个数阈值时，任务（即 Job）结束。删除 Job 的操作会清除 Job 所创建的的全部 Pods。挂起 Job 的操作会删除 Job 的所有活跃 Pods，直到 Job 被再次恢复执行。</p>
+<a id="more"></a>
+<p>一种简单的使用场景下，你会创建一个 Job 对象以便以一种可靠的方式运行某 Pod 直到完成。 当第一个 Pod 失败或者被删除（比如因为节点硬件失效或者重启）时，Job 对象会启动一个新的 Pod。你也可以使用 Job 以并行的方式运行多个 Pod。</p>
+<ul>
+<li>下面是一个 Job 的配置示例。它负责计算 π 到小数点后的 2000 位，并将结果打印出来。</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">perl</span></span><br><span class="line">        <span class="attr">command:</span> <span class="string">["perl",</span>  <span class="string">"-Mbignum=bpi"</span><span class="string">,</span> <span class="string">"-wle"</span><span class="string">,</span> <span class="string">"print bpi(2000)"</span><span class="string">]</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br><span class="line">  <span class="attr">backoffLimit:</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用下面的命令运行此示例</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl apply -f job.yaml</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 kubectl 检查 Job 的状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl describe job pi</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看 Job 对应已完成的 Pods，可以执行以下命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl get pods</span><br></pre></td></tr></table></figure>
+<ul>
+<li>要以机器可读的方式列举隶属于某 Job 的全部 Pods，你可以使用类似下面这条命令：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath=<span class="string">'&#123;.items[*].metadata.name&#125;'</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$pods</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看一个 Pod 的标准输出，使用 logs 子命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl logs <span class="variable">$pods</span></span><br></pre></td></tr></table></figure>
+<h3 id="编写-Job-的规范"><a class="header-anchor" href="#编写-Job-的规范">¶ </a>编写 Job 的规范</h3>
+<p>与 Kubernetes 中其他资源的配置类似，job 也需要 <code>apiVersion</code>，<code>kind</code> 和 <code>metadata</code> 字段。Job 的名字必须是合法的 DNS 子域名。Job 配置还需要一个 <code>.spec</code> 配置段.</p>
+<h4 id="Job-中的-Pod-模板"><a class="header-anchor" href="#Job-中的-Pod-模板">¶ </a>Job 中的 Pod 模板</h4>
+<p>Job 的 <code>.spec</code> 中只有 <code>.spec.template</code> 是必需的字段。<code>.spec.template</code> 的值是一个 Pod 模板。其定义规范与 Pod 完全相同，只是其中不再需要 <code>apiVersion</code> 或 <code>kind</code> 字段。除了作为 Pod 所必须的字段之外，Job 中的 Pod 模板必须设置合适的标签和合适的重启策略。Job 中的 Pod 的 <code>restartPolicy</code> 只能设置为 <code>Never</code> 或 <code>OnFailure</code> 之一。</p>
+<h4 id="Pod-选择符"><a class="header-anchor" href="#Pod-选择符">¶ </a>Pod 选择符</h4>
+<p>字段 .spec.selector 是可选的。在绝大多数场合，都不需要为其赋值。详细信息参阅 <a href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/job/#specifying-your-own-pod-selector" target="_blank" rel="noopener">设置自己的 Pod 选择算符</a></p>
+<h4 id="Job-的并行执行"><a class="header-anchor" href="#Job-的并行执行">¶ </a>Job 的并行执行</h4>
+<p>适合以 Job 形式来运行的任务主要有三种：</p>
+<ol>
+<li>
+<p>非并行的 Job:</p>
+<ul>
+<li>通常只启动一个 Pod，除非该 Pod 失败；</li>
+<li>当 Pod 成功终止时，立即视 Job 为完成状态。</li>
+</ul>
+</li>
+<li>
+<p>具有确定完成计数的并行 Job:</p>
+<ul>
+<li><code>.spec.completions</code> 字段设置为非 0 的正数值；</li>
+<li>Job 用来代表整个任务，当成功的 Pod 个数达到 <code>.spec.completions</code> 时，Job 被视为完成;</li>
+<li>当使用 <code>.spec.completionMode=&quot;Indexed&quot;</code> 时，每个 Pod 都会获得一个不同的索引值，介于 <code>0</code> 和 <code>.spec.completions-1</code> 之间。</li>
+</ul>
+</li>
+<li>
+<p>带工作队列的并行 Job:</p>
+<ul>
+<li>不设置 <code>.spec.completions</code>，默认值为 <code>.spec.parallelism</code>；</li>
+<li>多个 Pod 之间必须相互协调，或者借用外部服务确定每个 Pod 要处理哪个工作条目。(例如，任一 Pod 都可以从工作队列中取走最多 N 个工作条目。)</li>
+<li>每个 Pod 都可以独立确定是否其他 Pod 都已完成，进而确定 Job 是否完成；</li>
+<li>当 Job 中任何 Pod 成功终止，不再创建新的 Pod；</li>
+<li>一旦至少一个 Pod 成功完成，并且所有 Pod 都已终止，既可宣布 Job 成功完成；</li>
+<li>一旦任何 Pod 成功退出，任何其他 Pod 都不应再对此任务执行任何操作或生成任何输出。所有 Pod 都应启动退出过程。</li>
+</ul>
+</li>
+</ol>
+<p>对于<code>非并行的 Job</code>，你可以不设置 <code>.spec.completions</code> 和 <code>.spec.parallelism</code>。这两个属性都不设置时，均取默认值 1.<br>
+对于<code>确定完成计数类型的 Job</code>，应该设置 <code>.spec.completions</code> 为所需要的完成个数。可以设置 <code>.spec.paraleelism</code>，也可以不设置。其默认值为 1;<br>
+对于一个<code>工作队列 Job</code>，不可以设置 <code>.spec.completions</code>，但要将 <code>.spec.parallelism</code> 设置为一个非负整数.</p>
+<h4 id="控制并行性-parallelism"><a class="header-anchor" href="#控制并行性-parallelism">¶ </a>控制并行性(parallelism)</h4>
+<p>并行性请求（.spec.parallelism）可以设置为任何非负整数。如果未设置，则默认为 1。如果设置为 0，则相当于启动之后便被暂停，直到此值被增加。</p>
+<p>实际并行性（在任意时刻运行状态的 Pods 个数）可能比并行性请求略大或略小，原因如下:</p>
+<ul>
+<li>对于确定完成计数 Job，实际上并行执行的 Pods 个数不会超出剩余的完成数。如果 .spec.parallelism 值较高，会被忽略；</li>
+<li>对于工作队列 Job，有任何 Job 成功结束之后，不会有新的 Pod 启动。不过剩下的 Pods 允许执行完毕；</li>
+<li>如果 Job 控制器没有来得及作出响应，或者如果 job 控制器因为任何原因无法创建 Pods。Pods 的个数可能会比请求的数目小；</li>
+<li>Job 控制器可能会因为之前同一 Job 中 Pod 的失效次数过多而压制新 Pod 的创建；</li>
+<li>当 Pod 处于体面终止进程中，需要一定的时间才能停止。</li>
+</ul>
+<h3 id="处理-Pod-和容器失效"><a class="header-anchor" href="#处理-Pod-和容器失效">¶ </a>处理 Pod 和容器失效</h3>
+<p>Pod 中的容器可能因为多种不同原因失效，例如因为其中的进程退出时返回值为非零，或者容器因为超出内存约束而被杀死等等。如果发生这类事件，并且 <code>.spec.template.spec.restartPolicy = &quot;OnFailure&quot;</code>，Pod 则继续留在当前节点，但容器会被重新运行。因此，你的程序 需要能够处理在本地被重启的情况，或者要设置 <code>.spec.template.spec.restartPolicy = &quot;Never&quot;</code>。</p>
+<p>整个 Pod 也可能会失败，且原因各不相同。例如，当 Pod 启动时，节点失效（被升级、被重启、被删除等）或者其中的容器失败而 <code>.spec.template.spec.restartPolicy = &quot;Never&quot;</code>。当 Pod 失败时，Job 控制器会启动一个新的 Pod。这意味着，你的应用需要处理在一个新 Pod 中被重启的情况。尤其是应用需要处理之前运行所触碰或产生的临时文件、锁、不完整的输出等问题。</p>
+<p>注意，即使你将 <code>.spec.parallelism</code> 设置为 1，且将 <code>.spec.completions</code> 设置为 1，并且 <code>.spec.template.spec.restartPolicy</code> 设置为 <code>&quot;Never&quot;</code>，同一程序仍然有可能被启动两次。<br>
+如果你确实将 <code>.spec.parallelism</code> 和 <code>.spec.completions</code> 都设置为比 1 大的值，那就有可能同时出现多个 Pod 运行的情况。 为此，你的 Pod 也必须能够处理并发性问题。</p>
+<h4 id="Pod-回退失效策略"><a class="header-anchor" href="#Pod-回退失效策略">¶ </a>Pod 回退失效策略</h4>
+<p>在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，因为这很可能意味着遇到了配置错误。为了实现这点，可以将 <code>.spec.backoffLimit</code> 设置为视 Job 为失败之前的重试次数。失效回退的限制值默认为 6。与 Job 相关的失效的 Pod 会被 Job 控制器重建，并且以指数型回退计算重试延迟（从 10 秒、20 秒到 40 秒，最多 6 分钟）。当 Job 的 Pod 被删除时，或者 Pod 成功时没有其它 Pod 处于失败状态，失效回退的次数也会被重置（为 0）。</p>
+<blockquote>
+<p>注意：如果你的 Job 的 <code>restartPolicy</code> 被设置为 <code>&quot;OnFailure&quot;</code>，就要注意运行该 Job 的容器会在 Job 到达失效回退次数上限时自动被终止。这会使得调试 Job 中可执行文件的工作变得非常棘手。我们建议在调试 Job 时将 <code>restartPolicy</code> 设置为 “Never”， 或者使用日志系统来确保失效 Jobs 的输出不会意外遗失。</p>
+</blockquote>
+<h3 id="Job-的终止与清理"><a class="header-anchor" href="#Job-的终止与清理">¶ </a>Job 的终止与清理</h3>
+<p>Job 完成时不会再创建新的 Pod，不过已有的 Pod 也不会被删除。保留这些 Pod 使得你可以查看已完成 Pod 的日志输出，以便检查错误、警告 或者其它诊断性输出。Job 完成时 Job 对象也一样被保留下来，这样你就可以查看它的状态。在查看了 Job 状态之后删除老的 Job 的操作留给了用户自己。你可以使用 <code>kubectl</code> 来删除 Job（例如，<code>kubectl delete jobs/pi</code> 或者 <code>kubectl delete -f ./job.yaml</code>）。 当使用 kubectl 来删除 Job 时，该 Job 所创建的 Pods 也会被删除。</p>
+<p>默认情况下，Job 会持续运行，除非某个 Pod 失败（<code>restartPolicy=Never</code>）或者某个容器出错退出（<code>restartPolicy=OnFailure</code>）。这时，Job 基于前述的 <code>.spec.backoffLimit</code> 来决定是否以及如何重试。一旦重试次数到达 <code>.spec.backoffLimit</code> 所设的上限，Job 会被标记为失败，其中运行的 Pods 都会被终止。</p>
+<p>终止 Job 的另一种方式是设置一个活跃期限。 你可以为 Job 的 <code>.spec.activeDeadlineSeconds</code> 设置一个秒数值。 该值适用于 Job 的整个生命期，无论 Job 创建了多少个 Pod。 一旦 Job 运行时间达到 <code>activeDeadlineSeconds</code> 秒，其所有运行中的 Pod 都会被终止，并且 Job 的状态更新为 <code>type: Failed</code> 及 <code>reason: DeadlineExceeded</code>。</p>
+<p>注意 Job 的 <code>.spec.activeDeadlineSeconds</code> 优先级高于其 <code>.spec.backoffLimit</code> 设置。因此，如果一个 Job 正在重试一个或多个失效的 Pod，该 Job 一旦到达 <code>activeDeadlineSeconds</code> 所设的时限即不再部署额外的 Pod，即使其重试次数还未达到 <code>backoffLimit</code> 所设的限制。</p>
+<ul>
+<li>如下示例设置了 <code>activeDeadlineSeconds: 100</code></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pi-with-timeout</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">backoffLimit:</span> <span class="number">5</span></span><br><span class="line">  <span class="attr">activeDeadlineSeconds:</span> <span class="number">100</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">perl</span></span><br><span class="line">        <span class="attr">command:</span> <span class="string">["perl",</span>  <span class="string">"-Mbignum=bpi"</span><span class="string">,</span> <span class="string">"-wle"</span><span class="string">,</span> <span class="string">"print bpi(2000)"</span><span class="string">]</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: Job 规约和 Job 中的 Pod 模版规约都有 <code>activeDeadlineSeconds</code> 字段。请确保在合适的层次设置正确的字段。还要注意的是，<code>restartPolicy</code> 对应的是 Pod，而不是 Job 本身; 一旦 Job 状态变为 <code>type: Failed</code>，就不会再发生 Job 重启的动作。换言之，由 <code>.spec.activeDeadlineSeconds</code> 和 <code>.spec.backoffLimit</code> 所触发的 Job 终结机制 都会导致 Job 永久性的失败，而这类状态都需要手工干预才能解决。</p>
+</blockquote>
+<h3 id="自动清理完成的-Job"><a class="header-anchor" href="#自动清理完成的-Job">¶ </a>自动清理完成的 Job</h3>
+<p>完成的 Job 通常不需要留存在系统中。在系统中一直保留它们会给 API 服务器带来额外的压力。 如果 Job 由某种更高级别的控制器来管理，例如 <code>CronJobs</code>， 则 Job 可以被 <code>CronJob</code> 基于特定的根据容量裁定的清理策略清理掉。</p>
+<h4 id="TTL-机制"><a class="header-anchor" href="#TTL-机制">¶ </a>TTL 机制</h4>
+<p>自动清理已完成 Job （状态为 Complete 或 Failed）的另一种方式是使用由 TTL 控制器所提供 的 TTL 机制。 通过设置 Job 的 <code>.spec.ttlSecondsAfterFinished</code> 字段，可以让该控制器清理掉已结束的资源。</p>
+<p>TTL 控制器清理 Job 时，会级联式地删除 Job 对象。 换言之，它会删除所有依赖的对象，包括 Pod 及 Job 本身。 注意，当 Job 被删除时，系统会考虑其生命周期保障，例如其 Finalizers。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">pi-with-ttl</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ttlSecondsAfterFinished:</span> <span class="number">100</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">pi</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">perl</span></span><br><span class="line">        <span class="attr">command:</span> <span class="string">["perl",</span>  <span class="string">"-Mbignum=bpi"</span><span class="string">,</span> <span class="string">"-wle"</span><span class="string">,</span> <span class="string">"print bpi(2000)"</span><span class="string">]</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br></pre></td></tr></table></figure>
+<p>Job <code>pi-with-ttl</code> 在结束 100 秒之后，可以成为被自动删除的 Job 的。如果该字段设置为 0，Job 在结束之后立即成为可被自动删除的对象。如果该字段没有设置，Job 不会在结束之后被 TTL 控制器自动清除。</p>
+<blockquote>
+<p>注意这种 TTL 机制仍然是一种 <code>Alpha</code> 状态的功能特性，需要配合 <code>TTLAfterFinished</code> 特性门控使用。有关详细信息，可参考 <a href="https://v1-19.docs.kubernetes.io/zh/docs/concepts/workloads/controllers/ttlafterfinished/" target="_blank" rel="noopener">TTL 控制器</a>的文档。</p>
+</blockquote>
+<h2 id="CronJob"><a class="header-anchor" href="#CronJob">¶ </a>CronJob</h2>
+<p>CronJob 创建基于时间重复调度的 Jobs。一个 CronJob 对象就像 crontab (cron table) 文件中的一行。它用 Cron 格式进行编写，并周期性地在给定的调度时间执行 Job。</p>
+<blockquote>
+<p>注意：所有 CronJob 的 <code>schedule:</code> 时间都是基于 <code>kube-controller-manager</code>. 的时区。如果你的控制平面在 Pod 或是裸容器中运行了 kube-controller-manager， 那么为该容器所设置的时区将会决定 Cron Job 的控制器所使用的时区。</p>
+</blockquote>
+<p>为 CronJob 资源创建清单时，请确保所提供的名称是一个合法的 DNS 子域名。名称不能超过 52 个字符。这是因为 CronJob 控制器将自动在提供的 Job 名称后附加 11 个字符，并且存在一个限制，即 Job 名称的最大长度不能超过 63 个字符。</p>
+<h3 id="CronJob-能干嘛"><a class="header-anchor" href="#CronJob-能干嘛">¶ </a>CronJob 能干嘛</h3>
+<p>CronJobs 对于创建周期性的、反复重复的任务很有用，例如执行数据备份或者发送邮件。 CronJobs 也可以用来计划在指定时间来执行的独立任务，例如计划当集群看起来很空闲时 执行某个 Job。</p>
+<h3 id="示例"><a class="header-anchor" href="#示例">¶ </a>示例</h3>
+<p>下面的 CronJob 示例清单会在每分钟打印出当前时间和问候消息</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">hello</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">schedule:</span> <span class="string">"*/1 * * * *"</span></span><br><span class="line">  <span class="attr">jobTemplate:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">template:</span></span><br><span class="line">        <span class="attr">spec:</span></span><br><span class="line">          <span class="attr">containers:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hello</span></span><br><span class="line">            <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">            <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">            <span class="attr">command:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/bin/sh</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">-c</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">date;</span> <span class="string">echo</span> <span class="string">Hello</span> <span class="string">from</span> <span class="string">the</span> <span class="string">Kubernetes</span> <span class="string">cluster</span></span><br><span class="line">          <span class="attr">restartPolicy:</span> <span class="string">OnFailure</span></span><br></pre></td></tr></table></figure>
+<h3 id="Cron-时间表语法"><a class="header-anchor" href="#Cron-时间表语法">¶ </a>Cron 时间表语法</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ┌───────────── 分钟 (0 - 59)</span></span><br><span class="line"><span class="comment"># │ ┌───────────── 小时 (0 - 23)</span></span><br><span class="line"><span class="comment"># │ │ ┌───────────── 月的某天 (1 - 31)</span></span><br><span class="line"><span class="comment"># │ │ │ ┌───────────── 月份 (1 - 12)</span></span><br><span class="line"><span class="comment"># │ │ │ │ ┌───────────── 周的某天 (0 - 6) （周日到周一；在某些系统上，7 也是星期日）</span></span><br><span class="line"><span class="comment"># │ │ │ │ │                                   </span></span><br><span class="line"><span class="comment"># │ │ │ │ │</span></span><br><span class="line"><span class="comment"># │ │ │ │ │</span></span><br><span class="line"><span class="comment"># * * * * *</span></span><br></pre></td></tr></table></figure>
+<h4 id="特殊语法"><a class="header-anchor" href="#特殊语法">¶ </a>特殊语法</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">输入</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">相当于</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@yearly(or annually)</td>
+<td style="text-align:left">每年1月1日的午夜运行一次</td>
+<td style="text-align:left"><code>0 0 1 1 *</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@monthly</td>
+<td style="text-align:left">每月的第一天的午夜运行一次</td>
+<td style="text-align:left"><code>0 0 1 * *</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@weekly</td>
+<td style="text-align:left">每周的周日午夜运行一次</td>
+<td style="text-align:left"><code>0 0 * * 0</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@daily(or midnight)</td>
+<td style="text-align:left">每天午夜运行一次</td>
+<td style="text-align:left"><code>0 0 * * *</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@hourly</td>
+<td style="text-align:left">每小时运行一次</td>
+<td style="text-align:left"><code>0 * * * *</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="CronJob-限制"><a class="header-anchor" href="#CronJob-限制">¶ </a>CronJob 限制</h3>
+<p>CronJob 根据其计划编排，在每次该执行任务的时候大约会创建一个 Job。 我们之所以说 “大约”，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。 我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 幂等的。<br>
+如果 <code>startingDeadlineSeconds</code> 设置为很大的数值或未设置（默认），并且 <code>concurrencyPolicy</code> 设置为 Allow，则作业将始终至少运行一次。</p>
+<blockquote>
+<p>注意: 如果 <code>startingDeadlineSeconds</code> 的设置值低于 10 秒钟，CronJob 可能无法被调度。这是因为 CronJob 控制器每 10 秒钟执行一次检查。</p>
+</blockquote>
+<p>对于每个 CronJob，CronJob 控制器（Controller） 检查从上一次调度的时间点到现在所错过了的调度次数。如果错过的调度次数超过 100 次，那么它就不会启动这个任务，并记录这个错误:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Cannot determine <span class="keyword">if</span> job needs to be started. Too many missed start time (&gt; 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，如果 <code>startingDeadlineSeconds</code> 字段非空，则控制器会统计从 <code>startingDeadlineSeconds</code> 设置的值到现在而不是从上一个计划时间到现在错过了多少次 Job。 例如，如果 <code>startingDeadlineSeconds</code> 是 200，则控制器会统计在过去 200 秒中错过了多少次 Job。</p>
+<p>如果未能在调度时间内创建 CronJob，则计为错过。 例如，如果 <code>concurrencyPolicy</code> 被设置为 <code>Forbid</code>，并且当前有一个调度仍在运行的情况下， 试图调度的 CronJob 将被计算为错过。</p>
+<p>例如，假设一个 CronJob 被设置为从 08:30:00 开始每隔一分钟创建一个新的 Job， 并且它的 <code>startingDeadlineSeconds</code> 字段未被设置。如果 CronJob 控制器从 08:29:00 到 10:21:00 终止运行，则该 Job 将不会启动，因为其错过的调度 次数超过了 100。</p>
+<p>为了进一步阐述这个概念，假设将 CronJob 设置为从 08:30:00 开始每隔一分钟创建一个新的 Job， 并将其 startingDeadlineSeconds 字段设置为 200 秒。 如果 CronJob 控制器恰好在与上一个示例相同的时间段（08:29:00 到 10:21:00）终止运行， 则 Job 仍将从 10:22:00 开始。 造成这种情况的原因是控制器现在检查在最近 200 秒（即 3 个错过的调度）中发生了多少次错过的 Job 调度，而不是从现在为止的最后一个调度时间开始。</p>
+<p>CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管理其代表的 Pod。</p>
+<p>从 Kubernetes v1.21 版本开始，CronJob 控制器的第二个版本被用作默认实现。要禁用此默认 CronJob 控制器而使用原来的 CronJob 控制器，请在 <code>kube-controller-manager</code> 中设置特性门控 <code>CronJobControllerV2</code>，将此标志设置为 <code>false</code>。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">--feature-gates="CronJobControllerV2=false"</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+        <tag>Jobs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Oracle RMAN 架构说明</title>
     <url>/2021/07/09/161-RMAN-%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/</url>
     <content><![CDATA[<p>官方文档: <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmarchi.htm#BRADV001" target="_blank" rel="noopener">RMAN 架构</a></p>
