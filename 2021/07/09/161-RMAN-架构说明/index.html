@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Oracle RMAN 架构说明"><meta name="keywords" content="Oracle,RMAN"><meta name="author" content="一生一世一双人,undefined"><meta name="copyright" content="一生一世一双人"><title>Oracle RMAN 架构说明【生命不止；战斗不息！】</title><link rel="stylesheet" href="/css/fan.css"><link rel="stylesheet" href="/css/thirdparty/jquery.mCustomScrollbar.min.css"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script><!-- link(rel="dns-prefetch" href="https://cdn.jsdelivr.net")--><!-- link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.css")--><!-- script(src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.1.1/dist/instantsearch.min.js" defer)--><!-- script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")--><script src="/js/mathjax/mathjax.js"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+});
+</script><script>var isPassword = '' || false;
+if (isPassword) {
+    if (prompt('请输入文章密码') !== '') {
+        alert('密码错误！');
+        history.back();
+    }
+}</script><script>window.GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"8A9MY2FQJY","apiKey":"91e74f9ca55b136812b11812c31bde07","indexName":"blog.59izt.com","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容:${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"local_search.hits_empty"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><canvas id="universe"></canvas><!--#body--><div id="sidebar"><div class="toggle-sidebar-info button-hover"><span data-toggle="文章目录">站点概览</span></div><div class="sidebar-toc"><div class="sidebar-toc-title">目录</div><div class="sidebar-toc-progress"><span class="progress-notice">您已阅读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc-progress-bar"></div></div><div class="sidebar-toc-content" id="sidebar-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RMAN-架构"><span class="toc-number">1.</span> <span class="toc-text">¶ RMAN 架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-RMAN-环境"><span class="toc-number">1.1.</span> <span class="toc-text">¶ 关于 RMAN 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMAN-命令行客户端"><span class="toc-number">1.2.</span> <span class="toc-text">¶ RMAN 命令行客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMAN-通道"><span class="toc-number">1.3.</span> <span class="toc-text">¶ RMAN 通道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#通道和设备"><span class="toc-number">1.3.1.</span> <span class="toc-text">¶ 通道和设备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自动和手动配置通道"><span class="toc-number">1.3.2.</span> <span class="toc-text">¶ 自动和手动配置通道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMAN-存储库"><span class="toc-number">1.4.</span> <span class="toc-text">¶ RMAN 存储库</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info-avatar"><img class="author-info-avatar-img" src="/avatar.png"></div><div class="author-info-name">一生一世一双人</div><div class="author-info-description">记录与技术有关的博客</div><div class="links-buttons"><a class="links-button button-hover" href="https://github.com/zhoubin0422" target="_blank">GitHub<i class="icon-dot bg-color9"></i></a><a class="links-button button-hover" href="mailto:2350686113@qq.com" target="_blank">E-Mail<i class="icon-dot bg-color5"></i></a><a class="links-button button-hover" href="tencent://message/?uin=2350686113&amp;Site=&amp;Menu=yes" target="_blank">QQ<i class="icon-dot bg-color1"></i></a></div><div class="author-info-articles"><a class="author-info-articles-archives article-meta" href="/archives"><span class="pull-top">日志</span><span class="pull-bottom">161</span></a><a class="author-info-articles-tags article-meta" href="/tags"><span class="pull-top">标签</span><span class="pull-bottom">103</span></a><a class="author-info-articles-categories article-meta" href="/categories"><span class="pull-top">分类</span><span class="pull-bottom">32</span></a></div></div></div><div id="main-container"><header><div id="menu-outer"><i class="menu-list-icon fas fa-bars"></i><nav id="menu-inner"><a class="menu-item" href="/">首页</a><a class="menu-item" href="/tags">标签</a><a class="menu-item" href="/categories">分类</a><a class="menu-item" href="/archives">归档</a><a class="menu-item" href="/about">关于</a></nav><div class="right-info"><a class="search social-icon"><i class="fas fa-search"></i><span> 搜索</span></a><a class="title-name" href="/">生命不止；战斗不息！</a><span id="now-time"></span></div></div></header><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-header"><div class="title">Oracle RMAN 架构说明</div><div class="container"><time class="button-hover post-date"><i class="fas fa-calendar-alt article-icon" aria-hidden="true"></i> 发表于 2021-07-09 | 更新于 2021-07-12</time><!--time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]--><div class="button-hover categories"><i class="fa fa-inbox article-icon" aria-hidden="true"></i><a class="link-a" href="/categories/Oracle/">Oracle</a></div><div class="button-hover tags"><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/Oracle/">Oracle</a><span>&nbsp;|&nbsp;</span><i class="fa fa-tag article-icon" aria-hidden="true"></i><a class="link-a" href="/tags/RMAN/">RMAN</a></div></div></div><div class="main-content"><p>官方文档: <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmarchi.htm#BRADV001" target="_blank" rel="noopener">RMAN 架构</a></p>
+<h2 id="RMAN-架构"><a class="header-anchor" href="#RMAN-架构">¶ </a>RMAN 架构</h2>
+<p>本章介绍了恢复管理器 (RMAN) 界面和 RMAN 环境的基本组件。本章包含以下主题：</p>
+<a id="more"></a>
+<ul>
+<li>关于 RMAN 环境</li>
+<li>RMAN 命令行客户端</li>
+<li>RMAN 通道</li>
+<li>RMAN 存储库</li>
+<li>介质管理</li>
+<li>快速恢复区</li>
+<li>Data Guard 环境中的 RMAN</li>
+</ul>
+<h3 id="关于-RMAN-环境"><a class="header-anchor" href="#关于-RMAN-环境">¶ </a>关于 RMAN 环境</h3>
+<p>恢复管理器环境由在备份和恢复策略中发挥作用的各种应用程序和数据库组成。下面列出了典型 RMAN 环境中的一些组件。</p>
+<ul>
+<li>RMAN Client(RMAN客户端): 管理目标数据库备份和恢复操作的客户端应用程序。RMAN 客户端可以使用 Oracle Net 连接到目标数据库，因此它可以位于通过 Oracle Net 连接到目标主机的任何主机上。<br>
+ </li>
+<li>Target Database(目标数据库): 包含 RMAN 备份或恢复的控制文件，数据文件和可选归档重做日志的数据库。RMAN 使目标数据库控制文件来收集有关目标数据库的元数据并存储有关其自身操作的信息。备份和恢复工作由运行在目标数据库上的服务器会话执行。<br>
+ </li>
+<li>Recovery Catalog Database(恢复目录数据库): 包含恢复目录的数据库，其中包含 RMAN 用于执行备份和恢复的元数据。您可以创建一个包含多个目标数据库的 RMAN 元数据的恢复目录。除非您将 RMAN 与物理备用数据库一起使用，否则在使用 RMAN 时恢复目录是可选的，因为 RMAN 将其元数据存储在每个目标数据库的控制文件中。<br>
+ </li>
+<li>Recovery Catalog Schema(恢复目录表): 恢复目录数据库中拥有由 RMAN 维护的元数据表的用户。 RMAN 定期将元数据从目标数据库控制文件传播到恢复目录中。<br>
+ </li>
+<li>Physical Standby Database(物理备用数据库): 主数据库的副本，使用主数据库生成的归档重做日志进行更新。物理备用数据库与主数据库具有相同的 DBID 和 DB_NAME 值，但具有不同的 DB_UNIQUE_NAME。如果主数据库无法访问，您可以故障转移到备用数据库。RMAN 可以创建、备份或恢复备用数据库。您在备用数据库上进行的备份可用于主数据库或同一生产数据库的另一个备用数据库。在 Data Guard 环境中使用 RMAN 时需要恢复目录。(RMAN 将逻辑备用数据库视为单独的数据库，因为它与主数据库具有不同的 DBID。)<br>
+ </li>
+<li>Duplicate Database(重复数据库): 可用于测试目的的主数据库副本。 DBID 不同于创建它的数据库。<br>
+ </li>
+<li>Fast Recovery Area(快速恢复区): 一个磁盘位置，可用于存储与恢复相关的文件，例如控制文件和联机重做日志副本、存档重做日志、闪回日志和 RMAN 备份。 Oracle 数据库和 RMAN 自动管理快速恢复区中的文件。<br>
+ </li>
+<li>Media Manager(介质管理器): 一种特定于供应商的应用程序，它使 RMAN 能够备份到磁带等存储系统。<br>
+ </li>
+<li>Media Management Catalog(介质管理目录): 有关介质管理应用程序的特定于供应商的元数据存储库。<br>
+ </li>
+<li>Oracle Enterprise Manager(Oracle 企业管理器): 基于浏览器的数据库界面，包括通过 RMAN 进行备份和恢复</li>
+</ul>
+<p>RMAN 环境中唯一需要的组件是目标数据库和 RMAN 客户端，但大多数实际配置更为复杂。例如，您使用 RMAN 客户端连接到多个介质管理器和多个目标数据库和辅助数据库，所有这些都通过企业管理器访问。</p>
+<p>下图说明了可能的 RMAN 环境中的组件。该图显示的主数据库、备用数据库和恢复目录数据库都位于不同的计算机上。主数据库主机和备用数据库主机使用本地连接的磁带驱动器。 RMAN 客户端和企业管理器控制台在单独的计算机上运行。</p>
+<p><img src="https://z3.ax1x.com/2021/07/09/RvrI1S.png" alt="image"></p>
+<h3 id="RMAN-命令行客户端"><a class="header-anchor" href="#RMAN-命令行客户端">¶ </a>RMAN 命令行客户端</h3>
+<p>使用 RMAN 命令行客户端输入可用于管理备份和恢复操作的所有方面的命令。 RMAN 使用可以以交互或批处理模式执行命令的命令语言解释器。即使您在企业管理器中使用构建在 RMAN 之上的备份和恢复功能，RMAN 客户端也会在后台执行。</p>
+<h3 id="RMAN-通道"><a class="header-anchor" href="#RMAN-通道">¶ </a>RMAN 通道</h3>
+<p>RMAN 客户端指导数据库服务器会话执行所有备份和恢复任务。由什么构成会话取决于操作系统。例如，在 Linux 上，服务器会话对应于服务器进程，而在 Windows 上，它对应于数据库服务中的线程。<br>
+RMAN 客户端本身不执行备份、还原或恢复操作。当您将 RMAN 客户端连接到目标数据库时，RMAN 会在目标实例上分配服务器会话并指导它们执行操作。<br>
+一个 RMAN 通道代表一个设备的数据流，并对应于一个数据库服务器会话。通道将数据读入 PGA 内存，进行处理，然后将其写入输出设备。有关通道如何工作的低级描述，请参阅<a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmtunin.htm#i1006104" target="_blank" rel="noopener">RMAN 性能调优的基本概念</a>。</p>
+<p>大多数 RMAN 命令由通道执行，通道必须配置为跨 RMAN 会话持续存在，或者在每个 RMAN 会话中手动分配。如图 3-2 所示，通道通过在实例上启动服务器会话来建立从 RMAN 客户端到目标或辅助数据库实例的连接。<br>
+<img src="https://z3.ax1x.com/2021/07/09/Rvcxa9.png" alt="image"></p>
+<h4 id="通道和设备"><a class="header-anchor" href="#通道和设备">¶ </a>通道和设备</h4>
+<p>RMAN 支持的设备类型是磁盘和 SBT（系统备份到磁带）。 SBT 设备由第三方介质管理器控制。通常，SBT 设备是磁带库和磁带驱动器。</p>
+<p>如果您使用磁盘通道进行备份，则该通道会在创建备份的目标数据库实例的文件名空间中的磁盘上创建备份。您可以在任何可以存储数据文件的设备上进行备份。 RMAN 在进行磁盘备份时不调用介质管理器。</p>
+<p>要在非磁盘介质上创建备份，您必须使用介质管理软件（例如 Oracle Secure Backup）并分配该软件支持的通道。只要分配的通道类型不是磁盘，RMAN 就会联系介质管理器。 SBT 通道如何以及何时使用介质管理器分配资源是特定于供应商的。一些介质管理器在您发出命令时分配资源；有些在您打开文件进行读取或写入之前不会分配资源。</p>
+<h4 id="自动和手动配置通道"><a class="header-anchor" href="#自动和手动配置通道">¶ </a>自动和手动配置通道</h4>
+<p>可以使用 <code>CONFIGURE CHANNEL</code> 命令来配置通道以用于跨 RMAN 会话的磁盘或磁带。这种技术称为自动信道分配。RMAN 预配置了一个磁盘通道，可用于备份到磁盘。<br>
+当您运行可以使用自动通道的命令时，RMAN 会使用您在 <code>CONFIGURE</code> 命令中指定的选项自动分配通道。对于 <code>BACKUP</code> 命令，RMAN 仅分配备份到指定介质所需的通道类型。对于 <code>RESTORE</code> 命令和 RMAN 维护命令，RMAN 为执行命令所需的设备类型分配所有必要的通道。 RMAN 确定自动通道的名称。</p>
+<p>您也可以手动分配通道。每个手动分配的通道使用单独的数据库连接。当您手动分配一个通道时，您可以为其指定一个用户定义的名称，例如 dev1 或 ch2。</p>
+<p>运行命令时可用于设备的通道数决定了 RMAN 在执行命令时是否并行读取或写入此设备。当工作并行完成时，文件的备份由多个通道完成。每个通道可以备份多个文件，但除非进行多段备份，否则不会有多个通道备份文件。</p>
+<p>扩展阅读：</p>
+<ul>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10643/rcmsynta004.htm#RCMRF102" target="_blank" rel="noopener">Oracle 数据库备份和恢复参考</a>的 <code>ALLOCATE CHANNEL</code> 语法</li>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10643/rcmsynta004.htm#RCMRF102" target="_blank" rel="noopener">Oracle 数据库备份和恢复参考</a>的 <code>ALLOCATE CHANNEL FOR MAINTENANCE</code> 语法</li>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmconfb.htm#CHDCBAHE" target="_blank" rel="noopener">配置磁盘通道</a></li>
+<li><a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmconfb.htm#CHDCBAHE" target="_blank" rel="noopener">配置 SBT 通道</a></li>
+</ul>
+<h3 id="RMAN-存储库"><a class="header-anchor" href="#RMAN-存储库">¶ </a>RMAN 存储库</h3>
+<p>RMAN 存储库是有关 RMAN 用于备份、恢复和维护的目标数据库的元数据的集合。 RMAN 始终将其元数据存储在控制文件中。控制文件中此元数据的版本是数据库 RMAN 备份的权威记录。这就是为什么保护控制文件是备份策略的重要组成部分的原因之一。 RMAN 可以仅使用控制文件来执行所有必要的备份和恢复操作来存储 RMAN 存储库信息，并维护满足您配置的保留策略所需的所有记录。</p>
+<p>您还可以创建恢复目录，它是存储在 Oracle 数据库架构中的 RMAN 元数据的存储库。控制文件用于记录备份活动的空间有限，而恢复目录可以存储更长的历史记录。您可以通过创建包含所有数据库的 RMAN 元数据的单个恢复目录来简化备份和恢复管理。</p>
+<p>恢复目录的所有者可以向其他数据库用户授予或撤消对该目录的受限访问权限。每个受限用户对其自己的元数据（称为虚拟私有目录）具有完全读/写访问权限。当数据库中存在一个或多个虚拟专用目录时，该数据库仅包含一组目录表。这些表归基本恢复目录所有者所有。基本恢复目录的所有者控制每个虚拟专用目录用户可以访问哪些数据库。</p>
+<p>某些 RMAN 功能仅在您使用恢复目录时才起作用。例如，您可以在恢复目录中创建一个存储脚本并使用该脚本执行 RMAN 作业。其他 RMAN 命令与管理恢复目录特别相关，因此如果 RMAN 未连接到恢复目录，则这些命令不可用（也不需要）。</p>
+<p>恢复目录仅由 RMAN 维护。目标数据库实例从不直接访问目录。在任何更新存储库的操作之后以及某些操作之前，RMAN 将有关数据库结构、归档重做日志、备份集和数据文件副本的信息从目标数据库控制文件传播到恢复目录中。</p>
+<p>未完，待续…</p>
+</div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-meta">本文作者: </span><span class="post-copyright-info"><a href="mailto:undefined">一生一世一双人</a></span></div><div class="post-copyright-type"><span class="post-copyright-meta">本文链接: </span><span class="post-copyright-info"><a href="https://blog.59izt.com/2021/07/09/161-RMAN-%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/">https://blog.59izt.com/2021/07/09/161-RMAN-%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.59izt.com">生命不止；战斗不息！</a>！</span></div></div></article><div id="pagination"><div class="next-post pull-right"><span class="line line-top"></span><span class="line line-right"></span><span class="line line-bottom"></span><span class="line line-left"></span><a href="/2021/07/09/160-CentOS7-%E9%83%A8%E7%BD%B2ActiveMQ/"><span>CentOS 7 部署 ActiveMQ</span><span>&nbsp;</span><i class="fas fa-angle-right"></i></a></div></div><!--div!= paginator()--></div></div><div class="button-hover" id="return-top"><i class="fas fa-arrow-up" aria-hidden="true"></i></div><footer><div id="footer"><div class="button-hover" id="side-button"><i class="fas fa-arrow-right"></i></div><div class="right-content"><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fas fa-file-o"></i></span><span id="busuanzi_value_page_pv"></span><span></span></div><div class="copyright">&copy;2017 ～ 2021 By 一生一世一双人</div></div></div></footer></div><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery-3.3.1.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/velocity.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/thirdparty/jquery.mCustomScrollbar.concat.min.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/fan.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/canvas_bg.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/utils.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/scroll.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/sidebar.js"></script><!--script(src=url)--><!--js(src=url_for(url) + '?version=' + version())--><script src="/js/copy.js"></script><!--script(src=url)--><div class="search-dialog"><div id="algolia-search-title">Algolia</div><div class="search-close-button"><i class="fa fa-times"></i></div><!--div#current-refined-values--><!--div#clear-all--><div id="search-box"></div><!--div#refinement-list--><hr><div id="hits"></div><div id="algolia-pagination"></div></div><div class="search-mask"></div><script src="/js/search/algolia.js"></script></body></html>
