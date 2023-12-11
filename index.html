@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Databases/MySQL/009-MySQL8-主从恢复问题排查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/009-MySQL8-主从同步异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" target="_blank">MySQL8 主从同步异常处理</a>
+	  <a class="article-title" href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" target="_blank">MySQL8 主从同步异常处理</a>
   
     </h1>
   
@@ -226,7 +226,7 @@
 
   
   
-<a href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="archive-article-date">
+<a href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="archive-article-date">
         <time datetime="2023-12-11T05:37:42.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-12-11</time>
 </a>
 
@@ -283,7 +283,7 @@
 <p> 手动转变为 delete 语句，然后在从库执行语句，</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> `pet_xxl_job_dev`.`xxl_job_registry` <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;3217&#x27;</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>1032 错误的主要原因是主库更新或者是删除的记录在从库上不存在引起的。<br> 处理此种错误一般有两种思路：</p>
+<li><p><code>1032</code> 错误的主要原因是主库更新或者是删除的记录在从库上不存在引起的。<br> 处理此种错误一般有两种思路：</p>
 <ol>
 <li>直接跳过错误执行语句</li>
 <li>找到错误执行语句，修复从库数据</li>
@@ -339,7 +339,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">展开全文 >></a>
     </p>
     
 

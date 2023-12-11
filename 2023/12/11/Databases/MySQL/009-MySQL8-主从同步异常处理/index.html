@@ -13,12 +13,12 @@
   <meta name="description" content="事故原因由于意外断电导致数据库从库崩溃，无法启动 处理方式重建数据库从库 具体步骤备份还原完整备份主库并还原到从库  在主库上查看 master 状态  12345678MySQL [(none)]&gt; show master status \G*************************** 1. row ***************************            F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL8 主从同步异常处理">
-<meta property="og:url" content="https://www.59izt.com/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/index.html">
+<meta property="og:url" content="https://www.59izt.com/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="事故原因由于意外断电导致数据库从库崩溃，无法启动 处理方式重建数据库从库 具体步骤备份还原完整备份主库并还原到从库  在主库上查看 master 状态  12345678MySQL [(none)]&gt; show master status \G*************************** 1. row ***************************            F">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-11T05:37:42.434Z">
-<meta property="article:modified_time" content="2023-12-11T07:28:08.910Z">
+<meta property="article:modified_time" content="2023-12-11T07:53:37.004Z">
 <meta property="article:author" content="59iZT">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -206,7 +206,7 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Databases/MySQL/009-MySQL8-主从恢复问题排查" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Databases/MySQL/009-MySQL8-主从同步异常处理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -225,7 +225,7 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="archive-article-date">
+<a href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="archive-article-date">
         <time datetime="2023-12-11T05:37:42.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-12-11</time>
 </a>
 
@@ -303,7 +303,7 @@
 <p> 手动转变为 delete 语句，然后在从库执行语句，</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> `pet_xxl_job_dev`.`xxl_job_registry` <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;3217&#x27;</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>1032 错误的主要原因是主库更新或者是删除的记录在从库上不存在引起的。<br> 处理此种错误一般有两种思路：</p>
+<li><p><code>1032</code> 错误的主要原因是主库更新或者是删除的记录在从库上不存在引起的。<br> 处理此种错误一般有两种思路：</p>
 <ol>
 <li>直接跳过错误执行语句</li>
 <li>找到错误执行语句，修复从库数据</li>
