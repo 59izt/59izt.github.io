@@ -210,6 +210,118 @@
             
 
   
+    <article id="post-Shell/000-SaltStack-安装脚本学习心得" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" target="_blank">SaltStack 安装脚本学习心得</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.445Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>原始脚本地址：<a target="_blank" rel="noopener" href="https://github.com/saltstack/salt-bootstrap/blob/develop/bootstrap-salt.sh">bootstrap-salt</a></p>
+</blockquote>
+<h1 id="关于脚本开头-“-“-说明"><a href="#关于脚本开头-“-“-说明" class="headerlink" title="关于脚本开头 “-“ 说明"></a>关于脚本开头 “-“ 说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh -        </span></span><br><span class="line"><span class="comment"># 说明：/bin/sh 后面的 &quot;-&quot; 表示选项结束，并禁用进一步的选项处理。- 后面的任何参数均被视为文件名和参数。&quot;--&quot; 等效于 &quot;-&quot;。</span></span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Shell//" class="article-tag-list-link color1">Shell</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Shell/001-最常用的-shell-命令合集及使用技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -351,7 +463,7 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="安装-Python-版本控制软件-pyenv"><a href="#安装-Python-版本控制软件-pyenv" class="headerlink" title="安装 Python 版本控制软件 pyenv"></a>安装 Python 版本控制软件 pyenv</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆 pyenv 仓库到本地</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init --path)&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;source .profile&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init -)&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+    <h2 id="安装-Python-版本控制软件-pyenv"><a href="#安装-Python-版本控制软件-pyenv" class="headerlink" title="安装 Python 版本控制软件 pyenv"></a>安装 Python 版本控制软件 pyenv</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆 pyenv 仓库到本地</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init --path)&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;source ~/.profile&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init -)&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
     
     <a class="article-more-a" href="/2023/10/18/Python/000-Linux-install-python3/#more">more >></a>
     
@@ -1193,120 +1305,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/017-Django-基础入门-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/" target="_blank">Django 入门基础（一）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<h1 id="Django-模块实现-Web-服务"><a href="#Django-模块实现-Web-服务" class="headerlink" title="Django 模块实现 Web 服务"></a>Django 模块实现 Web 服务</h1><ol>
-<li>将以下文件保存为 <code>testdjango.py</code>。</li>
-</ol>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/">展开全文 >></a>
     </p>
     
 

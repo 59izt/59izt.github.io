@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.59izt.com">
-  <title>Category: Databases | 59izt</title>
+  <title>MySQL8 主从同步异常处理 | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
-<meta property="og:type" content="website">
-<meta property="og:title" content="59izt">
-<meta property="og:url" content="https://www.59izt.com/categories/Databases/index.html">
+  <meta name="description" content="事故原因由于意外断电导致数据库从库崩溃，无法启动 处理方式重建数据库从库 具体步骤备份还原完整备份主库并还原到从库  在主库上查看 master 状态  12345678MySQL [(none)]&gt; show master status \G*************************** 1. row ***************************            F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL8 主从同步异常处理">
+<meta property="og:url" content="https://www.59izt.com/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/index.html">
 <meta property="og:site_name" content="59izt">
-<meta property="og:description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
+<meta property="og:description" content="事故原因由于意外断电导致数据库从库崩溃，无法启动 处理方式重建数据库从库 具体步骤备份还原完整备份主库并还原到从库  在主库上查看 master 状态  12345678MySQL [(none)]&gt; show master status \G*************************** 1. row ***************************            F">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-11T05:37:42.434Z">
+<meta property="article:modified_time" content="2023-12-11T07:28:08.910Z">
 <meta property="article:author" content="59iZT">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="59izt" type="application/atom+xml">
@@ -203,41 +206,133 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Databases/MySQL/009-MySQL8-主从恢复问题排查" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+    <h1 class="article-title" itemprop="name">
+      MySQL8 主从同步异常处理
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
 <a href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" class="archive-article-date">
         <time datetime="2023-12-11T05:37:42.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-12-11</time>
 </a>
 
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/12/11/Databases/MySQL/009-MySQL8-%E4%B8%BB%E4%BB%8E%E6%81%A2%E5%A4%8D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" target="_blank">MySQL8 主从同步异常处理</a>
   
-    </h1>
-  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.1k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">5分</span>
+    </span>
+  </span>
+</div>
 
 
-        <div class="article-info info-on-right">
-          
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="事故原因"><a href="#事故原因" class="headerlink" title="事故原因"></a>事故原因</h2><p>由于意外断电导致数据库从库崩溃，无法启动</p>
+<h2 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h2><p>重建数据库从库</p>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><h3 id="备份还原"><a href="#备份还原" class="headerlink" title="备份还原"></a>备份还原</h3><p>完整备份主库并还原到从库</p>
+<ol>
+<li><p>在主库上查看 master 状态</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MySQL [(none)]&gt; show master status \G</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">            File: mysql-bin.000761</span><br><span class="line">        Position: 805513039</span><br><span class="line">    Binlog_Do_DB: </span><br><span class="line">Binlog_Ignore_DB: </span><br><span class="line">Executed_Gtid_Set: </span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>记住当前状态的 binlog 文件以及 Position 值；</p>
+</blockquote>
+</li>
+<li><p>完全备份数据库</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p --routines --single_transaction --source-data=2 --all-databases &gt; all_1210.sql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复备份到从库</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p &lt; all_1210.sql</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="重建主从"><a href="#重建主从" class="headerlink" title="重建主从"></a>重建主从</h3><ol>
+<li><p>在从库执行以下命令加入主从</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 停止 slave 服务</span></span><br><span class="line">stop slave;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 重置 slave 状态</span></span><br><span class="line">reset slave;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 配置主从</span></span><br><span class="line">change master <span class="keyword">to</span> master_host<span class="operator">=</span><span class="string">&#x27;10.1.40.13&#x27;</span>,master_user<span class="operator">=</span><span class="string">&#x27;repl&#x27;</span>,master_port<span class="operator">=</span><span class="number">3306</span>,master_password<span class="operator">=</span><span class="string">&#x27;********&#x27;</span>,master_log_file<span class="operator">=</span><span class="string">&#x27;mysql-bin.00000761&#x27;</span>,master_log_pos<span class="operator">=</span><span class="number">805513039</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 启动 slave</span></span><br><span class="line"><span class="keyword">start</span> slave</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看 slave 状态</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> slave status \G</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">            Slave_IO_State: Waiting <span class="keyword">for</span> source <span class="keyword">to</span> send event</span><br><span class="line">                Master_Host: <span class="number">10.1</span><span class="number">.40</span><span class="number">.13</span></span><br><span class="line">                Master_User: repl</span><br><span class="line">                Master_Port: <span class="number">3306</span></span><br><span class="line">                Connect_Retry: <span class="number">60</span></span><br><span class="line">            Master_Log_File: mysql<span class="operator">-</span>bin<span class="number">.000761</span></span><br><span class="line">        Read_Master_Log_Pos: <span class="number">767635683</span></span><br><span class="line">            Relay_Log_File: base<span class="operator">-</span>noroot1<span class="operator">-</span>relay<span class="operator">-</span>bin<span class="number">.000003</span></span><br><span class="line">                Relay_Log_Pos: <span class="number">11834768</span></span><br><span class="line">        Relay_Master_Log_File: mysql<span class="operator">-</span>bin<span class="number">.000761</span></span><br><span class="line">            Slave_IO_Running: Yes</span><br><span class="line">            Slave_SQL_Running: Yes</span><br><span class="line">            Replicate_Do_DB: </span><br><span class="line">        Replicate_Ignore_DB: </span><br><span class="line">        Replicate_Do_Table: </span><br><span class="line">    Replicate_Ignore_Table: </span><br><span class="line">    Replicate_Wild_Do_Table: </span><br><span class="line">Replicate_Wild_Ignore_Table: <span class="operator">%</span>.<span class="operator">%</span>xxl_job_log</span><br><span class="line">                Last_Errno: <span class="number">0</span></span><br><span class="line">                Last_Error: </span><br><span class="line">                Skip_Counter: <span class="number">0</span></span><br><span class="line">        Exec_Master_Log_Pos: <span class="number">11834553</span></span><br><span class="line">            Relay_Log_Space: <span class="number">767639149</span></span><br><span class="line">            Until_Condition: <span class="keyword">None</span></span><br><span class="line">            Until_Log_File: </span><br><span class="line">                Until_Log_Pos: <span class="number">0</span></span><br><span class="line">        Master_SSL_Allowed: <span class="keyword">No</span></span><br><span class="line">        Master_SSL_CA_File: </span><br><span class="line">        Master_SSL_CA_Path: </span><br><span class="line">            Master_SSL_Cert: </span><br><span class="line">            Master_SSL_Cipher: </span><br><span class="line">            Master_SSL_Key: </span><br><span class="line">        Seconds_Behind_Master: <span class="number">57739</span></span><br><span class="line">Master_SSL_Verify_Server_Cert: <span class="keyword">No</span></span><br><span class="line">                Last_IO_Errno: <span class="number">0</span></span><br><span class="line">                Last_IO_Error: </span><br><span class="line">            Last_SQL_Errno: <span class="number">0</span></span><br><span class="line">            Last_SQL_Error: </span><br><span class="line">Replicate_Ignore_Server_Ids: </span><br><span class="line">            Master_Server_Id: <span class="number">1</span></span><br><span class="line">                Master_UUID: c01abe46<span class="operator">-</span>b588<span class="number">-11</span>ec<span class="number">-9</span>bde<span class="number">-005056960420</span></span><br><span class="line">            Master_Info_File: mysql.slave_master_info</span><br><span class="line">                    SQL_Delay: <span class="number">0</span></span><br><span class="line">        SQL_Remaining_Delay: <span class="keyword">NULL</span></span><br><span class="line">    Slave_SQL_Running_State: Waiting <span class="keyword">for</span> dependent transaction <span class="keyword">to</span> <span class="keyword">commit</span></span><br><span class="line">        Master_Retry_Count: <span class="number">86400</span></span><br><span class="line">                Master_Bind: </span><br><span class="line">    Last_IO_Error_Timestamp: </span><br><span class="line">    Last_SQL_Error_Timestamp: </span><br><span class="line">            Master_SSL_Crl: </span><br><span class="line">        Master_SSL_Crlpath: </span><br><span class="line">        Retrieved_Gtid_Set: </span><br><span class="line">            Executed_Gtid_Set: </span><br><span class="line">                Auto_Position: <span class="number">0</span></span><br><span class="line">        Replicate_Rewrite_DB: </span><br><span class="line">                Channel_Name: </span><br><span class="line">        Master_TLS_Version: </span><br><span class="line">    Master_public_key_path: </span><br><span class="line">        Get_master_public_key: <span class="number">0</span></span><br><span class="line">            Network_Namespace: </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>根据 Last_Error 中提示的 master log 和 end_log_pos 的位置查找这条从库上缺失的数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Last_Errno: 1062</span><br><span class="line">Last_Error: Coordinator stopped because there were error(s) <span class="keyword">in</span> the worker(s). The most recent failure being: Worker 1 failed executing transaction <span class="string">&#x27;ANONYMOUS&#x27;</span> at master <span class="built_in">log</span> mysql-bin.000761, end_log_pos 1501634. See error <span class="built_in">log</span> and/or performance_schema.replication_applier_status_by_worker table <span class="keyword">for</span> more details about this failure or others, <span class="keyword">if</span> any.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 如上信息所示：得到 <code>master log</code> 文件为 <code>mysql-bin.000761</code>，<code>end_log_pos</code> 为 <code>1501634</code></p>
+</blockquote>
+<ol>
+<li><p><code>1062</code> 错误的主要原因是主键冲突，出现这种情况就是从库出现插入操作，主库又插入相同的数据，iothread 没问题，sqlthread 出错<br> 处理此种错误一般有两种思路：</p>
+<ol>
+<li>直接跳过错误执行语句</li>
+<li>找到错误执行语句，修复主库2数据</li>
+</ol>
+<blockquote>
+<p>第一种解决方案会有造成主从不一致的隐患（delete语句可以跳过），第二种是从根本上解决问题比较推荐</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog --no-defaults -v --base64-output=decode-rows /data/mysql/mysql-bin.000761 --stop-position=1501634 |<span class="built_in">tail</span> -20</span><br><span class="line"></span><br><span class="line"><span class="comment">####### 以上命令会输出如下信息：#######</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#231210 21:15:15 server id 1  end_log_pos 1501534 CRC32 0x7d06e91f      Table_map: `pet_xxl_job_dev`.`xxl_job_registry` mapped to number 130</span></span><br><span class="line"><span class="comment"># at 1501534</span></span><br><span class="line"><span class="comment">#231210 21:15:15 server id 1  end_log_pos 1501634 CRC32 0x36ba3dc5      Write_rows: table id 130 flags: STMT_END_F</span></span><br><span class="line"><span class="comment">### INSERT INTO `pet_xxl_job_dev`.`xxl_job_registry`</span></span><br><span class="line"><span class="comment">### SET</span></span><br><span class="line"><span class="comment">###   @1=3217</span></span><br><span class="line"><span class="comment">###   @2=&#x27;EXECUTOR&#x27;</span></span><br><span class="line"><span class="comment">###   @3=&#x27;pet-search-dev&#x27;</span></span><br><span class="line"><span class="comment">###   @4=&#x27;http://192.168.244.161:8080/&#x27;</span></span><br><span class="line"><span class="comment">###   @5=&#x27;2023-12-10 21:10:30&#x27;</span></span><br><span class="line">ROLLBACK /* added by mysqlbinlog */ /*!*/;</span><br><span class="line">SET @@SESSION.GTID_NEXT= <span class="string">&#x27;AUTOMATIC&#x27;</span> /* added by mysqlbinlog */ /*!*/;</span><br><span class="line">DELIMITER ;</span><br><span class="line"><span class="comment"># End of log file</span></span><br><span class="line">/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;</span><br><span class="line">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;</span><br></pre></td></tr></table></figure>
+
+<p> 手动转变为 delete 语句，然后在从库执行语句，</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> `pet_xxl_job_dev`.`xxl_job_registry` <span class="keyword">where</span> id <span class="operator">=</span> <span class="string">&#x27;3217&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1032 错误的主要原因是主库更新或者是删除的记录在从库上不存在引起的。<br> 处理此种错误一般有两种思路：</p>
+<ol>
+<li>直接跳过错误执行语句</li>
+<li>找到错误执行语句，修复从库数据</li>
+</ol>
+<blockquote>
+<p>第一种解决方案会有造成主从不一致的隐患（delete语句可以跳过），第二种是从根本上解决问题比较推荐</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog --no-defaults -v --base64-output=decode-rows  --stop-position=6919 /data/mysql/mysql-bin.000761 |<span class="built_in">tail</span> -40</span><br><span class="line"></span><br><span class="line"><span class="comment">####### 以上命令会输出如下信息：#######</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#231210 21:13:25 server id 1  end_log_pos 6693 CRC32 0x4e891fb2         Table_map: `pet_easyretry_sit`.`server_node` mapped to number 91</span></span><br><span class="line"><span class="comment"># at 6693</span></span><br><span class="line"><span class="comment">#231210 21:13:25 server id 1  end_log_pos 6919 CRC32 0x6901bbcf         Update_rows: table id 91 flags: STMT_END_F</span></span><br><span class="line"><span class="comment">### UPDATE `pet_easyretry_sit`.`server_node`</span></span><br><span class="line"><span class="comment">### WHERE</span></span><br><span class="line"><span class="comment">###   @1=758102</span></span><br><span class="line"><span class="comment">###   @2=&#x27;erp_jushuitan_biz_sit&#x27;</span></span><br><span class="line"><span class="comment">###   @3=&#x27;1733780260060938240&#x27;</span></span><br><span class="line"><span class="comment">###   @4=&#x27;192.168.127.254&#x27;</span></span><br><span class="line"><span class="comment">###   @5=&#x27;/&#x27;</span></span><br><span class="line"><span class="comment">###   @6=6026</span></span><br><span class="line"><span class="comment">###   @7=&#x27;2023-12-10 21:08:07&#x27;</span></span><br><span class="line"><span class="comment">###   @8=1</span></span><br><span class="line"><span class="comment">###   @9=NULL</span></span><br><span class="line"><span class="comment">###   @10=&#x27;2023-12-10 20:44:36&#x27;</span></span><br><span class="line"><span class="comment">###   @11=&#x27;2023-12-10 21:09:57&#x27;</span></span><br><span class="line"><span class="comment">### SET</span></span><br><span class="line"><span class="comment">###   @1=758102</span></span><br><span class="line"><span class="comment">###   @2=&#x27;erp_jushuitan_biz_sit&#x27;</span></span><br><span class="line"><span class="comment">###   @3=&#x27;1733780260060938240&#x27;</span></span><br><span class="line"><span class="comment">###   @4=&#x27;192.168.127.254&#x27;</span></span><br><span class="line"><span class="comment">###   @5=&#x27;/&#x27;</span></span><br><span class="line"><span class="comment">###   @6=6026</span></span><br><span class="line"><span class="comment">###   @7=&#x27;2023-12-10 21:09:07&#x27;</span></span><br><span class="line"><span class="comment">###   @8=1</span></span><br><span class="line"><span class="comment">###   @9=NULL</span></span><br><span class="line"><span class="comment">###   @10=&#x27;2023-12-10 20:44:36&#x27;</span></span><br><span class="line"><span class="comment">###   @11=&#x27;2023-12-10 21:13:25&#x27;</span></span><br><span class="line">ROLLBACK /* added by mysqlbinlog */ /*!*/;</span><br><span class="line">SET @@SESSION.GTID_NEXT= <span class="string">&#x27;AUTOMATIC&#x27;</span> /* added by mysqlbinlog */ /*!*/;</span><br><span class="line">DELIMITER ;</span><br><span class="line"><span class="comment"># End of log file</span></span><br><span class="line">/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;</span><br><span class="line">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;</span><br></pre></td></tr></table></figure>
+
+<p> 手动将 update 语句转换为 insert 语句，然后在从库执行语句</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> `pet_easyretry_sit`.`server_node` <span class="keyword">values</span>(<span class="number">758102</span>,<span class="string">&#x27;erp_jushuitan_biz_sit&#x27;</span>,<span class="string">&#x27;1733780260060938240&#x27;</span>,<span class="string">&#x27;192.168.127.254&#x27;</span>,<span class="string">&#x27;/&#x27;</span>,<span class="number">6026</span>,<span class="string">&#x27;2023-12-10 21:08:07&#x27;</span>,<span class="number">1</span>,<span class="keyword">NULL</span>,<span class="string">&#x27;2023-12-10 20:44:36&#x27;</span>,<span class="string">&#x27;2023-12-10 21:09:57&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -249,7 +344,7 @@
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -262,411 +357,65 @@
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/000-CentOS-7-%E5%AE%89%E8%A3%85-MySQL8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2023/10/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/01-%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">信创环境疑难杂症处理方法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/000-CentOS-7-%E5%AE%89%E8%A3%85-MySQL8/" target="_blank">CentOS 7 RPM 方式安装 MySQL 8</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E6%95%85%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">事故原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">处理方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">具体步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E8%BF%98%E5%8E%9F"><span class="toc-number">3.1.</span> <span class="toc-text">备份还原</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA%E4%B8%BB%E4%BB%8E"><span class="toc-number">3.2.</span> <span class="toc-text">重建主从</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">3.3.</span> <span class="toc-text">异常处理</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/005-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-MySQL-8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/005-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-MySQL-8/" target="_blank">二进制方式安装 MySQL 8.x</a>
-  
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" target="_blank">CentOS8 部署 MySQL 8.x（一主二从）</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" target="_blank">CentOS 系统下 MariaDB 迁移到 MySQL 8</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MariaDB</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" target="_blank">MySQL 安全审计</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" target="_blank">MaxScale 实现 MySQL 读写分离</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MaxScale</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" target="_blank">使用 k8s 的 Job 或 CronJob 备份 MySQL 数据库</a>
-  
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">job</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
 
@@ -710,10 +459,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: false,
 		root: "/",
