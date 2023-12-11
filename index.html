@@ -252,6 +252,11 @@
 </li>
 <li><p>完全备份数据库</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -p --routines --single_transaction --source-data=2 --all-databases &gt; all_1210.sql</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意， MySQL 8.0.26 版本以后 mysqldump 参数 <code>--master-data</code> 已弃用，建议使用 <code>--source-data</code>，否则生成的备份文件会提示无法使用，需要删除文件第一行内容，如下：</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING: --master-data is deprecated and will be removed <span class="keyword">in</span> a future version. Use --source-data instead.</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>恢复备份到从库</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p &lt; all_1210.sql</span><br></pre></td></tr></table></figure></li>
