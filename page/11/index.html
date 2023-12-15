@@ -210,6 +210,114 @@
             
 
   
+    <article id="post-kubernetes/059-kubernetes-版本升级实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/" target="_blank">kubernetes 版本升级实践</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358338665">Kubernetes版本升级实践</a></p>
+<h2 id="k8s-版本信息"><a href="#k8s-版本信息" class="headerlink" title="k8s 版本信息"></a>k8s 版本信息</h2><h3 id="版本号的含义"><a href="#版本号的含义" class="headerlink" title="版本号的含义"></a>版本号的含义</h3><p>Kubernetes 版本表示为 x.y.z，其中 x 是主要版本，y 是次要版本，z 是补丁版本，遵循语义版本控制术语。有关更多信息，请参阅 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/sig-release/blob/master/release-engineering/versioning.md">Kubernetes 发布版本</a>。</p>
+<p>k8s 发行版与 github 分支的关系</p>
+<p>简单来讲，kubernetes 项目存在3类分支(branch)，分别为 <code>master</code>, <code>release-X.Y</code>, <code>release-X.Y.Z</code>。master 分支上的代码是最新的，每隔2周会生成一个发布版本(release)，由新到旧以此为 <code>master</code>–&gt;<code>alpha</code>–&gt;<code>beta</code>–&gt;<code>Final release</code>，这当中存在一些 cherrypicking 的规则，也就是说从一个分支上挑选一些必要 <code>pull request</code> 应用到另一个分支上。我们可以认为 <code>X.Y.0</code> 为稳定的版本，这个版本号意味着一个 <code>Final release</code>。一个 <code>X.Y.0</code> 版本会在 <code>X.(Y-1).0</code> 版本的3到4个月后出现。 <code>X.Y.Z</code> 为经过 cherrypick 后解决了必须的安全性漏洞、以及影响大量用户的无法解决的问题的补丁版本。 总体而言，我们一般关心 <code>X.Y.0</code> (稳定版本)，和 <code>X.Y.Z</code>(补丁版本) 的特性。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Shell/000-SaltStack-安装脚本学习心得" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1193,118 +1301,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/011-Flask-入门(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/" target="_blank">Flask 入门(一)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原文地址：[Python web 开发实战]</p>
-</blockquote>
-<h2 id="安装-Flask"><a href="#安装-Flask" class="headerlink" title="安装 Flask"></a>安装 Flask</h2><p>我们先安装 Flask</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask//" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/">展开全文 >></a>
     </p>
     
 

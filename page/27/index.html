@@ -210,6 +210,147 @@
             
 
   
+    <article id="post-Databases/MySQL/007-CentOS8-部署MySQL8-（一主二从）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" target="_blank">CentOS8 部署 MySQL 8.x（一主二从）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>数据库是一主两从的架构</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">IP 地址</th>
+<th align="center">系统版本</th>
+<th align="center">MySQL 版本</th>
+<th align="center">角色</th>
+<th align="center">Server ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mysql-master</td>
+<td align="center">192.168.0.71</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Master</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">mysql-slave01</td>
+<td align="center">192.168.0.72</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">mysql-slave02</td>
+<td align="center">192.168.0.73</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Databases/MySQL/002-MySQL-慢查询分析工具-pt-query-digest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1239,118 +1380,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MongoDB/004-MongoDB-连接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" target="_blank">MongoDB 连接</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
-</blockquote>
-<h1 id="MongoDB-连接"><a href="#MongoDB-连接" class="headerlink" title="MongoDB 连接"></a>MongoDB 连接</h1><p>你可以使用 MongoDB shell 来连接 MongoDB 服务器。也可以使用 PHP 来连接 MongoDB。本教程我们会使用 MongoDB shell 来连接 Mongodb 服务，之后的章节我们将会介绍如何通过php 来连接MongoDB服务。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/">展开全文 >></a>
     </p>
     
 
