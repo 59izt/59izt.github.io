@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.59izt.com">
+  <link rel="dns-prefetch" href="https://blog.59izt.com">
   <title>ARM64 架构部署 Kubernetes | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
   <meta name="description" content="环境说明 主机配置    主机名 内网地址 公网地址 角色    k8s-master01 192.168.0.134 120.46.211.33 master 节点   k8s-node01 192.168.0.41 120.46.217.5 node 节点   k8s-node02 192.168.0.194 120.46.141.143 node 节点   base-server01 192">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARM64 架构部署 Kubernetes">
-<meta property="og:url" content="https://www.59izt.com/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/index.html">
+<meta property="og:url" content="https://blog.59izt.com/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="环境说明 主机配置    主机名 内网地址 公网地址 角色    k8s-master01 192.168.0.134 120.46.211.33 master 节点   k8s-node01 192.168.0.41 120.46.217.5 node 节点   k8s-node02 192.168.0.194 120.46.141.143 node 节点   base-server01 192">
 <meta property="og:locale" content="zh_CN">
@@ -394,7 +394,7 @@
 <li><p>配置免密登录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 k8s-master01 节点上生成秘钥</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将公钥复制到其他机器</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> k8s-master01 k8s-node01 k8s-node02 base-server01 base-server02 base-server03;<span class="keyword">do</span> </span><br><span class="line">    ssh-copy-id -i .ssh/id_rsa.pub root@<span class="variable">$i</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><p>安装方式参考 <a target="_blank" rel="noopener" href="https://blog.59izt.com/2022/09/15/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E5%AE%89%E8%A3%85-Docker/">ARM64 架构安装 Docker</a></p>
+<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><p>安装方式参考 <a href="https://blog.59izt.com/2022/09/15/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E5%AE%89%E8%A3%85-Docker/">ARM64 架构安装 Docker</a></p>
 <h2 id="部署-ETCD-集群"><a href="#部署-ETCD-集群" class="headerlink" title="部署 ETCD 集群"></a>部署 ETCD 集群</h2><h3 id="生成-ETCD-证书"><a href="#生成-ETCD-证书" class="headerlink" title="生成 ETCD 证书"></a>生成 ETCD 证书</h3><blockquote>
 <p>以下操作在 <code>k8s-master01</code> 节点执行</p>
 </blockquote>
@@ -747,7 +747,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://www.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			

@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.59izt.com">
+  <link rel="dns-prefetch" href="https://blog.59izt.com">
   <title>kubernetes 集群升级(1.21.14--&gt;1.22.17) | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
   <meta name="description" content="升级注意事项版本依赖关系 在高可用（HA）集群中， 多个 kube-apiserver 实例小版本号最多差 1。  例如: 最新的 kube-apiserver 版本号如果是 1.20，则受支持的 kube-apiserver 版本号包括 1.20 和 1.19   kubelet 版本号不能高于 kube-apiserver，最多可以比 kube-apiserver 低两个小版本。  例如: k">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes 集群升级(1.21.14--&gt;1.22.17)">
-<meta property="og:url" content="https://www.59izt.com/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/index.html">
+<meta property="og:url" content="https://blog.59izt.com/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="升级注意事项版本依赖关系 在高可用（HA）集群中， 多个 kube-apiserver 实例小版本号最多差 1。  例如: 最新的 kube-apiserver 版本号如果是 1.20，则受支持的 kube-apiserver 版本号包括 1.20 和 1.19   kubelet 版本号不能高于 kube-apiserver，最多可以比 kube-apiserver 低两个小版本。  例如: k">
 <meta property="og:locale" content="zh_CN">
@@ -307,7 +307,7 @@
 <li>升级后，所有容器都会重启动，因为容器的hash值已更改。</li>
 <li>由于版本的兼容性，只能从一个次要版本升级到另外一个次要版本，不能跳跃升级。</li>
 </ol>
-<h3 id="升级-ETCD-到-3-5-x-版本"><a href="#升级-ETCD-到-3-5-x-版本" class="headerlink" title="升级 ETCD 到 3.5.x 版本"></a>升级 ETCD 到 3.5.x 版本</h3><p>此处略，参考文章：<a target="_blank" rel="noopener" href="https://blog.59izt.com/2022/12/05/kubernetes/058-kubernetes-%E5%8D%87%E7%BA%A7-ETCD/">ETCD 升级</a></p>
+<h3 id="升级-ETCD-到-3-5-x-版本"><a href="#升级-ETCD-到-3-5-x-版本" class="headerlink" title="升级 ETCD 到 3.5.x 版本"></a>升级 ETCD 到 3.5.x 版本</h3><p>此处略，参考文章：<a href="https://blog.59izt.com/2022/12/05/kubernetes/058-kubernetes-%E5%8D%87%E7%BA%A7-ETCD/">ETCD 升级</a></p>
 <h3 id="升级到-kubernetes-v1-22-17"><a href="#升级到-kubernetes-v1-22-17" class="headerlink" title="升级到 kubernetes v1.22.17"></a>升级到 kubernetes v1.22.17</h3><ol>
 <li><p>在 k8s-master01 节点下载 kubernetes 安装包</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.k8s.io/v1.22.17/kubernetes-server-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
@@ -545,7 +545,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://www.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			

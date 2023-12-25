@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.59izt.com">
+  <link rel="dns-prefetch" href="https://blog.59izt.com">
   <title>keepalived 负载均衡 ingress-nginx | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
   <meta name="description" content="官方原始文件使用的是 deployment，replicate 为 1，这样将会在某一台节点上启动对应的 nginx-ingress-controller pod。外部流量访问至该节点，由该节点负载分担至内部的service。考虑到单点故障的问题，改为 DaemonSet，配合亲和性部署在指定节点上启动 nginx-ingress-controller pod，确保有多个节点启动nginx-ing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="keepalived 负载均衡 ingress-nginx">
-<meta property="og:url" content="https://www.59izt.com/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/index.html">
+<meta property="og:url" content="https://blog.59izt.com/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="官方原始文件使用的是 deployment，replicate 为 1，这样将会在某一台节点上启动对应的 nginx-ingress-controller pod。外部流量访问至该节点，由该节点负载分担至内部的service。考虑到单点故障的问题，改为 DaemonSet，配合亲和性部署在指定节点上启动 nginx-ingress-controller pod，确保有多个节点启动nginx-ing">
 <meta property="og:locale" content="zh_CN">
@@ -262,7 +262,7 @@
   <div class="article-entry" itemprop="articleBody">
     
     <p>官方原始文件使用的是 deployment，replicate 为 1，这样将会在某一台节点上启动对应的 <code>nginx-ingress-controller</code> pod。外部流量访问至该节点，由该节点负载分担至内部的service。考虑到单点故障的问题，改为 DaemonSet，配合亲和性部署在指定节点上启动 <code>nginx-ingress-controller</code> pod，确保有多个节点启动<code>nginx-ingress-controller</code> pod，生产环境中建议 ingress 节点打上污点不允许业务pod进行调度，以避免业务应用与 Ingress 服务发生资源争抢。后续将这些节点加入到外部硬件负载均衡组实现高可用性。</p>
-<h2 id="部署-Ingress-nginx-此处略"><a href="#部署-Ingress-nginx-此处略" class="headerlink" title="部署 Ingress-nginx (此处略)"></a>部署 Ingress-nginx (此处略)</h2><p>参考文章: <a target="_blank" rel="noopener" href="https://blog.59izt.com/2021/04/09/kubernetes/013-Ingress/">Kubernetes-Ingress</a></p>
+<h2 id="部署-Ingress-nginx-此处略"><a href="#部署-Ingress-nginx-此处略" class="headerlink" title="部署 Ingress-nginx (此处略)"></a>部署 Ingress-nginx (此处略)</h2><p>参考文章: <a href="https://blog.59izt.com/2021/04/09/kubernetes/013-Ingress/">Kubernetes-Ingress</a></p>
 <span id="more"></span>
 
 <h2 id="部署-keepalived"><a href="#部署-keepalived" class="headerlink" title="部署 keepalived"></a>部署 keepalived</h2><ol>
@@ -405,7 +405,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://www.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			

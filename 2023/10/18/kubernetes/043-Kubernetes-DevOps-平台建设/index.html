@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.59izt.com">
+  <link rel="dns-prefetch" href="https://blog.59izt.com">
   <title>DevOps 平台建设 | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
   <meta name="description" content="资料来源: Kubernetes全栈架构师：基于世界500强的k8s实战课程  DevOps 平台建设首先先来学习下在 Kubernetes 中进行 CICD 的过程，一般的步骤如下:  在 GitLab 中创建对应的项目; 配置 Jenkins 集成 Kubernetes 集群，后期 Jenkins 的 Slave 将是在 Kubernetes 中动态创建的 Slave; Jenkins 创建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DevOps 平台建设">
-<meta property="og:url" content="https://www.59izt.com/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/index.html">
+<meta property="og:url" content="https://blog.59izt.com/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="资料来源: Kubernetes全栈架构师：基于世界500强的k8s实战课程  DevOps 平台建设首先先来学习下在 Kubernetes 中进行 CICD 的过程，一般的步骤如下:  在 GitLab 中创建对应的项目; 配置 Jenkins 集成 Kubernetes 集群，后期 Jenkins 的 Slave 将是在 Kubernetes 中动态创建的 Slave; Jenkins 创建">
 <meta property="og:locale" content="zh_CN">
@@ -306,8 +306,8 @@
 <li><p>安装插件，在安装之前首先配置国内的插件源，点击 <code>Advanced</code>，将插件源更改为国内插件源 (<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code>)。这里需要的插件如下所示:</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Git</span><br><span class="line">Git Parameter</span><br><span class="line">Git Pipeline <span class="keyword">for</span> Blue Ocean</span><br><span class="line">GitLab</span><br><span class="line">Credentials</span><br><span class="line">Credentials Binding</span><br><span class="line">Blue Ocean</span><br><span class="line">Blue Ocean Pipeline Editor</span><br><span class="line">Blue Ocean Core JS</span><br><span class="line">Pipeline SCM API <span class="keyword">for</span> Blue Ocean</span><br><span class="line">Dashboard <span class="keyword">for</span> Blue Ocean</span><br><span class="line">Build With Parameters</span><br><span class="line">Dynamic Extended Choice Parameter Plug-In</span><br><span class="line">Dynamic Parameter Plug-<span class="keyword">in</span></span><br><span class="line">Extended Choice Parameter</span><br><span class="line">List Git Branches Parameter</span><br><span class="line">Pipeline</span><br><span class="line">Pipeline: Declarative</span><br><span class="line">Kubernetes</span><br><span class="line">Kubernetes CLI</span><br><span class="line">Kubernetes Credentials</span><br><span class="line">Image Tag Parameter</span><br><span class="line">Active Choices</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="GitLab-安装"><a href="#GitLab-安装" class="headerlink" title="GitLab 安装"></a>GitLab 安装</h3><p>GitLab 的安装可以参考文章 <a target="_blank" rel="noopener" href="https://blog.59izt.com/2021/06/24/24-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">Linux 环境下安装 GitLab 与配置</a></p>
-<h3 id="Harbor-安装"><a href="#Harbor-安装" class="headerlink" title="Harbor 安装"></a>Harbor 安装</h3><p>Harbor 的安装可以参考文章 <a target="_blank" rel="noopener" href="https://blog.59izt.com/2021/04/03/92-Harbor-%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%90%AD%E5%BB%BA/">Harbor 部署安装</a></p>
+<h3 id="GitLab-安装"><a href="#GitLab-安装" class="headerlink" title="GitLab 安装"></a>GitLab 安装</h3><p>GitLab 的安装可以参考文章 <a href="https://blog.59izt.com/2021/06/24/24-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">Linux 环境下安装 GitLab 与配置</a></p>
+<h3 id="Harbor-安装"><a href="#Harbor-安装" class="headerlink" title="Harbor 安装"></a>Harbor 安装</h3><p>Harbor 的安装可以参考文章 <a href="https://blog.59izt.com/2021/04/03/92-Harbor-%E4%BB%93%E5%BA%93%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%90%AD%E5%BB%BA/">Harbor 部署安装</a></p>
 <p>注意: 如果配置不是https协议，所有的 Kubernetes 节点的 Docker (如果是 containerd 作为Runtime，可以参考下文配置 insecure-registry) 都需要添加 insecure-registries 配置:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/docker/daemon.json </span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;exec-opts&quot;</span>: [<span class="string">&quot;native.cgroupdriver=systemd&quot;</span>],</span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span>: [<span class="string">&quot;YOUR_HARBOR_ADDRESS&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
 
@@ -504,7 +504,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://www.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			

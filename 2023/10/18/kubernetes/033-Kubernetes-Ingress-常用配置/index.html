@@ -5,7 +5,7 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://www.59izt.com">
+  <link rel="dns-prefetch" href="https://blog.59izt.com">
   <title>Kubernetes Ingress-Nginx 常用的配置 | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
   <meta name="description" content="参考来源:  Ingress-Nginx 官方文档地址: NGINX Configuration 课程随堂笔记: Kubernetes全栈架构师：基于世界500强的k8s实战课程  Ingress Nginx 常用配置以下是自定义配置 Ingress Nginx 的三种方式:  ConfigMap: 使用 Configmap 在 NGINX 中设置全局配置;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes Ingress-Nginx 常用的配置">
-<meta property="og:url" content="https://www.59izt.com/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:url" content="https://blog.59izt.com/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="59izt">
 <meta property="og:description" content="参考来源:  Ingress-Nginx 官方文档地址: NGINX Configuration 课程随堂笔记: Kubernetes全栈架构师：基于世界500强的k8s实战课程  Ingress Nginx 常用配置以下是自定义配置 Ingress Nginx 的三种方式:  ConfigMap: 使用 Configmap 在 NGINX 中设置全局配置;">
 <meta property="og:locale" content="zh_CN">
@@ -309,7 +309,7 @@
 <li><p>由于是测试环境，所以需要先修改主机 hosts 文件，将 Ingress Controller 所安装节点的 IP 配置解析。然后浏览器测试访问 nginx.test.com，如下<br> <img src="https://z3.ax1x.com/2021/10/18/5Nu2bn.png" alt="image"></p>
 </li>
 </ol>
-<h3 id="Ingress-Nginx-域名重定向-Redirect"><a href="#Ingress-Nginx-域名重定向-Redirect" class="headerlink" title="Ingress Nginx 域名重定向(Redirect)"></a>Ingress Nginx 域名重定向(Redirect)</h3><p>在 Nginx 作为代理服务器时，Redirect 可用于域名的重定向，比如访问 old.com 被重定向到 new.com。Ingress 可以更简单的实现 Redirect 功能，接下来使用 nginx.redirect.com 作为旧域名，<a href="http://www.59izt.com/">www.59izt.com</a> 作为新域名进行演示:</p>
+<h3 id="Ingress-Nginx-域名重定向-Redirect"><a href="#Ingress-Nginx-域名重定向-Redirect" class="headerlink" title="Ingress Nginx 域名重定向(Redirect)"></a>Ingress Nginx 域名重定向(Redirect)</h3><p>在 Nginx 作为代理服务器时，Redirect 可用于域名的重定向，比如访问 old.com 被重定向到 new.com。Ingress 可以更简单的实现 Redirect 功能，接下来使用 nginx.redirect.com 作为旧域名，<a target="_blank" rel="noopener" href="http://www.59izt.com/">www.59izt.com</a> 作为新域名进行演示:</p>
 <ol>
 <li><p>创建 web-redirect.yaml 文件，内容如下:</p>
  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-redirect</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">study-ingress</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">nginx.ingress.kubernetes.io/permanent-redirect:</span> <span class="string">https://www.59izt.com</span>   <span class="comment"># 这里填写新域名</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ingressClassName:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">nginx.redirect.com</span>      <span class="comment"># 这里填写旧域名</span></span><br><span class="line">    <span class="attr">http:</span> </span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">service:</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">            <span class="attr">port:</span></span><br><span class="line">              <span class="attr">number:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">pathType:</span> <span class="string">ImplementationSpecific</span></span><br></pre></td></tr></table></figure>
@@ -636,7 +636,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://www.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
