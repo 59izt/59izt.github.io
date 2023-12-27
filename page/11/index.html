@@ -210,6 +210,120 @@
             
 
   
+    <article id="post-kubernetes/054-使用-keepalived-负载均衡-ingress" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/" target="_blank">keepalived 负载均衡 ingress-nginx</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方原始文件使用的是 deployment，replicate 为 1，这样将会在某一台节点上启动对应的 <code>nginx-ingress-controller</code> pod。外部流量访问至该节点，由该节点负载分担至内部的service。考虑到单点故障的问题，改为 DaemonSet，配合亲和性部署在指定节点上启动 <code>nginx-ingress-controller</code> pod，确保有多个节点启动<code>nginx-ingress-controller</code> pod，生产环境中建议 ingress 节点打上污点不允许业务pod进行调度，以避免业务应用与 Ingress 服务发生资源争抢。后续将这些节点加入到外部硬件负载均衡组实现高可用性。</p>
+<h2 id="部署-Ingress-nginx-此处略"><a href="#部署-Ingress-nginx-此处略" class="headerlink" title="部署 Ingress-nginx (此处略)"></a>部署 Ingress-nginx (此处略)</h2><p>参考文章: <a href="https://blog.59izt.com/2021/04/09/kubernetes/013-Ingress/">Kubernetes-Ingress</a></p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ingress-nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-kubernetes/059-kubernetes-版本升级实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1189,118 +1303,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/004-Web-库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">Web库的安装</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
-</blockquote>
-<p>对于 web，我们应该都不陌生，现在日常访问的网站都是 web 服务程序搭建而成的。Python 同样不例外，也有一些这样的 web 服务程序，比如 Flask，Django 等，我们可以拿它来开发网站和借口等。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
     </p>
     
 

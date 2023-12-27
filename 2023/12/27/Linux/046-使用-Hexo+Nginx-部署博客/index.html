@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.59izt.com">
-  <title>59izt</title>
+  <title>使用 Hexo + Nginx 部署博客 | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD"> -->
-  
-  <meta name="description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
-<meta property="og:type" content="website">
-<meta property="og:title" content="59izt">
-<meta property="og:url" content="https://blog.59izt.com/page/20/index.html">
+  <meta name="description" content="系统环境 系统: CentOS 7.9 (Mini 镜像最小化安装的系统) Node 版本: v18.18.2 Hexo 版本: 6.3.0 hexo-cli 版本: 4.3.1 Nginx 版本: 1.24.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Hexo + Nginx 部署博客">
+<meta property="og:url" content="https://blog.59izt.com/2023/12/27/Linux/046-%E4%BD%BF%E7%94%A8-Hexo+Nginx-%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="59izt">
-<meta property="og:description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
+<meta property="og:description" content="系统环境 系统: CentOS 7.9 (Mini 镜像最小化安装的系统) Node 版本: v18.18.2 Hexo 版本: 6.3.0 hexo-cli 版本: 4.3.1 Nginx 版本: 1.24.0">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-27T02:03:52.396Z">
+<meta property="article:modified_time" content="2023-12-27T10:01:03.036Z">
 <meta property="article:author" content="59iZT">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="59izt" type="application/atom+xml">
@@ -207,833 +207,244 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-
-  
-    <article id="post-Linux/026-Linux-负载均衡-HAProxy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Linux/046-使用-Hexo+Nginx-部署博客" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/" target="_blank">Linux 负载均衡之 HAProxy</a>
-  
+    <h1 class="article-title" itemprop="name">
+      使用 Hexo + Nginx 部署博客
     </h1>
   
 
 
   
   
-<a href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2023/12/27/Linux/046-%E4%BD%BF%E7%94%A8-Hexo+Nginx-%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+        <time datetime="2023-12-27T02:03:52.396Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-12-27</time>
 </a>
 
   
   
     
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">4.5k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">25分</span>
+    </span>
+  </span>
+</div>
+
 
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c9f6d55288c0">HAProxy 从零开始到掌握</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377821135">CentOS7环境下搭建HAProxy &amp; Keepalived L4-L7 高可用负载均衡(含双机热备实验)实战</a></li>
+    <h2 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h2><ul>
+<li>系统: CentOS 7.9 (Mini 镜像最小化安装的系统)</li>
+<li>Node 版本: v18.18.2</li>
+<li>Hexo 版本: 6.3.0</li>
+<li>hexo-cli 版本: 4.3.1</li>
+<li>Nginx 版本: 1.24.0</li>
 </ul>
-<h2 id="HAProxy-是什么"><a href="#HAProxy-是什么" class="headerlink" title="HAProxy 是什么"></a>HAProxy 是什么</h2><p>HAProxy 是基于 TCP、HTTP 协议实现的开源 L4-L7 软件负载均衡器，采用单进程和事件驱动模型实现，具有高可用和反向代理特性，支持双机热备与虚拟主机。目标是支持 10000+ 请求连接，为后端业务服务器集群提供高性能的负载均衡服务。适用于大连接数，要求会话保持，分发复杂的流量负载均衡场景。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/#more">more >></a>
-    
-    
+<span id="more"></span>
 
-    <!-- 修改开始 -->
-    
+<h2 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h2><ol>
+<li><p>安装系统常用软件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y net-tools vim wget lrzsz tree bash-completion epel-release ntpdate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭 Selinux</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27;</span> /etc/selinux/config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> --now firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更换 YUM 仓库</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">mv</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&#x27;s/mirrors.cloud.aliyuncs.com/url_tmp/g&#x27;</span> /etc/yum.repos.d/CentOS-Base.repo &amp;&amp; \</span><br><span class="line">sed -i <span class="string">&#x27;s/mirrors.aliyun.com/mirrors.cloud.aliyuncs.com/g&#x27;</span> /etc/yum.repos.d/CentOS-Base.repo &amp;&amp; \</span><br><span class="line">sed -i <span class="string">&#x27;s/url_tmp/mirrors.aliyun.com/g&#x27;</span> /etc/yum.repos.d/CentOS-Base.repo</span><br><span class="line"></span><br><span class="line">yum clean all &amp;&amp; yum makecache</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改醒目 PS1</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt;&gt; /etc/profile&lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 修改 PS1 样式</span></span><br><span class="line"><span class="string">export PS1=&#x27;\[\e[37;40m\][\[\e[32;40m\]\u\[\e[37;40m\]@\[\e[33;40m\]\h \[\e[35;40m\]\W\[\e[0m\]]\\$ &#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 修改历史命令格式</span></span><br><span class="line"><span class="string">export HISTTIMEFORMAT=&quot;%Y-%m-%d %H:%M:%S  \$(whoami)  &quot;</span></span><br><span class="line"><span class="string">export PROMPT_COMMAND=&#x27;&#123; msg=\$(history 1 | &#123; read x y; echo \$y; &#125;); logger &quot;[euid=\$(whoami)]&quot;:\$(who am i):[\$(pwd)]&quot;\$msg&quot;;&#125;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置服务器 limits 限制</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时设置</span></span><br><span class="line"><span class="built_in">ulimit</span> -SHn 655350</span><br><span class="line"></span><br><span class="line"><span class="comment"># 永久设置</span></span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* soft nofile    655350&#x27;</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* hard nofile    131072&#x27;</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* soft nproc    655350&#x27;</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* hard nproc    655350&#x27;</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* soft memlock   unlimited&#x27;</span> /etc/security/limits.conf</span><br><span class="line">sed -i <span class="string">&#x27;/^# End/i\* hard memlock   unlimited&#x27;</span> /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置时间同步</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置服务器时区</span></span><br><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span> &gt; /etc/timezone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置定时任务同步时间 每5分钟同步一次</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;*/5 * * * * /usr/sbin/ntpdate time2.aliyun.com &gt;/dev/null&#x27;</span> &gt;&gt; /var/spool/cron/root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置开机自动同步时间</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/usr/sbin/ntpdate time2.aliyun.com&#x27;</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭 SSH 配置中 UseDNS</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/#UseDNS yes/UseDNS no/g&#x27;</span> /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装开发者工具</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall -y <span class="string">&quot;Development Tools&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新系统软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h2><p>nvm 是 Node.js 的版本管理器，设计为按用户安装并按 shell 调用。 nvm 可在任何兼容 POSIX 的 shell（sh、dash、ksh、zsh、bash）上运行，特别是在以下平台上：unix、macOS 和 windows WSL。</p>
+<p>nvm 官方文档: <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">nvm-sh&#x2F;nvm</a></p>
+<ol>
+<li><p>使用以下命令安装 nvm</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span><br></pre></td></tr></table></figure>
 
-    
-    <!-- 修改结束 -->
+<p> 或者使用以下命令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span><br></pre></td></tr></table></figure>
 
-    
+<p> 以上命令需要自己解决访问 GitHub 的问题</p>
+</li>
+<li><p>安装完成后，退出重新登录操作系统或执行 <code>source ~/.bashrc</code> 命令，然后查看 nvm 是否安装成功</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nvm -v</span></span><br><span class="line">0.39.7</span><br><span class="line"></span><br><span class="line"><span class="comment"># nvm ls</span></span><br><span class="line">            N/A</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; N/A) (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="安装-Node"><a href="#安装-Node" class="headerlink" title="安装 Node"></a>安装 Node</h2><ol>
+<li><p>使用以下命令安装 node v18.18.2</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v18.18.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看本地 node 版本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nvm ls</span></span><br><span class="line">    v18.18.2</span><br><span class="line">default -&gt; v18.18.2</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.18.2) (default)</span><br><span class="line">stable -&gt; 18.18 (-&gt; v18.18.2) (default)</span><br><span class="line">lts/* -&gt; lts/iron (-&gt; N/A)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br><span class="line">lts/fermium -&gt; v14.21.3 (-&gt; N/A)</span><br><span class="line">lts/gallium -&gt; v16.20.2 (-&gt; N/A)</span><br><span class="line">lts/hydrogen -&gt; v18.19.0 (-&gt; N/A)</span><br><span class="line">lts/iron -&gt; v20.10.0 (-&gt; N/A)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>node -v</code> 命令查看 node 版本时，报以下错误，这是因为系统缺依赖导致</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node: /lib64/libm.so.6: version `GLIBC_2.27<span class="string">&#x27; not found (required by node)</span></span><br><span class="line"><span class="string">node: /lib64/libc.so.6: version `GLIBC_2.25&#x27;</span> not found (required by node)</span><br><span class="line">node: /lib64/libc.so.6: version `GLIBC_2.28<span class="string">&#x27; not found (required by node)</span></span><br><span class="line"><span class="string">node: /lib64/libstdc++.so.6: version `CXXABI_1.3.9&#x27;</span> not found (required by node)</span><br><span class="line">node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20<span class="string">&#x27; not found (required by node)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="解决-node-命令错误问题"><a href="#解决-node-命令错误问题" class="headerlink" title="解决 node 命令错误问题"></a>解决 node 命令错误问题</h3><ol>
+<li><p>查看 <code>ldd</code> 版本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ldd --version </span></span><br><span class="line">ldd (GNU libc) 2.17</span><br><span class="line">Copyright (C) 2012 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions.  There is NO</span><br><span class="line">warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line">Written by Roland McGrath and Ulrich Drepper.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查二进制文件需要的依赖，缺少依赖包时后面会显示 <code>not found</code></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ldd -v /root/.nvm/versions/node/v18.18.2/bin/node </span></span><br><span class="line">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libm.so.6: version `GLIBC_2.27<span class="string">&#x27; not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span></span><br><span class="line"><span class="string">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libc.so.6: version `GLIBC_2.25&#x27;</span> not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span><br><span class="line">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libc.so.6: version `GLIBC_2.28<span class="string">&#x27; not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span></span><br><span class="line"><span class="string">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libstdc++.so.6: version `CXXABI_1.3.9&#x27;</span> not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span><br><span class="line">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20<span class="string">&#x27; not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span></span><br><span class="line"><span class="string">/root/.nvm/versions/node/v18.18.2/bin/node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21&#x27;</span> not found (required by /root/.nvm/versions/node/v18.18.2/bin/node)</span><br><span class="line">        linux-vdso.so.1 =&gt;  (0x00007ffd9e9d0000)</span><br><span class="line">        libdl.so.2 =&gt; /lib64/libdl.so.2 (0x00007fbaef72e000)</span><br><span class="line">        libstdc++.so.6 =&gt; /lib64/libstdc++.so.6 (0x00007fbaef426000)</span><br><span class="line">        libm.so.6 =&gt; /lib64/libm.so.6 (0x00007fbaef124000)</span><br><span class="line">        libgcc_s.so.1 =&gt; /lib64/libgcc_s.so.1 (0x00007fbaeef0e000)</span><br><span class="line">        libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x00007fbaeecf2000)</span><br><span class="line">        libc.so.6 =&gt; /lib64/libc.so.6 (0x00007fbaee924000)</span><br><span class="line">        /lib64/ld-linux-x86-64.so.2 (0x00007fbaef932000)</span><br><span class="line"></span><br><span class="line">        Version information:</span><br><span class="line">        /root/.nvm/versions/node/v18.18.2/bin/node:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_2.2.5) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                libgcc_s.so.1 (GCC_3.4) =&gt; /lib64/libgcc_s.so.1</span><br><span class="line">                libm.so.6 (GLIBC_2.27) =&gt; not found</span><br><span class="line">                libm.so.6 (GLIBC_2.2.5) =&gt; /lib64/libm.so.6</span><br><span class="line">                libpthread.so.0 (GLIBC_2.3.3) =&gt; /lib64/libpthread.so.0</span><br><span class="line">                libpthread.so.0 (GLIBC_2.3.2) =&gt; /lib64/libpthread.so.0</span><br><span class="line">                libpthread.so.0 (GLIBC_2.2.5) =&gt; /lib64/libpthread.so.0</span><br><span class="line">                libc.so.6 (GLIBC_2.25) =&gt; not found</span><br><span class="line">                libc.so.6 (GLIBC_2.16) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.9) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.10) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.17) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.6) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.3.4) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.28) =&gt; not found</span><br><span class="line">                libc.so.6 (GLIBC_2.3) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.4) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.7) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.14) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.3.2) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.14) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.18) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (CXXABI_1.3.5) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (CXXABI_1.3) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.15) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (CXXABI_1.3.9) =&gt; not found</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.9) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.11) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.20) =&gt; not found</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4) =&gt; /lib64/libstdc++.so.6</span><br><span class="line">                libstdc++.so.6 (GLIBCXX_3.4.21) =&gt; not found</span><br><span class="line">                libdl.so.2 (GLIBC_2.2.5) =&gt; /lib64/libdl.so.2</span><br><span class="line">        /lib64/libdl.so.2:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                libc.so.6 (GLIBC_PRIVATE) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">        /lib64/libstdc++.so.6:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_2.3) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                libm.so.6 (GLIBC_2.2.5) =&gt; /lib64/libm.so.6</span><br><span class="line">                libgcc_s.so.1 (GCC_4.2.0) =&gt; /lib64/libgcc_s.so.1</span><br><span class="line">                libgcc_s.so.1 (GCC_3.3) =&gt; /lib64/libgcc_s.so.1</span><br><span class="line">                libgcc_s.so.1 (GCC_3.0) =&gt; /lib64/libgcc_s.so.1</span><br><span class="line">                libc.so.6 (GLIBC_2.14) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.4) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.3) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.3.2) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">        /lib64/libm.so.6:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_PRIVATE) =&gt; /lib64/libc.so.6</span><br><span class="line">        /lib64/libgcc_s.so.1:</span><br><span class="line">                libc.so.6 (GLIBC_2.14) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">        /lib64/libpthread.so.0:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_2.2.5) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_2.3) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                libc.so.6 (GLIBC_2.14) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.3.2) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_PRIVATE) =&gt; /lib64/libc.so.6</span><br><span class="line">                libc.so.6 (GLIBC_2.2.5) =&gt; /lib64/libc.so.6</span><br><span class="line">        /lib64/libc.so.6:</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_2.3) =&gt; /lib64/ld-linux-x86-64.so.2</span><br><span class="line">                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) =&gt; /lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看系统内安装的 <code>glibc</code> 版本，根据分析可得知，新版的 node v18 开始，都需要 <code>GLIBC_2.27</code> 支持，目前系统没有那么高的版本。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strings /lib64/libc.so.6 |grep &quot;^GLIBC_&quot;</span></span><br><span class="line">GLIBC_2.2.5</span><br><span class="line">GLIBC_2.2.6</span><br><span class="line">GLIBC_2.3</span><br><span class="line">GLIBC_2.3.2</span><br><span class="line">GLIBC_2.3.3</span><br><span class="line">GLIBC_2.3.4</span><br><span class="line">GLIBC_2.4</span><br><span class="line">GLIBC_2.5</span><br><span class="line">GLIBC_2.6</span><br><span class="line">GLIBC_2.7</span><br><span class="line">GLIBC_2.8</span><br><span class="line">GLIBC_2.9</span><br><span class="line">GLIBC_2.10</span><br><span class="line">GLIBC_2.11</span><br><span class="line">GLIBC_2.12</span><br><span class="line">GLIBC_2.13</span><br><span class="line">GLIBC_2.14</span><br><span class="line">GLIBC_2.15</span><br><span class="line">GLIBC_2.16</span><br><span class="line">GLIBC_2.17</span><br><span class="line">GLIBC_PRIVATE</span><br><span class="line">GLIBC_2.8</span><br><span class="line">GLIBC_2.5</span><br><span class="line">GLIBC_2.9</span><br><span class="line">GLIBC_2.7</span><br><span class="line">GLIBC_2.6</span><br><span class="line">GLIBC_2.11</span><br><span class="line">GLIBC_2.16</span><br><span class="line">GLIBC_2.10</span><br><span class="line">GLIBC_2.17</span><br><span class="line">GLIBC_2.13</span><br><span class="line">GLIBC_2.2.6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法，更新 glibc</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">wget http://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz</span><br><span class="line"></span><br><span class="line">tar xf glibc-2.28.tar.gz </span><br><span class="line"><span class="built_in">cd</span> glibc-2.28/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 test-installation.pl 文件, 如果不修改此文件，make install 过程中会出现ldd：找不到 nss_test2。</span></span><br><span class="line"></span><br><span class="line">vim scripts/test-installation.pl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在文件的128行新增$name ne “nss_test2”，修改后如下所示：</span></span><br><span class="line"></span><br><span class="line">&amp;&amp; <span class="variable">$name</span> ne <span class="string">&quot;nss_test1&quot;</span> &amp;&amp; <span class="variable">$name</span> ne <span class="string">&quot;nss_test2&quot;</span> &amp;&amp; <span class="variable">$name</span> ne <span class="string">&quot;libgcc_s&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译 glibc</span></span><br><span class="line"><span class="built_in">mkdir</span> build  &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">../configure \</span><br><span class="line">  --prefix=/usr \</span><br><span class="line">  --disable-profile \</span><br><span class="line">  --enable-add-ons \</span><br><span class="line">  --with-headers=/usr/include \</span><br><span class="line">  --with-binutils=/usr/bin \</span><br><span class="line">  --enable-obsolete-nsl</span><br><span class="line"></span><br><span class="line">make -j2 </span><br><span class="line">make localedata/install-locales -j2</span><br><span class="line">make install -j2</span><br></pre></td></tr></table></figure>
 
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HAProxy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/HAProxy//" class="article-tag-list-link color3">HAProxy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/040-Linux-rsync-介绍与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/" target="_blank">rsync 的介绍与配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/leixixi/p/14751914.html">rsync的介绍和配置</a></p>
-<h2 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h2><p>rsync 官方网站: <a target="_blank" rel="noopener" href="https://rsync.samba.org/">rsync 官网</a></p>
-<p>rsync 是一款开源的、快速的多功能的可以实现全量以及增量的本地或者是远程的数据同步（拷贝）备份的优秀工具。<br>rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。</p>
-<h2 id="rsync-特性"><a href="#rsync-特性" class="headerlink" title="rsync 特性"></a>rsync 特性</h2>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">rsync</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/042-Linux-部署-flutter-编译环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" target="_blank">Linux 部署 flutter + gradle + Android 编译环境</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://flutter.cn/docs/get-started/install/linux">在 Linux 操作系统上安装和配置 Flutter 开发环境</a></li>
-<li><a target="_blank" rel="noopener" href="https://developer.android.com/studio/install?hl=zh-cn#linux">安装 Android Studio</a></li>
-</ul>
-<h2 id="基础环境配置"><a href="#基础环境配置" class="headerlink" title="基础环境配置"></a>基础环境配置</h2><h3 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h3>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">flutter</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/001-SaltStack-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/" target="_blank">SaltStack 入门</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考书籍： SaltStack 技术入门与实战</p>
+<blockquote>
+<p>如果执行 configure 命令是不带 <code>--enable-obsolete-nsl</code> 参数，make install 过程会有出现报错：undefined reference to ‘_nsl_default_nss@GLIBC_PRIVATE’</p>
 </blockquote>
-<p>SaltStack 是基于 Python 开发的一套 C&#x2F;S 架构配置管理工具，它的底层使用 ZeroMQ 消息队列 pub&#x2F;sub 方式通信，使用 SSL 证书签发的方式进行认证管理。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/#more">more >></a>
-    
-    
+</li>
+<li><p>可能出现的错误————最后几行，mak 问题</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configure: error: </span><br><span class="line">*** These critical programs are missing or too old: make bison compiler</span><br><span class="line">*** Check the INSTALL file <span class="keyword">for</span> required versions.</span><br></pre></td></tr></table></figure>
+
+<p> 解决办法：升级 gcc 与 make</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 升级GCC(默认为4 升级为8)</span></span><br><span class="line">yum install -y centos-release-scl</span><br><span class="line">yum install -y devtoolset-8-gcc*</span><br><span class="line"><span class="built_in">mv</span> /usr/bin/gcc /usr/bin/gcc-4.8.5</span><br><span class="line"><span class="built_in">ln</span> -s /opt/rh/devtoolset-8/root/bin/gcc /usr/bin/gcc</span><br><span class="line"><span class="built_in">mv</span> /usr/bin/g++ /usr/bin/g++-4.8.5</span><br><span class="line"><span class="built_in">ln</span> -s /opt/rh/devtoolset-8/root/bin/g++ /usr/bin/g++</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升级 make(默认为3 升级为4)</span></span><br><span class="line">wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz</span><br><span class="line">tar -xzvf make-4.3.tar.gz &amp;&amp; <span class="built_in">cd</span> make-4.3/</span><br><span class="line">./configure  --prefix=/usr/local/make</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"><span class="built_in">cd</span> /usr/bin/ &amp;&amp; <span class="built_in">mv</span> make make.bak</span><br><span class="line"><span class="built_in">ln</span> -sv /usr/local/make/bin/make /usr/bin/make</span><br></pre></td></tr></table></figure>
+
+<p> 这时所有的问题都已经解决完毕，再重新执行上面第4步，更新 <code>glibc</code> 即可。</p>
+</li>
+<li><p>但此时查看 <code>node -v</code> 时还有报错</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node: /lib64/libstdc++.so.6: version `CXXABI_1.3.9<span class="string">&#x27; not found (required by node)</span></span><br><span class="line"><span class="string">node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20&#x27;</span> not found (required by node)</span><br><span class="line">node: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21<span class="string">&#x27; not found (required by node)</span></span><br></pre></td></tr></table></figure>
+
+<p> 通过 <code>strings</code> 命令查看判断是缺少 <code>GLIBCXX_3.4.20</code>，解决方法是升级 <code>libstdc++</code></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strings /usr/lib64/libstdc++.so.6 | grep &quot;GLIBCXX&quot;</span></span><br><span class="line">GLIBCXX_3.4</span><br><span class="line">GLIBCXX_3.4.1</span><br><span class="line">GLIBCXX_3.4.2</span><br><span class="line">GLIBCXX_3.4.3</span><br><span class="line">GLIBCXX_3.4.4</span><br><span class="line">GLIBCXX_3.4.5</span><br><span class="line">GLIBCXX_3.4.6</span><br><span class="line">GLIBCXX_3.4.7</span><br><span class="line">GLIBCXX_3.4.8</span><br><span class="line">GLIBCXX_3.4.9</span><br><span class="line">GLIBCXX_3.4.10</span><br><span class="line">GLIBCXX_3.4.11</span><br><span class="line">GLIBCXX_3.4.12</span><br><span class="line">GLIBCXX_3.4.13</span><br><span class="line">GLIBCXX_3.4.14</span><br><span class="line">GLIBCXX_3.4.15</span><br><span class="line">GLIBCXX_3.4.16</span><br><span class="line">GLIBCXX_3.4.17</span><br><span class="line">GLIBCXX_3.4.18</span><br><span class="line">GLIBCXX_3.4.19</span><br><span class="line">GLIBCXX_DEBUG_MESSAGE_LENGTH</span><br><span class="line"></span><br><span class="line"><span class="comment"># strings /lib64/libstdc++.so.6 | grep &quot;GLIBCXX&quot;</span></span><br><span class="line">GLIBCXX_3.4</span><br><span class="line">GLIBCXX_3.4.1</span><br><span class="line">GLIBCXX_3.4.2</span><br><span class="line">GLIBCXX_3.4.3</span><br><span class="line">GLIBCXX_3.4.4</span><br><span class="line">GLIBCXX_3.4.5</span><br><span class="line">GLIBCXX_3.4.6</span><br><span class="line">GLIBCXX_3.4.7</span><br><span class="line">GLIBCXX_3.4.8</span><br><span class="line">GLIBCXX_3.4.9</span><br><span class="line">GLIBCXX_3.4.10</span><br><span class="line">GLIBCXX_3.4.11</span><br><span class="line">GLIBCXX_3.4.12</span><br><span class="line">GLIBCXX_3.4.13</span><br><span class="line">GLIBCXX_3.4.14</span><br><span class="line">GLIBCXX_3.4.15</span><br><span class="line">GLIBCXX_3.4.16</span><br><span class="line">GLIBCXX_3.4.17</span><br><span class="line">GLIBCXX_3.4.18</span><br><span class="line">GLIBCXX_3.4.19</span><br><span class="line">GLIBCXX_DEBUG_MESSAGE_LENGTH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>升级libstdc++</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.vuln.cn/wp-content/uploads/2019/08/libstdc.so_.6.0.26.zip</span><br><span class="line"></span><br><span class="line">unzip libstdc.so_.6.0.26.zip</span><br><span class="line"></span><br><span class="line"><span class="built_in">cp</span> libstdc++.so.6.0.26 /lib64/ &amp;&amp; <span class="built_in">cd</span> /lib64</span><br><span class="line"></span><br><span class="line"><span class="built_in">mv</span> libstdc++.so.6 libstdc++.so.6.bak</span><br><span class="line"><span class="built_in">ln</span> -s libstdc++.so.6.0.26 libstdc++.so.6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>此时再次通过 strings 查看有没有 GLIBCXX_3.4.20</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /usr/lib64/libstdc++.so.6 | grep ^GLIBCXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再次验证 <code>node -v</code> 命令</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># node -v</span></span><br><span class="line">v18.18.2</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><ol>
+<li><p>使用以下命令安装 Hexo 指定版本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo@6.3.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <code>hexo-algolia</code> 以及 <code>hexo-generator-json-content</code> 模块</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-algolia</span><br><span class="line">npm install -g hexo-generator-json-content </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 Hexo 完成后，执行下列命令，初始化博客目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init /data/59izt.github.io</span><br></pre></td></tr></table></figure>
+
+<p> 以上命令会在创建 <code>/data/59izt.github.io</code> 目录并在该目录下生成一些基础的文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tree -L 1</span><br><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">└── themes</span><br><span class="line"></span><br><span class="line">4 directories, 4 files    </span><br></pre></td></tr></table></figure>
 
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SaltStack</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/SaltStack//" class="article-tag-list-link color5">SaltStack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/007-Rsync-备份工具实战" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/" target="_blank">Linux 环境实战 Rsync 备份工具</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/P8XDrr7ROIXBYOZnLy45zA">Linux 环境下实战 Rsync 备份工具及配置 rsync+inotify实时同步</a></p>
-</blockquote>
-<h2 id="什么是-Rsync"><a href="#什么是-Rsync" class="headerlink" title="什么是 Rsync"></a>什么是 Rsync</h2><p>Rsync 是一个开源的快速备份工具，是 Linux 和 Unix 操作系统默认安装的组件之一，可以在不同主机之间镜像同步整个目录，并支持增量备份文件传输，保持链接和权限，采用优化的同步算法，传输前执行压缩，适用于异地备份，镜像服务器等应用。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Rsync</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/008-CentOS7-部署-Nexus3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/" target="_blank">CentOS 7 部署 Nexus3</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Nexus-介绍"><a href="#Nexus-介绍" class="headerlink" title="Nexus 介绍"></a>Nexus 介绍</h2><p>Nexus 是一个强大的 Maven 仓库管理器，它极大地简化了本地内部仓库的维护和外部仓库的访问。 如果使用了公共的 Maven 仓库服务器，可以从 Maven 中央仓库下载所需要的构件（Artifact），但这通常不是一个好的做法。正常做法是在本地架设一个 Maven 仓库服务器，即利用 Nexus 私服可以只在一个地方就能够完全控制访问和部署在你所维护仓库中的每个 Artifact。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nexus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Nexus//" class="article-tag-list-link color1">Nexus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/015-CentOS-磁盘LVM管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/" target="_blank">CentOS 磁盘 LVM 管理</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="CentOS-7-磁盘扩容"><a href="#CentOS-7-磁盘扩容" class="headerlink" title="CentOS 7 磁盘扩容"></a>CentOS 7 磁盘扩容</h2><h3 id="扩容步骤"><a href="#扩容步骤" class="headerlink" title="扩容步骤"></a>扩容步骤</h3>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LVM//" class="article-tag-list-link color4">LVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/024-Linux-负载均衡-LVS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/" target="_blank">Linux 负载均衡之 LVS</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>负载均衡(LB, Load Balance): 增加高并发处理能力，有一定高可用能力，但不是高可用集群，是以提高服务的并发处理能力为根本着眼点。</p>
-<p>负载均衡的主要方式有:</p>
 <ul>
-<li>http 重定向</li>
-<li>DNS 负载均衡</li>
-<li>反向代理负载均衡</li>
-<li>IP 负载均衡</li>
-<li>数据链路层负载均衡</li>
-<li>F5 硬件负载均衡</li>
+<li>_config.yml: 网站的配置文件</li>
+<li>package.json: 应用程序的信息。EJS, Stylus 和 Markdown 渲染引擎 已默认安装，您可以自由移除。</li>
+<li>scaffolds: 模版 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</li>
+<li>source: 资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。</li>
+<li>themes: 主题 文件夹。Hexo 会根据主题来生成静态页面。</li>
 </ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/#more">more >></a>
-    
+</li>
+</ol>
+<h2 id="后台启动-hexo-服务"><a href="#后台启动-hexo-服务" class="headerlink" title="后台启动 hexo 服务"></a>后台启动 hexo 服务</h2><p>根据官方的方式使用 hexo server &amp; 时发现，当我关闭终端时博客也就关闭了，并不能一直在后台运行，查阅资料发现可以通过 pm2 来托管。</p>
+<ol>
+<li><p>安装 pm2</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pm2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在博客根目录写一个名为 hexo_run.js 的脚本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//将hexo保持后台运行</span><br><span class="line"></span><br><span class="line">const &#123; <span class="built_in">exec</span> &#125; = require(<span class="string">&#x27;child_process&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span>(<span class="string">&#x27;hexo server -i 0.0.0.0&#x27;</span>,(error, stdout, stderr) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(error)&#123;</span><br><span class="line">                console.log(<span class="string">&#x27;exec error: $&#123;error&#125;&#x27;</span>)</span><br><span class="line">                <span class="built_in">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        console.log(<span class="string">&#x27;stdout: $&#123;stdout&#125;&#x27;</span>);</span><br><span class="line">        console.log(<span class="string">&#x27;stderr: $&#123;stderr&#125;&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start hexo_run.js </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看服务运行</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 <span class="built_in">ls</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h2><ol>
+<li><p>下载源码</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 nginx 源码</span></span><br><span class="line">wget https://nginx.org/download/nginx-1.24.0.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 openssl 源码</span></span><br><span class="line">wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 pcre 源码</span></span><br><span class="line">wget https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 jemalloc</span></span><br><span class="line">wget https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压源码</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar xf nginx-1.24.0.tar.gz</span><br><span class="line">tar xf openssl-1.1.1w.tar.gz</span><br><span class="line">tar xf pcre-8.45.tar.gz</span><br><span class="line">tar xf jemalloc-5.3.0.tar.bz2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译安装 jemalloc</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> jemalloc-5.3.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预编译</span></span><br><span class="line">./configure</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译安装 jemalloc</span></span><br><span class="line">make -j2 &amp;&amp; make install -j2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建软连接</span></span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/lib/libjemalloc.so.2 /usr/lib64/libjemalloc.so.1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/usr/local/lib&#x27;</span> &gt; /etc/ld.so.conf.d/local.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载模块</span></span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装依赖库</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib-devel </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译 Nginx</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>  nginx-1.24.0/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预编译</span></span><br><span class="line">./configure \</span><br><span class="line">  --prefix=/usr/local/nginx \</span><br><span class="line">  --user=www \</span><br><span class="line">  --group=www \</span><br><span class="line">  --with-http_stub_status_module \</span><br><span class="line">  --with-http_sub_module \</span><br><span class="line">  --with-http_v2_module \</span><br><span class="line">  --with-http_ssl_module \</span><br><span class="line">  --with-stream \</span><br><span class="line">  --with-stream_ssl_preread_module \</span><br><span class="line">  --with-stream_ssl_module \</span><br><span class="line">  --with-http_gzip_static_module \</span><br><span class="line">  --with-http_realip_module \</span><br><span class="line">  --with-http_flv_module \</span><br><span class="line">  --with-http_mp4_module \</span><br><span class="line">  --with-openssl=../openssl-1.1.1w \</span><br><span class="line">  --with-pcre=../pcre-8.45 \</span><br><span class="line">  --with-pcre-jit \</span><br><span class="line">  --with-ld-opt=<span class="string">&#x27;-ljemalloc&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译安装</span></span><br><span class="line">make -j2 &amp;&amp; make install -j2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 nginx 服务管理文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /usr/lib/systemd/system/nginx.service &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">[Unit]</span></span><br><span class="line"><span class="string">Description=nginx - high performance web server</span></span><br><span class="line"><span class="string">Documentation=http://nginx.org/en/docs/</span></span><br><span class="line"><span class="string">After=network.target</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[Service]</span></span><br><span class="line"><span class="string">Type=forking</span></span><br><span class="line"><span class="string">PIDFile=/var/run/nginx.pid</span></span><br><span class="line"><span class="string">ExecStartPost=/bin/sleep 0.1</span></span><br><span class="line"><span class="string">ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf</span></span><br><span class="line"><span class="string">ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span></span><br><span class="line"><span class="string">ExecReload=/bin/kill -s HUP \$MAINPID</span></span><br><span class="line"><span class="string">ExecStop=/bin/kill -s QUIT \$MAINPID</span></span><br><span class="line"><span class="string">TimeoutStartSec=120</span></span><br><span class="line"><span class="string">LimitNOFILE=1000000</span></span><br><span class="line"><span class="string">LimitNPROC=1000000</span></span><br><span class="line"><span class="string">LimitCORE=1000000</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[Install]</span></span><br><span class="line"><span class="string">WantedBy=multi-user.target</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 Nginx 主配置文件 <code>/usr/local/nginx/conf/nginx.conf</code></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">user www www;</span><br><span class="line">worker_processes auto;</span><br><span class="line"></span><br><span class="line">error_log /data/wwwlogs/error_nginx.log crit;</span><br><span class="line">pid /var/run/nginx.pid;</span><br><span class="line">worker_rlimit_nofile 51200;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">use epoll;</span><br><span class="line">worker_connections 51200;</span><br><span class="line">multi_accept on;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">include mime.types;</span><br><span class="line">default_type application/octet-stream;</span><br><span class="line">server_names_hash_bucket_size 128;</span><br><span class="line">client_header_buffer_size 32k;</span><br><span class="line">large_client_header_buffers 4 32k;</span><br><span class="line">client_max_body_size 1024m;</span><br><span class="line">client_body_buffer_size 10m;</span><br><span class="line">sendfile on;</span><br><span class="line">tcp_nopush on;</span><br><span class="line">keepalive_timeout 120;</span><br><span class="line">server_tokens off;</span><br><span class="line">tcp_nodelay on;</span><br><span class="line"></span><br><span class="line">fastcgi_connect_timeout 300;</span><br><span class="line">fastcgi_send_timeout 300;</span><br><span class="line">fastcgi_read_timeout 300;</span><br><span class="line">fastcgi_buffer_size 64k;</span><br><span class="line">fastcgi_buffers 4 64k;</span><br><span class="line">fastcgi_busy_buffers_size 128k;</span><br><span class="line">fastcgi_temp_file_write_size 128k;</span><br><span class="line">fastcgi_intercept_errors on;</span><br><span class="line"></span><br><span class="line"><span class="comment">#Gzip Compression</span></span><br><span class="line">gzip on;</span><br><span class="line">gzip_buffers 16 8k;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line">gzip_min_length 256;</span><br><span class="line">gzip_proxied any;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_types</span><br><span class="line">    text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml</span><br><span class="line">    text/javascript application/javascript application/x-javascript</span><br><span class="line">    text/x-json application/json application/x-web-app-manifest+json</span><br><span class="line">    text/css text/plain text/x-component</span><br><span class="line">    font/opentype application/x-font-ttf application/vnd.ms-fontobject</span><br><span class="line">    image/x-icon;</span><br><span class="line">gzip_disable <span class="string">&quot;MSIE [1-6]\.(?!.*SV1)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">##Brotli Compression</span></span><br><span class="line"><span class="comment">#brotli on;</span></span><br><span class="line"><span class="comment">#brotli_comp_level 6;</span></span><br><span class="line"><span class="comment">#brotli_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##If you have a lot of static files to serve through Nginx then caching of the files&#x27; metadata (not the actual files&#x27; contents) can save some latency.</span></span><br><span class="line"><span class="comment">#open_file_cache max=1000 inactive=20s;</span></span><br><span class="line"><span class="comment">#open_file_cache_valid 30s;</span></span><br><span class="line"><span class="comment">#open_file_cache_min_uses 2;</span></span><br><span class="line"><span class="comment">#open_file_cache_errors on;</span></span><br><span class="line"></span><br><span class="line">log_format json escape=json <span class="string">&#x27;&#123;&quot;@timestamp&quot;:&quot;$time_iso8601&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;server_addr&quot;:&quot;$server_addr&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;remote_addr&quot;:&quot;$remote_addr&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;scheme&quot;:&quot;$scheme&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;request_method&quot;:&quot;$request_method&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;request_uri&quot;: &quot;$request_uri&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;request_length&quot;: &quot;$request_length&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;uri&quot;: &quot;$uri&quot;, &#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;request_time&quot;:$request_time,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;body_bytes_sent&quot;:$body_bytes_sent,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;bytes_sent&quot;:$bytes_sent,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;status&quot;:&quot;$status&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;upstream_time&quot;:&quot;$upstream_response_time&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;upstream_host&quot;:&quot;$upstream_addr&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;upstream_status&quot;:&quot;$upstream_status&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;host&quot;:&quot;$host&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;http_referer&quot;:&quot;$http_referer&quot;,&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&quot;http_user_agent&quot;:&quot;$http_user_agent&quot;&#x27;</span></span><br><span class="line">                    <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">######################## default ############################</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name _;</span><br><span class="line">    access_log /data/wwwlogs/access_nginx.log combined;</span><br><span class="line">    root /data/wwwroot/default;</span><br><span class="line">    index index.html index.htm index.php;</span><br><span class="line">    <span class="comment">#error_page 404 /404.html;</span></span><br><span class="line">    <span class="comment">#error_page 502 /502.html;</span></span><br><span class="line">    location /nginx_status &#123;</span><br><span class="line">    stub_status on;</span><br><span class="line">    access_log off;</span><br><span class="line">    allow 127.0.0.1;</span><br><span class="line">    deny all;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ &#123;</span><br><span class="line">    expires 30d;</span><br><span class="line">    access_log off;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ .*\.(js|css)?$ &#123;</span><br><span class="line">    expires 7d;</span><br><span class="line">    access_log off;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ ^/(\.user.ini|\.ht|\.git|\.svn|\.project|LICENSE|README.md) &#123;</span><br><span class="line">    deny all;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /.well-known &#123;</span><br><span class="line">    allow all;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">########################## vhost #############################</span></span><br><span class="line">include vhost/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 nginx 运行用户以及日志目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">useradd -M -s /sbin/nologin www</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /data/wwwlogs/</span><br><span class="line"><span class="built_in">chown</span> -R www:www /data/wwwlogs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查 nginx 配置文件是否正确</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /usr/local/nginx/sbin/nginx -t</span></span><br><span class="line">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/nginx/conf/nginx.conf <span class="built_in">test</span> is successful</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 nginx 开机启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看 nginx 服务是否正常运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># systemctl status nginx.service </span></span><br><span class="line">● nginx.service - nginx - high performance web server</span><br><span class="line">Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)</span><br><span class="line">Active: active (running) since Wed 2023-12-27 17:46:44 CST; 4s ago</span><br><span class="line">    Docs: http://nginx.org/en/docs/</span><br><span class="line">Process: 16975 ExecStartPost=/bin/sleep 0.1 (code=exited, status=0/SUCCESS)</span><br><span class="line">Process: 16969 ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf (code=exited, status=0/SUCCESS)</span><br><span class="line">Process: 16967 ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf (code=exited, status=0/SUCCESS)</span><br><span class="line">Main PID: 16972 (nginx)</span><br><span class="line">CGroup: /system.slice/nginx.service</span><br><span class="line">        ├─16972 nginx: master process /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br><span class="line">        ├─16973 nginx: worker process</span><br><span class="line">        └─16974 nginx: worker process</span><br><span class="line"></span><br><span class="line">Dec 27 17:46:44 hexo systemd[1]: Starting nginx - high performance web server...</span><br><span class="line">Dec 27 17:46:44 hexo nginx[16967]: nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok</span><br><span class="line">Dec 27 17:46:44 hexo nginx[16967]: nginx: configuration file /usr/local/nginx/conf/nginx.conf <span class="built_in">test</span> is successful</span><br><span class="line">Dec 27 17:46:44 hexo systemd[1]: Started nginx - high performance web server.</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配置-nginx-虚拟主机"><a href="#配置-nginx-虚拟主机" class="headerlink" title="配置 nginx 虚拟主机"></a>配置 nginx 虚拟主机</h2><ol>
+<li><p>创建虚拟主机目录以及 ssl 证书存放目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /usr/local/nginx/conf/&#123;ssl,vhost&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建虚拟主机配置文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat vhost/www.59izt.com.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line">    listen 443 ssl http2;</span><br><span class="line">    listen [::]:443 ssl http2;</span><br><span class="line">    ssl_certificate /usr/local/nginx/conf/ssl/59izt.com.pem;</span><br><span class="line">    ssl_certificate_key /usr/local/nginx/conf/ssl/59izt.com.key;</span><br><span class="line">    ssl_protocols TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ecdh_curve X25519:prime256v1:secp384r1:secp521r1;</span><br><span class="line">    ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256;</span><br><span class="line">    ssl_conf_command Ciphersuites TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256;</span><br><span class="line">    ssl_conf_command Options PrioritizeChaCha;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_session_timeout 10m;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_buffer_size 2k;</span><br><span class="line">    add_header Strict-Transport-Security max-age=15768000;</span><br><span class="line">    ssl_stapling on;</span><br><span class="line">    ssl_stapling_verify on;</span><br><span class="line">    server_name 59izt.com www.59izt.com;</span><br><span class="line">    access_log /data/wwwlogs/www.59izt.com_nginx.log combined;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$ssl_protocol</span> = <span class="string">&quot;&quot;</span>) &#123; <span class="built_in">return</span> 301 https://$host<span class="variable">$request_uri</span>; &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://localhost:4000/;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host <span class="variable">$http_host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>准备域名证书，然后重载 nginx 配置文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure></li>
+</ol>
+
     
 
     <!-- 修改开始 -->
@@ -1059,117 +470,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LVS//" class="article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/036-Linux-性能调优-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/" target="_blank">Linux 性能调优 CPU</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="CPU-性能统计信息"><a href="#CPU-性能统计信息" class="headerlink" title="CPU 性能统计信息"></a>CPU 性能统计信息</h2><p>每一种系统级的 Linux 性能工具都提供了不同的方式来获取相似的统计结果。虽然没有工具能显示全部的信息，但是有些工具显示的是相同的统计信息，为了不多次解释统计信息的含义，我们在描述所有工具之前对这些信息进行一次性说明:</p>
-<h3 id="运行队列统计"><a href="#运行队列统计" class="headerlink" title="运行队列统计"></a>运行队列统计</h3><p>在 Linux 中，一个进程要么是可运行的，要么是阻塞的，阻塞进程可能在等待的是从 I&#x2F;O 设备来的数据，或者是系统调用的结果。如果进程是可运行的，那就意味着它要和其他也是可运行的进程竞争 CPU 时间。一个可运行的进程不一定会使用 CPU，但是当 Linux 调度器决定下一个要运行的进程时，它会从可运行进程队列中挑选。**<span style="border-bottom:2px dashed yellow;">如果进程是可运行的，同时又在等待使用处理器，这些进程就构成了运行队列。运行队列越长，处于等待状态的进程就越多</span>**。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能调优</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
         		</li>
       		
 		</ul>
@@ -1189,16 +490,24 @@
 
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/">展开全文 >></a>
-    </p>
-    
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2023/12/14/kubernetes/089-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.27.x)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二进制部署 Kubernetes 高可用集群(1.27x)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1213,132 +522,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/000-Macports-的安装与使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_blank">MacPorts 的安装与使用</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.427Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考内容：<a target="_blank" rel="noopener" href="https://www.macports.org/install.php">MacPorts 官方文档</a></p>
-</blockquote>
-<h2 id="安装-MacPorts"><a href="#安装-MacPorts" class="headerlink" title="安装 MacPorts"></a>安装 MacPorts</h2><ul>
-<li>安装 Xcode<br>打开 App Store，搜索 Xcode ，点击获取，安装，此处略…</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MacPorts</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">应用</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Others//" class="article-tag-list-link color2">Others</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">系统环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">系统初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-nvm"><span class="toc-number">3.</span> <span class="toc-text">安装 nvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node"><span class="toc-number">4.</span> <span class="toc-text">安装 Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3-node-%E5%91%BD%E4%BB%A4%E9%94%99%E8%AF%AF%E9%97%AE%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">解决 node 命令错误问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">5.</span> <span class="toc-text">安装 Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8-hexo-%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.</span> <span class="toc-text">后台启动 hexo 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Nginx"><span class="toc-number">7.</span> <span class="toc-text">安装 Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-nginx-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="toc-number">8.</span> <span class="toc-text">配置 nginx 虚拟主机</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
 
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/19/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/21/">下一页</a>
-    </nav>
-  
+
+
+
+
+
+
+
 
 
 
@@ -1381,8 +590,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

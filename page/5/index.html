@@ -210,6 +210,116 @@
             
 
   
+    <article id="post-kubernetes/017-Volumes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/017-Volumes/" target="_blank">Kubernetes-Volumes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/017-Volumes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/">Volumes</a></p>
+<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>Container（容器） 中的磁盘文件是短暂的，当容器崩溃时，Kubelet 会重新启动容器，但最初的文件将丢失，Container 会以最干净的状态启动。另外，当一个 Pod 运行多个 Container 时，各个容器可能需要共享一些文件。Kubernetes Volume 可以解决这两个问题。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/017-Volumes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Volumes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/017-Volumes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-kubernetes/022-kubernetes-PKI证书和要求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1198,123 +1308,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/kubernetes/053-k3s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/074-kubernetes-集群升级(1.22.17--&gt;1.23.17)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/" target="_blank">kubernetes 集群升级(1.22.17--&gt;1.23.17)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="升级注意事项"><a href="#升级注意事项" class="headerlink" title="升级注意事项"></a>升级注意事项</h2><h3 id="版本依赖关系"><a href="#版本依赖关系" class="headerlink" title="版本依赖关系"></a>版本依赖关系</h3><ol>
-<li><p>在高可用（HA）集群中， 多个 <code>kube-apiserver</code> 实例小版本号最多差 1。</p>
-<ul>
-<li>例如: 最新的 kube-apiserver 版本号如果是 1.20，则受支持的 kube-apiserver 版本号包括 1.20 和 1.19</li>
-</ul>
-</li>
-<li><p><code>kubelet</code> 版本号不能高于 kube-apiserver，最多可以比 kube-apiserver 低两个小版本。</p>
-<ul>
-<li>例如: kube-apiserver 版本号如果是 1.20，受支持的的 kubelet 版本将包括 1.20、1.19 和 1.18<blockquote>
-<p>说明：如果 HA 集群中多个 <code>kube-apiserver</code> 实例版本号不一致，相应的 <code>kubelet</code> 版本号可选范围也要减小。<br>如果 kube-apiserver 实例同时存在 1.20 和 1.19，kubelet 的受支持版本将是 1.19 和 1.18 （1.20 不再支持，因为它比 1.19 版本的 kube-apiserver 更新）</p>
-</blockquote>
-</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/">展开全文 >></a>
     </p>
     
 
