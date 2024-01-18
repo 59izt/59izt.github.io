@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-kubernetes/063-kubernetes-Ingress-启用-WAF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/09-Arm64-架构部署-MySQL8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/" target="_blank">Ingress-Nginx 启用 ModSecurity</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/" target="_blank">ARM64 架构部署 MySQL 8</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,344 +239,894 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档:</p>
+    <h2 id="MySQL-8-0-安装"><a href="#MySQL-8-0-安装" class="headerlink" title="MySQL 8.0 安装"></a>MySQL 8.0 安装</h2><ol>
+<li><p>检查系统自带的 mariadb 并卸载</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa |grep mariadb</span><br><span class="line">rpm -e mariadb-libs-5.5.68-1.el7.x86_64 --nodeps</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/16-loongarch64-架构部署-traefik" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/" target="_blank">Loongarch64 源码编译 Ingress-traefik</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Traefik 官方文档地址: <a target="_blank" rel="noopener" href="https://doc.traefik.io/traefik/">Traefik Document</a></li>
+<li>部署参考文档: <a target="_blank" rel="noopener" href="https://blog.csdn.net/networken/article/details/85953346">kubernetes部署traefik</a></li>
+<li>Helm 部署方式参考: <a target="_blank" rel="noopener" href="https://github.com/traefik/traefik-helm-chart">traefik-helm-chart</a></li>
+</ul>
+<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
+<li>kubernetes 版本: 1.20.11</li>
+<li>CPU 架构: loongarch64</li>
+<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>Traefik 版本: v2.9.4</li>
+<li>部署方式: DaemonSet</li>
+</ul>
+<h2 id="Traefik-简介"><a href="#Traefik-简介" class="headerlink" title="Traefik 简介"></a>Traefik 简介</h2><p>Træfɪk 是一个为了让部署微服务更加便捷而诞生的现代HTTP反向代理、负载均衡工具。 它支持多种后台 (Docker, Swarm, Kubernetes, Marathon, Mesos, Consul, Etcd, Zookeeper, BoltDB, Rest API, file…) 来自动化、动态的应用它的配置文件设置。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Ingress-traefik</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/19-loongarch64-架构部署-heketi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/" target="_blank">Loongarch64 部署 Heketi</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Heketi 源码地址:<a target="_blank" rel="noopener" href="https://github.com/heketi/heketi">heketi</a></p>
+<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
+<li>CPU 架构: loongarch64</li>
+<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>Heketi 版本: v10.4.0</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Heketi</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/10-loongarch64-源码编译-kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" target="_blank">loongarch64 源码编译 kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/16241306.html?from_wecom=1">loongarch64架构下Kubernetes组件编译</a></p>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 kubernetes 版本: v1.20.11</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/12-loongarch64-源码编译-docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" target="_blank">loongarch64 源码编译 Docker (为完成，待完善)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 Docker 版本: v19.03.15</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/13-loongarch64-源码编译-MySQL8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/" target="_blank">loongarch64 源码编译 MySQL</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://gitee.com/cn-loongson/MySQL/blob/v8.0.12-loongson/Readme-loongson.md">cn-loongson&#x2F;mysql</a></p>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>系统: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>MySQL 版本: 8.0.17</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/02-Arm64-架构部署-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" target="_blank">ARM64 架构部署 Kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
+<li><p>主机配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内网地址</th>
+<th align="center">公网地址</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s-master01</td>
+<td align="center">192.168.0.134</td>
+<td align="center">120.46.211.33</td>
+<td align="center">master 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node01</td>
+<td align="center">192.168.0.41</td>
+<td align="center">120.46.217.5</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node02</td>
+<td align="center">192.168.0.194</td>
+<td align="center">120.46.141.143</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">base-server01</td>
+<td align="center">192.168.0.9</td>
+<td align="center">124.70.46.58</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server02</td>
+<td align="center">192.168.0.30</td>
+<td align="center">124.70.56.151</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server03</td>
+<td align="center">192.168.0.78</td>
+<td align="center">120.46.182.129</td>
+<td align="center">etcd 节点</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/08-Arm64-架构部署-EFK采集k8s日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" target="_blank">ARM64 架构部署 EFK 采集 kubernetes 日志</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://containerinfra.com/blog/cloud/2021-07-30-using-nginx-ingress-waf/">ModSecurity with ingress-nginx</a></li>
-<li><a target="_blank" rel="noopener" href="https://systemweakness.com/nginx-ingress-waf-with-modsecurity-from-zero-to-hero-fa284cb6f54a">Kubernetes NGINX Ingress WAF with ModSecurity. From zero to hero!</a></li>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/setup-efk-stack-on-kubernetes/">How to Setup EFK Stack on Kubernetes: Step by Step Guides</a></li>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/kubernetes-logging-tutorial/">Kubernetes Logging Tutorial For Beginners</a></li>
 </ul>
-<p>Kubernetes NGINX Ingress 带有内置的 WAF（Web Application Firewall），使用 ModSecurity 和 OWASP Core Rule Set。虽然默认情况下禁用这些规则，但您可以使用配置映射和入口注释来启用它们并微调其规则。ModSecurity 是一个开源的 Web应用程序防火墙（WAF）。它可以帮助您在应用程序前面提供额外的安全层。</p>
+<p>在 Kubernetes 生产调试中，日志记录起着至关重要的作用。它可以帮助您了解正在发生的事情、出了什么问题，甚至可能出了什么问题。作为 DevOps 工程师，您应该清楚地了解 Kubernetes 日志记录以解决集群和应用程序问题。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/066-二进制部署-k8s-高可用集群(1.24.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(Nginx Stream 代理)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.24.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
-<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
-<li>k8s 宿主机IP网段: 10.1.40.0&#x2F;24</li>
-<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
-<li>k8s Pod 网段: 192.16.0.0&#x2F;16</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/003-K8S-生产环境关键性配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/003-K8S-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%85%B3%E9%94%AE%E6%80%A7%E9%85%8D%E7%BD%AE/" target="_blank">K8S 生产环境关键性配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/003-K8S-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%85%B3%E9%94%AE%E6%80%A7%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考书籍: <a target="_blank" rel="noopener" href="http://www.kubeasy.com/">kubernetes全栈架构师</a></p>
-<h2 id="生产环境关键性配置"><a href="#生产环境关键性配置" class="headerlink" title="生产环境关键性配置"></a>生产环境关键性配置</h2><h3 id="Docker-的配置"><a href="#Docker-的配置" class="headerlink" title="Docker 的配置"></a>Docker 的配置</h3><ol>
-<li><p>修改 &#x2F;etc&#x2F;docker&#x2F;daemon.json 文件，内容如下：</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/003-K8S-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%85%B3%E9%94%AE%E6%80%A7%E9%85%8D%E7%BD%AE/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/003-K8S-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%85%B3%E9%94%AE%E6%80%A7%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/011-Label&amp;Selector" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/011-Label&Selector/" target="_blank">Kubernetes-Label &amp; Selector</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/011-Label&Selector/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Label-和-Selector"><a href="#Label-和-Selector" class="headerlink" title="Label 和 Selector"></a>Label 和 Selector</h2><p>作用：</p>
-<ul>
-<li>Label：对 k8s 中各种资源进行分类，分组，添加一个具有特别属性的标签；</li>
-<li>Selector: 通过一个过滤的语法进行查找对应标签的资源</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/011-Label&Selector/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/#more">more >></a>
     
     
 
@@ -603,450 +1153,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Label</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Selector</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/011-Label&Selector/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/015-ConfigMap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/015-ConfigMap/" target="_blank">Kubernetes-ConfigMap</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/015-ConfigMap/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/tasks/configure-pod-container/configure-pod-configmap/#%E4%BD%BF%E7%94%A8-kubectl-create-configmap-%E5%88%9B%E5%BB%BA-configmap">配置 Pod 使用 ConfigMap</a></p>
-<h2 id="ConfigMap"><a href="#ConfigMap" class="headerlink" title="ConfigMap"></a>ConfigMap</h2><p>ConfigMap 是一种 API 对象，用来将非机密性的数据保存到键值对中。使用时，Pods 可以将其用作环境变量，命令行参数或者存储卷中的配置文件。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/015-ConfigMap/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ConfigMap</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/015-ConfigMap/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/023-Kubernetes-Jobs&amp;Cronjob" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/023-Kubernetes-Jobs&Cronjob/" target="_blank">kubernetes Jobs 和 Cronjob</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/023-Kubernetes-Jobs&Cronjob/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/job/">Jobs</a></p>
-<h2 id="Jobs"><a href="#Jobs" class="headerlink" title="Jobs"></a>Jobs</h2><p>Job 会创建一个或者多个 Pods，并将继续重试 Pods 的执行，直到指定 Pods 成功终止。随着 Pods 成功结束，Job 跟踪记录成功完成的 Pods 个数。当数量达到指定的成功个数阈值时，任务（即 Job）结束。删除 Job 的操作会清除 Job 所创建的的全部 Pods。挂起 Job 的操作会删除 Job 的所有活跃 Pods，直到 Job 被再次恢复执行。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/023-Kubernetes-Jobs&Cronjob/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Jobs</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/023-Kubernetes-Jobs&Cronjob/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/016-Secret" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/016-Secret/" target="_blank">Kubernetes-Secret</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/016-Secret/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/configuration/secret/">Secret 配置</a></p>
-<h2 id="Secret"><a href="#Secret" class="headerlink" title="Secret"></a>Secret</h2><p>Secret 对象类型用来保存敏感信息，例如密码，OAuth 令牌和 SSH 密钥。将这些信息放在 Secret 中比放在 Pod 的定义或者容器镜像中来说更加安全和灵活。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/016-Secret/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Secret</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/016-Secret/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/061-kubernetes-部署-EFK-并开启认证" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/061-kubernetes-%E9%83%A8%E7%BD%B2-EFK-%E5%B9%B6%E5%BC%80%E5%90%AF%E8%AE%A4%E8%AF%81/" target="_blank">Kubernetes 部署 EFK 并启用 X-Pack Security 插件</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/061-kubernetes-%E9%83%A8%E7%BD%B2-EFK-%E5%B9%B6%E5%BC%80%E5%90%AF%E8%AE%A4%E8%AF%81/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://sudharma-puranik.medium.com/elastic-fluentd-kibana-on-kubernetes-ad49761a6871">Elastic Fluentd Kibana on Kubernetes</a></li>
-</ul>
-<h2 id="部署-EFK-并启用-X-Pack-Security"><a href="#部署-EFK-并启用-X-Pack-Security" class="headerlink" title="部署 EFK 并启用 X-Pack Security"></a>部署 EFK 并启用 X-Pack Security</h2><p>从 Elastic Stack 6.8 和 7.1 开始，Elastic 免费发布了一些安全功能，作为默认发行版（基本许可证）的一部分。这一新功能包括使用 SSL 加密网络流量、创建和管理用户、定义保护索引和集群级访问的角色以及完全保护 Kibana 的功能。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/061-kubernetes-%E9%83%A8%E7%BD%B2-EFK-%E5%B9%B6%E5%BC%80%E5%90%AF%E8%AE%A4%E8%AF%81/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -1062,7 +1173,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
         		</li>
       		
 		</ul>
@@ -1071,7 +1182,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/061-kubernetes-%E9%83%A8%E7%BD%B2-EFK-%E5%B9%B6%E5%BC%80%E5%90%AF%E8%AE%A4%E8%AF%81/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/">展开全文 >></a>
     </p>
     
 
@@ -1101,7 +1212,7 @@
 
 
   
-    <article id="post-kubernetes/072-kubernetes-集群升级(1.20.11--&gt;1.21.14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/11-loongarch64-源码编译-etcd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1109,7 +1220,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/" target="_blank">kubernetes 集群升级(1.20.11--&gt;1.21.14)</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/" target="_blank">loongarch64 源码编译 Etcd</a>
   
     </h1>
   
@@ -1117,8 +1228,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1130,12 +1241,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358338665">Kubernetes版本升级实践</a></p>
-<h2 id="k8s-版本信息"><a href="#k8s-版本信息" class="headerlink" title="k8s 版本信息"></a>k8s 版本信息</h2><h3 id="版本号的含义"><a href="#版本号的含义" class="headerlink" title="版本号的含义"></a>版本号的含义</h3><p>Kubernetes 版本表示为 x.y.z，其中 x 是主要版本，y 是次要版本，z 是补丁版本，遵循语义版本控制术语。有关更多信息，请参阅 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/sig-release/blob/master/release-engineering/versioning.md">Kubernetes 发布版本</a>。</p>
-<p>k8s 发行版与 github 分支的关系</p>
-<p>简单来讲，kubernetes 项目存在3类分支(branch)，分别为 <code>master</code>, <code>release-X.Y</code>, <code>release-X.Y.Z</code>。master 分支上的代码是最新的，每隔2周会生成一个发布版本(release)，由新到旧以此为 <code>master</code>–&gt;<code>alpha</code>–&gt;<code>beta</code>–&gt;<code>Final release</code>，这当中存在一些 cherrypicking 的规则，也就是说从一个分支上挑选一些必要 <code>pull request</code> 应用到另一个分支上。我们可以认为 <code>X.Y.0</code> 为稳定的版本，这个版本号意味着一个 <code>Final release</code>。一个 <code>X.Y.0</code> 版本会在 <code>X.(Y-1).0</code> 版本的3到4个月后出现。 <code>X.Y.Z</code> 为经过 cherrypick 后解决了必须的安全性漏洞、以及影响大量用户的无法解决的问题的补丁版本。 总体而言，我们一般关心 <code>X.Y.0</code> (稳定版本)，和 <code>X.Y.Z</code>(补丁版本) 的特性。</p>
+    <h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 Etcd 版本: v3.4.13</li>
+</ul>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/#more">more >></a>
     
     
 
@@ -1158,7 +1272,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Etcd</a>
         		</li>
       		
 		</ul>
@@ -1170,7 +1292,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
         		</li>
       		
 		</ul>
@@ -1179,7 +1301,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/">展开全文 >></a>
     </p>
     
 
@@ -1209,7 +1331,7 @@
 
 
   
-    <article id="post-kubernetes/006-Pod-相关核心技术" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/14-loongarch64-架构部署-kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1217,7 +1339,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" target="_blank">Pod 相关核心技术</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/" target="_blank">Loongarch64 架构部署 Kubernetes</a>
   
     </h1>
   
@@ -1225,8 +1347,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1238,10 +1360,56 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考书籍：[基于 Kubernetes 的容器云平台实战]</p>
-<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>Pod 是 Kubernetes 的最基本操作单元，也是应用运行的载体，包含一个到多个密切相关的容器。整个 kubernetes 系统都是围绕着 Pod 展开的，比如如何运行 Pod，如何保证 Pod 的数量，如何访问 Pod 等。</p>
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
+<li><p>主机配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内网地址</th>
+<th align="center">公网地址</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s-master01</td>
+<td align="center">192.168.200.154</td>
+<td align="center">-</td>
+<td align="center">master 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node01</td>
+<td align="center">192.168.201.170</td>
+<td align="center">111.207.111.194</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node02</td>
+<td align="center">192.168.201.245</td>
+<td align="center">-</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">base-server01</td>
+<td align="center">192.168.200.76</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server02</td>
+<td align="center">192.168.200.95</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server03</td>
+<td align="center">192.168.200.153</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+</tbody></table>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/#more">more >></a>
     
     
 
@@ -1268,7 +1436,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pod</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
         		</li>
       		
 		</ul>
@@ -1280,7 +1452,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
         		</li>
       		
 		</ul>
@@ -1289,7 +1461,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/">展开全文 >></a>
     </p>
     
 
@@ -1334,7 +1506,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1350,15 +1522,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1460,6 +1630,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1472,11 +1646,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1512,11 +1686,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1580,6 +1754,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1592,18 +1774,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1612,11 +1782,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1625,6 +1791,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1688,11 +1862,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1716,18 +1890,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1744,6 +1906,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1752,11 +1926,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1768,15 +1942,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1785,6 +1955,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1924,19 +2102,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1972,10 +2150,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2008,11 +2182,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2021,10 +2203,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2048,7 +2226,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2088,14 +2270,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2128,15 +2302,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2164,14 +2338,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2180,15 +2346,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2200,7 +2366,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Linux/017-Linux-日志切割-logrotate" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/009-Prometheus-监控-SNMP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/" target="_blank">Linux 日志切割 logrotate</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" target="_blank">Prometheus 监控 SNMP</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://wsgzao.github.io/post/logrotate/">Linux 日志切割神器 logrotate 原理介绍和配置详解</a></p>
-<h2 id="logrotate-简介"><a href="#logrotate-简介" class="headerlink" title="logrotate 简介"></a>logrotate 简介</h2><p>logrotate 是一个 linux 系统日志的管理工具。可以对单个日志文件或者某个目录下的文件按 <code>时间/大小</code> 进行切割，压缩操作；指定日志保存数量；还可以在切割之后运行自定义命令。<br>logrotate 是基于 crontab 运行的，所以这个时间点是由 crontab 控制的，具体可以查询 crontab 的配置文件 <code>/etc/anacrontab</code>。系统会按照计划的频率运行 logrotate，通常是每天。在大多数的 Linux 发行版本上，计划每天运行的脚本位于 <code>/etc/cron.daily/logrotate</code>。</p>
+    <p>参考文档:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@openmohan/snmp-monitoring-and-easing-it-with-prometheus-b157c0a42c0c">SNMP monitoring and easing it with Prometheus.</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xwupiaomiao/p/11937324.html">SNMP 导入 MIB</a></li>
+</ul>
+<h2 id="什么是-SNMP"><a href="#什么是-SNMP" class="headerlink" title="什么是 SNMP"></a>什么是 SNMP</h2><p>SNMP: SNMP 是（Simple Network Management Protocol）简单网络管理协议的缩写。SNMP 用于通过设置某些属性的值来管理网络设备（通常称为托管对象），并通过从设备轮训必要的指标来监控网络设备。</p>
+<h3 id="SNMP-工作原理"><a href="#SNMP-工作原理" class="headerlink" title="SNMP 工作原理"></a>SNMP 工作原理</h3><p>SNMP 包括简单的客户端-服务器架构。在你的网络管理解决方案上运行的 SNMP 客户端将负责轮询数据或设置数据。运行在你实际设备上的 SNMP 服务器将响应 SNMP 客户端的调用。默认情况下，在网络设备中不会打开 SNMP 代理。如果需要，网络管理员必须启用 SNMP。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/#more">more >></a>
     
     
 
@@ -265,11 +270,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">logratate</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Monitor</a>
         		</li>
       		
 		</ul>
@@ -281,7 +286,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
         		</li>
       		
 		</ul>
@@ -290,7 +295,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/">展开全文 >></a>
     </p>
     
 
@@ -320,7 +325,7 @@
 
 
   
-    <article id="post-Linux/029-RedHat-更换使用-CentOS-系统的网络源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/011-Prometheus-监控-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -328,7 +333,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/" target="_blank">Red Hat 更换 yum 使用 CentOS 的网络源</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" target="_blank">Prometheus 监控 Kubernetes</a>
   
     </h1>
   
@@ -336,8 +341,8 @@
 
   
   
-<a href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -349,9 +354,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Red-Hat-7-配置-CentOS-7-的-yum-源"><a href="#Red-Hat-7-配置-CentOS-7-的-yum-源" class="headerlink" title="Red Hat 7 配置 CentOS 7 的 yum 源"></a>Red Hat 7 配置 CentOS 7 的 yum 源</h2><p>由于redhat 的更新包只对注册的用户生效，所以需要自己手动更改成CentOS 的更新包，CentOS几乎和redhat是一样的，所以无需担心软件包是否可安装，下面是安装步骤。</p>
+    <p>Kubernetes 是 Google 基于 Borg 开源的容器编排调度引擎。作为 CNCF 最重要的项目，Kubernetes 的目标不止是成为一个编排系统，更是提供一种规范，该规范可以让我们描述集群的架构并定义服务的最终状态，让系统自动达到和维持这种状态。</p>
+<p>对于 Kubernetes 这样庞大的系统来说，监控告警自然是不可或缺的。对于 Kubernetes 集群，我们一般需要考虑监控以下几个方面:</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/#more">more >></a>
     
     
 
@@ -374,7 +380,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -386,7 +396,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
         		</li>
       		
 		</ul>
@@ -395,7 +405,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/">展开全文 >></a>
     </p>
     
 
@@ -425,7 +435,7 @@
 
 
   
-    <article id="post-Linux/010-CentOS7-部署-H2Database" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/017-Prometheus-HTTP-API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -433,7 +443,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/" target="_blank">CentOS 7 安装 H2 Database</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" target="_blank">Prometheus 语法 PromQL 入门</a>
   
     </h1>
   
@@ -441,8 +451,8 @@
 
   
   
-<a href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -454,11 +464,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>H2 数据库官网:<a target="_blank" rel="noopener" href="http://h2database.com/html/main.html">http://h2database.com</a></p>
-<h2 id="安装-Java-环境"><a href="#安装-Java-环境" class="headerlink" title="安装 Java 环境"></a>安装 Java 环境</h2><ol>
-<li><p>从官网下载 jdk8 tar 包，此处略。</p>
+    <ul>
+<li><a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#http-api">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouwenjun0820/article/details/105823389">彻底理解Prometheus查询语法</a></li>
+</ul>
+<h2 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h2><p>当前稳定的 HTTP API 可在 Prometheus 服务器上的 &#x2F;api&#x2F;v1 下访问。任何不间断的添加都将添加到该端点下。<br>API 响应格式为 JSON。每个成功的 API 请求都会返回一个 2xx 状态代码。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/#more">more >></a>
     
     
 
@@ -480,13 +492,127 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/004-Prometheus-监控OracleDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/" target="_blank">Prometheus 监控 Oracle 数据库</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><a target="_blank" rel="noopener" href="https://github.com/iamseth/oracledb_exporter">官方文档</a></p>
+<h2 id="Prometheus-监控-Oracle"><a href="#Prometheus-监控-Oracle" class="headerlink" title="Prometheus 监控 Oracle"></a>Prometheus 监控 Oracle</h2><h3 id="启动-oracledb-exporter-容器"><a href="#启动-oracledb-exporter-容器" class="headerlink" title="启动 oracledb_exporter 容器"></a>启动 oracledb_exporter 容器</h3>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        		</li>
+      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">H2</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -497,7 +623,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/H2//" class="article-tag-list-link color3">H2</a>
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
         		</li>
       		
 		</ul>
@@ -506,7 +632,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/">展开全文 >></a>
     </p>
     
 
@@ -536,7 +662,7 @@
 
 
   
-    <article id="post-Linux/009-Nexus-配置Docker私有仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/019-使用Docker部署OnlyOffice" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -544,7 +670,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" target="_blank">Nexus 配置 Docker 私有仓库</a>
+	  <a class="article-title" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/" target="_blank">使用 Docker 部署 ONLYOFFICE</a>
   
     </h1>
   
@@ -552,8 +678,8 @@
 
   
   
-<a href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -565,10 +691,340 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/sanduzxcvbnm/p/13099635.html">使用 Nexus3 配置 Docker 私有仓库</a></p>
-<h2 id="Nexus3-配置-Docker-私有仓库"><a href="#Nexus3-配置-Docker-私有仓库" class="headerlink" title="Nexus3 配置 Docker 私有仓库"></a>Nexus3 配置 Docker 私有仓库</h2><h3 id="配置-blob-存储"><a href="#配置-blob-存储" class="headerlink" title="配置 blob 存储"></a>配置 blob 存储</h3>
+    <p>ONLYOFFICE 官方地址: <a target="_blank" rel="noopener" href="https://helpcenter.onlyoffice.com/installation/groups-install-docker.aspx?_ga=2.241152007.523411100.1584064999-567909688.1584064999">官方教程</a></p>
+<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
+<li>系统: CentOS 7.9 64位 系统</li>
+<li>Docker 版本: 19.03.15</li>
+</ul>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ONLYOFFICE</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/022-CentOS-7-搭建-FastDFS-高可用环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/" target="_blank">CentOS 7 服务器部署 FastDFS 环境</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="FastDFS-介绍"><a href="#FastDFS-介绍" class="headerlink" title="FastDFS 介绍"></a>FastDFS 介绍</h2><p>FastDFS 开源地址：<code>https://github.com/happyfish100</code></p>
+<p><strong>分布式文件系统</strong>: Distributed file system, DFS，又叫做网络文件系统：Network File System。一种允许文件通过网络在多台主机上分享的文件系统，可让多机器上的多用户分享文件和存储空间。</p>
+<p>FastDFS 是一个开源的轻量级分布式文件系统，功能包括：文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合中小文件（建议范围：4KB &lt; file_size &lt;500MB），对以文件为载体的在线服务，如相册网站、视频网站等。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FastDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/FastDFS//" class="article-tag-list-link color3">FastDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/037-Git-相关命令操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/037-Git-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/" target="_blank">Git 推送本地分支到远程仓库</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/037-Git-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Git-Push-命令"><a href="#Git-Push-命令" class="headerlink" title="Git Push 命令"></a>Git Push 命令</h2><p>Git 是一个使用分支从主工作流开发功能的平台。它是一个分散的版本控制系统，因为我们的仓库上有本地和远程分支。<br>当我们独立工作时，我们向本地分支提交，但是如果我们想与同事分享我们的提交，我们必须做什么？对于这种情况，我们将推送我们的 Git 分支到远程仓库。</p>
+<p>这里将展示如何为此操作远程推送 Git 分支。<code>git push</code> 命令用于将本地仓库数据推送到远程仓库。</p>
+<h3 id="使用-git-push-推送分支的语法如下"><a href="#使用-git-push-推送分支的语法如下" class="headerlink" title="使用 git push 推送分支的语法如下"></a>使用 <code>git push</code> 推送分支的语法如下</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push &lt;remote&gt; &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/037-Git-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/037-Git-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/016-maven-部署成品到-Nexus" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/016-maven-%E9%83%A8%E7%BD%B2%E6%88%90%E5%93%81%E5%88%B0-Nexus/" target="_blank">Maven 部署 jar 包到 Nexus 仓库配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/016-maven-%E9%83%A8%E7%BD%B2%E6%88%90%E5%93%81%E5%88%B0-Nexus/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>为保留项目的历史发布版本，以及方便后续自动化部署脚本的编写，需要将每次发布的软件包上传到中央仓库进行保留，以下是前后端的配置方式。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/016-maven-%E9%83%A8%E7%BD%B2%E6%88%90%E5%93%81%E5%88%B0-Nexus/#more">more >></a>
     
     
 
@@ -593,6 +1049,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nexus</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -603,7 +1063,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Nexus//" class="article-tag-list-link color1">Nexus</a>
+        			<a href="/categories/Maven//" class="article-tag-list-link color1">Maven</a>
         		</li>
       		
 		</ul>
@@ -612,7 +1072,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/016-maven-%E9%83%A8%E7%BD%B2%E6%88%90%E5%93%81%E5%88%B0-Nexus/">展开全文 >></a>
     </p>
     
 
@@ -642,7 +1102,7 @@
 
 
   
-    <article id="post-Linux/011-CentOS-7-配置-Tomcat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/025-Linux-高可用-Keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -650,7 +1110,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/011-CentOS-7-%E9%85%8D%E7%BD%AE-Tomcat/" target="_blank">CentOS 7 配置 Tomcat</a>
+	  <a class="article-title" href="/2023/10/18/Linux/025-Linux-%E9%AB%98%E5%8F%AF%E7%94%A8-Keepalived/" target="_blank">Linux 高可用之 Keepalived</a>
   
     </h1>
   
@@ -658,8 +1118,8 @@
 
   
   
-<a href="/2023/10/18/Linux/011-CentOS-7-%E9%85%8D%E7%BD%AE-Tomcat/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/025-Linux-%E9%AB%98%E5%8F%AF%E7%94%A8-Keepalived/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -671,35 +1131,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://help.fanruan.com/finebi/doc-view-56.html">FineBI</a></p>
-<h2 id="FineBI-启动参数配置"><a href="#FineBI-启动参数配置" class="headerlink" title="FineBI 启动参数配置"></a>FineBI 启动参数配置</h2><ol>
-<li><p>强烈建议手动配置 Xmx 参数，并且推荐内存修改在 8GB &lt;&#x3D; Xmx &lt; 32 GB（一定要 &lt; 32GB）或者40GB &lt;&#x3D; Xmx &lt;&#x3D; 64GB</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=<span class="string">&quot;<span class="variable">$JAVA_OPTS</span> -Xms4g -Xmx8g -XX:PerBytecodeRecompilationCutoff=-1 -XX:PerMethodRecompilationCutoff=-1&quot;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注： -Xmx 配置在 32GB ~ 40GB 会导致性能问题严重，&gt; 64GB 性能变差。<br><code>-XX:PerBytecodeRecompilationCutoff=-1</code> 和 <code>-XX:PerMethodRecompilationCutoff=-1</code> 参数是为了避免 JVM 的 Bug，JIT 的 Deoptimization 机制可能会导致运行缓慢。</p>
-</blockquote>
-</li>
-<li><p>增加 MaxDirectMemorySize 配置，MaxDirectMemorySize 参数为 NIO 最大堆外内存，若不配置，<code>MaxDirectMemorySize</code> 的大小即等于 <code>-Xmx</code></p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=<span class="string">&quot;<span class="variable">$JAVA_OPTS</span> -XX:MaxDirectMemorySize=2g&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置 headless 模式参数，该参数只需在使用 Linux 下环境修改。</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=<span class="string">&quot;<span class="variable">$JAVA_OPTS</span> -Djava.awt.headless=true&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置垃圾收集器，建议仅使用默认的 Parallel Scavenge 收集器。</p>
-<p> 若使用了 CMS（-XX:+UseConcMarkSweepGC） &#x2F;G1（-XX:+UseG1GC） 收集器，该收集器的 Full GC 是单线程的，可能会导致系统长时间无响应，如非必要，建议去掉「 UseConcMarkSweepGC &#x2F; UseG1GC 」参数，即可使用默认的 Parallel Scavenge 收集器。</p>
-<p> 可以通过以下方法查看当前使用的垃圾收集器</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">% java -XX:+PrintCommandLineFlags -version</span><br><span class="line">-XX:InitialHeapSize=2147483648 -XX:MaxHeapSize=32210157568 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC </span><br><span class="line">java version <span class="string">&quot;1.8.0_202&quot;</span></span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_202-b08)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改 <code>vm.max_map_count</code> 参数<br> max_map_count 文件包含限制一个进程可以拥有的 VMA（虚拟内存区域）的数量。虚拟内存区域是一个连续的虚拟地址空间区域。在进程的生命周期中，每当程序尝试在内存中映射文件，链接到共享内存段，或者分配堆空间的时候，这些区域将被创建。</p>
-<p> 调优这个值将限制进程可拥有 VMA 的数量。限制一个进程拥有 VMA 的总数可能导致应用程序出错，因为当进程达到了 VMA 上线但又只能释放少量的内存给其他的内核进程使用时，操作系统会抛出内存不足的错误。</p>
-<p> 建议调整 vm.max_map_count 参数的值为 262144 ，以免 VMA 数量到了默认的上限，导致 JVM 进程崩溃。</p>
-</li>
-</ol>
-<h2 id="CentOS-7-配置-Tomcat-服务"><a href="#CentOS-7-配置-Tomcat-服务" class="headerlink" title="CentOS 7 配置 Tomcat 服务"></a>CentOS 7 配置 Tomcat 服务</h2><ol>
-<li><p>为 Tomcat 设置环境变量，创建 &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;bin&#x2F;setenv.sh 文件，内容如下</p>
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://keepalived.readthedocs.io/en/latest/introduction.html">Keepalived 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b050d8861fc1">Linux 高可用之 Keepalived</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wyl9527/article/details/107631278">keepalived的抢占模式和非抢占模式</a></li>
+</ul>
+<h2 id="高可用集群（HA-Cluster-High-Availability-Cluster"><a href="#高可用集群（HA-Cluster-High-Availability-Cluster" class="headerlink" title="高可用集群（HA Cluster, High Availability Cluster)"></a>高可用集群（HA Cluster, High Availability Cluster)</h2><h3 id="什么是高可用集群"><a href="#什么是高可用集群" class="headerlink" title="什么是高可用集群"></a>什么是高可用集群</h3><p>高可用集群(High Availability Cluster,简称 HA Cluster)，是指以减少服务中断时间为目的的服务器集群技术。它通过保护用户的业务程序对外不间断提供的服务，把因软件，硬件，认为造成的故障对业务的影响降低到最小程度。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/011-CentOS-7-%E9%85%8D%E7%BD%AE-Tomcat/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/025-Linux-%E9%AB%98%E5%8F%AF%E7%94%A8-Keepalived/#more">more >></a>
     
     
 
@@ -726,11 +1166,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Tomcat</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Keepalived</a>
         		</li>
       		
 		</ul>
@@ -742,7 +1178,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Tomcat//" class="article-tag-list-link color2">Tomcat</a>
+        			<a href="/categories/Keepalived//" class="article-tag-list-link color1">Keepalived</a>
         		</li>
       		
 		</ul>
@@ -751,7 +1187,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/011-CentOS-7-%E9%85%8D%E7%BD%AE-Tomcat/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/025-Linux-%E9%AB%98%E5%8F%AF%E7%94%A8-Keepalived/">展开全文 >></a>
     </p>
     
 
@@ -781,7 +1217,7 @@
 
 
   
-    <article id="post-Linux/033-使用普通用户运行-supervisor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/030-Nginx-调优参数以及原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -789,7 +1225,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/" target="_blank">使用普通用户运行 supervisor</a>
+	  <a class="article-title" href="/2023/10/18/Linux/030-Nginx-%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8E%9F%E7%90%86/" target="_blank">Nginx 调优参数以及原理</a>
   
     </h1>
   
@@ -797,8 +1233,8 @@
 
   
   
-<a href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/030-Nginx-%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8E%9F%E7%90%86/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -810,258 +1246,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="使用普通用户运行-supervisor"><a href="#使用普通用户运行-supervisor" class="headerlink" title="使用普通用户运行 supervisor"></a>使用普通用户运行 supervisor</h2><h3 id="安装-supervisor"><a href="#安装-supervisor" class="headerlink" title="安装 supervisor"></a>安装 supervisor</h3><ol>
-<li><p>安装 supervisor</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y supervisor</span><br></pre></td></tr></table></figure>
+    <p>参考来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2292484">Nginx 从入门到企业实战二</a></p>
+<h2 id="Nginx-调优与背后原理"><a href="#Nginx-调优与背后原理" class="headerlink" title="Nginx 调优与背后原理"></a>Nginx 调优与背后原理</h2><h3 id="Linux-内核方面调优"><a href="#Linux-内核方面调优" class="headerlink" title="Linux 内核方面调优"></a>Linux 内核方面调优</h3><ol>
+<li><p>首先，需要修改 &#x2F;etc&#x2F;sysctl.conf 文件来更改内核参数</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Supervisor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/032-nacos-集群部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_blank">Nacos 集群部署</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Nacos-集群部署"><a href="#Nacos-集群部署" class="headerlink" title="Nacos 集群部署"></a>Nacos 集群部署</h2><h3 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h3><table>
-<thead>
-<tr>
-<th align="center">主机名</th>
-<th align="center">IP地址</th>
-<th align="left">角色</th>
-<th align="left">软件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">nacos-1</td>
-<td align="center">192.168.200.13</td>
-<td align="left">nacos, mysql-master</td>
-<td align="left">nacos, mysql</td>
-</tr>
-<tr>
-<td align="center">nacos-2</td>
-<td align="center">192.168.200.14</td>
-<td align="left">nacos, mysql-slave</td>
-<td align="left">nacos, mysql</td>
-</tr>
-<tr>
-<td align="center">nacos-3</td>
-<td align="center">192.168.200.15</td>
-<td align="left">nacos, nginx</td>
-<td align="left">nacos, nginx</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Nacos//" class="article-tag-list-link color1">Nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/039-使用-envsubst-动态生成-Nginx-配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank">使用 envsubst 动态生成 Nginx 配置文件</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>由于现在需要部署 nginx 的 Pod 服务，希望 nginx 配置文件里面有关 <code>proxy_pass</code> 的配置在启动服务前动态修改。但是由于 nginx 的配置文件不支持使用环境变量。网上找了好些方案，最终选择使用 <code>envsubst</code> 的方式改写 nginx 配置文件。</p>
-<h2 id="什么是-envsubst"><a href="#什么是-envsubst" class="headerlink" title="什么是 envsubst"></a>什么是 envsubst</h2><p><code>envsubst</code> 是一个非常好用的工具，尤其善于处理和环境变量相关的事务。</p>
-<p>通常我们需要获取某一个或者几个环境去替换系统中的某些变量，这种情况下我们只需使用sed去简单的替换掉即可，在这种场景中，sed就可以满足我们的需求，但是如果我们需要修改的变量较多，而且不确定到底有哪些变量时，envsubst就排上了用场</p>
-<h3 id="envsubst-使用方法"><a href="#envsubst-使用方法" class="headerlink" title="envsubst 使用方法"></a>envsubst 使用方法</h3><ol>
-<li><p>envsubst 的使用方法如下: <code>original_file</code> 为模板文件, <code>destination_file</code> 为使用变量后生成的目标文件</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">envsubst &lt; original_file &gt; destination_file</span><br></pre></td></tr></table></figure></li>
-</ol>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/030-Nginx-%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8E%9F%E7%90%86/#more">more >></a>
     
     
 
@@ -1090,10 +1279,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">envsubst</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -1104,7 +1289,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/Nginx//" class="article-tag-list-link color1">Nginx</a>
         		</li>
       		
 		</ul>
@@ -1113,226 +1298,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/006-CentOS-安装以及使用-nvm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/006-CentOS-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8-nvm/" target="_blank">CentOS7 安装以及使用 NVM</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/006-CentOS-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8-nvm/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>nvm全称Node Version Manager是 Nodejs 版本管理器，它让我们能方便的对 Node.js 的版本进行切换。 nvm 的官方版本只支持 Linux 和 Mac。 Windows 用户，可以用 nvm-windows。详情请点击官方说明。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/006-CentOS-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8-nvm/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Node</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/NVM//" class="article-tag-list-link color4">NVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/006-CentOS-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8-nvm/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/020-GitHub-个人令牌认证方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/020-GitHub-%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/" target="_blank">GitHub 个人令牌认证方式</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/020-GitHub-%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>针对 GitHub clone 需要身份验证的仓库时，提示如下错误：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">remote: Support <span class="keyword">for</span> password authentication was removed on August 13, 2021. Please use a personal access token instead.</span><br><span class="line">remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ <span class="keyword">for</span> more information.</span><br><span class="line">fatal: unable to access <span class="string">&#x27;https://github.com/zhoubin0422/kubernetes-study-documents.git/&#x27;</span>: The requested URL returned error: 403</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/020-GitHub-%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitHub</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Token</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitHub//" class="article-tag-list-link color2">GitHub</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/020-GitHub-%E4%B8%AA%E4%BA%BA%E4%BB%A4%E7%89%8C%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/030-Nginx-%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8E%9F%E7%90%86/">展开全文 >></a>
     </p>
     
 
@@ -1377,7 +1343,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1393,15 +1359,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1503,6 +1467,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1515,11 +1483,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1555,11 +1523,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1623,6 +1591,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1635,18 +1611,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1655,11 +1619,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1668,6 +1628,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1731,11 +1699,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1759,18 +1727,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1787,6 +1743,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1795,11 +1763,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1811,15 +1779,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1828,6 +1792,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1967,19 +1939,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2015,10 +1987,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2051,11 +2019,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2064,10 +2040,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2091,7 +2063,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2131,14 +2107,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2171,15 +2139,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2207,14 +2175,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2223,15 +2183,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2243,7 +2203,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

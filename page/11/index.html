@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-kubernetes/054-使用-keepalived-负载均衡-ingress" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/020-Kubernetes-Pod-的生命周期" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/" target="_blank">keepalived 负载均衡 ingress-nginx</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_blank">Pod 的生命周期</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>官方原始文件使用的是 deployment，replicate 为 1，这样将会在某一台节点上启动对应的 <code>nginx-ingress-controller</code> pod。外部流量访问至该节点，由该节点负载分担至内部的service。考虑到单点故障的问题，改为 DaemonSet，配合亲和性部署在指定节点上启动 <code>nginx-ingress-controller</code> pod，确保有多个节点启动<code>nginx-ingress-controller</code> pod，生产环境中建议 ingress 节点打上污点不允许业务pod进行调度，以避免业务应用与 Ingress 服务发生资源争抢。后续将这些节点加入到外部硬件负载均衡组实现高可用性。</p>
-<h2 id="部署-Ingress-nginx-此处略"><a href="#部署-Ingress-nginx-此处略" class="headerlink" title="部署 Ingress-nginx (此处略)"></a>部署 Ingress-nginx (此处略)</h2><p>参考文章: <a href="https://blog.59izt.com/2021/04/09/kubernetes/013-Ingress/">Kubernetes-Ingress</a></p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/">Pod 的生命周期</a></p>
+<h2 id="Pod-的生命周期"><a href="#Pod-的生命周期" class="headerlink" title="Pod 的生命周期"></a>Pod 的生命周期</h2><p>Pod 遵循定义的生命周期，从 Pending 阶段开始，如果一个主容器启动正常，则进入 Running 阶段，然后根据 Pod 中的任何容器是否因故障终止而经历 Succeeded 或者 Failed 阶段。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more">more >></a>
     
     
 
@@ -269,11 +269,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ingress-nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pod</a>
         		</li>
       		
 		</ul>
@@ -294,7 +290,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/054-%E4%BD%BF%E7%94%A8-keepalived-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-ingress/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">展开全文 >></a>
     </p>
     
 
@@ -324,7 +320,7 @@
 
 
   
-    <article id="post-kubernetes/059-kubernetes-版本升级实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/044-kubernetes-CICD-Java-应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -332,7 +328,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/" target="_blank">kubernetes 版本升级实践</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/" target="_blank">自动化构建 Java 应用</a>
   
     </h1>
   
@@ -340,8 +336,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -353,685 +349,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358338665">Kubernetes版本升级实践</a></p>
-<h2 id="k8s-版本信息"><a href="#k8s-版本信息" class="headerlink" title="k8s 版本信息"></a>k8s 版本信息</h2><h3 id="版本号的含义"><a href="#版本号的含义" class="headerlink" title="版本号的含义"></a>版本号的含义</h3><p>Kubernetes 版本表示为 x.y.z，其中 x 是主要版本，y 是次要版本，z 是补丁版本，遵循语义版本控制术语。有关更多信息，请参阅 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/sig-release/blob/master/release-engineering/versioning.md">Kubernetes 发布版本</a>。</p>
-<p>k8s 发行版与 github 分支的关系</p>
-<p>简单来讲，kubernetes 项目存在3类分支(branch)，分别为 <code>master</code>, <code>release-X.Y</code>, <code>release-X.Y.Z</code>。master 分支上的代码是最新的，每隔2周会生成一个发布版本(release)，由新到旧以此为 <code>master</code>–&gt;<code>alpha</code>–&gt;<code>beta</code>–&gt;<code>Final release</code>，这当中存在一些 cherrypicking 的规则，也就是说从一个分支上挑选一些必要 <code>pull request</code> 应用到另一个分支上。我们可以认为 <code>X.Y.0</code> 为稳定的版本，这个版本号意味着一个 <code>Final release</code>。一个 <code>X.Y.0</code> 版本会在 <code>X.(Y-1).0</code> 版本的3到4个月后出现。 <code>X.Y.Z</code> 为经过 cherrypick 后解决了必须的安全性漏洞、以及影响大量用户的无法解决的问题的补丁版本。 总体而言，我们一般关心 <code>X.Y.0</code> (稳定版本)，和 <code>X.Y.Z</code>(补丁版本) 的特性。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/059-kubernetes-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Shell/000-SaltStack-安装脚本学习心得" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" target="_blank">SaltStack 安装脚本学习心得</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.445Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原始脚本地址：<a target="_blank" rel="noopener" href="https://github.com/saltstack/salt-bootstrap/blob/develop/bootstrap-salt.sh">bootstrap-salt</a></p>
-</blockquote>
-<h1 id="关于脚本开头-“-“-说明"><a href="#关于脚本开头-“-“-说明" class="headerlink" title="关于脚本开头 “-“ 说明"></a>关于脚本开头 “-“ 说明</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh -        </span></span><br><span class="line"><span class="comment"># 说明：/bin/sh 后面的 &quot;-&quot; 表示选项结束，并禁用进一步的选项处理。- 后面的任何参数均被视为文件名和参数。&quot;--&quot; 等效于 &quot;-&quot;。</span></span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Shell//" class="article-tag-list-link color1">Shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Shell/000-SaltStack-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Shell/001-最常用的-shell-命令合集及使用技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Shell/001-%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84-shell-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" target="_blank">最常用的 shell 命令合集</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Shell/001-%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84-shell-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.445Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>内容来源：运维高手的 36 项修炼</p>
-</blockquote>
-<h1 id="控制台使用技巧"><a href="#控制台使用技巧" class="headerlink" title="控制台使用技巧"></a>控制台使用技巧</h1><p>首先，我们来学习控制台的使用技巧，学习掌握控制台的使用技巧后可以帮助我们熟练快速的操作控制台，提高工作效率；还可以通过快捷键方式避免大量的命令输入，减少错误产生的概率。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Shell/001-%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84-shell-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Shell//" class="article-tag-list-link color1">Shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Shell/001-%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84-shell-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/000-Linux-install-python3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/000-Linux-install-python3/" target="_blank">Linux install Python3</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/000-Linux-install-python3/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="安装-Python-版本控制软件-pyenv"><a href="#安装-Python-版本控制软件-pyenv" class="headerlink" title="安装 Python 版本控制软件 pyenv"></a>安装 Python 版本控制软件 pyenv</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆 pyenv 仓库到本地</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/pyenv/pyenv.git ~/.pyenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置环境变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init --path)&quot;&#x27;</span> &gt;&gt; ~/.profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;source ~/.profile&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(pyenv init -)&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/000-Linux-install-python3/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/000-Linux-install-python3/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/008-十分钟入门-Pandas" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/008-%E5%8D%81%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8-Pandas/" target="_blank">十分钟入门 Pandas</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/008-%E5%8D%81%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8-Pandas/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://www.pypandas.cn/docs/getting_started/overview.html">Pandas 中文网</a></p>
-</blockquote>
-<h1 id="导入-Pandas-与-Numpy"><a href="#导入-Pandas-与-Numpy" class="headerlink" title="导入 Pandas 与 Numpy"></a>导入 Pandas 与 Numpy</h1><p>本节是帮助 Pandas 新手快速上手的简介，本节以下列方式导入 Pandas 与 NumPy</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/008-%E5%8D%81%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8-Pandas/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Pandas//" class="article-tag-list-link color2">Pandas</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/008-%E5%8D%81%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8-Pandas/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/009-Pandas-数据结构简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/009-Pandas-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B/" target="_blank">Pandas 数据结构简介</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/009-Pandas-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://www.pypandas.cn/docs/getting_started/dsintro.html">Pandas 中文网</a></p>
-</blockquote>
-<h1 id="数据结构简介"><a href="#数据结构简介" class="headerlink" title="数据结构简介"></a>数据结构简介</h1><p>本节介绍 Pandas 基础数据结构，包括各类对象的数据类型，索引，轴标记，对齐等基础操作。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/009-Pandas-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Pandas//" class="article-tag-list-link color2">Pandas</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/009-Pandas-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%80%E4%BB%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/015-Flask-使用-SQLAlchemy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/015-Flask-%E4%BD%BF%E7%94%A8-SQLAlchemy/" target="_blank">Flask 使用 SQLAlchemy</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/015-Flask-%E4%BD%BF%E7%94%A8-SQLAlchemy/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考文章：[Python web开发实战]</p>
-</blockquote>
-<h1 id="ORM-简介"><a href="#ORM-简介" class="headerlink" title="ORM 简介"></a>ORM 简介</h1><p>随着项目越来越大，采用原生 SQL 的方式在代码中会出现大量的 SQL 语句，那么问题就出现了：</p>
-<ul>
-<li>SQL 语句重复利用率不高，越复杂的SQL语句条件越多，代码越长。你会看到很多相近的 SQL 语句。</li>
+    <ul>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
 </ul>
+<h2 id="自动化构建-Java-应用"><a href="#自动化构建-Java-应用" class="headerlink" title="自动化构建 Java 应用"></a>自动化构建 Java 应用</h2><h3 id="创建-Java-测试用例"><a href="#创建-Java-测试用例" class="headerlink" title="创建 Java 测试用例"></a>创建 Java 测试用例</h3><p>示例项目可以从 <code>https://gitee.com/dukuan/spring-boot-project.git</code> 找到该项目(也可以使用 公司的 Java 项目也是一样的)。接下来将该项目导入到自己的 Gitlab 中。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/015-Flask-%E4%BD%BF%E7%94%A8-SQLAlchemy/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/#more">more >></a>
     
     
 
@@ -1054,11 +377,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQLAlchemy</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
         		</li>
       		
 		</ul>
@@ -1070,7 +397,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Flask//" class="article-tag-list-link color1">Flask</a>
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
         		</li>
       		
 		</ul>
@@ -1079,7 +406,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/015-Flask-%E4%BD%BF%E7%94%A8-SQLAlchemy/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/">展开全文 >></a>
     </p>
     
 
@@ -1109,7 +436,7 @@
 
 
   
-    <article id="post-Python/018-Django-Views-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/046-kubernetes-CICD-Golang-应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1117,7 +444,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/" target="_blank">Django 入门基础（Views）</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/046-kubernetes-CICD-Golang-%E5%BA%94%E7%94%A8/" target="_blank">自动化构建 Golang 应用</a>
   
     </h1>
   
@@ -1125,8 +452,8 @@
 
   
   
-<a href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/046-kubernetes-CICD-Golang-%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1138,14 +465,128 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<h1 id="Django-模块实现-Web-服务"><a href="#Django-模块实现-Web-服务" class="headerlink" title="Django 模块实现 Web 服务"></a>Django 模块实现 Web 服务</h1><ol>
-<li>将以下文件保存为 <code>testdjango.py</code>。</li>
+    <ul>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
+</ul>
+<h2 id="自动化构建-Golang-项目"><a href="#自动化构建-Golang-项目" class="headerlink" title="自动化构建 Golang 项目"></a>自动化构建 Golang 项目</h2><p>这里演示一下对于 Golang 的自动化构建，本次示例的代码地址: <a target="_blank" rel="noopener" href="https://gitee.com/dukuan/go-project.git">https://gitee.com/dukuan/go-project.git</a>。 先将该项目导入到 Gitlab 中。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/046-kubernetes-CICD-Golang-%E5%BA%94%E7%94%A8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/046-kubernetes-CICD-Golang-%E5%BA%94%E7%94%A8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/048-Kubernetes-部署-MySQL-到-k8s-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/" target="_blank">部署 MySQL 到 k8s 集群</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="部署-MySQL-到-k8s-集群"><a href="#部署-MySQL-到-k8s-集群" class="headerlink" title="部署 MySQL 到 k8s 集群"></a>部署 MySQL 到 k8s 集群</h2><h3 id="命名空间准备"><a href="#命名空间准备" class="headerlink" title="命名空间准备"></a>命名空间准备</h3><ol>
+<li><p>创建项目专用的 namespace</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ns tms-test</span><br></pre></td></tr></table></figure></li>
 </ol>
     
-    <a class="article-more-a" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/#more">more >></a>
     
     
 
@@ -1168,11 +609,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1184,7 +621,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1193,7 +630,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
     </p>
     
 
@@ -1223,7 +660,7 @@
 
 
   
-    <article id="post-Python/035-Python-标准模块-logging" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/000-Kubernetes-核心概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1231,7 +668,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/" target="_blank">Python 标准模块-logging</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/000-Kubernetes-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" target="_blank">Kubernetes 核心概念</a>
   
     </h1>
   
@@ -1239,8 +676,8 @@
 
   
   
-<a href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/000-Kubernetes-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1252,9 +689,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="日志模块简介"><a href="#日志模块简介" class="headerlink" title="日志模块简介"></a>日志模块简介</h2><p>运维工作有很多的情况需要查问题，解决 bug，而查问题和解决 bug 的过程离不开查看日志，我们编写脚本名或程序时总是需要有日志输出，而 Python 的 logging 模块就是为纪录日志使用的，而且是线程安全的，意味着使用它完全不用担心因日志模块的异常而导致程序崩溃。</p>
+    <blockquote>
+<p>书籍名称：[基于 Kubernetes 的容器云实战]</p>
+</blockquote>
+<h2 id="Kubernetes-的核心概念"><a href="#Kubernetes-的核心概念" class="headerlink" title="Kubernetes 的核心概念"></a>Kubernetes 的核心概念</h2><p>与其他技术一样，Kubernetes 也会采用一些专用词汇，这可能对初学者的理解和掌握这项技术造成一定的障碍。本节就一些常用的术语进行说明，以帮助读者快速理解 Kubernetes 的基本概念。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/000-Kubernetes-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/#more">more >></a>
     
     
 
@@ -1277,11 +717,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">标准模块</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1293,7 +729,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1302,7 +738,564 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/000-Kubernetes-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/001-kubeadm-安装高可用k8s集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/" target="_blank">kubeadm 高可用 K8S 集群安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考书籍: [再也不踩坑的Kubernetes实战指南]</p>
+<p>本节主要演示使用 kubeadm 安装 Kubernetes 高可用集群，测试环境可以采用 kubeadm 安装，这也是目前官方默认的安装方式，比二进制安装方式更简单，可以让初学者快速上手并测试。目前 GitHub 上也有很多基于 Ansible 的自动化安装方式，但是为了更好地学习 Kubernetes，还是建议体验一下 Kubernetes 的手动安装过程，以熟悉 Kubernetes 的各个组件。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/007-ReplicationController" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/007-ReplicationController/" target="_blank">Kubernetes-ReplicationController</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/007-ReplicationController/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考书籍：[基于 Kubernetes 的容器云平台实战]</p>
+<h2 id="Replication-Controller"><a href="#Replication-Controller" class="headerlink" title="Replication Controller"></a>Replication Controller</h2><p>Kubernetes 提供 Replication Controller（简称 “RC”）来管理 Pod，Replication Controller 确保任何时候 Kubernetes 集群中有指定数量的 Pod 副本在运行。如果少于指定数量的 Pod 副本，Replication Controller 会启动新的 Pod，反之会杀死多余的以保证数量不变。当 Pod 失败，被删除或被终结时，RC 会自动创建新的 Pod 来保证副本数量，所以即使只有一个 Pod，也应该使用 RC 来进行管理。除此之外，RC 还提供了一些更高级的特性，比如滚动升级，升级回滚等。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/007-ReplicationController/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/007-ReplicationController/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/034-Kubernetes-日志采集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" target="_blank">Kubernetes 日志采集</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考来源:</p>
+<ul>
+<li>课程随堂笔记: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
+<li>EFK GitHub 地址: <a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch">fluentd-elasticsearch</a></li>
+<li>实验所需文件仓库地址: <a target="_blank" rel="noopener" href="https://github.com/dotbalo/k8s.git">k8s.git</a></li>
+</ul>
+<h2 id="EFK（ElasticSearch-Fluentd-Kibana）"><a href="#EFK（ElasticSearch-Fluentd-Kibana）" class="headerlink" title="EFK（ElasticSearch + Fluentd + Kibana）"></a>EFK（ElasticSearch + Fluentd + Kibana）</h2><p>EFK 是用于 Kubernetes 集群的日志收集工具，我们可以根据自己的业务情况，选择日志收集工具，比如还可以选择以 Sidecar 形式运行在 Pod 中的 Filebeat。这里介绍持久化安装 EFK 至 Kubernetes 集群，用于收集集群的相关日志，但是在生产环境中不建议将 EFK 安装到 Kubernetes 集群中，可以选择安装在集群之外，也可以将日志输出到外部的 ES 集群。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">EFK</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/042-使用-crictl-对-Kubernetes-节点进行调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" target="_blank">使用 crictl 对 kubernetes 节点进行调试</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/tasks/debug-application-cluster/crictl/">官方文档</a></li>
+</ul>
+<h2 id="安装-crictl"><a href="#安装-crictl" class="headerlink" title="安装 crictl"></a>安装 crictl</h2><h3 id="下载-crictl"><a href="#下载-crictl" class="headerlink" title="下载 crictl"></a>下载 crictl</h3><p>可以从 cri-tools <a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/cri-tools/releases">发布页面</a> 下载一个压缩的 crictl 归档文件，用于几种不同的架构。下载与你的 kubernetes 版本相对应的版本。提取它并将其移动到系统路径上的某个位置，例如 <code>/usr/local/bin/</code>。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cri</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/070-kubernetes-备份恢复之-velero" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/" target="_blank">Kubernetes 备份恢复之 Velero</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6865911362044837902">Kubernetes备份恢复之velero实战</a></li>
+<li><a target="_blank" rel="noopener" href="https://velero.io/docs/v1.10/basic-install/">Velero 官方文档</a></li>
+</ul>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Kubernetes 集群备份是一大难点。虽然可以通过 etcd 来进行备份来实现 K8S 集群备份，但是这种备份很难恢复单个 Namespace。<br>Velero 对于 K8s 集群数据的备份和恢复，以及复制当前集群数据到其他集群等都非常方便。可以在两个集群间克隆应用和命名空间，来创建一个临时性的开发环境。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">velero</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/">展开全文 >></a>
     </p>
     
 
@@ -1347,7 +1340,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1363,15 +1356,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1473,6 +1464,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1485,11 +1480,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1525,11 +1520,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1593,6 +1588,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1605,18 +1608,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1625,11 +1616,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1638,6 +1625,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1701,11 +1696,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1729,18 +1724,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1757,6 +1740,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1765,11 +1760,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1781,15 +1776,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1798,6 +1789,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1937,19 +1936,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1985,10 +1984,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2021,11 +2016,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2034,10 +2037,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2061,7 +2060,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2101,14 +2104,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2141,15 +2136,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2177,14 +2172,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2193,15 +2180,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2213,7 +2200,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

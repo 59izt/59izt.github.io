@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Python/030-Python-读写配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/024-自动化软件发布工作流-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank">Python 读写配置文件</a>
+	  <a class="article-title" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/" target="_blank">自动化软件发布工作流(一)</a>
   
     </h1>
   
@@ -226,445 +226,8 @@
 
   
   
-<a href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://wqbook.wqxuetang.com/book/3223405">Python 自动化运维快速入门 (第2版)</a></p>
-<p>配置文件是提供程序运行时读取配置信息的文件，用于将配置信息与程序分离，这样做的好处是显而易见的，例如: 在开源社区贡献自己源代码时，将一些敏感信息通过配置文件读取；提交源代码时不提交配置文件可以避免自己的用户名，密码等敏感信息泄露；我们可以通过配置文件保存程序运行时的中间结果；将环境信息（如操作系统类型）写入配置文件会增加程序的兼容性，使程序变得更加通用。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/031-Python-系统信息监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/" target="_blank">Python 系统信息监控</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://wqbook.wqxuetang.com/book/3223405">Python 自动化运维快速入门 (第2版)</a></p>
-<h2 id="系统信息监控-psutil"><a href="#系统信息监控-psutil" class="headerlink" title="系统信息监控 (psutil)"></a>系统信息监控 (psutil)</h2><p>在 Python 中获取系统信息最便捷的模块是 <code>psutil</code>（Process and System Utilities）。通过几行代码就可以获取系统的相关信息，而且还是跨平台库。<code>psutil</code> 不属于标准库，需要手动安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install psutil</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/007-Pandas-概览" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/" target="_blank">Pandas 概览</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://www.pypandas.cn/docs/getting_started/overview.html">Pandas 中文网</a></p>
-</blockquote>
-<h1 id="Pandas-概览"><a href="#Pandas-概览" class="headerlink" title="Pandas 概览"></a>Pandas 概览</h1><p>Pandas 是 Python 的核心数据分析支持库，提供了快速，灵活，明确的数据结构，旨在简单，直观地处理关系型，标记型数据。Pandas 的目标是成为 Python 数据分析实践与实战的必备高级工具，其长远目标是是成为 <code>最强大，最灵活，可以支持任何语言的开源数据分析工具</code>. 经过多年不懈的努力，Pandas 离这个目标已经越来越近了。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Pandas//" class="article-tag-list-link color2">Pandas</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/014-Flask-使用-MySQLdb-写原生语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/" target="_blank">Flask 使用 MySQLdb 写原生语句</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考文章：[Python web开发实战</p>
-</blockquote>
-<h2 id="使用-MySQL"><a href="#使用-MySQL" class="headerlink" title="使用 MySQL"></a>使用 MySQL</h2><p>数据时动态网站的基础，如果把数据放进数据库，就可以通过数据库管理系统对数据进行管理。MySQL 是一个开源的关系型数据库管理系统。它性能高，免费，配置简单，可靠性好，已经成为最流行的开源数据库。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MySQLdb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask//" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/027-GitLab-REST-API-使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" target="_blank">GitLab REST API 使用讲解</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -679,117 +242,9 @@
     <blockquote>
 <p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
 </blockquote>
-<p>和 Jenkins 类似，GitLab 也提供了操作 API 的官方文档：<code>https://docs.gitlab.com/ee/api/</code>。但这个操作是统一标准的，通过 REST API 的方式，支持主流的各种语言（Go，Java，JS，Python 等）。但为了在 Python 环境下更有效率，更规范，更自然地操作这些 API，我们这里也使用了一个第三方库 Python-GitLab 去操作这些 API。</p>
+<p>软件自动化发布，是建立在手工软件发布很成熟的基础之上的，并且是对公司的软件包结构，服务器操作系统标准化之后形成的。相对于手工部署，自动化软件部署效率更高，操作更标准化，节约人力物力，并且可以记录每一次的发布细节。所以它的技能要求更高，要求系统开发人员不但要懂运维，还要懂开发。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitLab-API//" class="article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/025-自动化软件发布工作流-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/" target="_blank">自动化软件发布工作流(二)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<p>当生成软件包，并放入软件仓库以后，就可以通过 SaltStack 来进行部署了。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/#more">more >></a>
     
     
 
@@ -837,7 +292,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/">展开全文 >></a>
     </p>
     
 
@@ -867,7 +322,7 @@
 
 
   
-    <article id="post-Python/037-Python-多进程-multiprocessing(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/034-Python-标准模块-sys" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -875,7 +330,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" target="_blank">Python 多进程 multiprocessing(一)</a>
+	  <a class="article-title" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/" target="_blank">Python 标准模块-sys</a>
   
     </h1>
   
@@ -883,8 +338,8 @@
 
   
   
-<a href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -896,11 +351,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>我们都知道进程是操作系统进行资源分配和调度的基本单位，在单核 CPU 中，同一时刻只能运行单个进程，虽然仍然可以同时运行多个程序，但进程之间是通过轮流占用 CPU 来执行的。进程有三种状态，分别是: 阻塞态、就绪态和运行态；</p>
-<p>Python 内置的 multiprocessing 模块提供了对多进程的支持，下面我们将一一介绍其用法</p>
-<h2 id="创建进程的类-Process"><a href="#创建进程的类-Process" class="headerlink" title="创建进程的类 - Process"></a>创建进程的类 - Process</h2><p>multiprocessing 模块提供了一个创建进程的类 Process，其创建进程有以下两种方法:</p>
+    <p><code>sys</code> 模块主要是针对与 Python 解释器相关的变量和方法，不是主机操作系统。</p>
+<h2 id="常用属性与方法"><a href="#常用属性与方法" class="headerlink" title="常用属性与方法"></a>常用属性与方法</h2>
     
-    <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/#more">more >></a>
     
     
 
@@ -927,7 +381,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multiprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">标准模块</a>
         		</li>
       		
 		</ul>
@@ -948,7 +402,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/">展开全文 >></a>
     </p>
     
 
@@ -978,7 +432,7 @@
 
 
   
-    <article id="post-Python/016-Django-入门学习(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/041-Python-selenium-自动化操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -986,7 +440,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/" target="_blank">Django 入门学习（一）</a>
+	  <a class="article-title" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/" target="_blank">Python Selenium 自动化</a>
   
     </h1>
   
@@ -994,8 +448,8 @@
 
   
   
-<a href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1007,241 +461,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.1/intro/">Django 3.1 官方教程</a></p>
-</blockquote>
-<h1 id="快速安装指南-环境部署"><a href="#快速安装指南-环境部署" class="headerlink" title="快速安装指南(环境部署)"></a>快速安装指南(环境部署)</h1><p>主要分以下步骤：</p>
-<ul>
-<li>安装 Python 3.x.x（Python 3.8.6）</li>
-<li>安装 Django（Django 3.1）</li>
+    <ul>
+<li>官方文档: <a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/">Selenium 浏览器自动化项目</a></li>
 </ul>
+<p>Selenium 是支持 web 浏览器自动化的一系列工具和库的综合项目。它提供了扩展来模拟用户与浏览器的交互，用于扩展浏览器分配的分发服务器，以及用于实现 W3C WebDriver 规范的基础结构，该规范允许您为所有主要 Web 浏览器编写可互换的代码。</p>
+<p>Selenium 的核心是 WebDriver，这是一个编写指令集的接口，可以在许多浏览器中互换运行。 这里有一个最简单的说明：</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Django基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/021-Django-Models-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/" target="_blank">Django 入门基础（Models）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<h2 id="Model-ORM"><a href="#Model-ORM" class="headerlink" title="Model ORM"></a>Model ORM</h2><p>在 Django 的框架设计中采用了 MTV 模型，即 Model，Template，Viewer。Model 相对于传统的三层或者 MVC 框架来说就相当于数据处理层，它主要负责与数据的交互。<br>Django 默认采用的是 ORM 框架中的 Codefirst 模型（根据代码中的类自动生成数据库中的表），也就是说开发人员只需要专注于代码的编写，而不需要过多的关注数据库层面的东西。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Models</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/038-Python-多进程-multiprocessing(二)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/038-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%BA%8C)/" target="_blank">Python 多进程 multiprocessing(二)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/038-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%BA%8C)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>这里我们主要学习多进程 multiprocessing 模块的其他类与方法，包括:</p>
-<ul>
-<li>进程并发控制之 Seamphore</li>
-<li>进程同步之 Lock</li>
-<li>进程同步之 Event</li>
-<li>进程优先级队列 Queue</li>
-<li>多进程之进程池 Pool</li>
-<li>多进程之数据交换 Pipe</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/038-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%BA%8C)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/#more">more >></a>
     
     
 
@@ -1268,7 +494,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multiprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">selenium</a>
         		</li>
       		
 		</ul>
@@ -1289,7 +515,796 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/038-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%BA%8C)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/002-Python-爬虫解析库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">Python 爬虫解析库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>抓取网页代码之后，下一步就是从网页中提取信息。提取信息的方式有多种多样，可以使用正则来提取，但是写起来相对较繁琐。这里还有许多强大的解析库，如 lxml，Beautiful Soup，pyquery 等。此外还提供了非常大的解析方法，如 XPath 解析和 CSS 选择器解析等，利用它们，我们可以高效便捷地从网页中提取有效信息。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/006-爬虫框架的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/006-%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">爬虫框架的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/006-%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>我们直接用 requests，Selenium 等库写爬虫，如果爬取量不是太大，速度要求不高，是完全可以满足需求的。但是写多了会发现其内部许多代码和组件是可以复用的，如果我们把这些组件抽离出来，将各个功能模块化，就慢慢会形成一个框架雏形，久而久之，爬虫的框架就诞生了。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/006-%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/006-%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/005-App-爬取相关库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/005-App-%E7%88%AC%E5%8F%96%E7%9B%B8%E5%85%B3%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">APP 爬取相关库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/005-App-%E7%88%AC%E5%8F%96%E7%9B%B8%E5%85%B3%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>除了 Web 网页，爬虫也可以抓取 App 的数据。App 中的页面要加载出来，首先需要获取数据，而这些数据一般是通过请求服务器的接口来获取的。由于 App 没有浏览器这种可以比较直观的看到后台请求的工具，所以主要用一些抓包技术来抓取数据。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/005-App-%E7%88%AC%E5%8F%96%E7%9B%B8%E5%85%B3%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/005-App-%E7%88%AC%E5%8F%96%E7%9B%B8%E5%85%B3%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/003-存储库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/003-%E5%AD%98%E5%82%A8%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">存储库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/003-%E5%AD%98%E5%82%A8%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>在 <a href="https://blog.59izt.com/2020/02/28/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">数据库的安装</a> 介绍了几个数据库的安装方式，但这仅仅是用来存储数据的数据库，它们提供了存储服务，但如果想和 Python 交互的话，还需要安装一些 Python 存储库，如 MySQL 需要安装 PyMySQL，MongoDB 需要安装 PyMongo 等。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/003-%E5%AD%98%E5%82%A8%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/003-%E5%AD%98%E5%82%A8%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/010-使用pandas做数据可视化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/010-%E4%BD%BF%E7%94%A8pandas%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" target="_blank">使用 Pandas 做数据可视化</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/010-%E4%BD%BF%E7%94%A8pandas%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>内容来源：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/k5hmJAljN4vu52HP9wWBxQ">https://mp.weixin.qq.com/s/k5hmJAljN4vu52HP9wWBxQ</a></p>
+</blockquote>
+<p>数据客户化可以让我们很直观的发现数据中隐藏的规律，察觉到变量之间的互动关系，可以帮助我们更好的给他人解释现象，做到一图胜千文的说明效果。</p>
+<p>常见的数据可视化库有：</p>
+<ul>
+<li>matplotlib：是最常见的2维库，可以算作可视化的必备技能库，由于 matplotlib 是比较底层的库，api 很多，代码学起来不太容易。</li>
+<li>seaborn：是构建于 matplotlib 基础上，能满足绝大多数可视化需求。更特殊的需求还是需要学习 matplotlib；</li>
+<li>pyecharts：上面两个库都是静态的可视化库，而 pyecharts 有很好的 web 兼容性，可以做到可视化的动态效果。</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/010-%E4%BD%BF%E7%94%A8pandas%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">pandas</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">可视化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Pandas//" class="article-tag-list-link color2">Pandas</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/010-%E4%BD%BF%E7%94%A8pandas%E5%81%9A%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/012-Flask-入门(二)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/012-Flask-%E5%85%A5%E9%97%A8(%E4%BA%8C)/" target="_blank">Flask 入门(二)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/012-Flask-%E5%85%A5%E9%97%A8(%E4%BA%8C)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>原文地址：[Python web 开发实战]</p>
+</blockquote>
+<h1 id="即插视图"><a href="#即插视图" class="headerlink" title="即插视图"></a>即插视图</h1><p>即插视图的灵感来自 Django 的基于类而不是函数的通用视图方式，这样的视图就可以支持继承了。视图类型有两种类型。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/012-Flask-%E5%85%A5%E9%97%A8(%E4%BA%8C)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Flask//" class="article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/012-Flask-%E5%85%A5%E9%97%A8(%E4%BA%8C)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/032-Python-标准模块-os" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/032-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-os/" target="_blank">Python 标准模块-os</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/032-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-os/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档地址: <a target="_blank" rel="noopener" href="https://docs.python.org/release/3.8.10/library/os.html?highlight=os#module-os">os – 各种操作系统接口</a></p>
+<p>os 模块是 Python 标准库中的一个用于访问操作系统相关功能的模块，os 提供了一种可移植的使用操作系统功能的方法。使用 os 模块中提供的接口，可以实现跨平台访问，但是，并不是所有的 os 模块中的接口在全平台都通用，有些接口的实现是依赖特定平台的，比如 Linux 相关的文件权限管理和进程管理。</p>
+<p>os 模块的主要功能有:</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/032-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-os/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">标准模块</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/032-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-os/">展开全文 >></a>
     </p>
     
 
@@ -1334,7 +1349,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1350,15 +1365,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1460,6 +1473,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1472,11 +1489,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1512,11 +1529,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1580,6 +1597,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1592,18 +1617,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1612,11 +1625,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1625,6 +1634,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1688,11 +1705,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1716,18 +1733,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1744,6 +1749,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1752,11 +1769,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1768,15 +1785,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1785,6 +1798,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1924,19 +1945,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1972,10 +1993,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2008,11 +2025,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2021,10 +2046,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2048,7 +2069,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2088,14 +2113,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2128,15 +2145,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2164,14 +2181,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2180,15 +2189,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2200,7 +2209,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

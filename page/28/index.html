@@ -210,6 +210,232 @@
             
 
   
+    <article id="post-Databases/MySQL/006-使用-Job-或-CronJob-备份-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" target="_blank">使用 k8s 的 Job 或 CronJob 备份 MySQL 数据库</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="使用-k8s-的-Job-备份-MySQL-数据库"><a href="#使用-k8s-的-Job-备份-MySQL-数据库" class="headerlink" title="使用 k8s 的 Job 备份 MySQL 数据库"></a>使用 k8s 的 Job 备份 MySQL 数据库</h2><p>由于阿里云 RDS MYSQL 数据库没有开放外网连接权限，然后生产环境又没有安装 MYSQL 数据库，缺少 mysqldump 命令，所有决定使用 kubernetes 起一个 job 执行备份操作。</p>
+<p>k8s 的 Job 负责批量处理短暂的一次性任务 (short lived one-off tasks)，即仅执行一次的任务，它保证批处理任务的一个或多个Pod成功结束。这里刚好可以用来备份 MYSQL 数据库</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">job</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Databases/MongoDB/002-Linux-源码安装-MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" target="_blank">Linux 源码安装 MongoDB</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>官方教程：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/install-on-linux/">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h2 id="CentOS-安装-MongoDB-社区版"><a href="#CentOS-安装-MongoDB-社区版" class="headerlink" title="CentOS 安装 MongoDB 社区版"></a>CentOS 安装 MongoDB 社区版</h2><h3 id="安装-MongoDB-所需的依赖项"><a href="#安装-MongoDB-所需的依赖项" class="headerlink" title="安装 MongoDB 所需的依赖项"></a>安装 MongoDB 所需的依赖项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install libcurl openssl</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Databases/MongoDB/003-MongoDB-概念解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -664,7 +890,7 @@
 
 
   
-    <article id="post-Databases/MongoDB/006-MongoDB-查询文档" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MongoDB/001-Linux-安装-MongoDB(yum)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -672,7 +898,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/" target="_blank">MongoDB 查询文档</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/001-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/" target="_blank">Linux 安装 MongoDB (yum)</a>
   
     </h1>
   
@@ -680,8 +906,8 @@
 
   
   
-<a href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.408Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MongoDB/001-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -694,11 +920,13 @@
   <div class="article-entry" itemprop="articleBody">
     
     <blockquote>
-<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+<p>官方教程：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/install-on-linux/">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
 </blockquote>
-<h1 id="MongoDB-查询文档"><a href="#MongoDB-查询文档" class="headerlink" title="MongoDB 查询文档"></a>MongoDB 查询文档</h1><p>MongoDB 查询文档使用 <code>find()</code> 方法。<br>find() 方法以非结构化的方式来显示所有文档。</p>
+<h2 id="CentOS-安装-MongoDB-社区版"><a href="#CentOS-安装-MongoDB-社区版" class="headerlink" title="CentOS 安装 MongoDB 社区版"></a>CentOS 安装 MongoDB 社区版</h2><h3 id="安装-MongoDB"><a href="#安装-MongoDB" class="headerlink" title="安装 MongoDB"></a>安装 MongoDB</h3><ul>
+<li>配置 yum 包管理器<br>创建 &#x2F;etc&#x2F;yum.repos.d&#x2F;mongodb-org-4.2.repo 文件，文件内容如下：</li>
+</ul>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/001-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/#more">more >></a>
     
     
 
@@ -746,7 +974,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/001-Linux-%E5%AE%89%E8%A3%85-MongoDB(yum)/">展开全文 >></a>
     </p>
     
 
@@ -892,6 +1120,118 @@
 
 
   
+    <article id="post-Databases/MongoDB/006-MongoDB-查询文档" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/" target="_blank">MongoDB 查询文档</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.408Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h1 id="MongoDB-查询文档"><a href="#MongoDB-查询文档" class="headerlink" title="MongoDB 查询文档"></a>MongoDB 查询文档</h1><p>MongoDB 查询文档使用 <code>find()</code> 方法。<br>find() 方法以非结构化的方式来显示所有文档。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/006-MongoDB-%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Databases/MongoDB/008-MongoDB-的特殊方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1004,330 +1344,6 @@
 
 
   
-    <article id="post-Databases/Oracle/004-Oracle数据库迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/004-Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/" target="_blank">Oracle 数据库迁移步骤</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/Oracle/004-Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Oracle-迁移步骤"><a href="#Oracle-迁移步骤" class="headerlink" title="Oracle 迁移步骤"></a>Oracle 迁移步骤</h2><p>由于之前 Oracle 数据库时运行在容器中，现在需要将它迁移到宿主机上运行，迁移步骤如下：</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/004-Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/004-Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/Oracle/006-Oracle-常用查询语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/006-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" target="_blank">Oracle 常用语句</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/Oracle/006-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Oracle-日常操作"><a href="#Oracle-日常操作" class="headerlink" title="Oracle 日常操作"></a>Oracle 日常操作</h2><ol>
-<li><p>查看表空间对应的数据文件</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/006-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/006-Oracle-%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/Others/000-SQL-语法速成手册" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/Others/000-SQL-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/" target="_blank">SQL 语法速成手册</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/Others/000-SQL-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.407Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/KF507xNObzQAIjFi8xZbKQ">杰哥的 IT 之旅-SQL 语法速成手册</a></p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="数据库术语"><a href="#数据库术语" class="headerlink" title="数据库术语"></a>数据库术语</h3><ul>
-<li>数据库（database）: 保存有组织的数据的容器（通常是一个文件或一组文件）；</li>
-<li>数据表（table）: 某种特定类型数据的结构化清单；</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/Others/000-SQL-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL//" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Others/000-SQL-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/27/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/29/">下一页</a>
@@ -1343,7 +1359,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1359,15 +1375,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1469,6 +1483,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1481,11 +1499,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1521,11 +1539,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1589,6 +1607,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1601,18 +1627,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1621,11 +1635,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1634,6 +1644,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1697,11 +1715,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1725,18 +1743,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1753,6 +1759,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1761,11 +1779,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1777,15 +1795,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1794,6 +1808,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1933,19 +1955,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1981,10 +2003,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2017,11 +2035,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2030,10 +2056,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2057,7 +2079,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2097,14 +2123,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2137,15 +2155,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2173,14 +2191,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2189,15 +2199,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2209,7 +2219,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Prometheus/015-Prometheus-黑盒监控-静态配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/040-Python-多线程-threading(二)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Prometheus/015-Prometheus-%E9%BB%91%E7%9B%92%E7%9B%91%E6%8E%A7-%E9%9D%99%E6%80%81%E9%85%8D%E7%BD%AE/" target="_blank">Prometheus 黑盒监控和静态配置</a>
+	  <a class="article-title" href="/2023/10/18/Python/040-Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B-threading(%E4%BA%8C)/" target="_blank">Python 多线程 threading(二)</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/Prometheus/015-Prometheus-%E9%BB%91%E7%9B%92%E7%9B%91%E6%8E%A7-%E9%9D%99%E6%80%81%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.435Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/040-Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B-threading(%E4%BA%8C)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.438Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,11 +239,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Blackbox_Exporter 项目地址: <a target="_blank" rel="noopener" href="https://github.com/prometheus/blackbox_exporter">blackbox_exporter</a></p>
-<h2 id="Blackbox-Exporter-黑盒监控"><a href="#Blackbox-Exporter-黑盒监控" class="headerlink" title="Blackbox Exporter(黑盒监控)"></a>Blackbox Exporter(黑盒监控)</h2><p>blackbox_exporter 允许通过 HTTP、HTTPS、DNS、TCP 和 ICMP 对端点进行黑盒探测。新版的 Prometheus Stack 已经默认安装了 Blackbox Exporter，可以通过以下命令查看</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kubectl get po -n monitoring -l app.kubernetes.io/name=blackbox-exporter</span></span><br><span class="line">NAME                                 READY   STATUS    RESTARTS   AGE</span><br><span class="line">blackbox-exporter-6798fb5bb4-7vmq2   3/3     Running   3          17d</span><br></pre></td></tr></table></figure>
+    <h2 id="多线程同步之-Lock（锁）"><a href="#多线程同步之-Lock（锁）" class="headerlink" title="多线程同步之 Lock（锁）"></a>多线程同步之 Lock（锁）</h2><p>如果多个线程共同对某个数据修改，则可能出现不可预料的结果，这个时候就需要使用互斥锁来进行同步。例如，在三个线程对共同变量 num 进行 100 万次加减操作之后，其 num 的结果不为 0</p>
+<ol>
+<li><p>示例，不加锁的意外情况(thread_no_lock.py)</p>
     
-    <a class="article-more-a" href="/2023/10/18/Prometheus/015-Prometheus-%E9%BB%91%E7%9B%92%E7%9B%91%E6%8E%A7-%E9%9D%99%E6%80%81%E9%85%8D%E7%BD%AE/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/040-Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B-threading(%E4%BA%8C)/#more">more >></a>
     
     
 
@@ -266,11 +266,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">threading</a>
         		</li>
       		
 		</ul>
@@ -282,7 +282,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -291,7 +291,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/015-Prometheus-%E9%BB%91%E7%9B%92%E7%9B%91%E6%8E%A7-%E9%9D%99%E6%80%81%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/040-Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B-threading(%E4%BA%8C)/">展开全文 >></a>
     </p>
     
 
@@ -321,7 +321,7 @@
 
 
   
-    <article id="post-Prometheus/020-Kube-prometheus-监控-k8s-集群外部的主机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/000-Linux-安装部署Prometheus服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -329,7 +329,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Prometheus/020-Kube-prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84%E4%B8%BB%E6%9C%BA/" target="_blank">Kube-prometheus 监控 k8s 集群外部的主机</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/000-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/" target="_blank">Linux 安装部署 Prometheus服务</a>
   
     </h1>
   
@@ -337,8 +337,8 @@
 
   
   
-<a href="/2023/10/18/Prometheus/020-Kube-prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84%E4%B8%BB%E6%9C%BA/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.435Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/000-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -350,354 +350,449 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>公司的 k8s 集群使用的是 <code>kube-prometheus</code> 监控的，除了 <code>kube-prometheus</code> 外，公司还有一些其他主机也需要使用 Prometheus 监控起来。Prometheus 可以添加额外的配置文件，详细的可以查看 <a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/additional-scrape-config.md">Additional Scrape Configuration</a></p>
-<p>具体的步骤如下:</p>
+    <blockquote>
+<p>参考文章: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e59cfd15612e">https://www.jianshu.com/p/e59cfd15612e</a></p>
+</blockquote>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/000-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">监控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/000-Linux-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Prometheus%E6%9C%8D%E5%8A%A1/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/001-Prometheus-基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/001-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_blank">Prometheus 基础知识</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/001-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Prometheus-架构"><a href="#Prometheus-架构" class="headerlink" title="Prometheus 架构"></a>Prometheus 架构</h2><p>Prometheus 由开源编程语言 Go 编写，并且是在 Apache 2.0 许可证下授权的。它孵化于云原生计算基金会。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/001-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/001-Prometheus-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/002-Prometheus-配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/002-Prometheus-%E9%85%8D%E7%BD%AE/" target="_blank">Prometheus 配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/002-Prometheus-%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="配置-Prometheus"><a href="#配置-Prometheus" class="headerlink" title="配置 Prometheus"></a>配置 Prometheus</h2><p>Prometheus 通过 YAML 文件来配置。当运行 Prometheus 二进制文件时，我们会指定一个配置文件。Prometheus 自带默认的配置文件 <code>prometheus.yml</code>。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/002-Prometheus-%E9%85%8D%E7%BD%AE/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/002-Prometheus-%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/007-Prometheus-监控MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/007-Prometheus-%E7%9B%91%E6%8E%A7MySQL/" target="_blank">Prometheus 监控 MySQL 数据库</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/007-Prometheus-%E7%9B%91%E6%8E%A7MySQL/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://github.com/prometheus/mysqld_exporter">MySQL Server Exporter</a><br>Prometheus 中文文档: <a target="_blank" rel="noopener" href="https://www.prometheus.wang/exporter/use-promethues-monitor-mysql.html">监控MySQL运行状态</a></p>
+<h2 id="Prometheus-监控-MySQL"><a href="#Prometheus-监控-MySQL" class="headerlink" title="Prometheus 监控 MySQL"></a>Prometheus 监控 MySQL</h2><p>MySQL 是一个关系型数据库管理系统，由瑞典MySQL AB公司开发，目前属于Oracle旗下的产品。MySQL是最流行的关系型数据库管理系统之一。数据库的稳定运行是保证业务可用性的关键因素之一。这一小节当中将介绍如何使用Prometheus提供的MySQLD Exporter实现对MySQL数据库性能以及资源利用率的监控和度量。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/007-Prometheus-%E7%9B%91%E6%8E%A7MySQL/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/007-Prometheus-%E7%9B%91%E6%8E%A7MySQL/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/008-Prometheus-监控-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/" target="_blank">Prometheus 监控 Nginx</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Nginx官网有介绍各种监控方案，以前我们常用stub_status和Log日志来实现Nginx监控。本文主要介绍基于 Prometheus 的2种监控方案 <code>nginx-lua-prometheus</code> 和 <code>nginx-vts-exporter</code></p>
 <ul>
-<li>在 additional-scrape-config 里面添加 job;</li>
-<li>使用 file_sd 去发现主机就可以了;</li>
-<li>使用 configmap 挂载 file 到容器里面;</li>
-<li>修改 configmap 就可以添加新的监控主机到 Prometheus;</li>
+<li>官网介绍的监控方案: <a target="_blank" rel="noopener" href="https://www.nginx.com/blog/monitoring-nginx/">https://www.nginx.com/blog/monitoring-nginx/</a></li>
+<li>Prometheus 集成的 HTTP Exporter 方案: <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#http">https://prometheus.io/docs/instrumenting/exporters/#http</a></li>
 </ul>
     
-    <a class="article-more-a" href="/2023/10/18/Prometheus/020-Kube-prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84%E4%B8%BB%E6%9C%BA/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/020-Kube-prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84%E4%B8%BB%E6%9C%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/022-Prometheus-监控-k8s-集群外部的-rocketMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/022-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-rocketMQ/" target="_blank">Kube-prometheus 监控集群外部的 RocketMQ</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/022-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-rocketMQ/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.435Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7065122136951619614">一套拿来即用的RocketMQ监控面板和告警规则</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sawyerlan/article/details/118152802">使用Prometheus监控RocketMQ</a></li>
-</ul>
-<p>本文基于官方提供的 RocketMQ Exporter 来监控 RocketMQ 集群。可以实现以下功能：</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/022-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-rocketMQ/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/022-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-rocketMQ/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/003-Prometheus-PromQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/003-Prometheus-PromQL/" target="_blank">PromQL</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/003-Prometheus-PromQL/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="查看-Prometheus"><a href="#查看-Prometheus" class="headerlink" title="查看 Prometheus"></a>查看 Prometheus</h2><p>Prometheus 提供了一种名为 PromQL 的函数式查询语言，可以让用户实时选择和聚合时间序列数据。表达式的结果可以显示为图形，在 Prometheus 的表达式浏览器中查看为表格数据，也可以通过 HTTP API 由外部系统使用。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/003-Prometheus-PromQL/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">PromQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/003-Prometheus-PromQL/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/009-Prometheus-监控-SNMP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" target="_blank">Prometheus 监控 SNMP</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@openmohan/snmp-monitoring-and-easing-it-with-prometheus-b157c0a42c0c">SNMP monitoring and easing it with Prometheus.</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xwupiaomiao/p/11937324.html">SNMP 导入 MIB</a></li>
-</ul>
-<h2 id="什么是-SNMP"><a href="#什么是-SNMP" class="headerlink" title="什么是 SNMP"></a>什么是 SNMP</h2><p>SNMP: SNMP 是（Simple Network Management Protocol）简单网络管理协议的缩写。SNMP 用于通过设置某些属性的值来管理网络设备（通常称为托管对象），并通过从设备轮训必要的指标来监控网络设备。</p>
-<h3 id="SNMP-工作原理"><a href="#SNMP-工作原理" class="headerlink" title="SNMP 工作原理"></a>SNMP 工作原理</h3><p>SNMP 包括简单的客户端-服务器架构。在你的网络管理解决方案上运行的 SNMP 客户端将负责轮询数据或设置数据。运行在你实际设备上的 SNMP 服务器将响应 SNMP 客户端的调用。默认情况下，在网络设备中不会打开 SNMP 代理。如果需要，网络管理员必须启用 SNMP。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/#more">more >></a>
     
     
 
@@ -745,7 +840,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/">展开全文 >></a>
     </p>
     
 
@@ -775,7 +870,7 @@
 
 
   
-    <article id="post-Prometheus/011-Prometheus-监控-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/014-Prometheus-非云原生应用的监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -783,7 +878,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" target="_blank">Prometheus 监控 Kubernetes</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/014-Prometheus-%E9%9D%9E%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/" target="_blank">Prometheus 非云原生应用的监控</a>
   
     </h1>
   
@@ -791,8 +886,8 @@
 
   
   
-<a href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/014-Prometheus-%E9%9D%9E%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -804,10 +899,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Kubernetes 是 Google 基于 Borg 开源的容器编排调度引擎。作为 CNCF 最重要的项目，Kubernetes 的目标不止是成为一个编排系统，更是提供一种规范，该规范可以让我们描述集群的架构并定义服务的最终状态，让系统自动达到和维持这种状态。</p>
-<p>对于 Kubernetes 这样庞大的系统来说，监控告警自然是不可或缺的。对于 Kubernetes 集群，我们一般需要考虑监控以下几个方面:</p>
+    <h2 id="Prometheus-监控非云原生应用"><a href="#Prometheus-监控非云原生应用" class="headerlink" title="Prometheus 监控非云原生应用"></a>Prometheus 监控非云原生应用</h2><p>这里使用 MySQL 作为一个测试用例，演示如何使用 Exporter 监控非云原生应用。</p>
+<h3 id="部署测试用例"><a href="#部署测试用例" class="headerlink" title="部署测试用例"></a>部署测试用例</h3>
     
-    <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/014-Prometheus-%E9%9D%9E%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/#more">more >></a>
     
     
 
@@ -855,7 +950,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/014-Prometheus-%E9%9D%9E%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/">展开全文 >></a>
     </p>
     
 
@@ -885,7 +980,7 @@
 
 
   
-    <article id="post-Prometheus/017-Prometheus-HTTP-API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Prometheus/006-Alertmanager-配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -893,7 +988,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" target="_blank">Prometheus 语法 PromQL 入门</a>
+	  <a class="article-title" href="/2023/10/18/Prometheus/006-Alertmanager-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank">Alertmanager 配置</a>
   
     </h1>
   
@@ -901,8 +996,8 @@
 
   
   
-<a href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Prometheus/006-Alertmanager-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.436Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -914,13 +1009,238 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <ul>
-<li><a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#http-api">官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouwenjun0820/article/details/105823389">彻底理解Prometheus查询语法</a></li>
-</ul>
-<h2 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h2><p>当前稳定的 HTTP API 可在 Prometheus 服务器上的 &#x2F;api&#x2F;v1 下访问。任何不间断的添加都将添加到该端点下。<br>API 响应格式为 JSON。每个成功的 API 请求都会返回一个 2xx 状态代码。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://prometheus.io/docs/alerting/latest/configuration/">Alertmanager 配置</a><br>Prometheus 中文文档: <a target="_blank" rel="noopener" href="https://www.prometheus.wang/alert/alert-manager-config.html">Alertmanager 配置</a></p>
+<h2 id="Alertmanager-配置概述"><a href="#Alertmanager-配置概述" class="headerlink" title="Alertmanager 配置概述"></a>Alertmanager 配置概述</h2><p>Alertmanager 主要负责对 Prometheus 产生的告警进行统一处理，因此在 Alertmanager 配置中一般会包含一下几个主要部分：</p>
     
-    <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Prometheus/006-Alertmanager-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Alertmanager</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/006-Alertmanager-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/010-Prometheus-监控-SpringBoot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/010-Prometheus-%E7%9B%91%E6%8E%A7-SpringBoot/" target="_blank">Prometheus 监控 SpringBoot</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/010-Prometheus-%E7%9B%91%E6%8E%A7-SpringBoot/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.436Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jianzhang11/article/details/102714935">使用Prometheus监控SpringBoot应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://tomgregory.com/spring-boot-default-metrics/">Spring Boot default metrics</a></li>
+<li><a target="_blank" rel="noopener" href="https://bigjar.github.io/2018/08/19/Spring-Boot-Actuator-%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5%E3%80%81%E5%AE%A1%E8%AE%A1%E3%80%81%E7%BB%9F%E8%AE%A1%E5%92%8C%E7%9B%91%E6%8E%A7/">Spring Boot Actuator: 健康检查，审计，统计和监控</a></li>
+</ul>
+<p>Spring Boot Actuator 可以帮助你监控和管理 Spring Boot 应用，比如健康检查、审计、统计和 HTTP 追踪等。所有的这些特性可以通过 JMX 或者HTTP endpoints 来获得。Actuator 同时还可以与外部应用监控系统整合，比如 Prometheus, Graphite, DataDog, Influx, Wavefront, New Relic等。这些系统提供了非常好的仪表盘、图标、分析和告警等功能，使得你可以通过统一的接口轻松的监控和管理你的应用。<br>Actuator使用Micrometer来整合上面提到的外部应用监控系统。这使得只要通过非常小的配置就可以集成任何应用监控系统。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/010-Prometheus-%E7%9B%91%E6%8E%A7-SpringBoot/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Monitor</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/010-Prometheus-%E7%9B%91%E6%8E%A7-SpringBoot/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/016-Prometheus-语法-PromQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/016-Prometheus-%E8%AF%AD%E6%B3%95-PromQL/" target="_blank">Prometheus 语法 PromQL 入门</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/016-Prometheus-%E8%AF%AD%E6%B3%95-PromQL/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.436Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/basics/#querying-prometheus">PromQL 官方文档</a></li>
+</ul>
+<h2 id="什么是-PromQL"><a href="#什么是-PromQL" class="headerlink" title="什么是 PromQL"></a>什么是 PromQL</h2><p>Prometheus 提供了一种名为 PromQL（Prometheus Query Language）的函数式查询语言，可以让用户实时选择和聚合时间序列数据。表达式的结果可以显示为图形，在 Prometheus 的表达式浏览器中查看为表格数据，也可以通过 HTTP API 由外部系统使用。PromQL Web UI 的 Graph 选项卡提供了简单的用于查询数据的入口，对于 PromQL 的编写和校验都可以在此位置。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/016-Prometheus-%E8%AF%AD%E6%B3%95-PromQL/#more">more >></a>
     
     
 
@@ -968,341 +1288,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/004-Prometheus-监控OracleDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/" target="_blank">Prometheus 监控 Oracle 数据库</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p><a target="_blank" rel="noopener" href="https://github.com/iamseth/oracledb_exporter">官方文档</a></p>
-<h2 id="Prometheus-监控-Oracle"><a href="#Prometheus-监控-Oracle" class="headerlink" title="Prometheus 监控 Oracle"></a>Prometheus 监控 Oracle</h2><h3 id="启动-oracledb-exporter-容器"><a href="#启动-oracledb-exporter-容器" class="headerlink" title="启动 oracledb_exporter 容器"></a>启动 oracledb_exporter 容器</h3>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/004-Prometheus-%E7%9B%91%E6%8E%A7OracleDB/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/019-使用Docker部署OnlyOffice" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/" target="_blank">使用 Docker 部署 ONLYOFFICE</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>ONLYOFFICE 官方地址: <a target="_blank" rel="noopener" href="https://helpcenter.onlyoffice.com/installation/groups-install-docker.aspx?_ga=2.241152007.523411100.1584064999-567909688.1584064999">官方教程</a></p>
-<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
-<li>系统: CentOS 7.9 64位 系统</li>
-<li>Docker 版本: 19.03.15</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ONLYOFFICE</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/019-%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2OnlyOffice/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/022-CentOS-7-搭建-FastDFS-高可用环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/" target="_blank">CentOS 7 服务器部署 FastDFS 环境</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.433Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="FastDFS-介绍"><a href="#FastDFS-介绍" class="headerlink" title="FastDFS 介绍"></a>FastDFS 介绍</h2><p>FastDFS 开源地址：<code>https://github.com/happyfish100</code></p>
-<p><strong>分布式文件系统</strong>: Distributed file system, DFS，又叫做网络文件系统：Network File System。一种允许文件通过网络在多台主机上分享的文件系统，可让多机器上的多用户分享文件和存储空间。</p>
-<p>FastDFS 是一个开源的轻量级分布式文件系统，功能包括：文件存储、文件同步、文件访问（文件上传、文件下载）等，解决了大容量存储和负载均衡的问题。特别适合中小文件（建议范围：4KB &lt; file_size &lt;500MB），对以文件为载体的在线服务，如相册网站、视频网站等。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">FastDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/FastDFS//" class="article-tag-list-link color3">FastDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/022-CentOS-7-%E6%90%AD%E5%BB%BA-FastDFS-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Prometheus/016-Prometheus-%E8%AF%AD%E6%B3%95-PromQL/">展开全文 >></a>
     </p>
     
 
@@ -1347,7 +1333,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1363,15 +1349,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1473,6 +1457,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1485,11 +1473,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1525,11 +1513,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1593,6 +1581,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1605,18 +1601,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1625,11 +1609,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1638,6 +1618,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1701,11 +1689,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1729,18 +1717,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1757,6 +1733,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1765,11 +1753,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1781,15 +1769,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1798,6 +1782,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1937,19 +1929,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1985,10 +1977,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2021,11 +2009,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2034,10 +2030,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2061,7 +2053,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2101,14 +2097,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2141,15 +2129,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2177,14 +2165,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2193,15 +2173,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2213,7 +2193,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">

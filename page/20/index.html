@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Linux/026-Linux-负载均衡-HAProxy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/038-MacOS-安装部署-Hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/" target="_blank">Linux 负载均衡之 HAProxy</a>
+	  <a class="article-title" href="/2023/10/18/Linux/038-MacOS-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2-Hexo/" target="_blank">MacOS 安装 Hexo</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/038-MacOS-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2-Hexo/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,14 +239,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c9f6d55288c0">HAProxy 从零开始到掌握</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377821135">CentOS7环境下搭建HAProxy &amp; Keepalived L4-L7 高可用负载均衡(含双机热备实验)实战</a></li>
-</ul>
-<h2 id="HAProxy-是什么"><a href="#HAProxy-是什么" class="headerlink" title="HAProxy 是什么"></a>HAProxy 是什么</h2><p>HAProxy 是基于 TCP、HTTP 协议实现的开源 L4-L7 软件负载均衡器，采用单进程和事件驱动模型实现，具有高可用和反向代理特性，支持双机热备与虚拟主机。目标是支持 10000+ 请求连接，为后端业务服务器集群提供高性能的负载均衡服务。适用于大连接数，要求会话保持，分发复杂的流量负载均衡场景。</p>
+    <p>hexo 官方文档: <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">hexo.io</a><br>nvm 官方文档: <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm/blob/master/README.md">nvm</a></p>
+<h2 id="Macos-安装部署-hexo"><a href="#Macos-安装部署-hexo" class="headerlink" title="Macos 安装部署 hexo"></a>Macos 安装部署 hexo</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<h3 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h3><p>nvm 全英文也叫 node.js version management，是一个 nodejs 的版本管理工具。nvm 和 n 都是 node.js 版本管理工具，为了解决 node.js 各种版本存在不兼容现象可以通过它可以安装和切换不同版本的 node.js。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/038-MacOS-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2-Hexo/#more">more >></a>
     
     
 
@@ -273,119 +270,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">HAProxy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/HAProxy//" class="article-tag-list-link color3">HAProxy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/026-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-HAProxy/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/040-Linux-rsync-介绍与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/" target="_blank">rsync 的介绍与配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/leixixi/p/14751914.html">rsync的介绍和配置</a></p>
-<h2 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h2><p>rsync 官方网站: <a target="_blank" rel="noopener" href="https://rsync.samba.org/">rsync 官网</a></p>
-<p>rsync 是一款开源的、快速的多功能的可以实现全量以及增量的本地或者是远程的数据同步（拷贝）备份的优秀工具。<br>rsync 是 linux 系统下的数据镜像备份工具。使用快速增量备份工具 Remote Sync 可以远程同步，支持本地复制，或者与其他 SSH、rsync 主机同步。</p>
-<h2 id="rsync-特性"><a href="#rsync-特性" class="headerlink" title="rsync 特性"></a>rsync 特性</h2>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">rsync</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
         		</li>
       		
 		</ul>
@@ -406,7 +291,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/040-Linux-rsync-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/038-MacOS-%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2-Hexo/">展开全文 >></a>
     </p>
     
 
@@ -436,7 +321,7 @@
 
 
   
-    <article id="post-Linux/042-Linux-部署-flutter-编译环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/041-CentOS7-部署-Elasticsearch-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -444,7 +329,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" target="_blank">Linux 部署 flutter + gradle + Android 编译环境</a>
+	  <a class="article-title" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" target="_blank">CentOS 7 系统部署 Elasticsearch 7.17.x 集群</a>
   
     </h1>
   
@@ -452,8 +337,8 @@
 
   
   
-<a href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.429Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -465,14 +350,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档:</p>
+    <p>本文档是在 CentOS 7.9 系统上部署一个 3 节点的 Elasticsearch 集群，并开启 x-pack 认证，以及安装 ik, pingyin 插件。<br>在安装 Elasticsearch 时，要注意 JDK 对应的版本，另外 Elasticsearch 7.x 以上已经内置 JDK 环境配置，不需要本地 JDK 环境支持。这里直接使用 Elasticsearch 内置的 jdk</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://flutter.cn/docs/get-started/install/linux">在 Linux 操作系统上安装和配置 Flutter 开发环境</a></li>
-<li><a target="_blank" rel="noopener" href="https://developer.android.com/studio/install?hl=zh-cn#linux">安装 Android Studio</a></li>
+<li>Elasticsearch 5.x 安装需要 JDK8 及以上</li>
+<li>Elasticsearch 6.5 安装需要 JDK11 及以上</li>
+<li>Elasticsearch 7.2.x 内置了JDK12</li>
 </ul>
-<h2 id="基础环境配置"><a href="#基础环境配置" class="headerlink" title="基础环境配置"></a>基础环境配置</h2><h3 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h3>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/#more">more >></a>
     
     
 
@@ -499,7 +384,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">flutter</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">elasticsearch</a>
         		</li>
       		
 		</ul>
@@ -520,7 +405,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/042-Linux-%E9%83%A8%E7%BD%B2-flutter-%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
     </p>
     
 
@@ -550,7 +435,7 @@
 
 
   
-    <article id="post-Linux/001-SaltStack-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/002-Linux-环境下安装GitLab与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -558,7 +443,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/" target="_blank">SaltStack 入门</a>
+	  <a class="article-title" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" target="_blank">Linux 环境下安装 GitLab 与配置</a>
   
     </h1>
   
@@ -566,8 +451,8 @@
 
   
   
-<a href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -580,11 +465,11 @@
   <div class="article-entry" itemprop="articleBody">
     
     <blockquote>
-<p>参考书籍： SaltStack 技术入门与实战</p>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwMjg1NjY3Nw==&mid=2247487113&amp;idx=1&amp;sn=3cd5b2d3f249eb0d452363340f875065&source=41#wechat_redirect">杰哥的IT之旅-Linux 环境下安装 GitLab与配置</a></p>
 </blockquote>
-<p>SaltStack 是基于 Python 开发的一套 C&#x2F;S 架构配置管理工具，它的底层使用 ZeroMQ 消息队列 pub&#x2F;sub 方式通信，使用 SSL 证书签发的方式进行认证管理。</p>
+<h2 id="什么是-GitLab"><a href="#什么是-GitLab" class="headerlink" title="什么是 GitLab"></a>什么是 GitLab</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用 Git 作为代码管理工具，并在此基础上搭建起来的 web 服务。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">more >></a>
     
     
 
@@ -607,11 +492,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SaltStack</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitLab</a>
         		</li>
       		
 		</ul>
@@ -623,7 +504,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/SaltStack//" class="article-tag-list-link color5">SaltStack</a>
+        			<a href="/categories/GitLab//" class="article-tag-list-link color2">GitLab</a>
         		</li>
       		
 		</ul>
@@ -632,7 +513,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/001-SaltStack-%E5%85%A5%E9%97%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">展开全文 >></a>
     </p>
     
 
@@ -662,7 +543,7 @@
 
 
   
-    <article id="post-Linux/007-Rsync-备份工具实战" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/004-SuSe-配置rsyslog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -670,7 +551,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/" target="_blank">Linux 环境实战 Rsync 备份工具</a>
+	  <a class="article-title" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/" target="_blank">SuSe 配置 rsyslog 到远程日志服务器</a>
   
     </h1>
   
@@ -678,8 +559,8 @@
 
   
   
-<a href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -692,11 +573,227 @@
   <div class="article-entry" itemprop="articleBody">
     
     <blockquote>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/P8XDrr7ROIXBYOZnLy45zA">Linux 环境下实战 Rsync 备份工具及配置 rsync+inotify实时同步</a></p>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://suse.com/c/how-configure-sles11-cache-and-send-log-events-sentinel-rsyslogd/">https://suse.com/c/how-configure-sles11-cache-and-send-log-events-sentinel-rsyslogd/</a></p>
 </blockquote>
-<h2 id="什么是-Rsync"><a href="#什么是-Rsync" class="headerlink" title="什么是 Rsync"></a>什么是 Rsync</h2><p>Rsync 是一个开源的快速备份工具，是 Linux 和 Unix 操作系统默认安装的组件之一，可以在不同主机之间镜像同步整个目录，并支持增量备份文件传输，保持链接和权限，采用优化的同步算法，传输前执行压缩，适用于异地备份，镜像服务器等应用。</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>如果你使用 syslog 或 syslog-ng 将日志事件发送到 Sentinel，你可能已经注意到，如果与收集器管理器发生通信问题，则事件可能会丢失。你可以通过安装 rsyslogd 来解决此限制，该文件包含在 SLES11 安装介质中。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Suse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Suse//" class="article-tag-list-link color5">Suse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/012-CentOS-7-安装-OpenOffice4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/012-CentOS-7-%E5%AE%89%E8%A3%85-OpenOffice4/" target="_blank">CentOS 7 安装配置 Apache OpenOffice 4.x</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/012-CentOS-7-%E5%AE%89%E8%A3%85-OpenOffice4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="安装-Apache-OpenOffice"><a href="#安装-Apache-OpenOffice" class="headerlink" title="安装 Apache OpenOffice"></a>安装 Apache OpenOffice</h2><ol>
+<li><p>前往 Apache OpenOffice 官网下载对应的操作系统安装包；</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/012-CentOS-7-%E5%AE%89%E8%A3%85-OpenOffice4/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Others</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">OpenOffice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OpenOffice//" class="article-tag-list-link color1">OpenOffice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/012-CentOS-7-%E5%AE%89%E8%A3%85-OpenOffice4/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/014-迁移-VisualSVN-到CentOS7-平台" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/014-%E8%BF%81%E7%A7%BB-VisualSVN-%E5%88%B0CentOS7-%E5%B9%B3%E5%8F%B0/" target="_blank">迁移 VisualSVN 到 Linux 平台</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/014-%E8%BF%81%E7%A7%BB-VisualSVN-%E5%88%B0CentOS7-%E5%B9%B3%E5%8F%B0/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="备份-VisualSVN-版本库仓库"><a href="#备份-VisualSVN-版本库仓库" class="headerlink" title="备份 VisualSVN 版本库仓库"></a>备份 VisualSVN 版本库仓库</h2><ol>
+<li><p>打开 Windows CMD 命令行，输入以下命令导出版本库;</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/014-%E8%BF%81%E7%A7%BB-VisualSVN-%E5%88%B0CentOS7-%E5%B9%B3%E5%8F%B0/#more">more >></a>
     
     
 
@@ -723,7 +820,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Rsync</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SVN</a>
         		</li>
       		
 		</ul>
@@ -735,7 +832,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/SVN//" class="article-tag-list-link color4">SVN</a>
         		</li>
       		
 		</ul>
@@ -744,7 +841,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/007-Rsync-%E5%A4%87%E4%BB%BD%E5%B7%A5%E5%85%B7%E5%AE%9E%E6%88%98/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/014-%E8%BF%81%E7%A7%BB-VisualSVN-%E5%88%B0CentOS7-%E5%B9%B3%E5%8F%B0/">展开全文 >></a>
     </p>
     
 
@@ -774,7 +871,7 @@
 
 
   
-    <article id="post-Linux/008-CentOS7-部署-Nexus3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/017-Linux-日志切割-logrotate" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -782,7 +879,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/" target="_blank">CentOS 7 部署 Nexus3</a>
+	  <a class="article-title" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/" target="_blank">Linux 日志切割 logrotate</a>
   
     </h1>
   
@@ -790,8 +887,8 @@
 
   
   
-<a href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -803,9 +900,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Nexus-介绍"><a href="#Nexus-介绍" class="headerlink" title="Nexus 介绍"></a>Nexus 介绍</h2><p>Nexus 是一个强大的 Maven 仓库管理器，它极大地简化了本地内部仓库的维护和外部仓库的访问。 如果使用了公共的 Maven 仓库服务器，可以从 Maven 中央仓库下载所需要的构件（Artifact），但这通常不是一个好的做法。正常做法是在本地架设一个 Maven 仓库服务器，即利用 Nexus 私服可以只在一个地方就能够完全控制访问和部署在你所维护仓库中的每个 Artifact。</p>
+    <p>参考文章: <a target="_blank" rel="noopener" href="https://wsgzao.github.io/post/logrotate/">Linux 日志切割神器 logrotate 原理介绍和配置详解</a></p>
+<h2 id="logrotate-简介"><a href="#logrotate-简介" class="headerlink" title="logrotate 简介"></a>logrotate 简介</h2><p>logrotate 是一个 linux 系统日志的管理工具。可以对单个日志文件或者某个目录下的文件按 <code>时间/大小</code> 进行切割，压缩操作；指定日志保存数量；还可以在切割之后运行自定义命令。<br>logrotate 是基于 crontab 运行的，所以这个时间点是由 crontab 控制的，具体可以查询 crontab 的配置文件 <code>/etc/anacrontab</code>。系统会按照计划的频率运行 logrotate，通常是每天。在大多数的 Linux 发行版本上，计划每天运行的脚本位于 <code>/etc/cron.daily/logrotate</code>。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/#more">more >></a>
     
     
 
@@ -828,9 +926,220 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">logratate</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/017-Linux-%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2-logrotate/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/029-RedHat-更换使用-CentOS-系统的网络源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/" target="_blank">Red Hat 更换 yum 使用 CentOS 的网络源</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Red-Hat-7-配置-CentOS-7-的-yum-源"><a href="#Red-Hat-7-配置-CentOS-7-的-yum-源" class="headerlink" title="Red Hat 7 配置 CentOS 7 的 yum 源"></a>Red Hat 7 配置 CentOS 7 的 yum 源</h2><p>由于redhat 的更新包只对注册的用户生效，所以需要自己手动更改成CentOS 的更新包，CentOS几乎和redhat是一样的，所以无需担心软件包是否可安装，下面是安装步骤。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/029-RedHat-%E6%9B%B4%E6%8D%A2%E4%BD%BF%E7%94%A8-CentOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BD%91%E7%BB%9C%E6%BA%90/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/009-Nexus-配置Docker私有仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" target="_blank">Nexus 配置 Docker 私有仓库</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/sanduzxcvbnm/p/13099635.html">使用 Nexus3 配置 Docker 私有仓库</a></p>
+<h2 id="Nexus3-配置-Docker-私有仓库"><a href="#Nexus3-配置-Docker-私有仓库" class="headerlink" title="Nexus3 配置 Docker 私有仓库"></a>Nexus3 配置 Docker 私有仓库</h2><h3 id="配置-blob-存储"><a href="#配置-blob-存储" class="headerlink" title="配置 blob 存储"></a>配置 blob 存储</h3>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nexus</a>
         		</li>
@@ -853,7 +1162,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/008-CentOS7-%E9%83%A8%E7%BD%B2-Nexus3/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/009-Nexus-%E9%85%8D%E7%BD%AEDocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">展开全文 >></a>
     </p>
     
 
@@ -883,7 +1192,7 @@
 
 
   
-    <article id="post-Linux/015-CentOS-磁盘LVM管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/010-CentOS7-部署-H2Database" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -891,7 +1200,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/" target="_blank">CentOS 磁盘 LVM 管理</a>
+	  <a class="article-title" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/" target="_blank">CentOS 7 安装 H2 Database</a>
   
     </h1>
   
@@ -899,8 +1208,8 @@
 
   
   
-<a href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -912,9 +1221,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="CentOS-7-磁盘扩容"><a href="#CentOS-7-磁盘扩容" class="headerlink" title="CentOS 7 磁盘扩容"></a>CentOS 7 磁盘扩容</h2><h3 id="扩容步骤"><a href="#扩容步骤" class="headerlink" title="扩容步骤"></a>扩容步骤</h3>
+    <p>H2 数据库官网:<a target="_blank" rel="noopener" href="http://h2database.com/html/main.html">http://h2database.com</a></p>
+<h2 id="安装-Java-环境"><a href="#安装-Java-环境" class="headerlink" title="安装 Java 环境"></a>安装 Java 环境</h2><ol>
+<li><p>从官网下载 jdk8 tar 包，此处略。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/#more">more >></a>
     
     
 
@@ -937,11 +1248,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">H2</a>
         		</li>
       		
 		</ul>
@@ -953,7 +1264,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/LVM//" class="article-tag-list-link color4">LVM</a>
+        			<a href="/categories/H2//" class="article-tag-list-link color3">H2</a>
         		</li>
       		
 		</ul>
@@ -962,349 +1273,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/015-CentOS-%E7%A3%81%E7%9B%98LVM%E7%AE%A1%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/024-Linux-负载均衡-LVS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/" target="_blank">Linux 负载均衡之 LVS</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>负载均衡(LB, Load Balance): 增加高并发处理能力，有一定高可用能力，但不是高可用集群，是以提高服务的并发处理能力为根本着眼点。</p>
-<p>负载均衡的主要方式有:</p>
-<ul>
-<li>http 重定向</li>
-<li>DNS 负载均衡</li>
-<li>反向代理负载均衡</li>
-<li>IP 负载均衡</li>
-<li>数据链路层负载均衡</li>
-<li>F5 硬件负载均衡</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LVS//" class="article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/024-Linux-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-LVS/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/036-Linux-性能调优-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/" target="_blank">Linux 性能调优 CPU</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.428Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="CPU-性能统计信息"><a href="#CPU-性能统计信息" class="headerlink" title="CPU 性能统计信息"></a>CPU 性能统计信息</h2><p>每一种系统级的 Linux 性能工具都提供了不同的方式来获取相似的统计结果。虽然没有工具能显示全部的信息，但是有些工具显示的是相同的统计信息，为了不多次解释统计信息的含义，我们在描述所有工具之前对这些信息进行一次性说明:</p>
-<h3 id="运行队列统计"><a href="#运行队列统计" class="headerlink" title="运行队列统计"></a>运行队列统计</h3><p>在 Linux 中，一个进程要么是可运行的，要么是阻塞的，阻塞进程可能在等待的是从 I&#x2F;O 设备来的数据，或者是系统调用的结果。如果进程是可运行的，那就意味着它要和其他也是可运行的进程竞争 CPU 时间。一个可运行的进程不一定会使用 CPU，但是当 Linux 调度器决定下一个要运行的进程时，它会从可运行进程队列中挑选。**<span style="border-bottom:2px dashed yellow;">如果进程是可运行的，同时又在等待使用处理器，这些进程就构成了运行队列。运行队列越长，处于等待状态的进程就越多</span>**。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能调优</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/036-Linux-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-CPU/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/000-Macports-的安装与使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_blank">MacPorts 的安装与使用</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.427Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考内容：<a target="_blank" rel="noopener" href="https://www.macports.org/install.php">MacPorts 官方文档</a></p>
-</blockquote>
-<h2 id="安装-MacPorts"><a href="#安装-MacPorts" class="headerlink" title="安装 MacPorts"></a>安装 MacPorts</h2><ul>
-<li>安装 Xcode<br>打开 App Store，搜索 Xcode ，点击获取，安装，此处略…</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MacPorts</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">应用</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Others//" class="article-tag-list-link color2">Others</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/000-Macports-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Linux/010-CentOS7-%E9%83%A8%E7%BD%B2-H2Database/">展开全文 >></a>
     </p>
     
 
@@ -1349,7 +1318,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2023 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1365,15 +1334,13 @@
   
   
 	
-	<span id="busuanzi_container_site_pv" style="display:none">
-		本站总访问量<span id="busuanzi_value_site_pv"></span>次	
-	        <span class="post-meta-divider" >|</span>
-	</span>
-  	<span id="busuanzi_container_site_uv" style='display:none'>
-  		本站访客数<span id="busuanzi_value_site_uv"></span>人
-  	</span>
-    <span class="post-meta-divider" >|</span>
-        <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">赣ICP备2021007569号-1</a>
+    
+    <span class="post-meta-divider" >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=36032102000035" rel="noreferrer" target="_blank"><img src="/img/beian.png" height="15" width="15">赣公网安备36032102000035</a>
+    </span>
+    <span class="post-meta-divider" >
+       | <a href="http://www.beian.miit.gov.cn/" rel="noreferrer" target="_blank">赣ICP备2021007569号-1</a>
+    </span>
   
 </footer>
 
@@ -1475,6 +1442,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1487,11 +1458,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Container</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hub</a>
+                <a href="javascript:void(0)" class="js-tag color5">Container</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1527,11 +1498,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1595,6 +1566,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
               </li>
              
@@ -1607,18 +1586,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
               </li>
              
@@ -1627,11 +1594,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1640,6 +1603,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1703,11 +1674,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1731,18 +1702,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
               </li>
              
@@ -1759,6 +1718,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
               </li>
              
@@ -1767,11 +1738,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1783,15 +1754,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1800,6 +1767,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1939,19 +1914,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">glusterfs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1987,10 +1962,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pod</a>
               </li>
              
@@ -2023,11 +1994,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HPA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2036,10 +2015,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2063,7 +2038,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Secret</a>
+                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2103,14 +2082,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Affinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">AntiAffinity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -2143,15 +2114,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">k3s</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2179,14 +2150,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">pip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
@@ -2195,15 +2158,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">pip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Jenkinsfile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2215,7 +2178,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pt-query-digest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MaxScale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
               <li class="article-tag-list-item">
