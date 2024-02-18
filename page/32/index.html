@@ -210,6 +210,117 @@
             
 
   
+    <article id="post-CICD/Jenkins/016-Jenkins-脚本命令行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/CICD/Jenkins/016-Jenkins-%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%A1%8C/" target="_blank">Jenkins 脚本命令行常用示例</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/CICD/Jenkins/016-Jenkins-%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.398Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="Jenkins-脚本命令行常用示例"><a href="#Jenkins-脚本命令行常用示例" class="headerlink" title="Jenkins 脚本命令行常用示例"></a>Jenkins 脚本命令行常用示例</h2><ol>
+<li><p>清除历史构建记录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def jobName = <span class="string">&quot;validator_server&quot;</span>    // 项目名称</span><br><span class="line">def maxNumber = 95                  // 删除小于95的构建历史</span><br><span class="line"></span><br><span class="line">Jenkins.instance.getItemByFullName(jobName).builds.findAll &#123;</span><br><span class="line">  it.number &lt;= maxNumber</span><br><span class="line">&#125;.each &#123;</span><br><span class="line">  it.delete()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/CICD/Jenkins/016-Jenkins-%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%A1%8C/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/CICD/Jenkins/016-Jenkins-%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%A1%8C/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CICD/Jenkins/014-Jenkins-Jenkinsfile-的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1218,119 +1329,9 @@
 
 
   
-    <article id="post-Ansible/002-Ansible-Patterns" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Ansible/002-Ansible-Patterns/" target="_blank">Ansible Patterns 匹配主机</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Ansible/002-Ansible-Patterns/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Patterns-目标主机和组"><a href="#Patterns-目标主机和组" class="headerlink" title="Patterns: 目标主机和组"></a>Patterns: 目标主机和组</h2><p>当您通过临时命令或运行剧本执行 Ansible 时，您必须选择要执行的托管节点或组。Patterns 允许您对 Inventory 中的特定主机或组运行命令和剧本。Ansible Patterns 可以指单个主机、IP地址、库存组、一组组或库存中的所有主机。Patterns 非常灵活，您可以排除或要求主机的子集，使用通配符或正则表达式等。Ansible 在 Patterns 中包含的所有 Inventory 主机上执行。</p>
-<h3 id="使用-Patterns"><a href="#使用-Patterns" class="headerlink" title="使用 Patterns"></a>使用 Patterns</h3>
-    
-    <a class="article-more-a" href="/2023/10/18/Ansible/002-Ansible-Patterns/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ansible</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Ansible//" class="article-tag-list-link color3">Ansible</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Ansible/002-Ansible-Patterns/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/31/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span>
+      <a class="extend prev" rel="prev" href="/page/31/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/33/">下一页</a>
     </nav>
   
 
@@ -2224,6 +2225,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Databases</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
               </li>
             
             <div class="clearfix"></div>
