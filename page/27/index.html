@@ -210,6 +210,120 @@
             
 
   
+    <article id="post-Docker/030-Docker-拉取国外镜像的方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/030-Docker-%E6%8B%89%E5%8F%96%E5%9B%BD%E5%A4%96%E9%95%9C%E5%83%8F%E7%9A%84%E6%96%B9%E6%B3%95/" target="_blank">Docker 拉取国外镜像的方法</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/030-Docker-%E6%8B%89%E5%8F%96%E5%9B%BD%E5%A4%96%E9%95%9C%E5%83%8F%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.414Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/network/proxy/">Configure Docker to use a proxy server</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/config/daemon/systemd/">Control Docker with systemd</a></li>
+</ul>
+<h2 id="Docker-配置代理"><a href="#Docker-配置代理" class="headerlink" title="Docker 配置代理"></a>Docker 配置代理</h2><p>docker使用proxy分两种情况：</p>
+<ul>
+<li>docker client 希望使用代理，也就是在执行 <code>docker pull</code>、<code>docker push</code> 等操作时通过代理来访问镜像仓库</li>
+<li>容器实例希望使用代理，也就是在容器内部希望通过代理来访问网络</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/030-Docker-%E6%8B%89%E5%8F%96%E5%9B%BD%E5%A4%96%E9%95%9C%E5%83%8F%E7%9A%84%E6%96%B9%E6%B3%95/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/030-Docker-%E6%8B%89%E5%8F%96%E5%9B%BD%E5%A4%96%E9%95%9C%E5%83%8F%E7%9A%84%E6%96%B9%E6%B3%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Docker/005-Docker-应用容器化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1247,160 +1361,6 @@
 
 
   
-    <article id="post-Databases/MySQL/008-MaxScale-实现-MySQL-读写分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" target="_blank">MaxScale 实现 MySQL 读写分离</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ariesblog/p/14010279.html">Maxscale实现mysql读写分离</a></p>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>数据库是一主两从的架构（mysql 的主从搭建不在此说明），maxscale 安装在单独的服务器上</p>
-<table>
-<thead>
-<tr>
-<th align="center">主机名</th>
-<th align="center">IP 地址</th>
-<th align="center">系统版本</th>
-<th align="center">软件版本</th>
-<th align="center">角色</th>
-<th align="center">Server ID</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">mysql-master</td>
-<td align="center">192.168.0.71</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Master</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">mysql-slave01</td>
-<td align="center">192.168.0.72</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Slave</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">mysql-slave02</td>
-<td align="center">192.168.0.73</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Slave</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">maxscale</td>
-<td align="center">192.168.0.73</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MaxScale 2.5.26</td>
-<td align="center">maxscale</td>
-<td align="center">-</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MaxScale</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/26/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/28/">下一页</a>
@@ -2301,6 +2261,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
               </li>
             
             <div class="clearfix"></div>
