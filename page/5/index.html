@@ -210,6 +210,288 @@
             
 
   
+    <article id="post-信创环境/02-Arm64-架构部署-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" target="_blank">ARM64 架构部署 Kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
+<li><p>主机配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内网地址</th>
+<th align="center">公网地址</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s-master01</td>
+<td align="center">192.168.0.134</td>
+<td align="center">120.46.211.33</td>
+<td align="center">master 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node01</td>
+<td align="center">192.168.0.41</td>
+<td align="center">120.46.217.5</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node02</td>
+<td align="center">192.168.0.194</td>
+<td align="center">120.46.141.143</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">base-server01</td>
+<td align="center">192.168.0.9</td>
+<td align="center">124.70.46.58</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server02</td>
+<td align="center">192.168.0.30</td>
+<td align="center">124.70.56.151</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server03</td>
+<td align="center">192.168.0.78</td>
+<td align="center">120.46.182.129</td>
+<td align="center">etcd 节点</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/08-Arm64-架构部署-EFK采集k8s日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" target="_blank">ARM64 架构部署 EFK 采集 kubernetes 日志</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/setup-efk-stack-on-kubernetes/">How to Setup EFK Stack on Kubernetes: Step by Step Guides</a></li>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/kubernetes-logging-tutorial/">Kubernetes Logging Tutorial For Beginners</a></li>
+</ul>
+<p>在 Kubernetes 生产调试中，日志记录起着至关重要的作用。它可以帮助您了解正在发生的事情、出了什么问题，甚至可能出了什么问题。作为 DevOps 工程师，您应该清楚地了解 Kubernetes 日志记录以解决集群和应用程序问题。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">EFK</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-信创环境/11-loongarch64-源码编译-etcd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1190,230 +1472,6 @@
 
 
   
-    <article id="post-kubernetes/063-kubernetes-Ingress-启用-WAF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/" target="_blank">Ingress-Nginx 启用 ModSecurity</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://containerinfra.com/blog/cloud/2021-07-30-using-nginx-ingress-waf/">ModSecurity with ingress-nginx</a></li>
-<li><a target="_blank" rel="noopener" href="https://systemweakness.com/nginx-ingress-waf-with-modsecurity-from-zero-to-hero-fa284cb6f54a">Kubernetes NGINX Ingress WAF with ModSecurity. From zero to hero!</a></li>
-</ul>
-<p>Kubernetes NGINX Ingress 带有内置的 WAF（Web Application Firewall），使用 ModSecurity 和 OWASP Core Rule Set。虽然默认情况下禁用这些规则，但您可以使用配置映射和入口注释来启用它们并微调其规则。ModSecurity 是一个开源的 Web应用程序防火墙（WAF）。它可以帮助您在应用程序前面提供额外的安全层。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/063-kubernetes-Ingress-%E5%90%AF%E7%94%A8-WAF/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/066-二进制部署-k8s-高可用集群(1.24.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(Nginx Stream 代理)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.24.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
-<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
-<li>k8s 宿主机IP网段: 10.1.40.0&#x2F;24</li>
-<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
-<li>k8s Pod 网段: 192.16.0.0&#x2F;16</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/066-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24.x)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
@@ -2318,6 +2376,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
             
             <div class="clearfix"></div>

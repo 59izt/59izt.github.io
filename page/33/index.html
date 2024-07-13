@@ -210,6 +210,226 @@
             
 
   
+    <article id="post-Ansible/003-Ansible-Ad-hoc" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Ansible/003-Ansible-Ad-hoc/" target="_blank">Ansible Ad hoc</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Ansible/003-Ansible-Ad-hoc/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.394Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="ad-hoc-命令行简介"><a href="#ad-hoc-命令行简介" class="headerlink" title="ad hoc 命令行简介"></a>ad hoc 命令行简介</h2><p>Ansible ad hoc 命令使用 <code>/usr/bin/ansible</code> 命令行工具在一个或多个托管节点上自动执行单个任务。临时命令快速简便，但不可重用。那么，为什么要学习临时命令呢？临时命令展示了 Ansible 的简单性和功能。您在这里学习的概念将直接移植到剧本语言。</p>
+<h2 id="为什么使用临时命令"><a href="#为什么使用临时命令" class="headerlink" title="为什么使用临时命令"></a>为什么使用临时命令</h2><p>临时命令非常适合您很少重复的任务。例如，如果您想在圣诞节假期关闭实验室中的所有机器，您无需编写剧本即可在 Ansible 中执行快速单行说明。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Ansible/003-Ansible-Ad-hoc/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ansible</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Ansible//" class="article-tag-list-link color3">Ansible</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Ansible/003-Ansible-Ad-hoc/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Ansible/005-Ansible-Playbook-角色和-include-语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Ansible/005-Ansible-Playbook-%E8%A7%92%E8%89%B2%E5%92%8C-include-%E8%AF%AD%E5%8F%A5/" target="_blank">Ansible Playbook 角色和 Include 语句</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Ansible/005-Ansible-Playbook-%E8%A7%92%E8%89%B2%E5%92%8C-include-%E8%AF%AD%E5%8F%A5/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.394Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>当我们刚开始学习运用 playbook 时，可能会把 playbook 写成一个很大的文件，到后来可能你会希望这些文件是可以方便去重用的，所以需要重新去组织这些文件。<br>基本上，使用 <code>include</code> 语句引用 task 文件的方法，可允许你将一个配置策略分解到更小的文件中。使用 <code>include</code> 语句引用 tasks 是将 tasks 从其他文件拉取过来。因为 handlers 也是 tasks，所以你也可以使用 <code>include</code> 语句去引用 handlers 文件。</p>
+<p>Playbook 同样可以使用 include 引用其他 playbook 文件中的 play。这时被引用的 play 会被插入到当前的 playbook 中，当前的 playbook 中就有了一个更长的的 play 列表。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Ansible/005-Ansible-Playbook-%E8%A7%92%E8%89%B2%E5%92%8C-include-%E8%AF%AD%E5%8F%A5/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ansible</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Ansible//" class="article-tag-list-link color3">Ansible</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Ansible/005-Ansible-Playbook-%E8%A7%92%E8%89%B2%E5%92%8C-include-%E8%AF%AD%E5%8F%A5/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Ansible/004-Ansible-Playbook-基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1334,6 +1554,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
             
             <div class="clearfix"></div>

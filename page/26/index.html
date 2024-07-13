@@ -210,6 +210,222 @@
             
 
   
+    <article id="post-Docker/025-Compose-volumes-字段参考" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/" target="_blank">Compose volumes 和 networks 字段参考文档</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference">Compose file versions and upgrading</a></p>
+<h2 id="Volumes-配置参考"><a href="#Volumes-配置参考" class="headerlink" title="Volumes 配置参考"></a>Volumes 配置参考</h2><p>虽然可以在服务声明中动态声明卷，但是本节允许你创建可以在多个服务中重用的命名卷（不依赖 volume_from），并且可以使用 docker 命令行 API 轻松检索和检查。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Compose</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/028-Docker-容器资源限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" target="_blank">Docker 容器资源限制</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1426760">Docker容器CPU、memory资源限制</a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在使用 docker 运行容器时，默认的情况下，docker没有对容器进行硬件资源的限制，当一台主机上运行几百个容器，这些容器虽然互相隔离，但是底层却使用着相同的 CPU、内存和磁盘资源。如果不对容器使用的资源进行限制，那么容器之间会互相影响，小的来说会导致容器资源使用不公平；大的来说，可能会导致主机和集群资源耗尽，服务完全不可用。<br>docker 作为容器的管理者，自然提供了控制容器资源的功能。正如使用内核的 namespace 来做容器之间的隔离，docker 也是通过内核的 cgroups 来做容器的资源限制；包括CPU、内存、磁盘三大方面，基本覆盖了常见的资源配额和使用量控制。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Docker/000-Mac-配置Docker镜像加速" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1077,229 +1293,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Docker/012-Docker-Web%E6%9C%8D%E5%8A%A1%E4%B8%8E%E5%BA%94%E7%94%A8-Apache/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker/031-Docker-私有化部署-Sentry" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Docker/031-Docker-%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2-Sentry/" target="_blank">Docker 私有化部署 Sentry</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Docker/031-Docker-%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2-Sentry/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.415Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://juejin.cn/post/7030610136989171749#heading-0">Docker私有化部署前端监控平台(Sentry)，高效排查和解决程序bug</a></p>
-<h2 id="前端监控（Sentry）"><a href="#前端监控（Sentry）" class="headerlink" title="前端监控（Sentry）"></a>前端监控（Sentry）</h2><p>Sentry是一个实时事件日志记录和汇集的平台。其专注于错误监控以及提取一切事后处理所需信息而不依赖于麻烦的用户反馈。它分为客户端和服务端，客户端(目前客户端有Python, PHP,C#, Ruby等多种语言)就嵌入在你的应用程序中间，程序出现异常就向服务端发送消息，服务端将消息记录到数据库中并提供一个web页方便查看。Sentry由python编写，源码开放，性能卓越，易于扩展，目前著名的用户有Disqus, Path, mozilla, Pinterest等。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Docker/031-Docker-%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2-Sentry/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Sentry</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Docker/031-Docker-%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2-Sentry/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker/029-Docker-buildx-构建多架构镜像" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Docker/029-Docker-buildx-%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%9E%B6%E6%9E%84%E9%95%9C%E5%83%8F/" target="_blank">Docker buildx 构建多架构镜像</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Docker/029-Docker-buildx-%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%9E%B6%E6%9E%84%E9%95%9C%E5%83%8F/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.414Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官网文档: <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/buildx/">docker buildx</a><br>GitHub 地址: <a target="_blank" rel="noopener" href="https://github.com/moby/buildkit">moby&#x2F;buildkit</a><br>参考文档: <a target="_blank" rel="noopener" href="https://medium.com/@artur.klauser/building-multi-architecture-docker-images-with-buildx-27d80f7e2408">Building Multi-Architecture Docker Images With Buildx</a></p>
-<p>Docker Buildx 是一个 CLI 插件，它扩展了 docker 命令，完全支持 Moby BuildKit 构建器工具包提供的功能。它提供与 docker build 相同的用户体验，具有许多新功能，例如创建作用域构建器实例和同时针对多个节点进行构建。</p>
-<blockquote>
-<p>注意: 如果是 CentOS 系统，建议升级内核到 4.19.x 版本，否则安装 qemu-user-static 时会出问题，如下</p>
-</blockquote>
-    
-    <a class="article-more-a" href="/2023/10/18/Docker/029-Docker-buildx-%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%9E%B6%E6%9E%84%E9%95%9C%E5%83%8F/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">buildx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Docker/029-Docker-buildx-%E6%9E%84%E5%BB%BA%E5%A4%9A%E6%9E%B6%E6%9E%84%E9%95%9C%E5%83%8F/">展开全文 >></a>
     </p>
     
 
@@ -2233,6 +2226,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
             
             <div class="clearfix"></div>

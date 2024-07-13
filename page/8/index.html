@@ -210,6 +210,237 @@
             
 
   
+    <article id="post-kubernetes/074-kubernetes-集群升级(1.22.17--&gt;1.23.17)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/" target="_blank">kubernetes 集群升级(1.22.17--&gt;1.23.17)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="升级注意事项"><a href="#升级注意事项" class="headerlink" title="升级注意事项"></a>升级注意事项</h2><h3 id="版本依赖关系"><a href="#版本依赖关系" class="headerlink" title="版本依赖关系"></a>版本依赖关系</h3><ol>
+<li><p>在高可用（HA）集群中， 多个 <code>kube-apiserver</code> 实例小版本号最多差 1。</p>
+<ul>
+<li>例如: 最新的 kube-apiserver 版本号如果是 1.20，则受支持的 kube-apiserver 版本号包括 1.20 和 1.19</li>
+</ul>
+</li>
+<li><p><code>kubelet</code> 版本号不能高于 kube-apiserver，最多可以比 kube-apiserver 低两个小版本。</p>
+<ul>
+<li>例如: kube-apiserver 版本号如果是 1.20，受支持的的 kubelet 版本将包括 1.20、1.19 和 1.18<blockquote>
+<p>说明：如果 HA 集群中多个 <code>kube-apiserver</code> 实例版本号不一致，相应的 <code>kubelet</code> 版本号可选范围也要减小。<br>如果 kube-apiserver 实例同时存在 1.20 和 1.19，kubelet 的受支持版本将是 1.19 和 1.18 （1.20 不再支持，因为它比 1.19 版本的 kube-apiserver 更新）</p>
+</blockquote>
+</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/074-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.22.17--%3E1.23.17)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/088-使用-GetMesh-部署管理-Istio" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/088-%E4%BD%BF%E7%94%A8-GetMesh-%E9%83%A8%E7%BD%B2%E7%AE%A1%E7%90%86-Istio/" target="_blank">使用 GetMesh 部署管理 Istio</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/088-%E4%BD%BF%E7%94%A8-GetMesh-%E9%83%A8%E7%BD%B2%E7%AE%A1%E7%90%86-Istio/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="GetMesh-概述"><a href="#GetMesh-概述" class="headerlink" title="GetMesh 概述"></a>GetMesh 概述</h2><p>GetMesh 是开始使用 Istio 最简单的方法，并确保您使用的是受信任和支持的 Istio 版本。安装和更新 GetMesh 非常简单，只需执行以下命令即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://istio.tetratelabs.io/getmesh/install.sh | bash</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/088-%E4%BD%BF%E7%94%A8-GetMesh-%E9%83%A8%E7%BD%B2%E7%AE%A1%E7%90%86-Istio/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">istio</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetMesh</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/088-%E4%BD%BF%E7%94%A8-GetMesh-%E9%83%A8%E7%BD%B2%E7%AE%A1%E7%90%86-Istio/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-kubernetes/012-Service" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1093,240 +1324,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/kubernetes/019-Kubernetes-Kubelet-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E9%A2%81%E5%8F%91%E5%8E%9F%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/024-Kubernetes-Pod-亲和力-污点-容忍度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/" target="_blank">Pod 亲和力、反亲和力、污点、容忍度</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/scheduling-eviction/assign-pod-node/">将 Pod 分配给节点</a></p>
-<h2 id="将-Pod-分配给节点"><a href="#将-Pod-分配给节点" class="headerlink" title="将 Pod 分配给节点"></a>将 Pod 分配给节点</h2><p>有几种方法可以实现<code>约束一个 Pod 只能在特定的节点上运行</code>。推荐的方法都是使用 <code>selector</code> 来进行选择。通常这样的约束不是必须的，因为调度器会自动进行合理的分配。比如，将 Pod 分散到节点上，而不是将 Pod 放置在可用资源不足的节点上等等。但是在某些情况下，你可能需要进一步控制 Pod 分配的节点，例如：确保 Pod 最终分配在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 Pods 被分配在同一个可用区。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pod</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Affinity</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AntiAffinity</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/040-Helm-Chart-流程控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" target="_blank">Helm - Chart 流程控制</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li>官方文档: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/control_structures/">流控制</a></li>
-</ul>
-<h2 id="流控制"><a href="#流控制" class="headerlink" title="流控制"></a>流控制</h2><p>控制结构（在模板语言中称为 “actions”）提供给你和模板控制模板迭代的流程能力。Helm 的模板语言提供了以下控制结构:</p>
-<ul>
-<li><code>if/else</code>: 用来创建条件语句</li>
-<li><code>with</code>: 用来制定范围</li>
-<li><code>range</code>: 用来提供 <code>for each</code> 类型的循环
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Helm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Chart</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Helm//" class="article-tag-list-link color5">Helm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">展开全文 >></a>
     </p>
     
 
@@ -2260,6 +2257,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
             
             <div class="clearfix"></div>
