@@ -210,6 +210,119 @@
             
 
   
+    <article id="post-Prometheus/008-Prometheus-监控-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/" target="_blank">Prometheus 监控 Nginx</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.437Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Nginx官网有介绍各种监控方案，以前我们常用stub_status和Log日志来实现Nginx监控。本文主要介绍基于 Prometheus 的2种监控方案 <code>nginx-lua-prometheus</code> 和 <code>nginx-vts-exporter</code></p>
+<ul>
+<li>官网介绍的监控方案: <a target="_blank" rel="noopener" href="https://www.nginx.com/blog/monitoring-nginx/">https://www.nginx.com/blog/monitoring-nginx/</a></li>
+<li>Prometheus 集成的 HTTP Exporter 方案: <a target="_blank" rel="noopener" href="https://prometheus.io/docs/instrumenting/exporters/#http">https://prometheus.io/docs/instrumenting/exporters/#http</a></li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Monitor</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/008-Prometheus-%E7%9B%91%E6%8E%A7-Nginx/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Prometheus/014-Prometheus-非云原生应用的监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1183,116 +1296,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Prometheus/012-Prometheus-Alertmanager-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/013-Prometheus-云原生应用的监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/013-Prometheus-%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/" target="_blank">Prometheus 云原生应用的监控</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/013-Prometheus-%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.435Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Operator-简介"><a href="#Operator-简介" class="headerlink" title="Operator 简介"></a>Operator 简介</h2><p>Operator 是由 CoreOS 公司开发的用来扩展 Kubernetes API 的特定应用程序控制器，用来创建，配置和管理复杂的有状态应用，例如数据库，缓存和监控系统。Prometheus Operator 就是基于 Operator 框架开发的管理 Prometheus 集群的控制器。</p>
-<p>目前，CoreOS 官方提供了几种 Operator 的代码实现，其中就包括 Prometheus Operator。如下图所示，是 Prometheus Operator 官方提供的架构图</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/013-Prometheus-%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/013-Prometheus-%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E7%9A%84%E7%9B%91%E6%8E%A7/">展开全文 >></a>
     </p>
     
 
