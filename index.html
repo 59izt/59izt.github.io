@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Linux/051-Ubuntu-Server24.04-Redis-集群部署(6.2.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-疑难杂症/03-Clash for Windows 使用 Mixin 配置内网 DNS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/07/20/Linux/051-Ubuntu-Server24.04-Redis-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2(6.2.x)/" target="_blank">Ubuntu Server 24.04 Redis 三主三从集群搭建(6.2.x)</a>
+	  <a class="article-title" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/03-Clash%20for%20Windows%20%E4%BD%BF%E7%94%A8%20Mixin%20%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%20DNS/" target="_blank">Clash for Windows 导致内网 DNS 不生效</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2024/07/20/Linux/051-Ubuntu-Server24.04-Redis-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2(6.2.x)/" class="archive-article-date">
-        <time datetime="2024-07-20T02:46:31.778Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-20</time>
+<a href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/03-Clash%20for%20Windows%20%E4%BD%BF%E7%94%A8%20Mixin%20%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%20DNS/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -239,251 +239,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Redis-三种模式"><a href="#Redis-三种模式" class="headerlink" title="Redis 三种模式"></a>Redis 三种模式</h2><h3 id="主从模式"><a href="#主从模式" class="headerlink" title="主从模式"></a>主从模式</h3><p>Redis 虽然读取写入的速度都特别快，但是也会产生读压力特别大的情况。为了分担读压力，Redis 支持主从复制，Redis 的主从结构可以采用一主多从或者级联结构。</p>
-<p>Redis 怎么实现主从复制</p>
-<ol>
-<li>从服务器初始化时进行全量同步</li>
-<li>初始化完成后执行增量同步</li>
-</ol>
-<p><strong>优点</strong>: 实现数据备份，做到读写分离<br><strong>缺点</strong>: 当主节点发生故障掉线时，需要人工进行：故障转移</p>
-    
-    <a class="article-more-a" href="/2024/07/20/Linux/051-Ubuntu-Server24.04-Redis-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2(6.2.x)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2024/07/20/Linux/051-Ubuntu-Server24.04-Redis-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2(6.2.x)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/050-Ubuntu-Server24.04-安装GitLab主备集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2024/07/13/Linux/050-Ubuntu-Server24.04-%E5%AE%89%E8%A3%85GitLab%E4%B8%BB%E5%A4%87%E9%9B%86%E7%BE%A4/" target="_blank">Ubuntu Server 24.04 DRBD + GitLab 部署 GitLab 集群</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2024/07/13/Linux/050-Ubuntu-Server24.04-%E5%AE%89%E8%A3%85GitLab%E4%B8%BB%E5%A4%87%E9%9B%86%E7%BE%A4/" class="archive-article-date">
-        <time datetime="2024-07-13T04:03:28.472Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanjieli/p/11353854.html">Linux-网络RAID技术DRBD</a></li>
-</ul>
-<h2 id="DRBD-相关知识"><a href="#DRBD-相关知识" class="headerlink" title="DRBD 相关知识"></a>DRBD 相关知识</h2><h3 id="DRBD-简介"><a href="#DRBD-简介" class="headerlink" title="DRBD 简介"></a>DRBD 简介</h3><p>DRBD的全称为：Distributed Replicated Block Device(DRBD)分布式块设备复制，DRBD是由内核模块和相关脚本构成，用以构建高可用的集群。其实现方式是通过网络来镜像整个设备。可以把它看作是一种网络RAID。它允许用户在远程机器上建立一个本地块设备的实时镜像。</p>
-<h3 id="DRBD-是如何工作的"><a href="#DRBD-是如何工作的" class="headerlink" title="DRBD 是如何工作的"></a>DRBD 是如何工作的</h3><p>（DRBD Primary）负责接收数据，把数据写到本地磁盘并发送给另一台主机（DRBD Secondary）。另一个主机再将数据存到自己的磁盘中。目前，DRBD 每次只允许对一个节点进行读写访问，但这对于通常的故障切换高可用集群来说已经足够用了，有可能以后的版本支持两个节点进行读写存取。</p>
-    
-    <a class="article-more-a" href="/2024/07/13/Linux/050-Ubuntu-Server24.04-%E5%AE%89%E8%A3%85GitLab%E4%B8%BB%E5%A4%87%E9%9B%86%E7%BE%A4/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DRBD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2024/07/13/Linux/050-Ubuntu-Server24.04-%E5%AE%89%E8%A3%85GitLab%E4%B8%BB%E5%A4%87%E9%9B%86%E7%BE%A4/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/049-Ubuntu-Server24.04-系统初始化配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2024/07/13/Linux/049-Ubuntu-Server24.04-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/" target="_blank">Ubuntu Server 24.04 LTS minimized 安装的系统初始化配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2024/07/13/Linux/049-Ubuntu-Server24.04-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2024-07-13T02:21:47.542Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ol>
-<li><p>安装常用软件</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y vim bash-completion net-tools network-manager lrzsz unzip</span><br></pre></td></tr></table></figure>
+    <p>Clash for Windows 0.9.5 版本更新后，支持向所有配置文件中注入公共属性设置</p>
+<h2 id="配置-Mixin"><a href="#配置-Mixin" class="headerlink" title="配置 Mixin"></a>配置 Mixin</h2><ol>
+<li><p>进入 Settings 页面</p>
 </li>
-<li><p>删除自带的工具</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 彻底删除 snap 以及其配置文件</span></span><br><span class="line">sudo apt remove -y snapd --purge</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除云功能和自动升级功能</span></span><br><span class="line">sudo apt remove -y unattended-upgrades cloud-init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理相关依赖</span></span><br><span class="line">sudo apt install -f &amp;&amp; sudo apt autoremove</span><br></pre></td></tr></table></figure>
+<li><p>滚动至 Profile Mixin 栏</p>
+</li>
+<li><p>点击 YAML 右边 Edit 小字打开编辑界面</p>
     
-    <a class="article-more-a" href="/2024/07/13/Linux/049-Ubuntu-Server24.04-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/03-Clash%20for%20Windows%20%E4%BD%BF%E7%94%A8%20Mixin%20%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%20DNS/#more">more >></a>
     
     
 
@@ -506,11 +270,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Clash</a>
         		</li>
       		
 		</ul>
@@ -522,7 +286,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/Clash//" class="article-tag-list-link color1">Clash</a>
         		</li>
       		
 		</ul>
@@ -531,7 +295,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/07/13/Linux/049-Ubuntu-Server24.04-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/03-Clash%20for%20Windows%20%E4%BD%BF%E7%94%A8%20Mixin%20%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%20DNS/">展开全文 >></a>
     </p>
     
 
@@ -561,7 +325,7 @@
 
 
   
-    <article id="post-Linux/048-CentOS7-部署Rocketmq集群(2m-noslave)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-疑难杂症/04-RockyLinux配置双网卡都可通信方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -569,7 +333,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/04/18/Linux/048-CentOS7-%E9%83%A8%E7%BD%B2Rocketmq%E9%9B%86%E7%BE%A4(2m-noslave)/" target="_blank">CentOS7 部署 Rocketmq 集群(2m-noslave)</a>
+	  <a class="article-title" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/04-RockyLinux%E9%85%8D%E7%BD%AE%E5%8F%8C%E7%BD%91%E5%8D%A1%E9%83%BD%E5%8F%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E6%B3%95/" target="_blank">Rocky Linux 9.5 配置双网卡</a>
   
     </h1>
   
@@ -577,8 +341,8 @@
 
   
   
-<a href="/2024/04/18/Linux/048-CentOS7-%E9%83%A8%E7%BD%B2Rocketmq%E9%9B%86%E7%BE%A4(2m-noslave)/" class="archive-article-date">
-        <time datetime="2024-04-18T08:24:03.646Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-04-18</time>
+<a href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/04-RockyLinux%E9%85%8D%E7%BD%AE%E5%8F%8C%E7%BD%91%E5%8D%A1%E9%83%BD%E5%8F%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E6%B3%95/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -590,40 +354,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><table>
-<thead>
-<tr>
-<th align="center">主机名</th>
-<th align="center">地址</th>
-<th align="center">角色</th>
-<th align="center">软件</th>
-<th align="center">版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">cacshop-middleware01</td>
-<td align="center">10.1.30.41</td>
-<td align="center">namesrv</td>
-<td align="center">rocketmq</td>
-<td align="center">4.9.3</td>
-</tr>
-<tr>
-<td align="center">cacshop-middleware02</td>
-<td align="center">10.1.30.42</td>
-<td align="center">namesrv,broker-a</td>
-<td align="center">rocketmq</td>
-<td align="center">4.9.3</td>
-</tr>
-<tr>
-<td align="center">cacshop-middleware03</td>
-<td align="center">10.1.30.43</td>
-<td align="center">namesrv,broker-b</td>
-<td align="center">rocketmq</td>
-<td align="center">4.9.3</td>
-</tr>
-</tbody></table>
+    <h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>Rocky Linux 9.5 系统配置了两张网卡，<code>ens192</code> 以及 <code>ens224</code>，IP 地址为分别为 <code>172.31.100.181</code> 以及 <code>172.31.100.221</code>，从别的机器 ping 这两个 IP 地址，只有一个 IP 地址可以 ping 通，网卡配置信息如下：</p>
+<ol>
+<li><p>ens192 网卡配置信息</p>
     
-    <a class="article-more-a" href="/2024/04/18/Linux/048-CentOS7-%E9%83%A8%E7%BD%B2Rocketmq%E9%9B%86%E7%BE%A4(2m-noslave)/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/04-RockyLinux%E9%85%8D%E7%BD%AE%E5%8F%8C%E7%BD%91%E5%8D%A1%E9%83%BD%E5%8F%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E6%B3%95/#more">more >></a>
     
     
 
@@ -646,11 +381,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">RockyLinux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RocketMQ</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">双网卡</a>
         		</li>
       		
 		</ul>
@@ -662,7 +397,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/RockyLinux//" class="article-tag-list-link color1">RockyLinux</a>
         		</li>
       		
 		</ul>
@@ -671,7 +406,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/04/18/Linux/048-CentOS7-%E9%83%A8%E7%BD%B2Rocketmq%E9%9B%86%E7%BE%A4(2m-noslave)/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/04-RockyLinux%E9%85%8D%E7%BD%AE%E5%8F%8C%E7%BD%91%E5%8D%A1%E9%83%BD%E5%8F%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E6%B3%95/">展开全文 >></a>
     </p>
     
 
@@ -701,7 +436,7 @@
 
 
   
-    <article id="post-疑难杂症/02-skywalking-启动报错处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/091-Ubuntu24.04-部署-k8s-高可用集群(1.28.x)-HA+Keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -709,7 +444,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/02/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/02-skywalking-%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/" target="_blank">skywalking 启动报错处理</a>
+	  <a class="article-title" href="/2025/07/31/kubernetes/091-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)-HA+Keepalived/" target="_blank">Ubuntu server 24.04 二进制部署 Kubernetes 高可用集群(1.28.x) HA + Keepalived</a>
   
     </h1>
   
@@ -717,8 +452,8 @@
 
   
   
-<a href="/2024/02/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/02-skywalking-%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/" class="archive-article-date">
-        <time datetime="2024-02-18T03:00:42.772Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-02-18</time>
+<a href="/2025/07/31/kubernetes/091-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)-HA+Keepalived/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -730,11 +465,125 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="skywalking-启动报错处理"><a href="#skywalking-启动报错处理" class="headerlink" title="skywalking 启动报错处理"></a>skywalking 启动报错处理</h2><ol>
-<li><p>使用 helm 部署在 k8s 集群中的 skywalking 服务运行报错，报错信息如下：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.skywalking.oap.server.core.storage.model.ModelInstaller -16539 [main] INFO [] - table: alarm_record does not exist. OAP is running <span class="keyword">in</span> <span class="string">&#x27;no-init&#x27;</span> mode, waiting... retry 3s later.</span><br></pre></td></tr></table></figure>
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.28.x。本次部署使用 11 台虚拟机，系统版本为 Ubuntu Server 24.04，分别为3台 etcd，3台 Master，5台 Node。集群相关配置如下</p>
+<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
+<li>k8s 宿主机IP网段: 172.31.100.1&#x2F;26</li>
+<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
+<li>k8s Pod 网段: 192.168.0.0&#x2F;16</li>
+<li>k8s VIP 地址：172.31.100.50
     
-    <a class="article-more-a" href="/2024/02/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/02-skywalking-%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/kubernetes/091-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)-HA+Keepalived/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2025/07/31/kubernetes/091-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)-HA+Keepalived/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/093-kubernetes-部署-Loki-采集日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2025/07/31/kubernetes/093-kubernetes-%E9%83%A8%E7%BD%B2-Loki-%E9%87%87%E9%9B%86%E6%97%A5%E5%BF%97/" target="_blank">Kubernetes 部署 Loki 采集服务日志</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2025/07/31/kubernetes/093-kubernetes-%E9%83%A8%E7%BD%B2-Loki-%E9%87%87%E9%9B%86%E6%97%A5%E5%BF%97/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Kubernetes集群部署好后，就可以部署相关业务服务了，各个容器的日志可以帮助排错，问题快速定位，ELK 太繁琐，但是速度快，一般 loki 就够用了，loki 可以较快的安装调试，占用很少的服务器资源，安装的 loki 日志会默认存储在 &#x2F;var&#x2F;log&#x2F;docker 里面，一直保留，本次也是使用helm 安装 loki 日志采集器，不用繁琐的过程。loki 的持久化后端存储采用 Ceph 做持久化</p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ol>
+<li>运行正常的 kubernetes,这里是 kubernetes 1.28.x 集群</li>
+<li>运行正常 Ceph 集群，并安装了 Ceph-CSI 插件，这里是采用 rook-ceph 部署的 Ceph 集群</li>
+<li>kubernetes 集群已安装 Helm</li>
+<li>集群已经配置好 StorageClass，这里的 StorageClass 名称是 “rook-ceph-block”</li>
+</ol>
+    
+    <a class="article-more-a" href="/2025/07/31/kubernetes/093-kubernetes-%E9%83%A8%E7%BD%B2-Loki-%E9%87%87%E9%9B%86%E6%97%A5%E5%BF%97/#more">more >></a>
     
     
 
@@ -761,229 +610,140 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">疑难杂症</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loki</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2025/07/31/kubernetes/093-kubernetes-%E9%83%A8%E7%BD%B2-Loki-%E9%87%87%E9%9B%86%E6%97%A5%E5%BF%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/094-kubernetes-部署高可用-Ingress-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2025/07/31/kubernetes/094-kubernetes-%E9%83%A8%E7%BD%B2%E9%AB%98%E5%8F%AF%E7%94%A8-Ingress-Nginx/" target="_blank">Kubernetes 部署高可用 Ingress-Nginx</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2025/07/31/kubernetes/094-kubernetes-%E9%83%A8%E7%BD%B2%E9%AB%98%E5%8F%AF%E7%94%A8-Ingress-Nginx/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><p>这里的 Ingress-Nginx 采用的是 Helm 包方式部署的，服务部署类型为 DaemonSet，采用宿主机网络，所以会在节点上监听 80，443 端口。高可用方案采用 keepalived 方式，在每个节点上测试本地的 80 端口是否能正常访问，能正常访问则说明 ingress-nginx 服务正常，否则停止 keepalived 服务，将 VIP 漂移到其他的 ingress-nginx 节点。</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">IP 地址</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8snode01</td>
+<td align="center">10.66.211.14</td>
+<td align="center">部署 ingress 节点，Master 节点</td>
+</tr>
+<tr>
+<td align="center">k8snode02</td>
+<td align="center">10.66.211.15</td>
+<td align="center">部署 ingress 节点，Backup 节点</td>
+</tr>
+</tbody></table>
+<p>VIP 地址：10.66.211.30</p>
+    
+    <a class="article-more-a" href="/2025/07/31/kubernetes/094-kubernetes-%E9%83%A8%E7%BD%B2%E9%AB%98%E5%8F%AF%E7%94%A8-Ingress-Nginx/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">skywalking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/skywalking//" class="article-tag-list-link color1">skywalking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2024/02/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/02-skywalking-%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/010-Ubuntu22.04-二进制方式安装-MySQL8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2024/01/15/Databases/MySQL/010-Ubuntu22.04-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85-MySQL8/" target="_blank">Ubuntu 22.04 二进制方式安装 MySQL 8</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2024/01/15/Databases/MySQL/010-Ubuntu22.04-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85-MySQL8/" class="archive-article-date">
-        <time datetime="2024-01-15T02:41:03.033Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ol>
-<li><p>卸载自带的软件</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-get purge -y mysql-client mysql-server mysql-common mysql-server-core-5.5 mysql-client-5.5 mariadb-client mariadb-server mariadb-common</span><br><span class="line"></span><br><span class="line">dpkg -l | grep ^rc | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs dpkg -P</span><br><span class="line"></span><br><span class="line">apt-get -y update</span><br><span class="line">apt-get -y autoremove</span><br><span class="line">apt-get -yf install</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2024/01/15/Databases/MySQL/010-Ubuntu22.04-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85-MySQL8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2024/01/15/Databases/MySQL/010-Ubuntu22.04-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85-MySQL8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/047-Ubuntu-系统初始化配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2024/01/11/Linux/047-Ubuntu-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/" target="_blank">Ubuntu 系统初始化配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2024/01/11/Linux/047-Ubuntu-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2024-01-11T07:47:45.273Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-11</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ol>
-<li><p>删除自带的工具</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 彻底删除 snap</span></span><br><span class="line">apt remove snapd --purge</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除云功能和自动升级功能</span></span><br><span class="line">apt remove unattended-upgrades cloud-init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理相关依赖</span></span><br><span class="line">apt install -f &amp;&amp; apt autoremove</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2024/01/11/Linux/047-Ubuntu-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Ingress-Nginx</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
         		</li>
       		
 		</ul>
@@ -995,7 +755,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1004,7 +764,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/01/11/Linux/047-Ubuntu-%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/kubernetes/094-kubernetes-%E9%83%A8%E7%BD%B2%E9%AB%98%E5%8F%AF%E7%94%A8-Ingress-Nginx/">展开全文 >></a>
     </p>
     
 
@@ -1034,7 +794,7 @@
 
 
   
-    <article id="post-Golang/001-第一个程序-HelloWorld" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/092-kubernetes-接入外部 -Ceph-配置-StorageClass" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1042,7 +802,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/01/09/Golang/001-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F-HelloWorld/" target="_blank">第一个程序 HelloWorld</a>
+	  <a class="article-title" href="/2025/07/31/kubernetes/092-kubernetes-%E6%8E%A5%E5%85%A5%E5%A4%96%E9%83%A8%20-Ceph-%E9%85%8D%E7%BD%AE-StorageClass/" target="_blank">Kubernetes 接入外部 Ceph 并配置 StorageClass</a>
   
     </h1>
   
@@ -1050,8 +810,8 @@
 
   
   
-<a href="/2024/01/09/Golang/001-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F-HelloWorld/" class="archive-article-date">
-        <time datetime="2024-01-09T03:05:31.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+<a href="/2025/07/31/kubernetes/092-kubernetes-%E6%8E%A5%E5%85%A5%E5%A4%96%E9%83%A8%20-Ceph-%E9%85%8D%E7%BD%AE-StorageClass/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -1063,15 +823,19 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Go-项目工程结构"><a href="#Go-项目工程结构" class="headerlink" title="Go 项目工程结构"></a>Go 项目工程结构</h2><p>配置好工作目录后，就可以编码开发了，在这之前，我们看一下 go 的通用项目结构，这里的结构主要是源代码相应地资源文件存放目录结构。</p>
-<h3 id="GOPATH-目录"><a href="#GOPATH-目录" class="headerlink" title="GOPATH 目录"></a>GOPATH 目录</h3><p><code>GOPATH</code> 目录就是我们存储我们所编写源代码的目录。该目录下往往要有三个子目录：src、bin、pkg。</p>
-<ul>
-<li>src: 里面每一个子目录，就是一个包。包内是Go的源码文件</li>
-<li>pkg: 编译后生成的，包的目标文件</li>
-<li>bin: 生成的可执行文件。</li>
+    <p>Kubernetes (K8S) 是一个流行的容器编排平台，而 Ceph 是一个分布式存储系统，提供了对象存储、块存储和文件系统等多种存储服务。在 Kubernetes 中使用 Ceph 作为持久化存储后端是一种常见的部署模式。</p>
+<p>CSI 的官方地址：<a target="_blank" rel="noopener" href="https://github.com/ceph/ceph-csi/tree/devel">https://github.com/ceph/ceph-csi/tree/devel</a></p>
+<h2 id="前提配置"><a href="#前提配置" class="headerlink" title="前提配置"></a>前提配置</h2><ul>
+<li>确保 Ceph 集群和 Kubernetes 集群已经正确部署并运行稳定。</li>
+<li>确保 K8S 和 Ceph 版本有所匹配，<a target="_blank" rel="noopener" href="https://github.com/ceph/ceph-csi?tab=readme-ov-file#support-matrix">点击查看版本支持关系</a>。</li>
+</ul>
+<h3 id="本文档版本信息"><a href="#本文档版本信息" class="headerlink" title="本文档版本信息"></a>本文档版本信息</h3><ul>
+<li>kubernetes: 1.28.12</li>
+<li>Ceph-CSI: v3.11</li>
+<li>Ceph: 18.2.4</li>
 </ul>
     
-    <a class="article-more-a" href="/2024/01/09/Golang/001-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F-HelloWorld/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/kubernetes/092-kubernetes-%E6%8E%A5%E5%85%A5%E5%A4%96%E9%83%A8%20-Ceph-%E9%85%8D%E7%BD%AE-StorageClass/#more">more >></a>
     
     
 
@@ -1094,7 +858,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ceph</a>
         		</li>
       		
 		</ul>
@@ -1106,7 +874,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1115,7 +883,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/01/09/Golang/001-%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F-HelloWorld/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/kubernetes/092-kubernetes-%E6%8E%A5%E5%85%A5%E5%A4%96%E9%83%A8%20-Ceph-%E9%85%8D%E7%BD%AE-StorageClass/">展开全文 >></a>
     </p>
     
 
@@ -1145,7 +913,7 @@
 
 
   
-    <article id="post-Golang/old/004-golang-数据类型1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/090-Ubuntu24.04-部署-k8s-高可用集群(1.28.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1153,7 +921,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/" target="_blank">Golang 数据类型介绍</a>
+	  <a class="article-title" href="/2025/07/31/kubernetes/090-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)/" target="_blank">Ubuntu server 24.04 二进制部署 Kubernetes 高可用集群(1.28.x)</a>
   
     </h1>
   
@@ -1161,8 +929,8 @@
 
   
   
-<a href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/" class="archive-article-date">
-        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+<a href="/2025/07/31/kubernetes/090-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.091Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -1174,13 +942,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <ul>
-<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
-<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.28.x。本次部署使用 11 台虚拟机，系统版本为 Ubuntu Server 24.04，分别为3台 etcd，3台 Master，5台 Node。集群相关配置如下</p>
+<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
+<li>k8s 宿主机IP网段: 172.31.100.1&#x2F;26</li>
+<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
+<li>k8s Pod 网段: 192.168.0.0&#x2F;16</li>
 </ul>
-<h2 id="Go-数据类型"><a href="#Go-数据类型" class="headerlink" title="Go 数据类型"></a>Go 数据类型</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>golang 的数值类型分为以下几种：整数、浮点数、复数，其中每一种都包含了不同大小的数值类型，例如有符号整数包含 int8、int16、int32、int64 等，每种数值类型都决定了对应的大小范围和是否支持正负符号。</p>
     
-    <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/kubernetes/090-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)/#more">more >></a>
     
     
 
@@ -1203,7 +972,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1215,7 +984,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1224,7 +993,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/kubernetes/090-Ubuntu24.04-%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.28.x)/">展开全文 >></a>
     </p>
     
 
@@ -1254,7 +1023,7 @@
 
 
   
-    <article id="post-Golang/old/005-golang-数据类型2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/089-二进制部署-k8s-高可用集群(1.27.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1262,7 +1031,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/" target="_blank">Golang 数据类型-字符串</a>
+	  <a class="article-title" href="/2025/07/31/kubernetes/089-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.27.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(1.27x)</a>
   
     </h1>
   
@@ -1270,8 +1039,8 @@
 
   
   
-<a href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/" class="archive-article-date">
-        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+<a href="/2025/07/31/kubernetes/089-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.27.x)/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.090Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
 </a>
 
   
@@ -1283,13 +1052,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <ul>
-<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
-<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.27.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3 台 Master，2 台 Node。集群相关配置如下</p>
+<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
+<li>k8s 宿主机IP网段: 10.1.30.0&#x2F;24</li>
+<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
+<li>k8s Pod 网段: 192.168.0.0&#x2F;16</li>
 </ul>
-<h2 id="字符串基础"><a href="#字符串基础" class="headerlink" title="字符串基础"></a>字符串基础</h2><p>一个字符串是一个不可改变的字节序列，字符串可以包含任意的数据，但是通常是用来包含可读的文本，字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码表上的字符时占用一个字节，其它字符根据需要占用 2-4 个字节）</p>
     
-    <a class="article-more-a" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/#more">more >></a>
+    <a class="article-more-a" href="/2025/07/31/kubernetes/089-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.27.x)/#more">more >></a>
     
     
 
@@ -1312,7 +1082,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1324,7 +1094,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -1333,7 +1103,238 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/">展开全文 >></a>
+      <a class="article-more-a" href="/2025/07/31/kubernetes/089-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.27.x)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/023-Prometheus-监控-k8s-集群外部的-Redis-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2025/07/31/Prometheus/023-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-Redis-%E9%9B%86%E7%BE%A4/" target="_blank">Kube-prometheus 监控集群外部的 Redis 集群</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2025/07/31/Prometheus/023-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-Redis-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.090Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Prometheus 监控 Redis cluster，其实套路都是一样的，使用 exporter。<br>exporter 负责采集指标，通过 http 暴露给 Prometheus 拉取。granafa 则通过这些指标绘图展示数据。Prometheus 收集的数据还会根据你设置的告警规则判断是否要发送给 Alertmanager， Alertmanager 则要判断是否要发出告警。</p>
+<blockquote>
+<p>redis-exporter 仓库地址: <a target="_blank" rel="noopener" href="https://github.com/oliver006/redis_exporter.git">redis-exporter GitHub地址</a></p>
+</blockquote>
+<h2 id="部署-Redis-Exporter"><a href="#部署-Redis-Exporter" class="headerlink" title="部署 Redis-Exporter"></a>部署 Redis-Exporter</h2><ol>
+<li><p>下载 redis-exporter 安装包</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/oliver006/redis_exporter/releases/download/v1.66.0/redis_exporter-v1.66.0.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2025/07/31/Prometheus/023-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-Redis-%E9%9B%86%E7%BE%A4/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2025/07/31/Prometheus/023-Prometheus-%E7%9B%91%E6%8E%A7-k8s-%E9%9B%86%E7%BE%A4%E5%A4%96%E9%83%A8%E7%9A%84-Redis-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/Kube-prometheus 监控 k8s 集群内部的 SpringCloud JVM 堆栈信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2025/07/31/Prometheus/Kube-prometheus%20%E7%9B%91%E6%8E%A7%20k8s%20%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E7%9A%84%20SpringCloud%20JVM%20%E5%A0%86%E6%A0%88%E4%BF%A1%E6%81%AF/" target="_blank">Kube-prometheus 监控 k8s 集群内部的 SpringCloud JVM 堆栈信息</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2025/07/31/Prometheus/Kube-prometheus%20%E7%9B%91%E6%8E%A7%20k8s%20%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E7%9A%84%20SpringCloud%20JVM%20%E5%A0%86%E6%A0%88%E4%BF%A1%E6%81%AF/" class="archive-article-date">
+        <time datetime="2025-07-31T07:47:04.090Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-31</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="配置-Prometheus-监控对象"><a href="#配置-Prometheus-监控对象" class="headerlink" title="配置 Prometheus 监控对象"></a>配置 Prometheus 监控对象</h2><p>Kube-Prometheus 监控 k8s 集群内部的 Spring Cloud 服务的 JVM 信息，这里采用的是 ServiceMonitor 服务发现的方式自动监控对应的微服务。</p>
+<ol>
+<li><p>Spring Cloud 微服务需要修改 <code>application.yml</code> 配置文件，对外暴露相关接口供 Prometheus 采集指标。修改如下</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#################### 监控相关配置 ####################</span></span><br><span class="line"><span class="comment"># Actuator 监控端点的配置项</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">base-path:</span> <span class="string">/actuator</span> <span class="comment"># Actuator 提供的 API 接口的根目录。默认为 /actuator</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">&#x27;*&#x27;</span> <span class="comment"># 需要开放的端点。默认值只打开 health 和 info 两个端点。通过设置 * ，可以开放所有端点。</span></span><br><span class="line">  <span class="attr">metrics:</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="comment"># 通用标签</span></span><br><span class="line">      <span class="attr">application:</span> <span class="string">$&#123;spring.application.name&#125;</span></span><br><span class="line">  <span class="attr">endpoint:</span></span><br><span class="line">    <span class="attr">prometheus:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">metrics:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">health:</span></span><br><span class="line">      <span class="attr">show-details:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2025/07/31/Prometheus/Kube-prometheus%20%E7%9B%91%E6%8E%A7%20k8s%20%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E7%9A%84%20SpringCloud%20JVM%20%E5%A0%86%E6%A0%88%E4%BF%A1%E6%81%AF/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2025/07/31/Prometheus/Kube-prometheus%20%E7%9B%91%E6%8E%A7%20k8s%20%E9%9B%86%E7%BE%A4%E5%86%85%E9%83%A8%E7%9A%84%20SpringCloud%20JVM%20%E5%A0%86%E6%A0%88%E4%BF%A1%E6%81%AF/">展开全文 >></a>
     </p>
     
 
@@ -1365,7 +1366,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>
   
 
@@ -1378,7 +1379,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2271,6 +2272,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

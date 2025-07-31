@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Python/028-Python-文本处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/018-Django-Views-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/028-Python-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" target="_blank">Python 文本处理</a>
+	  <a class="article-title" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/" target="_blank">Django 入门基础（Views）</a>
   
     </h1>
   
@@ -226,327 +226,8 @@
 
   
   
-<a href="/2023/10/18/Python/028-Python-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://wqbook.wqxuetang.com/book/3223405">Python 自动化运维快速入门 (第2版)</a></p>
-<p>在日常的运维工作中一般都离不开与文本打交道，如日志分析，编码转换，ETL 加工等。本节从编码原理，文件操作，读写配置文件，解析 XML 等实用编程知识出发，希望能抛砖引玉，为读者在处理文本问题时提供可行的方法。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/028-Python-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/028-Python-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/030-Python-读写配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank">Python 读写配置文件</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://wqbook.wqxuetang.com/book/3223405">Python 自动化运维快速入门 (第2版)</a></p>
-<p>配置文件是提供程序运行时读取配置信息的文件，用于将配置信息与程序分离，这样做的好处是显而易见的，例如: 在开源社区贡献自己源代码时，将一些敏感信息通过配置文件读取；提交源代码时不提交配置文件可以避免自己的用户名，密码等敏感信息泄露；我们可以通过配置文件保存程序运行时的中间结果；将环境信息（如操作系统类型）写入配置文件会增加程序的兼容性，使程序变得更加通用。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/030-Python-%E8%AF%BB%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/031-Python-系统信息监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/" target="_blank">Python 系统信息监控</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://wqbook.wqxuetang.com/book/3223405">Python 自动化运维快速入门 (第2版)</a></p>
-<h2 id="系统信息监控-psutil"><a href="#系统信息监控-psutil" class="headerlink" title="系统信息监控 (psutil)"></a>系统信息监控 (psutil)</h2><p>在 Python 中获取系统信息最便捷的模块是 <code>psutil</code>（Process and System Utilities）。通过几行代码就可以获取系统的相关信息，而且还是跨平台库。<code>psutil</code> 不属于标准库，需要手动安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install psutil</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/031-Python-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E7%9B%91%E6%8E%A7/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/007-Pandas-概览" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/" target="_blank">Pandas 概览</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -559,11 +240,13 @@
   <div class="article-entry" itemprop="articleBody">
     
     <blockquote>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://www.pypandas.cn/docs/getting_started/overview.html">Pandas 中文网</a></p>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
 </blockquote>
-<h1 id="Pandas-概览"><a href="#Pandas-概览" class="headerlink" title="Pandas 概览"></a>Pandas 概览</h1><p>Pandas 是 Python 的核心数据分析支持库，提供了快速，灵活，明确的数据结构，旨在简单，直观地处理关系型，标记型数据。Pandas 的目标是成为 Python 数据分析实践与实战的必备高级工具，其长远目标是是成为 <code>最强大，最灵活，可以支持任何语言的开源数据分析工具</code>. 经过多年不懈的努力，Pandas 离这个目标已经越来越近了。</p>
+<h1 id="Django-模块实现-Web-服务"><a href="#Django-模块实现-Web-服务" class="headerlink" title="Django 模块实现 Web 服务"></a>Django 模块实现 Web 服务</h1><ol>
+<li>将以下文件保存为 <code>testdjango.py</code>。</li>
+</ol>
     
-    <a class="article-more-a" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/#more">more >></a>
     
     
 
@@ -586,11 +269,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
         		</li>
       		
 		</ul>
@@ -602,7 +285,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Pandas//" class="article-tag-list-link color2">Pandas</a>
+        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
         		</li>
       		
 		</ul>
@@ -611,7 +294,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/007-Pandas-%E6%A6%82%E8%A7%88/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/018-Django-Views-%E5%85%A5%E9%97%A8/">展开全文 >></a>
     </p>
     
 
@@ -641,7 +324,7 @@
 
 
   
-    <article id="post-Python/014-Flask-使用-MySQLdb-写原生语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/035-Python-标准模块-logging" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -649,7 +332,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/" target="_blank">Flask 使用 MySQLdb 写原生语句</a>
+	  <a class="article-title" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/" target="_blank">Python 标准模块-logging</a>
   
     </h1>
   
@@ -657,8 +340,8 @@
 
   
   
-<a href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.444Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -670,12 +353,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>参考文章：[Python web开发实战</p>
-</blockquote>
-<h2 id="使用-MySQL"><a href="#使用-MySQL" class="headerlink" title="使用 MySQL"></a>使用 MySQL</h2><p>数据时动态网站的基础，如果把数据放进数据库，就可以通过数据库管理系统对数据进行管理。MySQL 是一个开源的关系型数据库管理系统。它性能高，免费，配置简单，可靠性好，已经成为最流行的开源数据库。</p>
+    <h2 id="日志模块简介"><a href="#日志模块简介" class="headerlink" title="日志模块简介"></a>日志模块简介</h2><p>运维工作有很多的情况需要查问题，解决 bug，而查问题和解决 bug 的过程离不开查看日志，我们编写脚本名或程序时总是需要有日志输出，而 Python 的 logging 模块就是为纪录日志使用的，而且是线程安全的，意味着使用它完全不用担心因日志模块的异常而导致程序崩溃。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/#more">more >></a>
     
     
 
@@ -697,12 +377,236 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">标准模块</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/035-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-logging/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/004-Web-库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">Web库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>对于 web，我们应该都不陌生，现在日常访问的网站都是 web 服务程序搭建而成的。Python 同样不例外，也有一些这样的 web 服务程序，比如 Flask，Django 等，我们可以拿它来开发网站和借口等。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/004-Web-%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/011-Flask-入门(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/" target="_blank">Flask 入门(一)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>原文地址：[Python web 开发实战]</p>
+</blockquote>
+<h2 id="安装-Flask"><a href="#安装-Flask" class="headerlink" title="安装 Flask"></a>安装 Flask</h2><p>我们先安装 Flask</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MySQLdb</a>
         		</li>
       		
 		</ul>
@@ -723,7 +627,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/014-Flask-%E4%BD%BF%E7%94%A8-MySQLdb-%E5%86%99%E5%8E%9F%E7%94%9F%E8%AF%AD%E5%8F%A5/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/011-Flask-%E5%85%A5%E9%97%A8(%E4%B8%80)/">展开全文 >></a>
     </p>
     
 
@@ -753,7 +657,7 @@
 
 
   
-    <article id="post-Python/025-自动化软件发布工作流-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/017-Django-基础入门-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -761,7 +665,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/" target="_blank">自动化软件发布工作流(二)</a>
+	  <a class="article-title" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/" target="_blank">Django 入门基础（一）</a>
   
     </h1>
   
@@ -769,8 +673,8 @@
 
   
   
-<a href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -785,9 +689,239 @@
     <blockquote>
 <p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
 </blockquote>
-<p>当生成软件包，并放入软件仓库以后，就可以通过 SaltStack 来进行部署了。</p>
+<h1 id="Django-模块实现-Web-服务"><a href="#Django-模块实现-Web-服务" class="headerlink" title="Django 模块实现 Web 服务"></a>Django 模块实现 Web 服务</h1><ol>
+<li>将以下文件保存为 <code>testdjango.py</code>。</li>
+</ol>
     
-    <a class="article-more-a" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">View</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/017-Django-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-1/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/020-Django-URL&amp;Template-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/020-Django-URL&Template-%E5%85%A5%E9%97%A8/" target="_blank">Django 入门基础（URL&amp;Templates）</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/020-Django-URL&Template-%E5%85%A5%E9%97%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<h2 id="Django-路由-URL"><a href="#Django-路由-URL" class="headerlink" title="Django 路由 URL"></a>Django 路由 URL</h2><p>Django 的 URL 功能，可以说是在 models 层，view 层，url 层，都实现统一形式。path，include，reverse，resolve，get_absolute__rule  结合 namespace，使我们在制作 URL 时，正向解析和反向解析都易如反掌，千变万化，又不失规范优雅。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/020-Django-URL&Template-%E5%85%A5%E9%97%A8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">URL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Template</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/020-Django-URL&Template-%E5%85%A5%E9%97%A8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/024-自动化软件发布工作流-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/" target="_blank">自动化软件发布工作流(一)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
+</blockquote>
+<p>软件自动化发布，是建立在手工软件发布很成熟的基础之上的，并且是对公司的软件包结构，服务器操作系统标准化之后形成的。相对于手工部署，自动化软件部署效率更高，操作更标准化，节约人力物力，并且可以记录每一次的发布细节。所以它的技能要求更高，要求系统开发人员不但要懂运维，还要懂开发。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/#more">more >></a>
     
     
 
@@ -835,7 +969,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/025-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-2/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/024-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BD%AF%E4%BB%B6%E5%8F%91%E5%B8%83%E5%B7%A5%E4%BD%9C%E6%B5%81-1/">展开全文 >></a>
     </p>
     
 
@@ -865,7 +999,7 @@
 
 
   
-    <article id="post-Python/027-GitLab-REST-API-使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/034-Python-标准模块-sys" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -873,7 +1007,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" target="_blank">GitLab REST API 使用讲解</a>
+	  <a class="article-title" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/" target="_blank">Python 标准模块-sys</a>
   
     </h1>
   
@@ -881,8 +1015,8 @@
 
   
   
-<a href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -894,119 +1028,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<p>和 Jenkins 类似，GitLab 也提供了操作 API 的官方文档：<code>https://docs.gitlab.com/ee/api/</code>。但这个操作是统一标准的，通过 REST API 的方式，支持主流的各种语言（Go，Java，JS，Python 等）。但为了在 Python 环境下更有效率，更规范，更自然地操作这些 API，我们这里也使用了一个第三方库 Python-GitLab 去操作这些 API。</p>
+    <p><code>sys</code> 模块主要是针对与 Python 解释器相关的变量和方法，不是主机操作系统。</p>
+<h2 id="常用属性与方法"><a href="#常用属性与方法" class="headerlink" title="常用属性与方法"></a>常用属性与方法</h2>
     
-    <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitLab-API//" class="article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/037-Python-多进程-multiprocessing(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" target="_blank">Python 多进程 multiprocessing(一)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>我们都知道进程是操作系统进行资源分配和调度的基本单位，在单核 CPU 中，同一时刻只能运行单个进程，虽然仍然可以同时运行多个程序，但进程之间是通过轮流占用 CPU 来执行的。进程有三种状态，分别是: 阻塞态、就绪态和运行态；</p>
-<p>Python 内置的 multiprocessing 模块提供了对多进程的支持，下面我们将一一介绍其用法</p>
-<h2 id="创建进程的类-Process"><a href="#创建进程的类-Process" class="headerlink" title="创建进程的类 - Process"></a>创建进程的类 - Process</h2><p>multiprocessing 模块提供了一个创建进程的类 Process，其创建进程有以下两种方法:</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/#more">more >></a>
     
     
 
@@ -1033,7 +1058,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multiprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">标准模块</a>
         		</li>
       		
 		</ul>
@@ -1054,7 +1079,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/034-Python-%E6%A0%87%E5%87%86%E6%A8%A1%E5%9D%97-sys/">展开全文 >></a>
     </p>
     
 
@@ -1084,7 +1109,7 @@
 
 
   
-    <article id="post-Python/016-Django-入门学习(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/041-Python-selenium-自动化操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1092,7 +1117,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/" target="_blank">Django 入门学习（一）</a>
+	  <a class="article-title" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/" target="_blank">Python Selenium 自动化</a>
   
     </h1>
   
@@ -1100,8 +1125,8 @@
 
   
   
-<a href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.443Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1113,124 +1138,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/zh-hans/3.1/intro/">Django 3.1 官方教程</a></p>
-</blockquote>
-<h1 id="快速安装指南-环境部署"><a href="#快速安装指南-环境部署" class="headerlink" title="快速安装指南(环境部署)"></a>快速安装指南(环境部署)</h1><p>主要分以下步骤：</p>
-<ul>
-<li>安装 Python 3.x.x（Python 3.8.6）</li>
-<li>安装 Django（Django 3.1）</li>
+    <ul>
+<li>官方文档: <a target="_blank" rel="noopener" href="https://www.selenium.dev/zh-cn/documentation/">Selenium 浏览器自动化项目</a></li>
 </ul>
+<p>Selenium 是支持 web 浏览器自动化的一系列工具和库的综合项目。它提供了扩展来模拟用户与浏览器的交互，用于扩展浏览器分配的分发服务器，以及用于实现 W3C WebDriver 规范的基础结构，该规范允许您为所有主要 Web 浏览器编写可互换的代码。</p>
+<p>Selenium 的核心是 WebDriver，这是一个编写指令集的接口，可以在许多浏览器中互换运行。 这里有一个最简单的说明：</p>
     
-    <a class="article-more-a" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Django基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/016-Django-%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/021-Django-Models-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/" target="_blank">Django 入门基础（Models）</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.439Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<h2 id="Model-ORM"><a href="#Model-ORM" class="headerlink" title="Model ORM"></a>Model ORM</h2><p>在 Django 的框架设计中采用了 MTV 模型，即 Model，Template，Viewer。Model 相对于传统的三层或者 MVC 框架来说就相当于数据处理层，它主要负责与数据的交互。<br>Django 默认采用的是 ORM 框架中的 Codefirst 模型（根据代码中的类自动生成数据库中的表），也就是说开发人员只需要专注于代码的编写，而不需要过多的关注数据库层面的东西。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/#more">more >></a>
     
     
 
@@ -1253,11 +1167,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Models</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">selenium</a>
         		</li>
       		
 		</ul>
@@ -1269,7 +1183,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Django//" class="article-tag-list-link color2">Django</a>
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -1278,7 +1192,119 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/021-Django-Models-%E5%85%A5%E9%97%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Python/041-Python-selenium-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/002-Python-爬虫解析库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">Python 爬虫解析库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.442Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>抓取网页代码之后，下一步就是从网页中提取信息。提取信息的方式有多种多样，可以使用正则来提取，但是写起来相对较繁琐。这里还有许多强大的解析库，如 lxml，Beautiful Soup，pyquery 等。此外还提供了非常大的解析方法，如 XPath 解析和 CSS 选择器解析等，利用它们，我们可以高效便捷地从网页中提取有效信息。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/002-Python-%E7%88%AC%E8%99%AB%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
     </p>
     
 
@@ -1310,7 +1336,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
     </nav>
   
 
@@ -1323,7 +1349,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2216,6 +2242,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

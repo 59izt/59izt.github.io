@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-kubernetes/001-kubeadm-安装高可用k8s集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/039-Helm-Chart-模板函数列表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/" target="_blank">kubeadm 高可用 K8S 集群安装</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" target="_blank">Helm - Chart 模板函数和流水线</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考书籍: [再也不踩坑的Kubernetes实战指南]</p>
-<p>本节主要演示使用 kubeadm 安装 Kubernetes 高可用集群，测试环境可以采用 kubeadm 安装，这也是目前官方默认的安装方式，比二进制安装方式更简单，可以让初学者快速上手并测试。目前 GitHub 上也有很多基于 Ansible 的自动化安装方式，但是为了更好地学习 Kubernetes，还是建议体验一下 Kubernetes 的手动安装过程，以熟悉 Kubernetes 的各个组件。</p>
+    <ul>
+<li>官方文档地址: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/function_list/">模板函数列表</a></li>
+</ul>
+<h2 id="模板函数列表"><a href="#模板函数列表" class="headerlink" title="模板函数列表"></a>模板函数列表</h2><p>Helm 包含了很多可以在模板中利用的模板函数。以下列出了具体分类：</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/#more">more >></a>
     
     
 
@@ -265,117 +267,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/001-kubeadm-%E5%AE%89%E8%A3%85%E9%AB%98%E5%8F%AF%E7%94%A8k8s%E9%9B%86%E7%BE%A4/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/007-ReplicationController" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/007-ReplicationController/" target="_blank">Kubernetes-ReplicationController</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/007-ReplicationController/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考书籍：[基于 Kubernetes 的容器云平台实战]</p>
-<h2 id="Replication-Controller"><a href="#Replication-Controller" class="headerlink" title="Replication Controller"></a>Replication Controller</h2><p>Kubernetes 提供 Replication Controller（简称 “RC”）来管理 Pod，Replication Controller 确保任何时候 Kubernetes 集群中有指定数量的 Pod 副本在运行。如果少于指定数量的 Pod 副本，Replication Controller 会启动新的 Pod，反之会杀死多余的以保证数量不变。当 Pod 失败，被删除或被终结时，RC 会自动创建新的 Pod 来保证副本数量，所以即使只有一个 Pod，也应该使用 RC 来进行管理。除此之外，RC 还提供了一些更高级的特性，比如滚动升级，升级回滚等。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/007-ReplicationController/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Helm</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">RC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Chart</a>
         		</li>
       		
 		</ul>
@@ -387,7 +283,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/Helm//" class="article-tag-list-link color5">Helm</a>
         		</li>
       		
 		</ul>
@@ -396,7 +292,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/007-ReplicationController/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/">展开全文 >></a>
     </p>
     
 
@@ -426,7 +322,7 @@
 
 
   
-    <article id="post-kubernetes/034-Kubernetes-日志采集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/062-kubernetes-部署-logstash-采集-rsyslog-日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -434,7 +330,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" target="_blank">Kubernetes 日志采集</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/" target="_blank">Kubernetes 部署 Logstash 采集 syslog 日志</a>
   
     </h1>
   
@@ -442,8 +338,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -455,15 +351,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考来源:</p>
-<ul>
-<li>课程随堂笔记: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
-<li>EFK GitHub 地址: <a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch">fluentd-elasticsearch</a></li>
-<li>实验所需文件仓库地址: <a target="_blank" rel="noopener" href="https://github.com/dotbalo/k8s.git">k8s.git</a></li>
-</ul>
-<h2 id="EFK（ElasticSearch-Fluentd-Kibana）"><a href="#EFK（ElasticSearch-Fluentd-Kibana）" class="headerlink" title="EFK（ElasticSearch + Fluentd + Kibana）"></a>EFK（ElasticSearch + Fluentd + Kibana）</h2><p>EFK 是用于 Kubernetes 集群的日志收集工具，我们可以根据自己的业务情况，选择日志收集工具，比如还可以选择以 Sidecar 形式运行在 Pod 中的 Filebeat。这里介绍持久化安装 EFK 至 Kubernetes 集群，用于收集集群的相关日志，但是在生产环境中不建议将 EFK 安装到 Kubernetes 集群中，可以选择安装在集群之外，也可以将日志输出到外部的 ES 集群。</p>
+    <p>Logstash 官方文档: <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/7.17/introduction.html">https://www.elastic.co/</a></p>
+<h2 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h2><p>Logstash 是一个具有实时流水线功能的开源数据收集引擎。Logstash 可以动态统一来自不同来源的数据，并将数据规范化到您选择的目标。清理和民主化所有数据，用于各种高级下游分析和可视化用例。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/#more">more >></a>
     
     
 
@@ -511,7 +402,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/034-Kubernetes-%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/">展开全文 >></a>
     </p>
     
 
@@ -541,7 +432,7 @@
 
 
   
-    <article id="post-kubernetes/042-使用-crictl-对-Kubernetes-节点进行调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/002-K8S-高可用集群(二进制)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -549,7 +440,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" target="_blank">使用 crictl 对 kubernetes 节点进行调试</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/" target="_blank">二进制部署 Kubernetes 高可用集群</a>
   
     </h1>
   
@@ -557,8 +448,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -570,12 +461,115 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <ul>
-<li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/tasks/debug-application-cluster/crictl/">官方文档</a></li>
-</ul>
-<h2 id="安装-crictl"><a href="#安装-crictl" class="headerlink" title="安装 crictl"></a>安装 crictl</h2><h3 id="下载-crictl"><a href="#下载-crictl" class="headerlink" title="下载 crictl"></a>下载 crictl</h3><p>可以从 cri-tools <a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/cri-tools/releases">发布页面</a> 下载一个压缩的 crictl 归档文件，用于几种不同的架构。下载与你的 kubernetes 版本相对应的版本。提取它并将其移动到系统路径上的某个位置，例如 <code>/usr/local/bin/</code>。</p>
+    <p>参考书籍: <a target="_blank" rel="noopener" href="http://www.kubeasy.com/">kubernetes全栈架构师</a><br>虽然现在 kubeadm 是官方默认的安装方式，但是在生产环境中仍然不建议使用 kubeadm 安装方式。在实际测试中，二进制安装方式比 kubeadm 安装方式更加稳定可靠，并且集群的恢复能力比 kubeadm 安装方式要高。在二进制安装方式下，很多步骤需要手动完成，比如证书和配置文件的生成等。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/025-kubernetes-资源配额以及-QoS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/" target="_blank">Kubernetes 资源配额以及 QoS</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/policy/resource-quotas/">资源配额</a></p>
+<h2 id="资源配额-ResourceQuota"><a href="#资源配额-ResourceQuota" class="headerlink" title="资源配额 ResourceQuota"></a>资源配额 ResourceQuota</h2><p>资源配额，通过 ResourceQuota 对象来定义，对每个 NameSpace 的资源消耗总量提供限制。它可以限制 NameSpace 中某种类型的对象的总数目上限，也可以限制 NameSpace 中的 Pod 可以使用的计算资源的总上限。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/#more">more >></a>
     
     
 
@@ -602,7 +596,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cri</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ResourceQuota</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">LimitRange</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">QoS</a>
         		</li>
       		
 		</ul>
@@ -623,7 +625,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/042-%E4%BD%BF%E7%94%A8-crictl-%E5%AF%B9-Kubernetes-%E8%8A%82%E7%82%B9%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/">展开全文 >></a>
     </p>
     
 
@@ -653,7 +655,7 @@
 
 
   
-    <article id="post-kubernetes/070-kubernetes-备份恢复之-velero" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/026-kubernetes-部署前后端服务分离示例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -661,7 +663,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/" target="_blank">Kubernetes 备份恢复之 Velero</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/" target="_blank">Kubernetes 部署前后端分离服务示例</a>
   
     </h1>
   
@@ -669,8 +671,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.448Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -682,566 +684,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章:</p>
+    <h2 id="前后端分离服务部署示例"><a href="#前后端分离服务部署示例" class="headerlink" title="前后端分离服务部署示例"></a>前后端分离服务部署示例</h2><ol>
+<li><p>本示例架构如下图所示：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6865911362044837902">Kubernetes备份恢复之velero实战</a></li>
-<li><a target="_blank" rel="noopener" href="https://velero.io/docs/v1.10/basic-install/">Velero 官方文档</a></li>
-</ul>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Kubernetes 集群备份是一大难点。虽然可以通过 etcd 来进行备份来实现 K8S 集群备份，但是这种备份很难恢复单个 Namespace。<br>Velero 对于 K8s 集群数据的备份和恢复，以及复制当前集群数据到其他集群等都非常方便。可以在两个集群间克隆应用和命名空间，来创建一个临时性的开发环境。</p>
+<li>流量经过阿里云 Nginx 服务器，反向代理到公司公网入口路由器上；</li>
+<li>在路由器上配置端口映射，将 8888 端口的流量转发到内部的 nginx 服务器上；
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">velero</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/070-kubernetes-%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D%E4%B9%8B-velero/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/009-StatefulSet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/009-StatefulSet/" target="_blank">Kubernetes-StatefulSet</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/009-StatefulSet/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.447Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>文章来源：<a target="_blank" rel="noopener" href="http://www.kubeasy.com/">Kubernetes 全站架构师</a></p>
-<h2 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h2><p>StatefulSet(有状态集，缩写为 sts) 常用于部署有状态的且需要有序启动的应用程序。比如在进行 SpringCloud 项目容器化时，Eureka 的部署是比较适合用 StatefulSet 方式部署的，也可以给每个 Eureka 实例创建一个唯一且固定的标识符，并且每个 Eureka 实例无需配置多余的 Service，其余 Spring Boot 应用可以直接通过 Eureka 的 Headless Service 即可进行注册。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/009-StatefulSet/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">StatefulSet</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/009-StatefulSet/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/030-kubernetes-Ceph-快照与克隆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/030-kubernetes-Ceph-%E5%BF%AB%E7%85%A7%E4%B8%8E%E5%85%8B%E9%9A%86/" target="_blank">Kubernetes Ceph 卷快照的使用</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/030-kubernetes-Ceph-%E5%BF%AB%E7%85%A7%E4%B8%8E%E5%85%8B%E9%9A%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.447Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="安装-snapshot-控制器"><a href="#安装-snapshot-控制器" class="headerlink" title="安装 snapshot 控制器"></a>安装 snapshot 控制器</h2><p>k8s 1.19 版本以上需要单独安装 snapshot 控制器，才能完成 pvc 的快照功能，所以在此提前安装下，如果是1.19以下版本，不需要单独安装;<br>项目地址: <a target="_blank" rel="noopener" href="https://github.com/kubernetes-csi/external-snapshotter">external-snapshotter</a></p>
-<p>卷快照功能取决于卷快照控制器和卷快照 CRD。卷快照控制器和 CRD 都独立于任何 CSI 驱动程序。无论集群上部署了多少 CSI 驱动程序，每个集群都必须只运行一个卷快照控制器实例和一组卷快照 CRD。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/030-kubernetes-Ceph-%E5%BF%AB%E7%85%A7%E4%B8%8E%E5%85%8B%E9%9A%86/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ceph</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/030-kubernetes-Ceph-%E5%BF%AB%E7%85%A7%E4%B8%8E%E5%85%8B%E9%9A%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/057-kubernetes-Etcd-备份与还原" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/057-kubernetes-Etcd-%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F/" target="_blank">ETCD 备份与还原</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/057-kubernetes-Etcd-%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.447Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>ETCD 是用于共享配置和服务发现的分布式，一致性的 KV 存储系统。ETCD 是CoreOS 公司发起的一个开源项目，授权协议为 Apache。<br>ETCD 是 k8s 集群极为重要的一块服务，存储了集群所有的数据信息。同理，如果发生灾难或者 etcd 的数据丢失，都会影响集群数据的恢复。</p>
-<h2 id="查看-ETCD-状态"><a href="#查看-ETCD-状态" class="headerlink" title="查看 ETCD 状态"></a>查看 ETCD 状态</h2><ol>
-<li><p>查看 etcd 集群状态</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ETCDCTL_API=3</span><br><span class="line"></span><br><span class="line">/usr/local/etcd/bin/etcdctl \</span><br><span class="line">--cacert=/usr/local/etcd/ssl/etcd-ca.pem \</span><br><span class="line">--cert=/usr/local/etcd/ssl/etcd.pem \</span><br><span class="line">--key=/usr/local/etcd/ssl/etcd-key.pem \</span><br><span class="line">--endpoints=<span class="string">&quot;https://10.1.40.61:2379,\</span></span><br><span class="line"><span class="string">https://10.1.40.62:2379,\</span></span><br><span class="line"><span class="string">https://10.1.40.63:2379&quot;</span> endpoint status --write-out=table</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/057-kubernetes-Etcd-%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ETCD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/057-kubernetes-Etcd-%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/065-二进制部署-k8s-高可用集群(1.25.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/065-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(Haproxy + Keepalived)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/065-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.447Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.25.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
-<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
-<li>k8s 宿主机IP网段: 10.1.40.0&#x2F;24</li>
-<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
-<li>k8s Pod 网段: 192.16.0.0&#x2F;16</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/065-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/065-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/008-Deployment" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/008-Deployment/" target="_blank">Kubernetes-Deployment</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/008-Deployment/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考课程：<a target="_blank" rel="noopener" href="http://www.kubeasy.com/">Kubernetes 全站架构师</a></p>
-<h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><p>Kubernetes 提供了一种更加简单的更新 RC 和 Pod 的机制，叫做 Deployment。通过在 Deployment 中描述期望的集群状态，Deployment Controller 会将现在的集群状态在一个可控的速度下逐步更新成期望的集群状态。Deployment 过程如下图所示：</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/008-Deployment/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/#more">more >></a>
     
     
 
@@ -1270,6 +719,22 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Deployment</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ConfigMap</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Secret</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Service</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -1289,7 +754,560 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/008-Deployment/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/055-kubernetes-切换容器运行时(containerd)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/055-kubernetes-%E5%88%87%E6%8D%A2%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6(containerd)/" target="_blank">kubernetes 切换容器运行时(containerd)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/055-kubernetes-%E5%88%87%E6%8D%A2%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6(containerd)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章: <a target="_blank" rel="noopener" href="https://www.51cto.com/article/678323.html">如何丝滑般将 Kubernetes 容器运行时从 Docker 切换成 Containerd</a></p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ol>
+<li><p>当前系统的环境如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kubectl get nodes -owide</span></span><br><span class="line"> NAME               STATUS   ROLES    AGE   VERSION    INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION                CONTAINER-RUNTIME</span><br><span class="line"> k8s-sit-master01   Ready    &lt;none&gt;   19h   v1.20.11   10.1.40.61    &lt;none&gt;        CentOS Linux 7 (Core)   4.19.12-1.el7.elrepo.x86_64   docker://19.3.15</span><br><span class="line"> k8s-sit-master02   Ready    &lt;none&gt;   19h   v1.20.11   10.1.40.62    &lt;none&gt;        CentOS Linux 7 (Core)   4.19.12-1.el7.elrepo.x86_64   docker://19.3.15</span><br><span class="line"> k8s-sit-master03   Ready    &lt;none&gt;   19h   v1.20.11   10.1.40.63    &lt;none&gt;        CentOS Linux 7 (Core)   4.19.12-1.el7.elrepo.x86_64   docker://19.3.15</span><br><span class="line"> k8s-sit-node01     Ready    &lt;none&gt;   19h   v1.20.11   10.1.40.64    &lt;none&gt;        CentOS Linux 7 (Core)   4.19.12-1.el7.elrepo.x86_64   docker://19.3.15</span><br><span class="line"> k8s-sit-node02     Ready    &lt;none&gt;   19h   v1.20.11   10.1.40.65    &lt;none&gt;        CentOS Linux 7 (Core)   4.19.12-1.el7.elrepo.x86_64   docker://19.3.15</span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/055-kubernetes-%E5%88%87%E6%8D%A2%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6(containerd)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">containerd</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/055-kubernetes-%E5%88%87%E6%8D%A2%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6(containerd)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/064-阿里云部署-k8s-高可用集群(1.25.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/064-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/" target="_blank">阿里云部署 Kubernetes 高可用集群(Haproxy + Keepalived)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/064-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何在阿里云平台使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.25.x。本次部署使用 5 台 ECS，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
+<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
+<li>k8s 宿主机IP网段: 172.16.0.0&#x2F;24</li>
+<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
+<li>k8s Pod 网段: 192.16.0.0&#x2F;16</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/064-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/064-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.25.x)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/067-阿里云部署-k8s-高可用集群(1.24x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/067-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24x)/" target="_blank">阿里云部署 Kubernetes 高可用集群(Nginx Stream 代理)</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/067-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24x)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式在阿里云部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.24.x。本次部署使用 5 台ECS，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
+<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
+<li>k8s 宿主机IP网段: 172.16.0.0&#x2F;24</li>
+<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
+<li>k8s Pod 网段: 192.16.0.0&#x2F;16</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/067-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24x)/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/067-%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.24x)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/014-Horizontal-Pod-Autoscaler" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/014-Horizontal-Pod-Autoscaler/" target="_blank">Kubernetes-Horizontal Pod Autoscaler</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/014-Horizontal-Pod-Autoscaler/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/tasks/run-application/horizontal-pod-autoscale/">Pod 水平自动扩缩</a></p>
+<h2 id="Horizontal-Pod-Autoscaler"><a href="#Horizontal-Pod-Autoscaler" class="headerlink" title="Horizontal Pod Autoscaler"></a>Horizontal Pod Autoscaler</h2><p>Pod 水平自动扩缩(Horizontal Pod AutoScaler) 可以基于 CPU 利用率，自动扩缩 RC，RS，Deployment 和 StatefulSet 中的 Pod 数量。除了 CPU 利用率，也可以基于其他应用程序提供的自定义度量指标来执行自动扩缩。Pod 自动扩缩不适用于无法扩缩的对象，比如 DaemonSet。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/014-Horizontal-Pod-Autoscaler/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HPA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/014-Horizontal-Pod-Autoscaler/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/027-Kubernetes-RBAC-鉴权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/" target="_blank">Kubernetes 使用 RBAC 鉴权</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/">使用 RBAC 鉴权</a></p>
+<h2 id="API-对象"><a href="#API-对象" class="headerlink" title="API 对象"></a>API 对象</h2><p>RBAC API 声明了四种 Kubernetes 对象: <code>Role</code>, <code>ClusterRole</code>, <code>RoleBinding</code> 和 <code>ClusterRoleBinding</code>。</p>
+<h3 id="Role-和-ClusterRole"><a href="#Role-和-ClusterRole" class="headerlink" title="Role 和 ClusterRole"></a>Role 和 ClusterRole</h3><p>RBAC 的 Role 或 ClusterRole 中包含一组代表相关权限的规则。这些权限是存粹累加的（不存在拒绝某种操作的规则）。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">RBAC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/">展开全文 >></a>
     </p>
     
 
@@ -1321,7 +1339,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
     </nav>
   
 
@@ -1334,7 +1352,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2227,6 +2245,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

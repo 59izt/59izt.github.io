@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Databases/Oracle/010-CentOS7-静默安装-Oracle-11g-R2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/007-CentOS8-部署MySQL8-（一主二从）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/010-CentOS7-%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85-Oracle-11g-R2/" target="_blank">CentOS 静默安装 Oracle 11g R2</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" target="_blank">CentOS8 部署 MySQL 8.x（一主二从）</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/010-CentOS7-%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85-Oracle-11g-R2/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.406Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.412Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,12 +239,45 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
-<li>系统：CentOS 7.9 x64 位最小化安装的系统</li>
-<li>Oracle 版本: linux.x64_11gR2_database</li>
-</ul>
+    <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>数据库是一主两从的架构</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">IP 地址</th>
+<th align="center">系统版本</th>
+<th align="center">MySQL 版本</th>
+<th align="center">角色</th>
+<th align="center">Server ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mysql-master</td>
+<td align="center">192.168.0.71</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Master</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">mysql-slave01</td>
+<td align="center">192.168.0.72</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">mysql-slave02</td>
+<td align="center">192.168.0.73</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/010-CentOS7-%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85-Oracle-11g-R2/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/#more">more >></a>
     
     
 
@@ -267,7 +300,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -279,7 +312,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
         		</li>
       		
 		</ul>
@@ -288,7 +321,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/010-CentOS7-%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85-Oracle-11g-R2/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/007-CentOS8-%E9%83%A8%E7%BD%B2MySQL8-%EF%BC%88%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%8E%EF%BC%89/">展开全文 >></a>
     </p>
     
 
@@ -318,7 +351,7 @@
 
 
   
-    <article id="post-Databases/Oracle/009-Oracle-表空间管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/003-CentOS-环境-MariaDB-迁移到-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -326,7 +359,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/009-Oracle-%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86/" target="_blank">Oracle 表空间管理</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" target="_blank">CentOS 系统下 MariaDB 迁移到 MySQL 8</a>
   
     </h1>
   
@@ -334,8 +367,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/009-Oracle-%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.406Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -347,16 +380,140 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="表空间配额-Quota"><a href="#表空间配额-Quota" class="headerlink" title="表空间配额 Quota"></a>表空间配额 Quota</h2><p>Oracle 可以使用配额（Quota）这个概念对用户所使用的表空间进行限制。如果不同用户共同使用同一个表空间，可以使用这种方法可以有效地限制每个用户对该表空间的使用。</p>
+    <ul>
+<li>原文地址: <a target="_blank" rel="noopener" href="https://lefred.be/content/migrate-from-mariadb-to-the-mysql-on-centos/">Migrate from MariaDB to MySQL on CentOS</a></li>
+</ul>
+<h2 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h2><table>
+<thead>
+<tr>
+<th align="center">系统</th>
+<th align="center">MariaDB</th>
+<th align="center">MySQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">CentOS 7.9</td>
+<td align="center">5.5.68-MariaDB</td>
+<td align="center">MySQL-8</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MariaDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Databases/MySQL/004-MySQL-安全加固" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" target="_blank">MySQL 安全审计</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
 <ul>
-<li><code>DBA_TS_QUOTAS</code>: 查看所有用户的表空间配额限制情况<ul>
-<li>只有使用 <code>alter user user_name quota on tablespace_name;</code> 命令显示的调整过用户的空间配额，该视图中才会有记录，否则该视图没有记录</li>
-<li>如果该视图没有信息，我们可以通过 <code>user_ts_quotas</code> 视图来了解用户的表空间限额信息</li>
+<li><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/database/228760.html">等保测评2.0：MySQL安全审计</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67608184">MySQL 数据库安全之审计</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pettyfer/p/12263732.html">MySQL会话控制限制登录次数</a></li>
 </ul>
-</li>
-</ul>
+<h2 id="MySQL-安全审计"><a href="#MySQL-安全审计" class="headerlink" title="MySQL 安全审计"></a>MySQL 安全审计</h2><p>数据库审计主要用于监视并记录对数据库服务器的各类操作行为，并记入审计日志或数据库中以便日后进行跟踪、查询、分析，以实现对用户操作的监控和审计。审计是一项非常重要的工作，也是企业数据安全体系的重要组成部分。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/009-Oracle-%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/#more">more >></a>
     
     
 
@@ -379,7 +536,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -391,7 +548,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
         		</li>
       		
 		</ul>
@@ -400,7 +557,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/009-Oracle-%E8%A1%A8%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">展开全文 >></a>
     </p>
     
 
@@ -430,7 +587,7 @@
 
 
   
-    <article id="post-Databases/Oracle/003-Oracle-数据库基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/002-MySQL-慢查询分析工具-pt-query-digest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -438,7 +595,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/003-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_blank">Oracle 数据库基础知识</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/" target="_blank">MySQL 慢查询分析工具-pt-query-digest</a>
   
     </h1>
   
@@ -446,8 +603,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/003-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -459,10 +616,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考书籍: 循序渐进 Oracle 数据库管理优化与备份恢复</p>
-<h2 id="Oracle-基础知识"><a href="#Oracle-基础知识" class="headerlink" title="Oracle 基础知识"></a>Oracle 基础知识</h2><p>如果之前仅安装了数据库软件（或者也应用了补丁软件），在安装完成之后，可以通过运行 DBCA（Database Configuration Assistant）来启动数据库创建过程。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-query-digest.html">pt-query-digest</a><br>下载地址: <a target="_blank" rel="noopener" href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-query-digest.html#downloading">DOWNLOADING</a></p>
+<h2 id="pt-query-digest-简介"><a href="#pt-query-digest-简介" class="headerlink" title="pt-query-digest 简介"></a>pt-query-digest 简介</h2><p>pt-query-digest是用于分析mysql慢查询的一个工具，它可以分析binlog、General log、slowlog，也可以通过SHOWPROCESSLIST或者通过tcpdump抓取的MySQL协议数据来进行分析。可以把分析结果输出到文件中，分析过程是先对查询语句的条件进行参数化，然后对参数化以后的查询进行分组统计，统计出各查询的执行时间、次数、占比等，可以借助分析结果找出问题进行优化。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/003-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/#more">more >></a>
     
     
 
@@ -485,11 +642,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pt-query-digest</a>
         		</li>
       		
 		</ul>
@@ -501,7 +658,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/MySQL//" class="article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -510,7 +667,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/003-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/">展开全文 >></a>
     </p>
     
 
@@ -540,7 +697,7 @@
 
 
   
-    <article id="post-Databases/Oracle/011-Oracle-安装完后初始化操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/008-MaxScale-实现-MySQL-读写分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -548,7 +705,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/011-Oracle-%E5%AE%89%E8%A3%85%E5%AE%8C%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/" target="_blank">Oracle 安装完后的初始化操作</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" target="_blank">MaxScale 实现 MySQL 读写分离</a>
   
     </h1>
   
@@ -556,8 +713,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/011-Oracle-%E5%AE%89%E8%A3%85%E5%AE%8C%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -569,10 +726,54 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Oracle-安装完后的初始化操作"><a href="#Oracle-安装完后的初始化操作" class="headerlink" title="Oracle 安装完后的初始化操作"></a>Oracle 安装完后的初始化操作</h2><h3 id="解锁账户-可选"><a href="#解锁账户-可选" class="headerlink" title="解锁账户(可选)"></a>解锁账户(可选)</h3><ol>
-<li><p>解锁 scott 用户</p>
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ariesblog/p/14010279.html">Maxscale实现mysql读写分离</a></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>数据库是一主两从的架构（mysql 的主从搭建不在此说明），maxscale 安装在单独的服务器上</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">IP 地址</th>
+<th align="center">系统版本</th>
+<th align="center">软件版本</th>
+<th align="center">角色</th>
+<th align="center">Server ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mysql-master</td>
+<td align="center">192.168.0.71</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Master</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">mysql-slave01</td>
+<td align="center">192.168.0.72</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">mysql-slave02</td>
+<td align="center">192.168.0.73</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MySQL 8.0.23</td>
+<td align="center">Slave</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">maxscale</td>
+<td align="center">192.168.0.73</td>
+<td align="center">CentOS 8.2</td>
+<td align="center">MaxScale 2.5.26</td>
+<td align="center">maxscale</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/011-Oracle-%E5%AE%89%E8%A3%85%E5%AE%8C%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/#more">more >></a>
     
     
 
@@ -595,123 +796,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/011-Oracle-%E5%AE%89%E8%A3%85%E5%AE%8C%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/Oracle/014-Oracle-impdp-状态查看" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/014-Oracle-impdp-%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B/" target="_blank">Oracle IMPDP 状态查看</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/Oracle/014-Oracle-impdp-%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>原文地址: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/eastsea/p/4614479.html">PLSQL_数据泵导入进度查看Impdp&#x2F;Expdp Status（案例）</a></p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>查看 EXPDP&#x2F;IMPDP 的进度，当你当如导出的时候，如果数据量比较大，中途有些人会着急，不免想看看进度如何。可以通过以下方法查看</p>
-<ol>
-<li><p>两个视图:</p>
-<ul>
-<li>DBA_DATAPUMP_SESSIONS;</li>
-<li>DBA_DATAPUMP_JOBS</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/014-Oracle-impdp-%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MaxScale</a>
         		</li>
       		
 		</ul>
@@ -723,7 +812,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
         		</li>
       		
 		</ul>
@@ -732,7 +821,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/014-Oracle-impdp-%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">展开全文 >></a>
     </p>
     
 
@@ -762,7 +851,7 @@
 
 
   
-    <article id="post-Databases/Oracle/013-Oracle-只读账号创建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/001-MySQL-调优工具-MySQLTuner" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -770,7 +859,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/013-Oracle-%E5%8F%AA%E8%AF%BB%E8%B4%A6%E5%8F%B7%E5%88%9B%E5%BB%BA/" target="_blank">Oracle 创建只读账号</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/" target="_blank">MySQL 调优工具-MySQLTuner</a>
   
     </h1>
   
@@ -778,8 +867,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/013-Oracle-%E5%8F%AA%E8%AF%BB%E8%B4%A6%E5%8F%B7%E5%88%9B%E5%BB%BA/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -791,11 +880,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Oracle-创建只读账号以及授权"><a href="#Oracle-创建只读账号以及授权" class="headerlink" title="Oracle 创建只读账号以及授权"></a>Oracle 创建只读账号以及授权</h2><ol>
-<li><p>创建只读账号 wms_reader</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> wms_reader IDENTIFIED <span class="keyword">BY</span> wms_reader;</span><br></pre></td></tr></table></figure>
+    <p>项目地址: <a target="_blank" rel="noopener" href="https://github.com/major/MySQLTuner-perl">MySQLTuner-perl</a><br>MySQL 系统变量官方文档: <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html">Server System Variables</a></p>
+<h2 id="MySQLTuner"><a href="#MySQLTuner" class="headerlink" title="MySQLTuner"></a>MySQLTuner</h2><p>MySQLTuner 是一个用 Perl 编写的脚本，它允许你快速查看 MySQL 安装并进行调整以提高性能和稳定性。检索当前配置变量和状态数据，并以简要格式显示，以及一些基本性能建议。MySQLTuner 是一个只读脚本。它不会写入任何配置文件，不会改变任何守护进程的状态。它将为您提供服务器性能的概览，并为您在完成后可以进行的改进提出一些基本建议。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/013-Oracle-%E5%8F%AA%E8%AF%BB%E8%B4%A6%E5%8F%B7%E5%88%9B%E5%BB%BA/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/#more">more >></a>
     
     
 
@@ -818,7 +906,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -830,7 +918,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/MySQL//" class="article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -839,7 +927,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/013-Oracle-%E5%8F%AA%E8%AF%BB%E8%B4%A6%E5%8F%B7%E5%88%9B%E5%BB%BA/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/">展开全文 >></a>
     </p>
     
 
@@ -869,68 +957,7 @@
 
 
   
-    <article id="post-Databases/Oracle/000-Oracle-性能查询语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="Oracle-性能查询语句"><a href="#Oracle-性能查询语句" class="headerlink" title="Oracle 性能查询语句"></a>Oracle 性能查询语句</h1><ol>
-<li><p>查看总消耗时间最长的前10条SQL语句</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> v.sql_id,</span><br><span class="line">             v.child_number,</span><br><span class="line">             v.sql_text,</span><br><span class="line">             v.elapsed_time,</span><br><span class="line">             v.cpu_time,</span><br><span class="line">             v.disk_reads,</span><br><span class="line">             <span class="built_in">rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> v.elapsed_time <span class="keyword">desc</span>) elapsed_rank</span><br><span class="line">      <span class="keyword">from</span> v$<span class="keyword">sql</span> v) a</span><br><span class="line"><span class="keyword">where</span> elapsed_rank <span class="operator">&lt;=</span> <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/000-Oracle-%E6%80%A7%E8%83%BD%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/000-Oracle-%E6%80%A7%E8%83%BD%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/Oracle/002-Oracle-备份与恢复" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MySQL/006-使用-Job-或-CronJob-备份-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -938,7 +965,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/002-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" target="_blank">Oracle 备份与恢复</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" target="_blank">使用 k8s 的 Job 或 CronJob 备份 MySQL 数据库</a>
   
     </h1>
   
@@ -946,8 +973,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/002-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.404Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -959,10 +986,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考书籍: 循序渐进 Oracle 数据库管理优化与备份恢复</p>
-<h2 id="备份与恢复概述"><a href="#备份与恢复概述" class="headerlink" title="备份与恢复概述"></a>备份与恢复概述</h2><p>在数据库环境中，常见的故障类型主要有：语句失败，用户进程失败，用户错误，实例失败，介质故障和网络故障。</p>
+    <h2 id="使用-k8s-的-Job-备份-MySQL-数据库"><a href="#使用-k8s-的-Job-备份-MySQL-数据库" class="headerlink" title="使用 k8s 的 Job 备份 MySQL 数据库"></a>使用 k8s 的 Job 备份 MySQL 数据库</h2><p>由于阿里云 RDS MYSQL 数据库没有开放外网连接权限，然后生产环境又没有安装 MYSQL 数据库，缺少 mysqldump 命令，所有决定使用 kubernetes 起一个 job 执行备份操作。</p>
+<p>k8s 的 Job 负责批量处理短暂的一次性任务 (short lived one-off tasks)，即仅执行一次的任务，它保证批处理任务的一个或多个Pod成功结束。这里刚好可以用来备份 MYSQL 数据库</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/002-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/#more">more >></a>
     
     
 
@@ -985,11 +1012,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">job</a>
         		</li>
       		
 		</ul>
@@ -1001,7 +1032,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
         		</li>
       		
 		</ul>
@@ -1010,7 +1041,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/002-Oracle-%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/">展开全文 >></a>
     </p>
     
 
@@ -1040,7 +1071,7 @@
 
 
   
-    <article id="post-Databases/Oracle/007-Oracle-使用模板新建实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MongoDB/002-Linux-源码安装-MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1048,7 +1079,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/007-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/" target="_blank">Oracle 使用模板新建数据库实例</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" target="_blank">Linux 源码安装 MongoDB</a>
   
     </h1>
   
@@ -1056,8 +1087,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/007-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.404Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1069,10 +1100,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="创建模板"><a href="#创建模板" class="headerlink" title="创建模板"></a>创建模板</h2><ol>
-<li><p>使用新装好的 Oracle 数据库，创建模板</p>
+    <blockquote>
+<p>官方教程：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/install-on-linux/">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h2 id="CentOS-安装-MongoDB-社区版"><a href="#CentOS-安装-MongoDB-社区版" class="headerlink" title="CentOS 安装 MongoDB 社区版"></a>CentOS 安装 MongoDB 社区版</h2><h3 id="安装-MongoDB-所需的依赖项"><a href="#安装-MongoDB-所需的依赖项" class="headerlink" title="安装 MongoDB 所需的依赖项"></a>安装 MongoDB 所需的依赖项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install libcurl openssl</span><br></pre></td></tr></table></figure>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/007-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/#more">more >></a>
     
     
 
@@ -1095,11 +1128,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
@@ -1111,7 +1144,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
@@ -1120,7 +1153,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/007-Oracle-%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E6%96%B0%E5%BB%BA%E5%AE%9E%E4%BE%8B/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/">展开全文 >></a>
     </p>
     
 
@@ -1150,7 +1183,7 @@
 
 
   
-    <article id="post-Databases/Oracle/008-Oracle-启动异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Databases/MongoDB/003-MongoDB-概念解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1158,7 +1191,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/Oracle/008-Oracle-%E5%90%AF%E5%8A%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" target="_blank">Oracle 启动报错处理</a>
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/" target="_blank">MongoDB 概念解析</a>
   
     </h1>
   
@@ -1166,8 +1199,8 @@
 
   
   
-<a href="/2023/10/18/Databases/Oracle/008-Oracle-%E5%90%AF%E5%8A%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.404Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1179,9 +1212,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="Oracle-日常维护处理"><a href="#Oracle-日常维护处理" class="headerlink" title="Oracle 日常维护处理"></a>Oracle 日常维护处理</h2><h3 id="错误-ORA-03113"><a href="#错误-ORA-03113" class="headerlink" title="错误 ORA-03113"></a>错误 ORA-03113</h3><h4 id="查看错误日志"><a href="#查看错误日志" class="headerlink" title="查看错误日志"></a>查看错误日志</h4>
+    <blockquote>
+<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h1 id="MongoDB-概念解析"><a href="#MongoDB-概念解析" class="headerlink" title="MongoDB 概念解析"></a>MongoDB 概念解析</h1><p>不管学习什么数据库都应该学习其中的基础概念，在 MongoDB 中基本的概念是文档，集合，数据库，下面我们挨个介绍.</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/Oracle/008-Oracle-%E5%90%AF%E5%8A%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/#more">more >></a>
     
     
 
@@ -1204,11 +1240,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Oracle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
@@ -1220,7 +1256,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Oracle//" class="article-tag-list-link color2">Oracle</a>
+        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
@@ -1229,7 +1265,119 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/Oracle/008-Oracle-%E5%90%AF%E5%8A%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Databases/MongoDB/004-MongoDB-连接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" target="_blank">MongoDB 连接</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+</blockquote>
+<h1 id="MongoDB-连接"><a href="#MongoDB-连接" class="headerlink" title="MongoDB 连接"></a>MongoDB 连接</h1><p>你可以使用 MongoDB shell 来连接 MongoDB 服务器。也可以使用 PHP 来连接 MongoDB。本教程我们会使用 MongoDB shell 来连接 Mongodb 服务，之后的章节我们将会介绍如何通过php 来连接MongoDB服务。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/">展开全文 >></a>
     </p>
     
 
@@ -1261,7 +1409,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/29/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/31/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/29/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="page-number current">30</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/31/">下一页</a>
     </nav>
   
 
@@ -1274,7 +1422,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2167,6 +2315,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

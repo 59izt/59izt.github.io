@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-kubernetes/019-Kubernetes-Kubelet-启动过程与证书申请颁发原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/072-kubernetes-集群升级(1.20.11--&gt;1.21.14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/019-Kubernetes-Kubelet-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E9%A2%81%E5%8F%91%E5%8E%9F%E7%90%86/" target="_blank">kubelet 启动过程</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/" target="_blank">kubernetes 集群升级(1.20.11--&gt;1.21.14)</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/019-Kubernetes-Kubelet-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E9%A2%81%E5%8F%91%E5%8E%9F%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.457Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>官方文档地址: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">TLS Bootstrapping</a></p>
-<h2 id="TLS-BootStrapping"><a href="#TLS-BootStrapping" class="headerlink" title="TLS BootStrapping"></a>TLS BootStrapping</h2><p>在一个 kubernetes 集群中，工作节点上的组件（Kubelet 和 kube-proxy）需要与 kubernetes master 组件通信，尤其是 kube-apiserver。为了确保通信本身是私密的。不被干扰，并且确保集群的每个组件都在与另一个收信人的组件通信。我们强烈建议在节点上使用客户端 TLS 证书。</p>
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358338665">Kubernetes版本升级实践</a></p>
+<h2 id="k8s-版本信息"><a href="#k8s-版本信息" class="headerlink" title="k8s 版本信息"></a>k8s 版本信息</h2><h3 id="版本号的含义"><a href="#版本号的含义" class="headerlink" title="版本号的含义"></a>版本号的含义</h3><p>Kubernetes 版本表示为 x.y.z，其中 x 是主要版本，y 是次要版本，z 是补丁版本，遵循语义版本控制术语。有关更多信息，请参阅 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/sig-release/blob/master/release-engineering/versioning.md">Kubernetes 发布版本</a>。</p>
+<p>k8s 发行版与 github 分支的关系</p>
+<p>简单来讲，kubernetes 项目存在3类分支(branch)，分别为 <code>master</code>, <code>release-X.Y</code>, <code>release-X.Y.Z</code>。master 分支上的代码是最新的，每隔2周会生成一个发布版本(release)，由新到旧以此为 <code>master</code>–&gt;<code>alpha</code>–&gt;<code>beta</code>–&gt;<code>Final release</code>，这当中存在一些 cherrypicking 的规则，也就是说从一个分支上挑选一些必要 <code>pull request</code> 应用到另一个分支上。我们可以认为 <code>X.Y.0</code> 为稳定的版本，这个版本号意味着一个 <code>Final release</code>。一个 <code>X.Y.0</code> 版本会在 <code>X.(Y-1).0</code> 版本的3到4个月后出现。 <code>X.Y.Z</code> 为经过 cherrypick 后解决了必须的安全性漏洞、以及影响大量用户的无法解决的问题的补丁版本。 总体而言，我们一般关心 <code>X.Y.0</code> (稳定版本)，和 <code>X.Y.Z</code>(补丁版本) 的特性。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/019-Kubernetes-Kubelet-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E9%A2%81%E5%8F%91%E5%8E%9F%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/#more">more >></a>
     
     
 
@@ -267,10 +269,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">kubelet</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -290,7 +288,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/019-Kubernetes-Kubelet-%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E9%A2%81%E5%8F%91%E5%8E%9F%E7%90%86/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/072-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.20.11--%3E1.21.14)/">展开全文 >></a>
     </p>
     
 
@@ -320,7 +318,7 @@
 
 
   
-    <article id="post-kubernetes/024-Kubernetes-Pod-亲和力-污点-容忍度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/006-Pod-相关核心技术" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -328,7 +326,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/" target="_blank">Pod 亲和力、反亲和力、污点、容忍度</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" target="_blank">Pod 相关核心技术</a>
   
     </h1>
   
@@ -336,8 +334,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -349,10 +347,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/scheduling-eviction/assign-pod-node/">将 Pod 分配给节点</a></p>
-<h2 id="将-Pod-分配给节点"><a href="#将-Pod-分配给节点" class="headerlink" title="将 Pod 分配给节点"></a>将 Pod 分配给节点</h2><p>有几种方法可以实现<code>约束一个 Pod 只能在特定的节点上运行</code>。推荐的方法都是使用 <code>selector</code> 来进行选择。通常这样的约束不是必须的，因为调度器会自动进行合理的分配。比如，将 Pod 分散到节点上，而不是将 Pod 放置在可用资源不足的节点上等等。但是在某些情况下，你可能需要进一步控制 Pod 分配的节点，例如：确保 Pod 最终分配在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 Pods 被分配在同一个可用区。</p>
+    <p>参考书籍：[基于 Kubernetes 的容器云平台实战]</p>
+<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>Pod 是 Kubernetes 的最基本操作单元，也是应用运行的载体，包含一个到多个密切相关的容器。整个 kubernetes 系统都是围绕着 Pod 展开的，比如如何运行 Pod，如何保证 Pod 的数量，如何访问 Pod 等。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/#more">more >></a>
     
     
 
@@ -381,14 +379,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pod</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Affinity</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AntiAffinity</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -408,7 +398,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/024-Kubernetes-Pod-%E4%BA%B2%E5%92%8C%E5%8A%9B-%E6%B1%A1%E7%82%B9-%E5%AE%B9%E5%BF%8D%E5%BA%A6/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/006-Pod-%E7%9B%B8%E5%85%B3%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">展开全文 >></a>
     </p>
     
 
@@ -438,7 +428,7 @@
 
 
   
-    <article id="post-kubernetes/040-Helm-Chart-流程控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/017-Volumes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -446,7 +436,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" target="_blank">Helm - Chart 流程控制</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/017-Volumes/" target="_blank">Kubernetes-Volumes</a>
   
     </h1>
   
@@ -454,8 +444,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/017-Volumes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -467,16 +457,240 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <ul>
-<li>官方文档: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/control_structures/">流控制</a></li>
-</ul>
-<h2 id="流控制"><a href="#流控制" class="headerlink" title="流控制"></a>流控制</h2><p>控制结构（在模板语言中称为 “actions”）提供给你和模板控制模板迭代的流程能力。Helm 的模板语言提供了以下控制结构:</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/">Volumes</a></p>
+<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>Container（容器） 中的磁盘文件是短暂的，当容器崩溃时，Kubelet 会重新启动容器，但最初的文件将丢失，Container 会以最干净的状态启动。另外，当一个 Pod 运行多个 Container 时，各个容器可能需要共享一些文件。Kubernetes Volume 可以解决这两个问题。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/017-Volumes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Volumes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/017-Volumes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/022-kubernetes-PKI证书和要求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/022-kubernetes-PKI%E8%AF%81%E4%B9%A6%E5%92%8C%E8%A6%81%E6%B1%82/" target="_blank">kubernetes PKI 证书和要求</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/022-kubernetes-PKI%E8%AF%81%E4%B9%A6%E5%92%8C%E8%A6%81%E6%B1%82/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/setup/best-practices/certificates/">最佳实践-PKI证书和要求</a></p>
+<h2 id="PKI-证书和要求"><a href="#PKI-证书和要求" class="headerlink" title="PKI 证书和要求"></a>PKI 证书和要求</h2><p>Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果你使用 kubeadm 安装的 Kubernetes，则会自动生成集群所需的证书。我们可以生成自己的证书。例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/022-kubernetes-PKI%E8%AF%81%E4%B9%A6%E5%92%8C%E8%A6%81%E6%B1%82/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PKI</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TLS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/022-kubernetes-PKI%E8%AF%81%E4%B9%A6%E5%92%8C%E8%A6%81%E6%B1%82/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/033-Kubernetes-Ingress-常用配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" target="_blank">Kubernetes Ingress-Nginx 常用的配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考来源:</p>
 <ul>
-<li><code>if/else</code>: 用来创建条件语句</li>
-<li><code>with</code>: 用来制定范围</li>
-<li><code>range</code>: 用来提供 <code>for each</code> 类型的循环
+<li>Ingress-Nginx 官方文档地址: <a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/">NGINX Configuration</a></li>
+<li>课程随堂笔记: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
+</ul>
+<h2 id="Ingress-Nginx-常用配置"><a href="#Ingress-Nginx-常用配置" class="headerlink" title="Ingress Nginx 常用配置"></a>Ingress Nginx 常用配置</h2><p>以下是自定义配置 Ingress Nginx 的三种方式:</p>
+<ol>
+<li>ConfigMap: 使用 Configmap 在 NGINX 中设置全局配置;
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/#more">more >></a>
     
     
 
@@ -499,11 +713,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Helm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Chart</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Ingress-Nginx</a>
         		</li>
       		
 		</ul>
@@ -515,7 +729,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Helm//" class="article-tag-list-link color5">Helm</a>
+        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -524,7 +738,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/040-Helm-Chart-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/033-Kubernetes-Ingress-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">展开全文 >></a>
     </p>
     
 
@@ -554,7 +768,7 @@
 
 
   
-    <article id="post-kubernetes/056-kubernetes-常用容器镜像构建工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/043-Kubernetes-DevOps-平台建设" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -562,7 +776,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/056-kubernetes-%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" target="_blank">常用容器镜像构建工具</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/" target="_blank">DevOps 平台建设</a>
   
     </h1>
   
@@ -570,8 +784,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/056-kubernetes-%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -584,12 +798,15 @@
   <div class="article-entry" itemprop="articleBody">
     
     <ul>
-<li>原文地址: <a target="_blank" rel="noopener" href="https://www.51cto.com/article/679757.html">常用容器镜像构建工具和方案介绍</a></li>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
 </ul>
-<p>在使用 Docker 的时候一般情况下我们都会直接使用 <code>docker build</code> 来构建镜像，切换到 Containerd 的时候，接下来我们就来介绍下在 Containerd 容器运行时下面镜像构建的主要工具和方案。</p>
-<h2 id="使用-Docker-做镜像构建服务"><a href="#使用-Docker-做镜像构建服务" class="headerlink" title="使用 Docker 做镜像构建服务"></a>使用 Docker 做镜像构建服务</h2><p>在 Kubernetes 集群中，部分 CI&#x2F;CD 流水线业务可能需要使用 Docker 来提供镜像打包服务。可通过宿主机的 Docker 实现，将 Docker 的 UNIX Socket(&#x2F;var&#x2F;run&#x2F;docker.sock) 通过 hostPath 挂载到 CI&#x2F;CD 的业务 Pod 中，之后在容器里通过 UNIX Socket 来调用宿主机上的 Docker 进行构建，这个就是之前我们使用较多的 Docker outside of Docker 方案。</p>
+<h2 id="DevOps-平台建设"><a href="#DevOps-平台建设" class="headerlink" title="DevOps 平台建设"></a>DevOps 平台建设</h2><p>首先先来学习下在 Kubernetes 中进行 CICD 的过程，一般的步骤如下:</p>
+<ol>
+<li>在 GitLab 中创建对应的项目;</li>
+<li>配置 Jenkins 集成 Kubernetes 集群，后期 Jenkins 的 Slave 将是在 Kubernetes 中动态创建的 Slave;</li>
+<li>Jenkins 创建对应的任务(Job)，集成该项目的 Git 地址和 Kubernetes 集群;
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/056-kubernetes-%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/#more">more >></a>
     
     
 
@@ -612,11 +829,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">containerd</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
         		</li>
       		
 		</ul>
@@ -628,7 +849,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
         		</li>
       		
 		</ul>
@@ -637,7 +858,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/056-kubernetes-%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/043-Kubernetes-DevOps-%E5%B9%B3%E5%8F%B0%E5%BB%BA%E8%AE%BE/">展开全文 >></a>
     </p>
     
 
@@ -667,7 +888,7 @@
 
 
   
-    <article id="post-kubernetes/068-kubernetes-部署-OpenLDAP-服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/049-kubernetes-istio-入门与实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -675,7 +896,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/" target="_blank">kubernetes 部署 OpenLDAP 服务</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/049-kubernetes-istio-%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_blank">Istio 入门与实践</a>
   
     </h1>
   
@@ -683,8 +904,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/049-kubernetes-istio-%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -696,10 +917,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1490857">openldap介绍和使用</a></p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="什么是-LDAP"><a href="#什么是-LDAP" class="headerlink" title="什么是 LDAP"></a>什么是 LDAP</h3><p>LDAP 是轻量目录访问协议，英文全称是 Lightweight Directory Access Protocol，一般都简称为 LDAP。按照我们对文件目录的理解，ldap可以看成一个文件系统，类似目录和文件树。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://istio.io/latest/docs/">Documentation</a></p>
+<h2 id="服务网格是什么"><a href="#服务网格是什么" class="headerlink" title="服务网格是什么"></a>服务网格是什么</h2><p>现代应用程序通常被构建为微服务的分布式集合，每个微服务集合执行一些离散的业务功能。服务网格是一个专用的基础设施层，您可以将其添加到您的应用程序中。它允许您透明地添加<code>可观察性</code>、<code>流量管理</code>和<code>安全性</code>等功能，而无需将它们添加到您自己的代码中。术语“服务网格”描述了您用于实现此模式的软件类型，以及您使用该软件时创建的安全或网络域。</p>
+<p>随着分布式服务的部署（例如在基于 Kubernetes 的系统中）的规模和复杂性的增长，它可能变得更难理解和管理。它的要求可以包括<code>发现</code>、<code>负载平衡</code>、<code>故障恢复</code>、<code>度量</code>和<code>监控</code>。服务网格还经常解决更复杂的操作要求，例如 <code>A/B 测试</code>、<code>金丝雀部署</code>、<code>速率限制</code>、<code>访问控制</code>、<code>加密</code>和<code>端到端身份验证</code>。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/049-kubernetes-istio-%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/#more">more >></a>
     
     
 
@@ -726,7 +948,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OpenLDAP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">istio</a>
         		</li>
       		
 		</ul>
@@ -747,7 +969,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/049-kubernetes-istio-%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
     </p>
     
 
@@ -777,7 +999,7 @@
 
 
   
-    <article id="post-kubernetes/071-二进制部署-k8s-高可用集群(1.26.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/073-kubernetes-集群升级(1.21.14--&gt;1.22.17)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -785,7 +1007,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(1.26x)</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/" target="_blank">kubernetes 集群升级(1.21.14--&gt;1.22.17)</a>
   
     </h1>
   
@@ -793,8 +1015,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.456Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -806,14 +1028,21 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.26.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
-<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
-<li>k8s 宿主机IP网段: 192.168.1.0&#x2F;24</li>
-<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
-<li>k8s Pod 网段: 172.16.0.0&#x2F;16</li>
+    <h2 id="升级注意事项"><a href="#升级注意事项" class="headerlink" title="升级注意事项"></a>升级注意事项</h2><h3 id="版本依赖关系"><a href="#版本依赖关系" class="headerlink" title="版本依赖关系"></a>版本依赖关系</h3><ol>
+<li><p>在高可用（HA）集群中， 多个 <code>kube-apiserver</code> 实例小版本号最多差 1。</p>
+<ul>
+<li>例如: 最新的 kube-apiserver 版本号如果是 1.20，则受支持的 kube-apiserver 版本号包括 1.20 和 1.19</li>
+</ul>
+</li>
+<li><p><code>kubelet</code> 版本号不能高于 kube-apiserver，最多可以比 kube-apiserver 低两个小版本。</p>
+<ul>
+<li>例如: kube-apiserver 版本号如果是 1.20，受支持的的 kubelet 版本将包括 1.20、1.19 和 1.18<blockquote>
+<p>说明：如果 HA 集群中多个 <code>kube-apiserver</code> 实例版本号不一致，相应的 <code>kubelet</code> 版本号可选范围也要减小。<br>如果 kube-apiserver 实例同时存在 1.20 和 1.19，kubelet 的受支持版本将是 1.19 和 1.18 （1.20 不再支持，因为它比 1.19 版本的 kube-apiserver 更新）</p>
+</blockquote>
+</li>
 </ul>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/#more">more >></a>
     
     
 
@@ -857,7 +1086,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/073-kubernetes-%E9%9B%86%E7%BE%A4%E5%8D%87%E7%BA%A7(1.21.14--%3E1.22.17)/">展开全文 >></a>
     </p>
     
 
@@ -887,7 +1116,7 @@
 
 
   
-    <article id="post-kubernetes/010-DaemonSet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/004-kubernetes-基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -895,7 +1124,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/010-DaemonSet/" target="_blank">Kubernetes-DaemonSet</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/004-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_blank">Kubernetes 基础知识（一）</a>
   
     </h1>
   
@@ -903,8 +1132,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/010-DaemonSet/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/004-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -916,9 +1145,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="DaemonSet-是什么"><a href="#DaemonSet-是什么" class="headerlink" title="DaemonSet 是什么"></a>DaemonSet 是什么</h2><p>DaemonSet: 守护进程集，缩写为 ds，在所有节点或者是匹配的节点上部署一个 Pod。</p>
+    <p>参考书籍: <a target="_blank" rel="noopener" href="http://www.kubeasy.com/">kubernetes全栈架构师</a></p>
+<p>Kubernetes 是谷歌以 Borg 为前身，基于谷歌 15年生产环境经验的基础上开源的一个项目，Kubernetes 致力于提供跨主机集群的自动部署，扩展，高可用以及运行应用程序容器的平台。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/010-DaemonSet/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/004-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#more">more >></a>
     
     
 
@@ -943,10 +1173,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DaemonSet</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -966,7 +1192,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/010-DaemonSet/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/004-kubernetes-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">展开全文 >></a>
     </p>
     
 
@@ -996,7 +1222,7 @@
 
 
   
-    <article id="post-kubernetes/013-Ingress" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/031-二进制安装-Kubernetes-高可用集群(1.21.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1004,7 +1230,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/013-Ingress/" target="_blank">Kubernetes-Ingress</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/031-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-Kubernetes-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.21.x)/" target="_blank">二进制安装 kubernetes 高可用集群(1.21.x)</a>
   
     </h1>
   
@@ -1012,8 +1238,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/013-Ingress/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/031-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-Kubernetes-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.21.x)/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.455Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1025,9 +1251,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="什么是-Ingress"><a href="#什么是-Ingress" class="headerlink" title="什么是 Ingress"></a>什么是 Ingress</h2><p>Ingress 为 Kubernetes 集群中的服务提供了入口，可以提供负载均衡，SSL 终止和基于名称的虚拟主机，在生产环境中常用的 Ingress 有 Treafik，Nginx，HAProxy，Istio 等。</p>
+    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>这里演示 CentOS 7 二进制方式安装高可用 K8S 1.21.x，使用 containerd 运行时替换 docker；<br>本次安装使用 5 台 Linux 服务器，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node，其中 Node 配置相同。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/013-Ingress/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/031-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-Kubernetes-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.21.x)/#more">more >></a>
     
     
 
@@ -1052,10 +1278,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -1075,233 +1297,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/013-Ingress/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/018-PV&amp;PVC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/018-PV&PVC/" target="_blank">Kubernetes-PV 和 PVC</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/018-PV&PVC/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volumes</a></p>
-<h2 id="PersistentVolumes"><a href="#PersistentVolumes" class="headerlink" title="PersistentVolumes"></a>PersistentVolumes</h2><p>与管理计算实例相比，管理存储是一个明显的问题。PersistentVolume 子系统为管理员和用户提供了一个 API，该 API 从如何使用存储中抽象出如何提供存储的详细信息。为此，我们引入了两个新的 API 资源: PV(PersistentVolume) 和 PVC(PersistentVolumeClaim)</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/018-PV&PVC/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PV</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/018-PV&PVC/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/039-Helm-Chart-模板函数列表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" target="_blank">Helm - Chart 模板函数和流水线</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li>官方文档地址: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/function_list/">模板函数列表</a></li>
-</ul>
-<h2 id="模板函数列表"><a href="#模板函数列表" class="headerlink" title="模板函数列表"></a>模板函数列表</h2><p>Helm 包含了很多可以在模板中利用的模板函数。以下列出了具体分类：</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Helm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Chart</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Helm//" class="article-tag-list-link color5">Helm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/031-%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85-Kubernetes-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.21.x)/">展开全文 >></a>
     </p>
     
 
@@ -1333,7 +1329,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/10/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/8/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/10/">下一页</a>
     </nav>
   
 
@@ -1346,7 +1342,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2239,6 +2235,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

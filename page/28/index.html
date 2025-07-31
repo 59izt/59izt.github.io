@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-Databases/MySQL/003-CentOS-环境-MariaDB-迁移到-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Docker/016-Docker-配置私有仓库-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" target="_blank">CentOS 系统下 MariaDB 迁移到 MySQL 8</a>
+	  <a class="article-title" href="/2023/10/18/Docker/016-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/" target="_blank">Docker 配置私有仓库-方案一</a>
   
     </h1>
   
@@ -226,728 +226,8 @@
 
   
   
-<a href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li>原文地址: <a target="_blank" rel="noopener" href="https://lefred.be/content/migrate-from-mariadb-to-the-mysql-on-centos/">Migrate from MariaDB to MySQL on CentOS</a></li>
-</ul>
-<h2 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h2><table>
-<thead>
-<tr>
-<th align="center">系统</th>
-<th align="center">MariaDB</th>
-<th align="center">MySQL</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">CentOS 7.9</td>
-<td align="center">5.5.68-MariaDB</td>
-<td align="center">MySQL-8</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MariaDB</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/003-CentOS-%E7%8E%AF%E5%A2%83-MariaDB-%E8%BF%81%E7%A7%BB%E5%88%B0-MySQL/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/004-MySQL-安全加固" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" target="_blank">MySQL 安全审计</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文章:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/database/228760.html">等保测评2.0：MySQL安全审计</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67608184">MySQL 数据库安全之审计</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pettyfer/p/12263732.html">MySQL会话控制限制登录次数</a></li>
-</ul>
-<h2 id="MySQL-安全审计"><a href="#MySQL-安全审计" class="headerlink" title="MySQL 安全审计"></a>MySQL 安全审计</h2><p>数据库审计主要用于监视并记录对数据库服务器的各类操作行为，并记入审计日志或数据库中以便日后进行跟踪、查询、分析，以实现对用户操作的监控和审计。审计是一项非常重要的工作，也是企业数据安全体系的重要组成部分。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/004-MySQL-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/002-MySQL-慢查询分析工具-pt-query-digest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/" target="_blank">MySQL 慢查询分析工具-pt-query-digest</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-query-digest.html">pt-query-digest</a><br>下载地址: <a target="_blank" rel="noopener" href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-query-digest.html#downloading">DOWNLOADING</a></p>
-<h2 id="pt-query-digest-简介"><a href="#pt-query-digest-简介" class="headerlink" title="pt-query-digest 简介"></a>pt-query-digest 简介</h2><p>pt-query-digest是用于分析mysql慢查询的一个工具，它可以分析binlog、General log、slowlog，也可以通过SHOWPROCESSLIST或者通过tcpdump抓取的MySQL协议数据来进行分析。可以把分析结果输出到文件中，分析过程是先对查询语句的条件进行参数化，然后对参数化以后的查询进行分组统计，统计出各查询的执行时间、次数、占比等，可以借助分析结果找出问题进行优化。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pt-query-digest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL//" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/002-MySQL-%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-pt-query-digest/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/008-MaxScale-实现-MySQL-读写分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" target="_blank">MaxScale 实现 MySQL 读写分离</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.411Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ariesblog/p/14010279.html">Maxscale实现mysql读写分离</a></p>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>数据库是一主两从的架构（mysql 的主从搭建不在此说明），maxscale 安装在单独的服务器上</p>
-<table>
-<thead>
-<tr>
-<th align="center">主机名</th>
-<th align="center">IP 地址</th>
-<th align="center">系统版本</th>
-<th align="center">软件版本</th>
-<th align="center">角色</th>
-<th align="center">Server ID</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">mysql-master</td>
-<td align="center">192.168.0.71</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Master</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">mysql-slave01</td>
-<td align="center">192.168.0.72</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Slave</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">mysql-slave02</td>
-<td align="center">192.168.0.73</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MySQL 8.0.23</td>
-<td align="center">Slave</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">maxscale</td>
-<td align="center">192.168.0.73</td>
-<td align="center">CentOS 8.2</td>
-<td align="center">MaxScale 2.5.26</td>
-<td align="center">maxscale</td>
-<td align="center">-</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MaxScale</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/008-MaxScale-%E5%AE%9E%E7%8E%B0-MySQL-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/001-MySQL-调优工具-MySQLTuner" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/" target="_blank">MySQL 调优工具-MySQLTuner</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>项目地址: <a target="_blank" rel="noopener" href="https://github.com/major/MySQLTuner-perl">MySQLTuner-perl</a><br>MySQL 系统变量官方文档: <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html">Server System Variables</a></p>
-<h2 id="MySQLTuner"><a href="#MySQLTuner" class="headerlink" title="MySQLTuner"></a>MySQLTuner</h2><p>MySQLTuner 是一个用 Perl 编写的脚本，它允许你快速查看 MySQL 安装并进行调整以提高性能和稳定性。检索当前配置变量和状态数据，并以简要格式显示，以及一些基本性能建议。MySQLTuner 是一个只读脚本。它不会写入任何配置文件，不会改变任何守护进程的状态。它将为您提供服务器性能的概览，并为您在完成后可以进行的改进提出一些基本建议。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL//" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/001-MySQL-%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7-MySQLTuner/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MySQL/006-使用-Job-或-CronJob-备份-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" target="_blank">使用 k8s 的 Job 或 CronJob 备份 MySQL 数据库</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="使用-k8s-的-Job-备份-MySQL-数据库"><a href="#使用-k8s-的-Job-备份-MySQL-数据库" class="headerlink" title="使用 k8s 的 Job 备份 MySQL 数据库"></a>使用 k8s 的 Job 备份 MySQL 数据库</h2><p>由于阿里云 RDS MYSQL 数据库没有开放外网连接权限，然后生产环境又没有安装 MYSQL 数据库，缺少 mysqldump 命令，所有决定使用 kubernetes 起一个 job 执行备份操作。</p>
-<p>k8s 的 Job 负责批量处理短暂的一次性任务 (short lived one-off tasks)，即仅执行一次的任务，它保证批处理任务的一个或多个Pod成功结束。这里刚好可以用来备份 MYSQL 数据库</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">job</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Databases//" class="article-tag-list-link color5">Databases</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MySQL/006-%E4%BD%BF%E7%94%A8-Job-%E6%88%96-CronJob-%E5%A4%87%E4%BB%BD-MySQL/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Databases/MongoDB/002-Linux-源码安装-MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" target="_blank">Linux 源码安装 MongoDB</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.410Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Docker/016-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -960,11 +240,11 @@
   <div class="article-entry" itemprop="articleBody">
     
     <blockquote>
-<p>官方教程：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/install-on-linux/">https://docs.mongodb.com/manual/administration/install-on-linux/</a><br>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+<p>参考文章：[Docker 技术入门与实战 第3板]</p>
 </blockquote>
-<h2 id="CentOS-安装-MongoDB-社区版"><a href="#CentOS-安装-MongoDB-社区版" class="headerlink" title="CentOS 安装 MongoDB 社区版"></a>CentOS 安装 MongoDB 社区版</h2><h3 id="安装-MongoDB-所需的依赖项"><a href="#安装-MongoDB-所需的依赖项" class="headerlink" title="安装 MongoDB 所需的依赖项"></a>安装 MongoDB 所需的依赖项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install libcurl openssl</span><br></pre></td></tr></table></figure>
+<p>本章将具体讲解 Registry 的使用技巧，并通过案例来展示如何搭建一个功能完善的私有镜像仓库。在搭建完本地的私有仓库服务后，来剖析 Registry 的配置参数，最后会通过编写脚本来实现对镜像的快速批量化管理。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Docker/016-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/#more">more >></a>
     
     
 
@@ -987,11 +267,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Registry</a>
         		</li>
       		
 		</ul>
@@ -1003,7 +283,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
@@ -1012,7 +292,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/002-Linux-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-MongoDB/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Docker/016-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-1/">展开全文 >></a>
     </p>
     
 
@@ -1042,7 +322,7 @@
 
 
   
-    <article id="post-Databases/MongoDB/003-MongoDB-概念解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Docker/021-Harbor-管理与维护" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1050,7 +330,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/" target="_blank">MongoDB 概念解析</a>
+	  <a class="article-title" href="/2023/10/18/Docker/021-Harbor-%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BB%B4%E6%8A%A4/" target="_blank">Harbor 管理与维护</a>
   
     </h1>
   
@@ -1058,8 +338,8 @@
 
   
   
-<a href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Docker/021-Harbor-%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BB%B4%E6%8A%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1071,12 +351,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
-</blockquote>
-<h1 id="MongoDB-概念解析"><a href="#MongoDB-概念解析" class="headerlink" title="MongoDB 概念解析"></a>MongoDB 概念解析</h1><p>不管学习什么数据库都应该学习其中的基础概念，在 MongoDB 中基本的概念是文档，集合，数据库，下面我们挨个介绍.</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://goharbor.io/docs/2.1.0/administration/">Harbor Administration</a></p>
+<h2 id="Harbor-管理与维护"><a href="#Harbor-管理与维护" class="headerlink" title="Harbor 管理与维护"></a>Harbor 管理与维护</h2><p>本节介绍部署后如何配置和维护Harbor。这些操作由 Harbor 系统管理员执行。 Harbor 系统管理员执行应用于整个 Harbor 实例的全局配置操作。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Docker/021-Harbor-%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BB%B4%E6%8A%A4/#more">more >></a>
     
     
 
@@ -1099,11 +377,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Harbor</a>
         		</li>
       		
 		</ul>
@@ -1115,7 +393,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
@@ -1124,7 +402,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/003-MongoDB-%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Docker/021-Harbor-%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BB%B4%E6%8A%A4/">展开全文 >></a>
     </p>
     
 
@@ -1154,7 +432,7 @@
 
 
   
-    <article id="post-Databases/MongoDB/004-MongoDB-连接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Docker/025-Compose-volumes-字段参考" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1162,7 +440,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" target="_blank">MongoDB 连接</a>
+	  <a class="article-title" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/" target="_blank">Compose volumes 和 networks 字段参考文档</a>
   
     </h1>
   
@@ -1170,8 +448,8 @@
 
   
   
-<a href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1183,12 +461,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
-</blockquote>
-<h1 id="MongoDB-连接"><a href="#MongoDB-连接" class="headerlink" title="MongoDB 连接"></a>MongoDB 连接</h1><p>你可以使用 MongoDB shell 来连接 MongoDB 服务器。也可以使用 PHP 来连接 MongoDB。本教程我们会使用 MongoDB shell 来连接 Mongodb 服务，之后的章节我们将会介绍如何通过php 来连接MongoDB服务。</p>
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference">Compose file versions and upgrading</a></p>
+<h2 id="Volumes-配置参考"><a href="#Volumes-配置参考" class="headerlink" title="Volumes 配置参考"></a>Volumes 配置参考</h2><p>虽然可以在服务声明中动态声明卷，但是本节允许你创建可以在多个服务中重用的命名卷（不依赖 volume_from），并且可以使用 docker 命令行 API 轻松检索和检查。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/#more">more >></a>
     
     
 
@@ -1211,11 +487,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Compose</a>
         		</li>
       		
 		</ul>
@@ -1227,7 +503,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
@@ -1236,7 +512,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/004-MongoDB-%E8%BF%9E%E6%8E%A5/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Docker/025-Compose-volumes-%E5%AD%97%E6%AE%B5%E5%8F%82%E8%80%83/">展开全文 >></a>
     </p>
     
 
@@ -1266,7 +542,7 @@
 
 
   
-    <article id="post-Databases/MongoDB/007-MongoDB-条件操作符" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Docker/028-Docker-容器资源限制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1274,7 +550,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/Databases/MongoDB/007-MongoDB-%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6/" target="_blank">MongoDB 条件操作符</a>
+	  <a class="article-title" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" target="_blank">Docker 容器资源限制</a>
   
     </h1>
   
@@ -1282,8 +558,8 @@
 
   
   
-<a href="/2023/10/18/Databases/MongoDB/007-MongoDB-%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.417Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1295,18 +571,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<p>菜鸟教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-tutorial.html">https://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
-</blockquote>
-<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>条件操作符用于比较两个表达式并从 MongoDB 集合中获取数据。<br>MongoDB 中条件操作符有：</p>
-<ul>
-<li>(&gt;) 大于 - $gt</li>
-<li>(&lt;) 小于 - $lt</li>
-<li>(&gt;&#x3D;) 大于等于 - $gte</li>
-<li>(&lt;&#x3D;) 小于等于 - $lte</li>
-</ul>
+    <p>参考文章: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1426760">Docker容器CPU、memory资源限制</a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在使用 docker 运行容器时，默认的情况下，docker没有对容器进行硬件资源的限制，当一台主机上运行几百个容器，这些容器虽然互相隔离，但是底层却使用着相同的 CPU、内存和磁盘资源。如果不对容器使用的资源进行限制，那么容器之间会互相影响，小的来说会导致容器资源使用不公平；大的来说，可能会导致主机和集群资源耗尽，服务完全不可用。<br>docker 作为容器的管理者，自然提供了控制容器资源的功能。正如使用内核的 namespace 来做容器之间的隔离，docker 也是通过内核的 cgroups 来做容器的资源限制；包括CPU、内存、磁盘三大方面，基本覆盖了常见的资源配额和使用量控制。</p>
     
-    <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/007-MongoDB-%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/#more">more >></a>
     
     
 
@@ -1329,11 +597,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
@@ -1345,7 +609,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/MongoDB//" class="article-tag-list-link color3">MongoDB</a>
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
@@ -1354,7 +618,679 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Databases/MongoDB/007-MongoDB-%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/Docker/028-Docker-%E5%AE%B9%E5%99%A8%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/000-Mac-配置Docker镜像加速" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/000-Mac-%E9%85%8D%E7%BD%AEDocker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" target="_blank">Mac 配置 Docker 镜像加速</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/000-Mac-%E9%85%8D%E7%BD%AEDocker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/18f88f7b5230">Docker 配置国内源加速镜像下载</a></p>
+</blockquote>
+<p>由于网络原因，我们在pull Image 的时候，从Docker Hub上下载会很慢，所以可以使用国内的镜像（mirror）来加速,方便大家使用。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/000-Mac-%E9%85%8D%E7%BD%AEDocker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Mac</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/000-Mac-%E9%85%8D%E7%BD%AEDocker%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/002-Docker-镜像相关的操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/002-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/" target="_blank">Docker 镜像相关的操作</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/002-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：[Docker技术入门与实战第3版]</p>
+</blockquote>
+<p>镜像是 Docker 三大核心概念中最重要的，Docker 运行容器前需要本地存在对应的镜像，如果镜像不存在，Docker 会尝试先从默认镜像仓库下载，用户也可以通过配置使用自定义的镜像仓库。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/002-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Image</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/002-Docker-%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/006-Docker-数据管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/006-Docker-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/" target="_blank">Docker 数据管理</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/006-Docker-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：[Docker 技术入门与实战第3版]</p>
+</blockquote>
+<p>在生产环境使用 Docker，往往需要对数据进行持久化，或者要在多个容器之间进行数据共享，这必然涉及容器的数据管理操作。<br>容器中的管理数据主要有两种方式：</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/006-Docker-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Volumes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/006-Docker-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/017-Docker-配置私有仓库-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/017-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-2/" target="_blank">Docker 配置私有仓库-方案二</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/017-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-2/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：[Docker 技术入门与实战 第3板]</p>
+</blockquote>
+<p>本章将具体讲解 Registry 的使用技巧，并通过案例来展示如何搭建一个功能完善的私有镜像仓库。在搭建完本地的私有仓库服务后，来剖析 Registry 的配置参数，最后会通过编写脚本来实现对镜像的快速批量化管理。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/017-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-2/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Registry</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/017-Docker-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93-2/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/020-Harbor-配置文件说明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/020-Harbor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/" target="_blank">Harbor 配置文件参数说明</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/020-Harbor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文档 <a target="_blank" rel="noopener" href="https://github.com/goharbor/website/blob/release-2.1.0/docs/install-config/configure-yml-file.md">Harbor 配置文件说明</a></p>
+</blockquote>
+<h2 id="Harbor-配置文件"><a href="#Harbor-配置文件" class="headerlink" title="Harbor 配置文件"></a>Harbor 配置文件</h2><p>Harbor 的配置文件中配置参数由必须参数以及可选参数两部分组成，您可以在 <code>harbor.yml</code> 文件中为 Harbor 设置系统级别参数。这些参数在您运行<code>install.sh</code> 脚本以安装或重新配置 Harbor 时生效。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/020-Harbor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Harbor</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/020-Harbor-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/004-Docker-仓库相关操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Docker/004-Docker-%E4%BB%93%E5%BA%93%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" target="_blank">Docker 仓库相关的操作</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Docker/004-Docker-%E4%BB%93%E5%BA%93%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.415Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：[Docker 技术入门与实战第3版]</p>
+</blockquote>
+<p>仓库(Repository)是集中存放镜像的地方，又分公共仓库和私有仓库。<br>有时候容易把仓库与注册服务器(Registty) 混淆。实际上注册服务器是存放仓库的具体服务器，一个注册服务器上可以有多个仓库，而每个仓库下面可以有多个镜像。从这方面来说，仓库可以被认为是一个具体的项目或者目录。例如对于仓库地址 <code>private-docker.com/ubuntu</code> 来说，<code>private-docker.com</code> 是注册服务器地址，<code>ubuntu</code> 是仓库名。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Docker/004-Docker-%E4%BB%93%E5%BA%93%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Hub</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker//" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Docker/004-Docker-%E4%BB%93%E5%BA%93%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">展开全文 >></a>
     </p>
     
 
@@ -1386,7 +1322,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/27/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/29/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/27/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/29/">下一页</a>
     </nav>
   
 
@@ -1399,7 +1335,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2292,6 +2228,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>

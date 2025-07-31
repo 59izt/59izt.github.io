@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-信创环境/01-Arm64-架构部署-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Golang/old/004-golang-数据类型1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/" target="_blank">ARM64 架构部署 Docker</a>
+	  <a class="article-title" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/" target="_blank">Golang 数据类型介绍</a>
   
     </h1>
   
@@ -226,734 +226,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考内容：<a target="_blank" rel="noopener" href="https://little-star.love/posts/6da98871/">华为鲲鹏+银河麒麟v10 安装 docker-ce 踩坑</a></p>
-</blockquote>
-<h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
-<li><p>系统版本: Kylin Linux Advanced Server V10</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/os-release </span></span><br><span class="line">NAME=<span class="string">&quot;Kylin Linux Advanced Server&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;V10 (Tercel)&quot;</span></span><br><span class="line">ID=<span class="string">&quot;kylin&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;V10&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;Kylin Linux Advanced Server V10 (Tercel)&quot;</span></span><br><span class="line">ANSI_COLOR=<span class="string">&quot;0;31&quot;</span></span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/03-Arm64-架构部署-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" target="_blank">ARM64 架构部署 Nacos</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考文章: <a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/330673">nacos 构建ARM64版本docker镜像</a></p>
-</blockquote>
-<h2 id="Arm64-架构部署-Nacos"><a href="#Arm64-架构部署-Nacos" class="headerlink" title="Arm64 架构部署 Nacos"></a>Arm64 架构部署 Nacos</h2><h3 id="编译-nacos-镜像"><a href="#编译-nacos-镜像" class="headerlink" title="编译 nacos 镜像"></a>编译 nacos 镜像</h3><ol>
-<li><p>下载 nacos-docker 仓库</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span>  https://github.com/nacos-group/nacos-docker.git</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/04-Arm64-架构部署-RocketMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/" target="_blank">ARM64 架构部署 RocketMQ</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><table>
-<thead>
-<tr>
-<th align="center">主机</th>
-<th align="center">IP地址</th>
-<th align="center">角色</th>
-<th align="center">系统版本</th>
-<th align="center">软件版本</th>
-<th align="center">JDK 版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">base-server01</td>
-<td align="center">192.168.0.9</td>
-<td align="center">namerv</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-<tr>
-<td align="center">base-server02</td>
-<td align="center">192.168.0.30</td>
-<td align="center">namerv,broker-a</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-<tr>
-<td align="center">base-server03</td>
-<td align="center">192.168.0.78</td>
-<td align="center">namerv,broker-b</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rocketmq</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/07-Arm64-架构部署-GlusterFS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/07-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-GlusterFS/" target="_blank">ARM64 架构部署 GlusterFS</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/07-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-GlusterFS/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="ARM64-架构部署-GFS-集群"><a href="#ARM64-架构部署-GFS-集群" class="headerlink" title="ARM64 架构部署 GFS 集群"></a>ARM64 架构部署 GFS 集群</h2><h3 id="安装-GlusterFS"><a href="#安装-GlusterFS" class="headerlink" title="安装 GlusterFS"></a>安装 GlusterFS</h3><ol>
-<li><p>配置 Host 解析</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.0.9      gfs-server01</span><br><span class="line">192.168.0.30     gfs-server02</span><br><span class="line">192.168.0.78     gfs-server03</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/07-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-GlusterFS/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">glusterfs</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/07-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-GlusterFS/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/06-Arm64-架构部署-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/" target="_blank">ARM64 架构部署 Redis</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>redis 源码下载地址: <a target="_blank" rel="noopener" href="https://download.redis.io/releases/">releases page</a></p>
-<h2 id="ARM64-架构部署-Redis"><a href="#ARM64-架构部署-Redis" class="headerlink" title="ARM64 架构部署 Redis"></a>ARM64 架构部署 Redis</h2><ol>
-<li><p>下载 redis 源码</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.redis.io/releases/redis-5.0.7.tar.gz</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/09-Arm64-架构部署-MySQL8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/" target="_blank">ARM64 架构部署 MySQL 8</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="MySQL-8-0-安装"><a href="#MySQL-8-0-安装" class="headerlink" title="MySQL 8.0 安装"></a>MySQL 8.0 安装</h2><ol>
-<li><p>检查系统自带的 mariadb 并卸载</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa |grep mariadb</span><br><span class="line">rpm -e mariadb-libs-5.5.68-1.el7.x86_64 --nodeps</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/09-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-MySQL8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/16-loongarch64-架构部署-traefik" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/" target="_blank">Loongarch64 源码编译 Ingress-traefik</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
 </a>
 
   
@@ -966,20 +240,12 @@
   <div class="article-entry" itemprop="articleBody">
     
     <ul>
-<li>Traefik 官方文档地址: <a target="_blank" rel="noopener" href="https://doc.traefik.io/traefik/">Traefik Document</a></li>
-<li>部署参考文档: <a target="_blank" rel="noopener" href="https://blog.csdn.net/networken/article/details/85953346">kubernetes部署traefik</a></li>
-<li>Helm 部署方式参考: <a target="_blank" rel="noopener" href="https://github.com/traefik/traefik-helm-chart">traefik-helm-chart</a></li>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
 </ul>
-<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
-<li>kubernetes 版本: 1.20.11</li>
-<li>CPU 架构: loongarch64</li>
-<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>Traefik 版本: v2.9.4</li>
-<li>部署方式: DaemonSet</li>
-</ul>
-<h2 id="Traefik-简介"><a href="#Traefik-简介" class="headerlink" title="Traefik 简介"></a>Traefik 简介</h2><p>Træfɪk 是一个为了让部署微服务更加便捷而诞生的现代HTTP反向代理、负载均衡工具。 它支持多种后台 (Docker, Swarm, Kubernetes, Marathon, Mesos, Consul, Etcd, Zookeeper, BoltDB, Rest API, file…) 来自动化、动态的应用它的配置文件设置。</p>
+<h2 id="Go-数据类型"><a href="#Go-数据类型" class="headerlink" title="Go 数据类型"></a>Go 数据类型</h2><h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p>golang 的数值类型分为以下几种：整数、浮点数、复数，其中每一种都包含了不同大小的数值类型，例如有符号整数包含 int8、int16、int32、int64 等，每种数值类型都决定了对应的大小范围和是否支持正负符号。</p>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/#more">more >></a>
+    <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/#more">more >></a>
     
     
 
@@ -1002,19 +268,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Ingress-traefik</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1026,7 +280,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1035,7 +289,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/16-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-traefik/">展开全文 >></a>
+      <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1/">展开全文 >></a>
     </p>
     
 
@@ -1065,7 +319,7 @@
 
 
   
-    <article id="post-信创环境/19-loongarch64-架构部署-heketi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Golang/old/005-golang-数据类型2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1073,7 +327,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/" target="_blank">Loongarch64 部署 Heketi</a>
+	  <a class="article-title" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/" target="_blank">Golang 数据类型-字符串</a>
   
     </h1>
   
@@ -1081,8 +335,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
 </a>
 
   
@@ -1094,15 +348,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Heketi 源码地址:<a target="_blank" rel="noopener" href="https://github.com/heketi/heketi">heketi</a></p>
-<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
-<li>CPU 架构: loongarch64</li>
-<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>Heketi 版本: v10.4.0</li>
-<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+    <ul>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
 </ul>
+<h2 id="字符串基础"><a href="#字符串基础" class="headerlink" title="字符串基础"></a>字符串基础</h2><p>一个字符串是一个不可改变的字节序列，字符串可以包含任意的数据，但是通常是用来包含可读的文本，字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码表上的字符时占用一个字节，其它字符根据需要占用 2-4 个字节）</p>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/#more">more >></a>
+    <a class="article-more-a" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/#more">more >></a>
     
     
 
@@ -1125,15 +377,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Heketi</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1145,7 +389,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1154,7 +398,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/19-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-heketi/">展开全文 >></a>
+      <a class="article-more-a" href="/2024/01/09/Golang/old/005-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2/">展开全文 >></a>
     </p>
     
 
@@ -1184,7 +428,7 @@
 
 
   
-    <article id="post-信创环境/10-loongarch64-源码编译-kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Golang/old/006-golang-数据类型3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1192,7 +436,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" target="_blank">loongarch64 源码编译 kubernetes</a>
+	  <a class="article-title" href="/2024/01/09/Golang/old/006-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3/" target="_blank">Golang 数据类型别名</a>
   
     </h1>
   
@@ -1200,8 +444,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2024/01/09/Golang/old/006-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
 </a>
 
   
@@ -1213,16 +457,16 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/16241306.html?from_wecom=1">loongarch64架构下Kubernetes组件编译</a></p>
-<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
-<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>CPU 架构: loongarch64</li>
-<li>平台: 龙芯</li>
-<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
-<li>编译的 kubernetes 版本: v1.20.11</li>
+    <ul>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
 </ul>
+<h2 id="Go-语言-type-关键字（类型别名）"><a href="#Go-语言-type-关键字（类型别名）" class="headerlink" title="Go 语言 type 关键字（类型别名）"></a>Go 语言 type 关键字（类型别名）</h2><p>类型别名是 Go 1.9 版本添加的新功能，主要用于解决代码升级，迁移过程中存在的类型兼容性问题。在 <code>C/C++</code> 语言中，代码重构升级可以使用宏快速定义一段新的代码，Go 语言中没有选择加入宏，而是解决了重构中最麻烦的类型名变更问题。</p>
+<ol>
+<li><p>在 go 1.9 版本之前定义内建类型的代码是这样写的:</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="type">byte</span> <span class="type">uint8</span></span><br><span class="line"><span class="keyword">type</span> <span class="type">rune</span> <span class="type">int32</span></span><br></pre></td></tr></table></figure>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/#more">more >></a>
+    <a class="article-more-a" href="/2024/01/09/Golang/old/006-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3/#more">more >></a>
     
     
 
@@ -1245,15 +489,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1265,7 +501,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1274,7 +510,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/">展开全文 >></a>
+      <a class="article-more-a" href="/2024/01/09/Golang/old/006-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3/">展开全文 >></a>
     </p>
     
 
@@ -1304,7 +540,7 @@
 
 
   
-    <article id="post-信创环境/12-loongarch64-源码编译-docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Golang/old/007-golang-数据类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1312,7 +548,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" target="_blank">loongarch64 源码编译 Docker (为完成，待完善)</a>
+	  <a class="article-title" href="/2024/01/09/Golang/old/007-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" target="_blank">Golang 数据类型转换</a>
   
     </h1>
   
@@ -1320,8 +556,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2024/01/09/Golang/old/007-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
 </a>
 
   
@@ -1333,15 +569,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
-<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>CPU 架构: loongarch64</li>
-<li>平台: 龙芯</li>
-<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
-<li>编译的 Docker 版本: v19.03.15</li>
+    <ul>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
 </ul>
+<h2 id="strconv"><a href="#strconv" class="headerlink" title="strconv"></a>strconv</h2><p>在实际开发中我们往往需要对一些常用的数据类型进行转换，如 string、int、int64、float 等数据类型之间的转换，Go 语言中的 <code>strconv</code> 包为我们提供了字符串和基本数据类型之间的转换功能。</p>
+<h3 id="string-与-int-类型之间的转换"><a href="#string-与-int-类型之间的转换" class="headerlink" title="string 与 int 类型之间的转换"></a>string 与 int 类型之间的转换</h3><p>字符串和整数之间的转换使我们平时编程中使用的最多的，下面就来介绍一下具体的操作</p>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/#more">more >></a>
+    <a class="article-more-a" href="/2024/01/09/Golang/old/007-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/#more">more >></a>
     
     
 
@@ -1364,15 +599,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1384,7 +611,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
         		</li>
       		
 		</ul>
@@ -1393,7 +620,665 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/">展开全文 >></a>
+      <a class="article-more-a" href="/2024/01/09/Golang/old/007-golang-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/008-golang-程序的基本结构和要素" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/008-golang-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/" target="_blank">Golang 程序的基本结构和要素</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/008-golang-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Go 入门指南: <a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go/the-basic-structure-and-elements-of-the-go-program/3583">Go 程序的基本结构和要素</a></li>
+</ul>
+<h2 id="Go-程序的基本结构和要素"><a href="#Go-程序的基本结构和要素" class="headerlink" title="Go 程序的基本结构和要素"></a>Go 程序的基本结构和要素</h2><h3 id="包的概念，导入和可见性"><a href="#包的概念，导入和可见性" class="headerlink" title="包的概念，导入和可见性"></a>包的概念，导入和可见性</h3><p>包是结构化代码的一种方式: 每个程序都由包(通常简称为 pkg) 的概念组成，可以使用自身的包或者从其他包中导入内容。</p>
+<p>如同其他一些编程语言中的类库或命名空间的概念，每个 go 文件都属于且仅属于一个包。一个包可以由许多以 <code>.go</code> 为扩展名的源文件组成，因此文件名和包名一般来说都是不相同的。</p>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/008-golang-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/008-golang-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/010-golang-基本类型和运算符" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/010-golang-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" target="_blank">Golang 常量和变量</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/010-golang-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Go 入门指南: <a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go/basic-types-and-operators/3586">基本类型和运算符</a></li>
+</ul>
+<h2 id="基本类型和运算符"><a href="#基本类型和运算符" class="headerlink" title="基本类型和运算符"></a>基本类型和运算符</h2><p>我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。<br>表达式是一种特定的类型的值，它可以由其他的值以及运算符组合而成，每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得变异错误。</p>
+<p>一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。<br>只有两个类型相同的值才可以和二元运算符结合，另外要注意的是，Go 是强类型语言，因此不会进行隐式转换，任何不同类型之间的转换都必须显式说明。Go 不存在像 C 和 Java 那样的运算符重载，</p>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/010-golang-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/010-golang-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/011-golang-字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/011-golang-%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_blank">Golang 字符串</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/011-golang-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Go 入门指南: <a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go/character-string/3587">字符串</a></li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其他包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串也可能根据需要占用 1 至 4 个字节，这与其他语言如 C++、Java 或者 Python 不同（Java 始终使用2个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其他语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。</p>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/011-golang-%E5%AD%97%E7%AC%A6%E4%B8%B2/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/011-golang-%E5%AD%97%E7%AC%A6%E4%B8%B2/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/009-golang-常量和变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/009-golang-%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F/" target="_blank">Golang 常量和变量</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/009-golang-%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.386Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Go 入门指南: <a target="_blank" rel="noopener" href="https://learnku.com/docs/the-way-to-go/the-basic-structure-and-elements-of-the-go-program/3583">Go 程序的基本结构和要素</a></li>
+</ul>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>常量使用关键字 <code>const</code> 定义，用于存储不会改变的数据。存储在常量中的数据类型只可以是 布尔型、数字型（整数型、浮点型和复数）和字符串型。</p>
+<p>常量的定义格式为: <code>const identifier [type] = value</code>，例如:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Pi = <span class="number">3.14159</span></span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/009-golang-%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/009-golang-%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/004-golang-基础知识4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/004-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%864/" target="_blank">Golang 常量</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/004-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%864/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.380Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
+</ul>
+<h2 id="常量和-const-关键字"><a href="#常量和-const-关键字" class="headerlink" title="常量和 const 关键字"></a>常量和 const 关键字</h2><h3 id="常量声明"><a href="#常量声明" class="headerlink" title="常量声明"></a>常量声明</h3><p>go 语言中的常量使用关键字 <code>const</code> 定义，用于存储不会改变的数据，常量是在编译时被创建的，即使定义在函数内部也是如此，并且只能是布尔型，数字型（整数型、浮点型和复数）和字符串型。由于编译时的限制，定义常量的表达式必须为能被编译器求值的常量表达式。</p>
+<ol>
+<li><p>常量的定义格式和变量的声明语法类似，例如:</p>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name [<span class="keyword">type</span>] = value</span><br><span class="line"></span><br><span class="line"><span class="comment">// 例如</span></span><br><span class="line"><span class="keyword">const</span> pi = <span class="number">3.14159</span> <span class="comment">// 相当于 math.Pi 的近似值</span></span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%864/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/004-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%864/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Golang/old/003-golang-基础知识3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2024/01/09/Golang/old/003-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863/" target="_blank">Golang 变量的生命周期</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2024/01/09/Golang/old/003-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863/" class="archive-article-date">
+        <time datetime="2024-01-09T03:04:06.375Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>Golang 官方文档: <a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a></li>
+<li>C 语言中文网: <a target="_blank" rel="noopener" href="http://c.biancheng.net/golang/intro/">Golang 简介</a></li>
+</ul>
+<h2 id="Go-语言的变量逃逸分析"><a href="#Go-语言的变量逃逸分析" class="headerlink" title="Go 语言的变量逃逸分析"></a>Go 语言的变量逃逸分析</h2><p>在讨论变量生命周期之前，先来了解下计算机组成里两个非常重要的概念：堆和栈。</p>
+<h3 id="什么是栈"><a href="#什么是栈" class="headerlink" title="什么是栈"></a>什么是栈</h3><p>栈（Stack）是一种拥有特殊规则的线性表数据结构。</p>
+    
+    <a class="article-more-a" href="/2024/01/09/Golang/old/003-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/golang//" class="article-tag-list-link color2">golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2024/01/09/Golang/old/003-golang-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%863/">展开全文 >></a>
     </p>
     
 
@@ -1425,7 +1310,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
     </nav>
   
 
@@ -1438,7 +1323,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2024 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2331,6 +2216,54 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cephadm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Loki</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">GitLab Runner</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
               </li>
             
             <div class="clearfix"></div>
