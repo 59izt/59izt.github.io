@@ -210,6 +210,114 @@
             
 
   
+    <article id="post-Linux/004-SuSe-配置rsyslog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/" target="_blank">SuSe 配置 rsyslog 到远程日志服务器</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://suse.com/c/how-configure-sles11-cache-and-send-log-events-sentinel-rsyslogd/">https://suse.com/c/how-configure-sles11-cache-and-send-log-events-sentinel-rsyslogd/</a></p>
+</blockquote>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>如果你使用 syslog 或 syslog-ng 将日志事件发送到 Sentinel，你可能已经注意到，如果与收集器管理器发生通信问题，则事件可能会丢失。你可以通过安装 rsyslogd 来解决此限制，该文件包含在 SLES11 安装介质中。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Suse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Suse//" class="article-tag-list-link color5">Suse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/004-SuSe-%E9%85%8D%E7%BD%AErsyslog/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux/012-CentOS-7-安装-OpenOffice4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1244,125 +1352,6 @@
 
 
   
-    <article id="post-Linux/039-使用-envsubst-动态生成-Nginx-配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" target="_blank">使用 envsubst 动态生成 Nginx 配置文件</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>由于现在需要部署 nginx 的 Pod 服务，希望 nginx 配置文件里面有关 <code>proxy_pass</code> 的配置在启动服务前动态修改。但是由于 nginx 的配置文件不支持使用环境变量。网上找了好些方案，最终选择使用 <code>envsubst</code> 的方式改写 nginx 配置文件。</p>
-<h2 id="什么是-envsubst"><a href="#什么是-envsubst" class="headerlink" title="什么是 envsubst"></a>什么是 envsubst</h2><p><code>envsubst</code> 是一个非常好用的工具，尤其善于处理和环境变量相关的事务。</p>
-<p>通常我们需要获取某一个或者几个环境去替换系统中的某些变量，这种情况下我们只需使用sed去简单的替换掉即可，在这种场景中，sed就可以满足我们的需求，但是如果我们需要修改的变量较多，而且不确定到底有哪些变量时，envsubst就排上了用场</p>
-<h3 id="envsubst-使用方法"><a href="#envsubst-使用方法" class="headerlink" title="envsubst 使用方法"></a>envsubst 使用方法</h3><ol>
-<li><p>envsubst 的使用方法如下: <code>original_file</code> 为模板文件, <code>destination_file</code> 为使用变量后生成的目标文件</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">envsubst &lt; original_file &gt; destination_file</span><br></pre></td></tr></table></figure></li>
-</ol>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">envsubst</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/039-%E4%BD%BF%E7%94%A8-envsubst-%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/22/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/24/">下一页</a>
@@ -2319,6 +2308,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Sonarqube</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
             
             <div class="clearfix"></div>
