@@ -210,6 +210,231 @@
             
 
   
+    <article id="post-Python/001-Python-爬虫请求库的安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/001-Python-%E7%88%AC%E8%99%AB%E8%AF%B7%E6%B1%82%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" target="_blank">Python 爬虫请求库的安装</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/001-Python-%E7%88%AC%E8%99%AB%E8%AF%B7%E6%B1%82%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考内容：Python3 网络爬虫开发实战-崔庆才</p>
+</blockquote>
+<p>爬虫可以简单分为几步：抓取页面，分析页面和存储数据。<br>在抓取页面的过程中，我们需要模拟浏览器向服务器发出请求，所以需要用到一些 Python 库来实现 HTTP 请求操作。</p>
+<h1 id="requests-的安装"><a href="#requests-的安装" class="headerlink" title="requests 的安装"></a>requests 的安装</h1><p>由于 requests 属于第三方库，也就是 Python 默认不会自带这个库，所以需要我们手动安装。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/001-Python-%E7%88%AC%E8%99%AB%E8%AF%B7%E6%B1%82%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">爬虫开发环境配置</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/001-Python-%E7%88%AC%E8%99%AB%E8%AF%B7%E6%B1%82%E5%BA%93%E7%9A%84%E5%AE%89%E8%A3%85/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/013-Flask-Jinja模板用法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Python/013-Flask-Jinja%E6%A8%A1%E6%9D%BF%E7%94%A8%E6%B3%95/" target="_blank">Flask Jinja 模板用法</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Python/013-Flask-Jinja%E6%A8%A1%E6%9D%BF%E7%94%A8%E6%B3%95/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>参考文章：[Python web开发实战]</p>
+</blockquote>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><p>在之前的章节中，视图函数直接返回文本，而在实际生产环境中其实很少这样用，因为实际的页面大多是带有样式和复杂逻辑的 HTML 代码，这可以让浏览器渲染出非常漂亮和复杂的效果。页面的内容应该是可重用的，而且需要执行更高级的功能。首先看一下 Python 自带的模板 string.Template:</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Python/013-Flask-Jinja%E6%A8%A1%E6%9D%BF%E7%94%A8%E6%B3%95/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Flask</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Jinja2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jinja2//" class="article-tag-list-link color2">Jinja2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Python/013-Flask-Jinja%E6%A8%A1%E6%9D%BF%E7%94%A8%E6%B3%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python/019-Django-基础入门-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1101,225 +1326,6 @@
 
 
   
-    <article id="post-Python/027-GitLab-REST-API-使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" target="_blank">GitLab REST API 使用讲解</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>书籍名称：[Python3 自动化软件发布系统-Django2 实战]</p>
-</blockquote>
-<p>和 Jenkins 类似，GitLab 也提供了操作 API 的官方文档：<code>https://docs.gitlab.com/ee/api/</code>。但这个操作是统一标准的，通过 REST API 的方式，支持主流的各种语言（Go，Java，JS，Python 等）。但为了在 Python 环境下更有效率，更规范，更自然地操作这些 API，我们这里也使用了一个第三方库 Python-GitLab 去操作这些 API。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitLab-API//" class="article-tag-list-link color1">GitLab-API</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/027-GitLab-REST-API-%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/037-Python-多进程-multiprocessing(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" target="_blank">Python 多进程 multiprocessing(一)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>我们都知道进程是操作系统进行资源分配和调度的基本单位，在单核 CPU 中，同一时刻只能运行单个进程，虽然仍然可以同时运行多个程序，但进程之间是通过轮流占用 CPU 来执行的。进程有三种状态，分别是: 阻塞态、就绪态和运行态；</p>
-<p>Python 内置的 multiprocessing 模块提供了对多进程的支持，下面我们将一一介绍其用法</p>
-<h2 id="创建进程的类-Process"><a href="#创建进程的类-Process" class="headerlink" title="创建进程的类 - Process"></a>创建进程的类 - Process</h2><p>multiprocessing 模块提供了一个创建进程的类 Process，其创建进程有以下两种方法:</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multiprocessing</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Python/037-Python-%E5%A4%9A%E8%BF%9B%E7%A8%8B-multiprocessing(%E4%B8%80)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/17/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/19/">下一页</a>
@@ -1335,7 +1341,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2026 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2279,11 +2285,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
             
             <div class="clearfix"></div>

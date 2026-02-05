@@ -210,6 +210,228 @@
             
 
   
+    <article id="post-Linux/041-CentOS7-部署-Elasticsearch-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" target="_blank">CentOS 7 系统部署 Elasticsearch 7.17.x 集群</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>本文档是在 CentOS 7.9 系统上部署一个 3 节点的 Elasticsearch 集群，并开启 x-pack 认证，以及安装 ik, pingyin 插件。<br>在安装 Elasticsearch 时，要注意 JDK 对应的版本，另外 Elasticsearch 7.x 以上已经内置 JDK 环境配置，不需要本地 JDK 环境支持。这里直接使用 Elasticsearch 内置的 jdk</p>
+<ul>
+<li>Elasticsearch 5.x 安装需要 JDK8 及以上</li>
+<li>Elasticsearch 6.5 安装需要 JDK11 及以上</li>
+<li>Elasticsearch 7.2.x 内置了JDK12</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">elasticsearch</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/002-Linux-环境下安装GitLab与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" target="_blank">Linux 环境下安装 GitLab 与配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwMjg1NjY3Nw==&mid=2247487113&amp;idx=1&amp;sn=3cd5b2d3f249eb0d452363340f875065&source=41#wechat_redirect">杰哥的IT之旅-Linux 环境下安装 GitLab与配置</a></p>
+</blockquote>
+<h2 id="什么是-GitLab"><a href="#什么是-GitLab" class="headerlink" title="什么是 GitLab"></a>什么是 GitLab</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用 Git 作为代码管理工具，并在此基础上搭建起来的 web 服务。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitLab</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/GitLab//" class="article-tag-list-link color2">GitLab</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux/004-SuSe-配置rsyslog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1109,249 +1331,6 @@
 
 
   
-    <article id="post-Linux/032-nacos-集群部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_blank">Nacos 集群部署</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="Nacos-集群部署"><a href="#Nacos-集群部署" class="headerlink" title="Nacos 集群部署"></a>Nacos 集群部署</h2><h3 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h3><table>
-<thead>
-<tr>
-<th align="center">主机名</th>
-<th align="center">IP地址</th>
-<th align="left">角色</th>
-<th align="left">软件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">nacos-1</td>
-<td align="center">192.168.200.13</td>
-<td align="left">nacos, mysql-master</td>
-<td align="left">nacos, mysql</td>
-</tr>
-<tr>
-<td align="center">nacos-2</td>
-<td align="center">192.168.200.14</td>
-<td align="left">nacos, mysql-slave</td>
-<td align="left">nacos, mysql</td>
-</tr>
-<tr>
-<td align="center">nacos-3</td>
-<td align="center">192.168.200.15</td>
-<td align="left">nacos, nginx</td>
-<td align="left">nacos, nginx</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Nacos//" class="article-tag-list-link color1">Nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/032-nacos-%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/033-使用普通用户运行-supervisor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/" target="_blank">使用普通用户运行 supervisor</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="使用普通用户运行-supervisor"><a href="#使用普通用户运行-supervisor" class="headerlink" title="使用普通用户运行 supervisor"></a>使用普通用户运行 supervisor</h2><h3 id="安装-supervisor"><a href="#安装-supervisor" class="headerlink" title="安装 supervisor"></a>安装 supervisor</h3><ol>
-<li><p>安装 supervisor</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y supervisor</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Supervisor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/033-%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C-supervisor/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/22/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/24/">下一页</a>
@@ -1367,7 +1346,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2026 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2311,11 +2290,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
             
             <div class="clearfix"></div>

@@ -210,6 +210,229 @@
             
 
   
+    <article id="post-Prometheus/011-Prometheus-监控-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" target="_blank">Prometheus 监控 Kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>Kubernetes 是 Google 基于 Borg 开源的容器编排调度引擎。作为 CNCF 最重要的项目，Kubernetes 的目标不止是成为一个编排系统，更是提供一种规范，该规范可以让我们描述集群的架构并定义服务的最终状态，让系统自动达到和维持这种状态。</p>
+<p>对于 Kubernetes 这样庞大的系统来说，监控告警自然是不可或缺的。对于 Kubernetes 集群，我们一般需要考虑监控以下几个方面:</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/011-Prometheus-%E7%9B%91%E6%8E%A7-Kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Prometheus/017-Prometheus-HTTP-API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" target="_blank">Prometheus 语法 PromQL 入门</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/querying/api/#http-api">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouwenjun0820/article/details/105823389">彻底理解Prometheus查询语法</a></li>
+</ul>
+<h2 id="HTTP-API"><a href="#HTTP-API" class="headerlink" title="HTTP API"></a>HTTP API</h2><p>当前稳定的 HTTP API 可在 Prometheus 服务器上的 &#x2F;api&#x2F;v1 下访问。任何不间断的添加都将添加到该端点下。<br>API 响应格式为 JSON。每个成功的 API 请求都会返回一个 2xx 状态代码。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/017-Prometheus-HTTP-API/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Prometheus/004-Prometheus-监控OracleDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1101,228 +1324,6 @@
 
 
   
-    <article id="post-Linux/041-CentOS7-部署-Elasticsearch-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" target="_blank">CentOS 7 系统部署 Elasticsearch 7.17.x 集群</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.432Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>本文档是在 CentOS 7.9 系统上部署一个 3 节点的 Elasticsearch 集群，并开启 x-pack 认证，以及安装 ik, pingyin 插件。<br>在安装 Elasticsearch 时，要注意 JDK 对应的版本，另外 Elasticsearch 7.x 以上已经内置 JDK 环境配置，不需要本地 JDK 环境支持。这里直接使用 Elasticsearch 内置的 jdk</p>
-<ul>
-<li>Elasticsearch 5.x 安装需要 JDK8 及以上</li>
-<li>Elasticsearch 6.5 安装需要 JDK11 及以上</li>
-<li>Elasticsearch 7.2.x 内置了JDK12</li>
-</ul>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">elasticsearch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/041-CentOS7-%E9%83%A8%E7%BD%B2-Elasticsearch-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/002-Linux-环境下安装GitLab与配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" target="_blank">Linux 环境下安装 GitLab 与配置</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.431Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwMjg1NjY3Nw==&mid=2247487113&amp;idx=1&amp;sn=3cd5b2d3f249eb0d452363340f875065&source=41#wechat_redirect">杰哥的IT之旅-Linux 环境下安装 GitLab与配置</a></p>
-</blockquote>
-<h2 id="什么是-GitLab"><a href="#什么是-GitLab" class="headerlink" title="什么是 GitLab"></a>什么是 GitLab</h2><p>GitLab 是一个用于仓库管理系统的开源项目，使用 Git 作为代码管理工具，并在此基础上搭建起来的 web 服务。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitLab</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitLab//" class="article-tag-list-link color2">GitLab</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Linux/002-Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%AE%89%E8%A3%85GitLab%E4%B8%8E%E9%85%8D%E7%BD%AE/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/21/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/23/">下一页</a>
@@ -1338,7 +1339,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2026 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -2282,11 +2283,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
             
             <div class="clearfix"></div>

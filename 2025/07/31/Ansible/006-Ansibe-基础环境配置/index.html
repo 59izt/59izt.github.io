@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。     Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x1pip install ansible-c">
+  <meta name="description" content="新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。 Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x 1pip install ansible-core&#x3D;&#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ansible 基础环境配置">
 <meta property="og:url" content="https://blog.59izt.com/2025/07/31/Ansible/006-Ansibe-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="59izt">
-<meta property="og:description" content="新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。     Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x1pip install ansible-c">
+<meta property="og:description" content="新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。 Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x 1pip install ansible-core&#x3D;&#x3D;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-31T07:47:04.088Z">
-<meta property="article:modified_time" content="2025-07-31T07:47:04.088Z">
+<meta property="article:modified_time" content="2026-02-05T01:21:04.983Z">
 <meta property="article:author" content="59iZT">
 <meta property="article:tag" content="Ansible">
 <meta property="article:tag" content="Linux">
@@ -240,7 +240,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">578字</span>
+      <span class="post-count">579字</span>
     </span>
   </span>
 
@@ -260,21 +260,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <blockquote>
-<ol>
-<li>新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="2">
-<li>Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ansible-core==2.16.13</span><br></pre></td></tr></table></figure></li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="3">
-<li>Ansible 的 <code>raw</code> module 模块和 <code>script</code> module 不依赖受管机的 Python 环境。 因此，从技术角度上讲，可以使用 Ansible 这两个模块 ( raw module 和 script module ) 编译安装 Python 环境。</li>
-</ol>
-</blockquote>
+    <p>新版本的 Ansible 对目标主机的 Python 版本要求必须在 3.7 以上，Centos 7.9 系统的包管理工具只能安装 Python 3.6.8，要安装更高版本的 Python，必须使用源码编译的方式安装。</p>
+<p>Ansible-core 2.16.x 版本可以不用在目标机上安装 Python3，可以使用系统自带的 Python 2.x</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ansible-core==2.16.13</span><br></pre></td></tr></table></figure>
+
+<p>Ansible 的 <code>raw</code> module 模块和 <code>script</code> module 不依赖受管机的 Python 环境。 因此，从技术角度上讲，可以使用 Ansible 这两个模块 ( raw module 和 script module ) 编译安装 Python 环境。</p>
 <h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><ol>
 <li><p>创建 ansible 项目目录以及 ansible.cfg 文件</p>
  <span id="more"></span>
@@ -430,7 +420,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2026 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -1374,11 +1364,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
             
             <div class="clearfix"></div>

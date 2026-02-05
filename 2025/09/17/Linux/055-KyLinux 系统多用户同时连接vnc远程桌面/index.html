@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.59izt.com">
-  <title>Tag: Network | 59izt</title>
+  <title>KyLinux 系统多用户同时连接 VNC 远程桌面 | 59izt</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
-<meta property="og:type" content="website">
-<meta property="og:title" content="59izt">
-<meta property="og:url" content="https://blog.59izt.com/tags/Network/index.html">
+  <meta name="description" content="安装 VNC 软件 配置内网 YUM 源  12345678cat &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;ky.repo &lt;&lt; EOF[ky]name &#x3D; Kybaseurl &#x3D; http:&#x2F;&#x2F;10.251.25.10&#x2F;arm&#x2F;gpgcheck &#x3D; 0gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;enabled &#x3D; 1EOF  安装 vncserver 软件  1yum install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KyLinux 系统多用户同时连接 VNC 远程桌面">
+<meta property="og:url" content="https://blog.59izt.com/2025/09/17/Linux/055-KyLinux%20%E7%B3%BB%E7%BB%9F%E5%A4%9A%E7%94%A8%E6%88%B7%E5%90%8C%E6%97%B6%E8%BF%9E%E6%8E%A5vnc%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/index.html">
 <meta property="og:site_name" content="59izt">
-<meta property="og:description" content="Linux 运维、自动化运维、Kubernetes、Python、Docker、CICD">
+<meta property="og:description" content="安装 VNC 软件 配置内网 YUM 源  12345678cat &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;ky.repo &lt;&lt; EOF[ky]name &#x3D; Kybaseurl &#x3D; http:&#x2F;&#x2F;10.251.25.10&#x2F;arm&#x2F;gpgcheck &#x3D; 0gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;enabled &#x3D; 1EOF  安装 vncserver 软件  1yum install">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-17T09:32:23.450Z">
+<meta property="article:modified_time" content="2025-09-22T08:12:15.348Z">
 <meta property="article:author" content="59iZT">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="vnc">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="59izt" type="application/atom+xml">
@@ -203,80 +207,223 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux/055-KyLinux 系统多用户同时连接vnc远程桌面" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2025" class="archive-year">2025</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2025/08/04/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/05-MacOS-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/" class="archive-article-date">
-        <time datetime="2025-08-04T01:25:21.245Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-04</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2025/08/04/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/05-MacOS-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/" target="_blank">MacOS 系统设置路由</a>
   
+    <h1 class="article-title" itemprop="name">
+      KyLinux 系统多用户同时连接 VNC 远程桌面
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2025/09/17/Linux/055-KyLinux%20%E7%B3%BB%E7%BB%9F%E5%A4%9A%E7%94%A8%E6%88%B7%E5%90%8C%E6%97%B6%E8%BF%9E%E6%8E%A5vnc%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" class="archive-article-date">
+        <time datetime="2025-09-17T09:32:23.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-17</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">535字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="安装-VNC-软件"><a href="#安装-VNC-软件" class="headerlink" title="安装 VNC 软件"></a>安装 VNC 软件</h2><ol>
+<li><p>配置内网 YUM 源</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/yum.repos.d/ky.repo &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">[ky]</span></span><br><span class="line"><span class="string">name = Ky</span></span><br><span class="line"><span class="string">baseurl = http://10.251.25.10/arm/</span></span><br><span class="line"><span class="string">gpgcheck = 0</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/</span></span><br><span class="line"><span class="string">enabled = 1</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 vncserver 软件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install tigervnc-server -y</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配置-VNC"><a href="#配置-VNC" class="headerlink" title="配置 VNC"></a>配置 VNC</h2><ol>
+<li><p>配置 VNC service 文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制一份 service 文件为 vncserver@:1.service</span></span><br><span class="line"><span class="built_in">cp</span> /lib/systemd/system/vncserver@.service /lib/systemd/system/vncserver@:1.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 service 文件，将用户改成 root</span></span><br><span class="line"></span><br><span class="line">vim /lib/systemd/system/vncserver@:1.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Remote desktop service (VNC)</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">WorkingDirectory=/root</span><br><span class="line">User=root</span><br><span class="line">Group=root</span><br><span class="line"></span><br><span class="line">PIDFile=/root/.vnc/%H%i.pid</span><br><span class="line"></span><br><span class="line">ExecStartPre=/bin/sh -c <span class="string">&#x27;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&#x27;</span></span><br><span class="line">ExecStart=/usr/bin/vncserver -autokill %i</span><br><span class="line">ExecStop=/usr/bin/vncserver -<span class="built_in">kill</span> %i</span><br><span class="line"></span><br><span class="line">Restart=on-success</span><br><span class="line">RestartSec=15</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重载 systemd 配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 VNC 用户密码(K8EO69c#)</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vncpasswd</span><br><span class="line">//Password：<span class="comment"># 设置或修改当前用户的VNC登录密码</span></span><br><span class="line">//Verify：<span class="comment"># 再次输入当前用户的VNC登录密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动 vncserver，并配置开机启动</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now vncserver@:1.service</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="新增一个用户"><a href="#新增一个用户" class="headerlink" title="新增一个用户"></a>新增一个用户</h2><ol>
+<li><p>新增一个系统用户，如 <code>jiankangyun</code></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建jiankangyun 用户</span></span><br><span class="line">useradd jiankangyun</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为健康云用户设置密码</span></span><br><span class="line">passwd jiankangyun</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="为-jainkangyun-用户配置-VNC"><a href="#为-jainkangyun-用户配置-VNC" class="headerlink" title="为 jainkangyun 用户配置 VNC"></a>为 jainkangyun 用户配置 VNC</h3><ol>
+<li><p>配置 VNC service 文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 复制一份 service 文件为 vncserver@:2.service</span></span><br><span class="line"><span class="built_in">cp</span> /lib/systemd/system/vncserver@.service /lib/systemd/system/vncserver@:2.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 service 文件，将用户改成 jiankangyun</span></span><br><span class="line"></span><br><span class="line">vim /lib/systemd/system/vncserver@:2.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Remote desktop service (VNC)</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">WorkingDirectory=/home/jiankangyun</span><br><span class="line">User=jiankangyun</span><br><span class="line">Group=jiankangyun</span><br><span class="line"></span><br><span class="line">PIDFile=/home/jiankangyun/.vnc/%H%i.pid</span><br><span class="line"></span><br><span class="line">ExecStartPre=/bin/sh -c <span class="string">&#x27;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&#x27;</span></span><br><span class="line">ExecStart=/usr/bin/vncserver -autokill %i</span><br><span class="line">ExecStop=/usr/bin/vncserver -<span class="built_in">kill</span> %i</span><br><span class="line"></span><br><span class="line">Restart=on-success</span><br><span class="line">RestartSec=15</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重载 systemd 配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换到 jiankangyun 用户</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - jiankangyun</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 VNC 用户密码(K8EO69c#)</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vncpasswd</span><br><span class="line">//Password：<span class="comment"># 设置或修改当前用户的VNC登录密码</span></span><br><span class="line">//Verify：<span class="comment"># 再次输入当前用户的VNC登录密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 <code>xstartup</code> 文件，支持中文输入</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=<span class="string">&quot;fcitx&quot;</span></span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=<span class="string">&quot;fcitx&quot;</span></span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=<span class="string">&quot;@im=fcitx&quot;</span></span><br><span class="line"><span class="built_in">unset</span> SESSION_MANAGER</span><br><span class="line"><span class="built_in">unset</span> DBUS_SESSION_BUS_ADDRESS</span><br><span class="line"><span class="built_in">exec</span> /usr/bin/mate-session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用 fcitx 框架</span></span><br><span class="line">fcitx &amp;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 &#x2F;etc&#x2F;profile 文件，添加以下配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=zh_CN.UTF-8</span><br><span class="line"><span class="built_in">export</span> LC_CTYPE=zh_CN.UTF-8</span><br><span class="line"><span class="built_in">export</span> LANGUAGE=zh_CN.UTF-8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换回 root 用户，启动 vncserver，并配置开机启动</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now vncserver@:2.service</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：手动启动与关闭 vncserver</p>
+</blockquote>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">vncserver -<span class="built_in">kill</span> :2</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">vncserver :2</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MacOS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vnc</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/MacOS//" class="article-tag-list-link color1">MacOS</a>
+        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2026/02/05/Ansible/008-Ansible-Playbook%E5%AE%9E%E6%88%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Ansible Playbook 实战
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/08/04/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/05-MacOS-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MacOS 系统设置路由</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-VNC-%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">安装 VNC 软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-VNC"><span class="toc-number">2.</span> <span class="toc-text">配置 VNC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7"><span class="toc-number">3.</span> <span class="toc-text">新增一个用户</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA-jainkangyun-%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE-VNC"><span class="toc-number">3.1.</span> <span class="toc-text">为 jainkangyun 用户配置 VNC</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -287,7 +434,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2025 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
+    		&copy; 2018-2026 <a href="https://blog.59izt.com/" target="_blank">59iZT</a>
     	</div>
       	<div class="footer-right">
 			
@@ -318,9 +465,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: false,
@@ -1231,11 +1378,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
             
             <div class="clearfix"></div>
