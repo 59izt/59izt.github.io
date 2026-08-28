@@ -210,6 +210,117 @@
             
 
   
+    <article id="post-Prometheus/018-Prometheus-告警规则配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/Prometheus/018-Prometheus-%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE/" target="_blank">Prometheus 告警规则配置</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/Prometheus/018-Prometheus-%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.436Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>官方文档地址: <a target="_blank" rel="noopener" href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">ALERTING RULES</a><br>Prometheus-Operator API文档地址: <a target="_blank" rel="noopener" href="https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#table-of-contents">Prometheus Operator API</a></p>
+<p>Prometheus 告警规则允许我们使用 Prometheus 表达式语言 PromQL 定义告警条件，并在触发告警时发送通知给外部的接收者。<br>要使告警规则生效，需要再 Prometheus 的配置文件中添加以下内容:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rule_files:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/etc/prometheus/rules.yml</span></span><br></pre></td></tr></table></figure>
+    
+    <a class="article-more-a" href="/2023/10/18/Prometheus/018-Prometheus-%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/Prometheus/018-Prometheus-%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Prometheus/019-Prometheus-企业微信机器人告警" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1184,121 +1295,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2023/10/18/Prometheus/003-Prometheus-PromQL/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Prometheus/009-Prometheus-监控-SNMP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" target="_blank">Prometheus 监控 SNMP</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.434Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>参考文档:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@openmohan/snmp-monitoring-and-easing-it-with-prometheus-b157c0a42c0c">SNMP monitoring and easing it with Prometheus.</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xwupiaomiao/p/11937324.html">SNMP 导入 MIB</a></li>
-</ul>
-<h2 id="什么是-SNMP"><a href="#什么是-SNMP" class="headerlink" title="什么是 SNMP"></a>什么是 SNMP</h2><p>SNMP: SNMP 是（Simple Network Management Protocol）简单网络管理协议的缩写。SNMP 用于通过设置某些属性的值来管理网络设备（通常称为托管对象），并通过从设备轮训必要的指标来监控网络设备。</p>
-<h3 id="SNMP-工作原理"><a href="#SNMP-工作原理" class="headerlink" title="SNMP 工作原理"></a>SNMP 工作原理</h3><p>SNMP 包括简单的客户端-服务器架构。在你的网络管理解决方案上运行的 SNMP 客户端将负责轮询数据或设置数据。运行在你实际设备上的 SNMP 服务器将响应 SNMP 客户端的调用。默认情况下，在网络设备中不会打开 SNMP 代理。如果需要，网络管理员必须启用 SNMP。</p>
-    
-    <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Monitor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Prometheus//" class="article-tag-list-link color1">Prometheus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/Prometheus/009-Prometheus-%E7%9B%91%E6%8E%A7-SNMP/">展开全文 >></a>
     </p>
     
 
