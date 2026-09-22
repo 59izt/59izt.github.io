@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-信创环境/05-Arm64-架构部署-Minio" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/12-loongarch64-源码编译-docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/05-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Minio/" target="_blank">ARM64 架构部署 Minio</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" target="_blank">loongarch64 源码编译 Docker (为完成，待完善)</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/05-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Minio/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,15 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Minio 官方文档: <a target="_blank" rel="noopener" href="http://docs.minio.org.cn/docs/master/deploy-minio-on-docker-compose">使用Docker Compose部署MinIO</a></p>
-<p>Docker Compose允许定义和运行单主机，多容器Docker应用程序。<br>使用Compose，您可以使用Compose文件来配置MinIO服务。 然后，使用单个命令，您可以通过你的配置创建并启动所有分布式MinIO实例。 分布式MinIO实例将部署在同一主机上的多个容器中。 这是建立基于分布式MinIO的开发，测试和分期环境的好方法。</p>
+    <h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 Docker 版本: v19.03.15</li>
+</ul>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/05-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Minio/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/#more">more >></a>
     
     
 
@@ -265,7 +270,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -273,7 +278,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
         		</li>
       		
 		</ul>
@@ -294,7 +299,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/05-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Minio/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/12-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-docker/">展开全文 >></a>
     </p>
     
 
@@ -324,7 +329,7 @@
 
 
   
-    <article id="post-信创环境/18-loongarch64-架构部署-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/10-loongarch64-源码编译-kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -332,7 +337,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/18-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-redis/" target="_blank">Loongarch64 部署 Redis</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" target="_blank">loongarch64 源码编译 kubernetes</a>
   
     </h1>
   
@@ -340,8 +345,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/18-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-redis/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -353,16 +358,16 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhangmingcheng/p/16241306.html?from_wecom=1">loongarch64架构下Kubernetes组件编译</a></p>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
 <li>CPU 架构: loongarch64</li>
-<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>Nacos 版本: 5.0.7</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 kubernetes 版本: v1.20.11</li>
 </ul>
-<blockquote>
-<p>注意: 由于 redis 5.0.7 版本自带的 jemalloc 版本为 5.1.0，该版本不兼容 loongarch64 平台，所以编译 redis 之前需要填更新 redis 源码中自带的 jemalloc 版本</p>
-</blockquote>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/18-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-redis/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/#more">more >></a>
     
     
 
@@ -385,7 +390,686 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/10-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/13-loongarch64-源码编译-MySQL8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/" target="_blank">loongarch64 源码编译 MySQL</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.460Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文档: <a target="_blank" rel="noopener" href="https://gitee.com/cn-loongson/MySQL/blob/v8.0.12-loongson/Readme-loongson.md">cn-loongson&#x2F;mysql</a></p>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>系统: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>MySQL 版本: 8.0.17</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/13-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-MySQL8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/02-Arm64-架构部署-Kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" target="_blank">ARM64 架构部署 Kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
+<li><p>主机配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内网地址</th>
+<th align="center">公网地址</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s-master01</td>
+<td align="center">192.168.0.134</td>
+<td align="center">120.46.211.33</td>
+<td align="center">master 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node01</td>
+<td align="center">192.168.0.41</td>
+<td align="center">120.46.217.5</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node02</td>
+<td align="center">192.168.0.194</td>
+<td align="center">120.46.141.143</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">base-server01</td>
+<td align="center">192.168.0.9</td>
+<td align="center">124.70.46.58</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server02</td>
+<td align="center">192.168.0.30</td>
+<td align="center">124.70.56.151</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server03</td>
+<td align="center">192.168.0.78</td>
+<td align="center">120.46.182.129</td>
+<td align="center">etcd 节点</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/02-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Kubernetes/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/08-Arm64-架构部署-EFK采集k8s日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" target="_blank">ARM64 架构部署 EFK 采集 kubernetes 日志</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考文章:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/setup-efk-stack-on-kubernetes/">How to Setup EFK Stack on Kubernetes: Step by Step Guides</a></li>
+<li><a target="_blank" rel="noopener" href="https://devopscube.com/kubernetes-logging-tutorial/">Kubernetes Logging Tutorial For Beginners</a></li>
+</ul>
+<p>在 Kubernetes 生产调试中，日志记录起着至关重要的作用。它可以帮助您了解正在发生的事情、出了什么问题，甚至可能出了什么问题。作为 DevOps 工程师，您应该清楚地了解 Kubernetes 日志记录以解决集群和应用程序问题。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">EFK</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/08-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-EFK%E9%87%87%E9%9B%86k8s%E6%97%A5%E5%BF%97/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/11-loongarch64-源码编译-etcd" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/" target="_blank">loongarch64 源码编译 Etcd</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
+<li>OS: Kylin Linux Advanced Server V10 (Tercel)</li>
+<li>CPU 架构: loongarch64</li>
+<li>平台: 龙芯</li>
+<li>go 版本: go version go1.19 linux&#x2F;loong64</li>
+<li>编译的 Etcd 版本: v3.4.13</li>
+</ul>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">loongarch64</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Etcd</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/11-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-etcd/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-信创环境/14-loongarch64-架构部署-kubernetes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/" target="_blank">Loongarch64 架构部署 Kubernetes</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
+<li><p>主机配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">内网地址</th>
+<th align="center">公网地址</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">k8s-master01</td>
+<td align="center">192.168.200.154</td>
+<td align="center">-</td>
+<td align="center">master 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node01</td>
+<td align="center">192.168.201.170</td>
+<td align="center">111.207.111.194</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">k8s-node02</td>
+<td align="center">192.168.201.245</td>
+<td align="center">-</td>
+<td align="center">node 节点</td>
+</tr>
+<tr>
+<td align="center">base-server01</td>
+<td align="center">192.168.200.76</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server02</td>
+<td align="center">192.168.200.95</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+<tr>
+<td align="center">base-server03</td>
+<td align="center">192.168.200.153</td>
+<td align="center">-</td>
+<td align="center">etcd 节点</td>
+</tr>
+</tbody></table>
+    
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -414,7 +1098,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/18-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-redis/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/14-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-kubernetes/">展开全文 >></a>
     </p>
     
 
@@ -444,7 +1128,7 @@
 
 
   
-    <article id="post-信创环境/20-loongarch64-架构部署-rocketmq-dashboard" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/21-loongarch64-架构部署-xxl-job-admin" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -452,7 +1136,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/20-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-rocketmq-dashboard/" target="_blank">Loongarch64 部署 Rocketmq Dashboard</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/21-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-xxl-job-admin/" target="_blank">Loongarch64 部署 xxl-job-admin</a>
   
     </h1>
   
@@ -460,8 +1144,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/20-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-rocketmq-dashboard/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/21-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-xxl-job-admin/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -474,17 +1158,17 @@
   <div class="article-entry" itemprop="articleBody">
     
     <ul>
-<li>源码地址: <a target="_blank" rel="noopener" href="https://github.com/apache/rocketmq-dashboard">rocketmq-dashboard</a></li>
-<li>官方文档: <a target="_blank" rel="noopener" href="https://rocketmq.apache.org/docs/deploymentOperations/17Dashboard/">RocketMQ Dashboard</a></li>
+<li>源码地址: <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-job/">xxl-job</a></li>
+<li>官方文档: <a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-job/">中文文档</a></li>
 </ul>
-<p>RocketMQ Dashboard 是 RocketMQ 的管控利器，为用户提供客户端和应用程序的各种事件、性能的统计信息，支持以可视化工具代替 Topic 配置、Broker 管理等命令行操作。</p>
-<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><ul>
 <li>CPU 架构: loongarch64</li>
-<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>rocketmq Dashboard 版本: 1.0.0</li>
+<li>系统版本: Kylin Linux Advanced Server V10</li>
+<li>JDK 版本: openjdk version “1.8.0_332”</li>
+<li>maven 版本: Apache Maven 3.8.6</li>
 </ul>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/20-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-rocketmq-dashboard/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/21-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-xxl-job-admin/#more">more >></a>
     
     
 
@@ -511,11 +1195,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rocketmq</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xxl-job-admin</a>
         		</li>
       		
 		</ul>
@@ -536,7 +1220,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/20-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-rocketmq-dashboard/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/21-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-xxl-job-admin/">展开全文 >></a>
     </p>
     
 
@@ -566,7 +1250,7 @@
 
 
   
-    <article id="post-信创环境/22-Arm64-源码编译-ingress-nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-信创环境/15-loongarch64-源码编译-ingress-nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -574,7 +1258,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/22-Arm64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/" target="_blank">Arm64 架构源码编译 Ingress-Nginx</a>
+	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/15-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/" target="_blank">Loongarch64 源码编译 Ingress-Nginx（未完成，待完善）</a>
   
     </h1>
   
@@ -582,8 +1266,8 @@
 
   
   
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/22-Arm64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/15-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -595,14 +1279,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
-<li>系统版本: Kylin Linux Advanced Server V10 (Sword)</li>
-<li>CPU 架构: aarch64</li>
-<li>CPU 型号: Kunpeng-920</li>
-<li>ingress-nginx 版本: helm-chart-4.2.4</li>
-</ul>
+    <h2 id="构建-controller"><a href="#构建-controller" class="headerlink" title="构建 controller"></a>构建 controller</h2><h3 id="本地编译安装-ginkgo"><a href="#本地编译安装-ginkgo" class="headerlink" title="本地编译安装 ginkgo"></a>本地编译安装 ginkgo</h3><ol>
+<li><p>下载源码</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GOPATH=<span class="string">&quot;/root/go&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> <span class="variable">$&#123;GOPATH&#125;</span>/src/github.com/onsi/</span><br><span class="line">git <span class="built_in">clone</span> https://gitee.com/lonely0422/ginkgo.git <span class="variable">$&#123;GOPATH&#125;</span>/src/github.com/onsi/ginkgo</span><br></pre></td></tr></table></figure>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/22-Arm64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/15-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/#more">more >></a>
     
     
 
@@ -630,15 +1311,15 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Ingress-Nginx</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Arm64</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -658,7 +1339,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/22-Arm64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/15-loongarch64-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91-ingress-nginx/">展开全文 >></a>
     </p>
     
 
@@ -688,7 +1369,7 @@
 
 
   
-    <article id="post-疑难杂症/01-信创环境疑难杂症处理方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/047-kubernetes-CICD-触发构建-多次部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -696,7 +1377,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/01-%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" target="_blank">信创环境疑难杂症处理方法</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/047-kubernetes-CICD-%E8%A7%A6%E5%8F%91%E6%9E%84%E5%BB%BA-%E5%A4%9A%E6%AC%A1%E9%83%A8%E7%BD%B2/" target="_blank">Jenkins 触发构建 &amp; 一次构建多次部署</a>
   
     </h1>
   
@@ -704,8 +1385,8 @@
 
   
   
-<a href="/2023/10/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/01-%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/047-kubernetes-CICD-%E8%A7%A6%E5%8F%91%E6%9E%84%E5%BB%BA-%E5%A4%9A%E6%AC%A1%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -717,246 +1398,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>环境:<br>CPU: 兆芯<br>系统: Kylin Linux Advanced Server V10 (Sword)<br>kubernetes版本: 1.20.11<br>Docker 版本 19.03.15<br>coreDNS: 1.9.3</p>
-    
-    <a class="article-more-a" href="/2023/10/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/01-%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">疑难杂症</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/01-%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/17-loongarch64-架构部署-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/17-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" target="_blank">Loongarch64 架构部署 Nacos</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/17-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.462Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><ul>
-<li>CPU 架构: loongarch64</li>
-<li>系统版本: Kylin Linux Advanced Server V10 (Tercel)</li>
-<li>Nacos 版本: v2.0.4</li>
-<li>JDK 版本: 1.8.0_332</li>
-<li>Maven 版本: 3.8.6</li>
+    <ul>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
 </ul>
+<h2 id="自动触发构建"><a href="#自动触发构建" class="headerlink" title="自动触发构建"></a>自动触发构建</h2><p>之前的构建都是采用手动选择分支进行构建的，实际使用时，项目可能有很多，如果都是手动触发可能比较消耗人力。所以推荐可以按需配置自动触发，即提交代码后自动触发 Jenkins 进 行构建任务。</p>
     
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/17-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nacos</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Loongarch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/17-loongarch64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/01-Arm64-架构部署-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/" target="_blank">ARM64 架构部署 Docker</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考内容：<a target="_blank" rel="noopener" href="https://little-star.love/posts/6da98871/">华为鲲鹏+银河麒麟v10 安装 docker-ce 踩坑</a></p>
-</blockquote>
-<h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ol>
-<li><p>系统版本: Kylin Linux Advanced Server V10</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/os-release </span></span><br><span class="line">NAME=<span class="string">&quot;Kylin Linux Advanced Server&quot;</span></span><br><span class="line">VERSION=<span class="string">&quot;V10 (Tercel)&quot;</span></span><br><span class="line">ID=<span class="string">&quot;kylin&quot;</span></span><br><span class="line">VERSION_ID=<span class="string">&quot;V10&quot;</span></span><br><span class="line">PRETTY_NAME=<span class="string">&quot;Kylin Linux Advanced Server V10 (Tercel)&quot;</span></span><br><span class="line">ANSI_COLOR=<span class="string">&quot;0;31&quot;</span></span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/047-kubernetes-CICD-%E8%A7%A6%E5%8F%91%E6%9E%84%E5%BB%BA-%E5%A4%9A%E6%AC%A1%E9%83%A8%E7%BD%B2/#more">more >></a>
     
     
 
@@ -979,11 +1426,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
         		</li>
       		
 		</ul>
@@ -995,7 +1446,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
         		</li>
       		
 		</ul>
@@ -1004,389 +1455,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/01-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Docker/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/03-Arm64-架构部署-Nacos" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" target="_blank">ARM64 架构部署 Nacos</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <blockquote>
-<p>参考文章: <a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/330673">nacos 构建ARM64版本docker镜像</a></p>
-</blockquote>
-<h2 id="Arm64-架构部署-Nacos"><a href="#Arm64-架构部署-Nacos" class="headerlink" title="Arm64 架构部署 Nacos"></a>Arm64 架构部署 Nacos</h2><h3 id="编译-nacos-镜像"><a href="#编译-nacos-镜像" class="headerlink" title="编译 nacos 镜像"></a>编译 nacos 镜像</h3><ol>
-<li><p>下载 nacos-docker 仓库</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span>  https://github.com/nacos-group/nacos-docker.git</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nacos</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/03-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Nacos/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/04-Arm64-架构部署-RocketMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/" target="_blank">ARM64 架构部署 RocketMQ</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><table>
-<thead>
-<tr>
-<th align="center">主机</th>
-<th align="center">IP地址</th>
-<th align="center">角色</th>
-<th align="center">系统版本</th>
-<th align="center">软件版本</th>
-<th align="center">JDK 版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">base-server01</td>
-<td align="center">192.168.0.9</td>
-<td align="center">namerv</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-<tr>
-<td align="center">base-server02</td>
-<td align="center">192.168.0.30</td>
-<td align="center">namerv,broker-a</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-<tr>
-<td align="center">base-server03</td>
-<td align="center">192.168.0.78</td>
-<td align="center">namerv,broker-b</td>
-<td align="center">Kylin Linux Advanced Server V10</td>
-<td align="center">rockermq-4.9.3</td>
-<td align="center">1.8.0_333</td>
-</tr>
-</tbody></table>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rocketmq</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/04-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-RocketMQ/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-信创环境/06-Arm64-架构部署-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/" target="_blank">ARM64 架构部署 Redis</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.461Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>redis 源码下载地址: <a target="_blank" rel="noopener" href="https://download.redis.io/releases/">releases page</a></p>
-<h2 id="ARM64-架构部署-Redis"><a href="#ARM64-架构部署-Redis" class="headerlink" title="ARM64 架构部署 Redis"></a>ARM64 架构部署 Redis</h2><ol>
-<li><p>下载 redis 源码</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.redis.io/releases/redis-5.0.7.tar.gz</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ARM64</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">信创</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/信创//" class="article-tag-list-link color3">信创</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/%E4%BF%A1%E5%88%9B%E7%8E%AF%E5%A2%83/06-Arm64-%E6%9E%B6%E6%9E%84%E9%83%A8%E7%BD%B2-Redis/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/047-kubernetes-CICD-%E8%A7%A6%E5%8F%91%E6%9E%84%E5%BB%BA-%E5%A4%9A%E6%AC%A1%E9%83%A8%E7%BD%B2/">展开全文 >></a>
     </p>
     
 
@@ -1418,7 +1487,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
     </nav>
   
 
@@ -1555,11 +1624,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1575,7 +1644,55 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">应用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Rsync</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1583,11 +1700,247 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nexus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">H2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SVN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">logratate</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Others</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">OpenOffice</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ONLYOFFICE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Token</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">HAProxy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ESXi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GlusterFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CICD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Prometheus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">PromQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AlertRule</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Alertmanager</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Monitor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Image</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1627,14 +1980,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Apache</a>
               </li>
              
@@ -1651,283 +1996,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">buildx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Sentry</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Prometheus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PromQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Database</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AlertRule</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Monitor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Alertmanager</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">应用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Node</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nexus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H2</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Others</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">OpenOffice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SVN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ONLYOFFICE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Token</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">HAProxy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ESXi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GlusterFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CICD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">elasticsearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1939,19 +2008,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">buildx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">logratate</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1963,7 +2028,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Jinja2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1975,10 +2044,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Django基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Django</a>
               </li>
              
@@ -1987,11 +2052,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Django基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">URL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Template</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ORM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2011,10 +2084,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">GitLab-API</a>
               </li>
              
@@ -2023,15 +2092,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Jinja2</a>
+                <a href="javascript:void(0)" class="js-tag color3">smtplib</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">smtplib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2043,11 +2108,27 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ARM64</a>
+                <a href="javascript:void(0)" class="js-tag color3">信创</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">信创</a>
+                <a href="javascript:void(0)" class="js-tag color5">疑难杂症</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ARM64</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2063,6 +2144,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
@@ -2071,15 +2160,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Etcd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2099,6 +2188,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxl-job-admin</a>
               </li>
              
@@ -2112,34 +2205,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">疑难杂症</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">route</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2159,6 +2224,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DaemonSet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Label</a>
               </li>
              
@@ -2171,10 +2240,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DaemonSet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
               </li>
              
@@ -2183,15 +2248,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Secret</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">kubelet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2203,11 +2260,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">init容器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jobs</a>
+                <a href="javascript:void(0)" class="js-tag color4">PKI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TLS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">kubelet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2223,11 +2292,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PKI</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jobs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TLS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Service</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RBAC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2239,19 +2312,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Service</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Rook</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RBAC</a>
+                <a href="javascript:void(0)" class="js-tag color5">Helm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Helm</a>
+                <a href="javascript:void(0)" class="js-tag color4">Operator</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2267,7 +2336,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Operator</a>
+                <a href="javascript:void(0)" class="js-tag color4">cri</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2275,19 +2344,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cri</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">istio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kubeedge</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EdgeMesh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2299,15 +2364,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ETCD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kubeedge</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EdgeMesh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2339,15 +2404,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">构建工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2375,10 +2440,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RMAN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
@@ -2388,6 +2449,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Databases</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RMAN</a>
               </li>
             
             <div class="clearfix"></div>

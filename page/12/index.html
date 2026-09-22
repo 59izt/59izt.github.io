@@ -210,7 +210,7 @@
             
 
   
-    <article id="post-kubernetes/068-kubernetes-部署-OpenLDAP-服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/027-Kubernetes-RBAC-鉴权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -218,7 +218,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/" target="_blank">kubernetes 部署 OpenLDAP 服务</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/" target="_blank">Kubernetes 使用 RBAC 鉴权</a>
   
     </h1>
   
@@ -226,8 +226,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -239,10 +239,11 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考文章: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1490857">openldap介绍和使用</a></p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="什么是-LDAP"><a href="#什么是-LDAP" class="headerlink" title="什么是 LDAP"></a>什么是 LDAP</h3><p>LDAP 是轻量目录访问协议，英文全称是 Lightweight Directory Access Protocol，一般都简称为 LDAP。按照我们对文件目录的理解，ldap可以看成一个文件系统，类似目录和文件树。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/reference/access-authn-authz/rbac/">使用 RBAC 鉴权</a></p>
+<h2 id="API-对象"><a href="#API-对象" class="headerlink" title="API 对象"></a>API 对象</h2><p>RBAC API 声明了四种 Kubernetes 对象: <code>Role</code>, <code>ClusterRole</code>, <code>RoleBinding</code> 和 <code>ClusterRoleBinding</code>。</p>
+<h3 id="Role-和-ClusterRole"><a href="#Role-和-ClusterRole" class="headerlink" title="Role 和 ClusterRole"></a>Role 和 ClusterRole</h3><p>RBAC 的 Role 或 ClusterRole 中包含一组代表相关权限的规则。这些权限是存粹累加的（不存在拒绝某种操作的规则）。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/#more">more >></a>
     
     
 
@@ -269,7 +270,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OpenLDAP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">RBAC</a>
         		</li>
       		
 		</ul>
@@ -290,7 +291,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/068-kubernetes-%E9%83%A8%E7%BD%B2-OpenLDAP-%E6%9C%8D%E5%8A%A1/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/027-Kubernetes-RBAC-%E9%89%B4%E6%9D%83/">展开全文 >></a>
     </p>
     
 
@@ -320,7 +321,7 @@
 
 
   
-    <article id="post-kubernetes/071-二进制部署-k8s-高可用集群(1.26.x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/028-Kubernetes-Rook-安装以及部署Ceph集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -328,7 +329,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/" target="_blank">二进制部署 Kubernetes 高可用集群(1.26x)</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/028-Kubernetes-Rook-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%83%A8%E7%BD%B2Ceph%E9%9B%86%E7%BE%A4/" target="_blank">Kubernetes 安装 Rook 以及部署 Ceph 集群</a>
   
     </h1>
   
@@ -336,8 +337,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.453Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/028-Kubernetes-Rook-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%83%A8%E7%BD%B2Ceph%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -349,14 +350,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="架构环境说明"><a href="#架构环境说明" class="headerlink" title="架构环境说明"></a>架构环境说明</h2><p>本文章将演示如何使用二进制方式部署 k8s 高可用集群，这里部署的 kubernetes 版本为 1.26.x。本次部署使用 5 台虚拟机，系统版本为 CentOS 7.9，分别为 3台 Master，2台 Node。集群相关配置如下</p>
-<h3 id="集群网段划分"><a href="#集群网段划分" class="headerlink" title="集群网段划分"></a>集群网段划分</h3><ul>
-<li>k8s 宿主机IP网段: 192.168.1.0&#x2F;24</li>
-<li>k8s Service 网段: 10.96.0.0&#x2F;16</li>
-<li>k8s Pod 网段: 172.16.0.0&#x2F;16</li>
-</ul>
+    <p>官方文档地址: <a target="_blank" rel="noopener" href="https://rook.io/docs/rook/v1.7/ceph-quickstart.html">Ceph Storage</a></p>
+<h2 id="安装-Rook"><a href="#安装-Rook" class="headerlink" title="安装 Rook"></a>安装 Rook</h2><blockquote>
+<p>注意事项：</p>
+<ol>
+<li>做这个实验需要高配置，k8s 集群最少5个节点，每个节点配置不能低于2核4G，至少有3个存储节点;</li>
+<li>rook的版本大于1.3，不能使用目录创建集群，要使用单独的裸盘进行创建，也就是创建一个新的磁盘，挂载到宿主机，不进行格式化，直接使用即可;
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/028-Kubernetes-Rook-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%83%A8%E7%BD%B2Ceph%E9%9B%86%E7%BE%A4/#more">more >></a>
     
     
 
@@ -379,7 +380,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ceph</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Rook</a>
         		</li>
       		
 		</ul>
@@ -400,7 +409,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/071-%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2-k8s-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(1.26.x)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/028-Kubernetes-Rook-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E9%83%A8%E7%BD%B2Ceph%E9%9B%86%E7%BE%A4/">展开全文 >></a>
     </p>
     
 
@@ -430,7 +439,7 @@
 
 
   
-    <article id="post-kubernetes/010-DaemonSet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/029-kubernetes-Ceph-集群的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -438,7 +447,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/010-DaemonSet/" target="_blank">Kubernetes-DaemonSet</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/029-kubernetes-Ceph-%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank">Kubernetes Ceph 集群的使用</a>
   
     </h1>
   
@@ -446,8 +455,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/010-DaemonSet/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/029-kubernetes-Ceph-%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -459,9 +468,14 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="DaemonSet-是什么"><a href="#DaemonSet-是什么" class="headerlink" title="DaemonSet 是什么"></a>DaemonSet 是什么</h2><p>DaemonSet: 守护进程集，缩写为 ds，在所有节点或者是匹配的节点上部署一个 Pod。</p>
+    <h2 id="Ceph-块存储的使用"><a href="#Ceph-块存储的使用" class="headerlink" title="Ceph 块存储的使用"></a>Ceph 块存储的使用</h2><p>块存储一般用于一个Pod挂载一块存储使用，相当于一个服务器新挂了一个盘，只给一个应用使用。<br>官方文档地址: <a target="_blank" rel="noopener" href="https://rook.io/docs/rook/v1.7/ceph-block.html">Block Storage</a></p>
+<h3 id="创建-StorageClass-和-Pool"><a href="#创建-StorageClass-和-Pool" class="headerlink" title="创建 StorageClass 和 Pool"></a>创建 StorageClass 和 Pool</h3><p>在 Rook 可以配置存储之前，需要创建 <code>StorageClass</code> 和 <code>CephBlockPool</code>。这将允许 Kubernetes 在配置持久卷时与 Rook 进行互操作.</p>
+<blockquote>
+<p>此示例要求每个节点至少有 1 个 OSD，每个 OSD 位于 3 个不同的节点上</p>
+</blockquote>
+<p>每个 OSD 必须位于不同的节点上，因为 failureDomain 设置为 host，replicated.size 设置为 3。因为这里是试验环境，所以将副本数设置成了2（不能设置为1），生产环境最少为3，且要小于等于osd的数量。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/010-DaemonSet/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/029-kubernetes-Ceph-%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BD%BF%E7%94%A8/#more">more >></a>
     
     
 
@@ -484,11 +498,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ceph</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DaemonSet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
       		
 		</ul>
@@ -509,7 +523,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/010-DaemonSet/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/029-kubernetes-Ceph-%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
     </p>
     
 
@@ -539,7 +553,7 @@
 
 
   
-    <article id="post-kubernetes/013-Ingress" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/032-kubernetes-Helm-使用详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -547,7 +561,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/013-Ingress/" target="_blank">Kubernetes-Ingress</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/032-kubernetes-Helm-%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/" target="_blank">Kubernetes Helm 详解</a>
   
     </h1>
   
@@ -555,8 +569,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/013-Ingress/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/032-kubernetes-Helm-%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -568,9 +582,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="什么是-Ingress"><a href="#什么是-Ingress" class="headerlink" title="什么是 Ingress"></a>什么是 Ingress</h2><p>Ingress 为 Kubernetes 集群中的服务提供了入口，可以提供负载均衡，SSL 终止和基于名称的虚拟主机，在生产环境中常用的 Ingress 有 Treafik，Nginx，HAProxy，Istio 等。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/">Helm 文档</a></p>
+<h2 id="Helm-介绍"><a href="#Helm-介绍" class="headerlink" title="Helm 介绍"></a>Helm 介绍</h2><p>Helm 是 Kubernetes 的包管理，是一个由 CNCF 孵化和管理的项目，用于对需要再 k8s 上部署的复杂应用进行定义，安装和更新。Helm 以 Chart 的方式对应用软件进行描述，可以方便地创建，版本化，共享和发布复杂的应用软件。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/013-Ingress/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/032-kubernetes-Helm-%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/#more">more >></a>
     
     
 
@@ -597,7 +612,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Helm</a>
         		</li>
       		
 		</ul>
@@ -609,7 +624,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/Helm//" class="article-tag-list-link color5">Helm</a>
         		</li>
       		
 		</ul>
@@ -618,7 +633,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/013-Ingress/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/032-kubernetes-Helm-%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
     </p>
     
 
@@ -648,7 +663,7 @@
 
 
   
-    <article id="post-kubernetes/018-PV&amp;PVC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/041-Helm-Chart-命名模板" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -656,7 +671,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/018-PV&PVC/" target="_blank">Kubernetes-PV 和 PVC</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/041-Helm-Chart-%E5%91%BD%E5%90%8D%E6%A8%A1%E6%9D%BF/" target="_blank">Helm - Chart 命名模板</a>
   
     </h1>
   
@@ -664,122 +679,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/018-PV&PVC/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volumes</a></p>
-<h2 id="PersistentVolumes"><a href="#PersistentVolumes" class="headerlink" title="PersistentVolumes"></a>PersistentVolumes</h2><p>与管理计算实例相比，管理存储是一个明显的问题。PersistentVolume 子系统为管理员和用户提供了一个 API，该 API 从如何使用存储中抽象出如何提供存储的详细信息。为此，我们引入了两个新的 API 资源: PV(PersistentVolume) 和 PVC(PersistentVolumeClaim)</p>
-    
-    <a class="article-more-a" href="/2023/10/18/kubernetes/018-PV&PVC/#more">more >></a>
-    
-    
-
-    <!-- 修改开始 -->
-    
-
-    
-    <!-- 修改结束 -->
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">PV</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/018-PV&PVC/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-kubernetes/039-Helm-Chart-模板函数列表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" target="_blank">Helm - Chart 模板函数和流水线</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/041-Helm-Chart-%E5%91%BD%E5%90%8D%E6%A8%A1%E6%9D%BF/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -792,11 +693,11 @@
   <div class="article-entry" itemprop="articleBody">
     
     <ul>
-<li>官方文档地址: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/function_list/">模板函数列表</a></li>
+<li>官方文档: <a target="_blank" rel="noopener" href="https://helm.sh/zh/docs/chart_template_guide/named_templates/">命名模板</a></li>
 </ul>
-<h2 id="模板函数列表"><a href="#模板函数列表" class="headerlink" title="模板函数列表"></a>模板函数列表</h2><p>Helm 包含了很多可以在模板中利用的模板函数。以下列出了具体分类：</p>
+<h2 id="命名模板"><a href="#命名模板" class="headerlink" title="命名模板"></a>命名模板</h2><p>此时需要越过模板，开始学习其他内容了、该部分我们会看到如何在一个文件中定义<code>命名模板</code>，并在其他地方使用。<br>命名模板仅仅是是在文件内部定义的模板，并使用了一个名字。有时候被称作为一个部分，或者一个子模板。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/041-Helm-Chart-%E5%91%BD%E5%90%8D%E6%A8%A1%E6%9D%BF/#more">more >></a>
     
     
 
@@ -844,7 +745,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/039-Helm-Chart-%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/041-Helm-Chart-%E5%91%BD%E5%90%8D%E6%A8%A1%E6%9D%BF/">展开全文 >></a>
     </p>
     
 
@@ -874,7 +775,7 @@
 
 
   
-    <article id="post-kubernetes/062-kubernetes-部署-logstash-采集-rsyslog-日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/045-kubernetes-CICD-Vue-前端应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -882,7 +783,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/" target="_blank">Kubernetes 部署 Logstash 采集 syslog 日志</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/045-kubernetes-CICD-Vue-%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/" target="_blank">自动化构建 Vue/H5 前端应用</a>
   
     </h1>
   
@@ -890,8 +791,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.452Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/045-kubernetes-CICD-Vue-%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.450Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -903,10 +804,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>Logstash 官方文档: <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/logstash/7.17/introduction.html">https://www.elastic.co/</a></p>
-<h2 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h2><p>Logstash 是一个具有实时流水线功能的开源数据收集引擎。Logstash 可以动态统一来自不同来源的数据，并将数据规范化到您选择的目标。清理和民主化所有数据，用于各种高级下游分析和可视化用例。</p>
+    <ul>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
+</ul>
+<h2 id="自动化构建-Vue-H5-前端应用"><a href="#自动化构建-Vue-H5-前端应用" class="headerlink" title="自动化构建 Vue&#x2F;H5 前端应用"></a>自动化构建 Vue&#x2F;H5 前端应用</h2><p>自动化构建 Vue&#x2F;H5 应用，其构建方式和自动化构建 Java 基本相同，重点是更改 Deployment、Jenkinsfile 和 Dockerfile 即可。<br>本示例项目可以从 <code>https://gitee.com/dukuan/vue-project.git</code> 找到该项目。接下来将该项目导入到自己的 Gitlab 中。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/045-kubernetes-CICD-Vue-%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/#more">more >></a>
     
     
 
@@ -929,11 +832,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">EFK</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
         		</li>
       		
 		</ul>
@@ -945,7 +852,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/kubernetes//" class="article-tag-list-link color1">kubernetes</a>
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
         		</li>
       		
 		</ul>
@@ -954,7 +861,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/062-kubernetes-%E9%83%A8%E7%BD%B2-logstash-%E9%87%87%E9%9B%86-rsyslog-%E6%97%A5%E5%BF%97/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/045-kubernetes-CICD-Vue-%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/">展开全文 >></a>
     </p>
     
 
@@ -984,7 +891,7 @@
 
 
   
-    <article id="post-kubernetes/002-K8S-高可用集群(二进制)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/005-kubectl-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -992,7 +899,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/" target="_blank">二进制部署 Kubernetes 高可用集群</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/005-kubectl-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_blank">kubectl 常用命令</a>
   
     </h1>
   
@@ -1000,8 +907,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/005-kubectl-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1013,9 +920,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>参考书籍: <a target="_blank" rel="noopener" href="http://www.kubeasy.com/">kubernetes全栈架构师</a><br>虽然现在 kubeadm 是官方默认的安装方式，但是在生产环境中仍然不建议使用 kubeadm 安装方式。在实际测试中，二进制安装方式比 kubeadm 安装方式更加稳定可靠，并且集群的恢复能力比 kubeadm 安装方式要高。在二进制安装方式下，很多步骤需要手动完成，比如证书和配置文件的生成等。</p>
+    <p>参考书籍: <a target="_blank" rel="noopener" href="http://www.kubeasy.com/">kubernetes全栈架构师</a></p>
+<h2 id="kubectl-命令自动补全"><a href="#kubectl-命令自动补全" class="headerlink" title="kubectl 命令自动补全"></a>kubectl 命令自动补全</h2>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/005-kubectl-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more">more >></a>
     
     
 
@@ -1059,7 +967,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/002-K8S-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4(%E4%BA%8C%E8%BF%9B%E5%88%B6)/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/005-kubectl-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
     </p>
     
 
@@ -1089,7 +997,7 @@
 
 
   
-    <article id="post-kubernetes/025-kubernetes-资源配额以及-QoS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/020-Kubernetes-Pod-的生命周期" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1097,7 +1005,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/" target="_blank">Kubernetes 资源配额以及 QoS</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" target="_blank">Pod 的生命周期</a>
   
     </h1>
   
@@ -1105,8 +1013,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1118,10 +1026,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/policy/resource-quotas/">资源配额</a></p>
-<h2 id="资源配额-ResourceQuota"><a href="#资源配额-ResourceQuota" class="headerlink" title="资源配额 ResourceQuota"></a>资源配额 ResourceQuota</h2><p>资源配额，通过 ResourceQuota 对象来定义，对每个 NameSpace 的资源消耗总量提供限制。它可以限制 NameSpace 中某种类型的对象的总数目上限，也可以限制 NameSpace 中的 Pod 可以使用的计算资源的总上限。</p>
+    <p>官方文档: <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/">Pod 的生命周期</a></p>
+<h2 id="Pod-的生命周期"><a href="#Pod-的生命周期" class="headerlink" title="Pod 的生命周期"></a>Pod 的生命周期</h2><p>Pod 遵循定义的生命周期，从 Pending 阶段开始，如果一个主容器启动正常，则进入 Running 阶段，然后根据 Pod 中的任何容器是否因故障终止而经历 Succeeded 或者 Failed 阶段。</p>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more">more >></a>
     
     
 
@@ -1148,15 +1056,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ResourceQuota</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">LimitRange</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">QoS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Pod</a>
         		</li>
       		
 		</ul>
@@ -1177,7 +1077,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/025-kubernetes-%E8%B5%84%E6%BA%90%E9%85%8D%E9%A2%9D%E4%BB%A5%E5%8F%8A-QoS/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/020-Kubernetes-Pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">展开全文 >></a>
     </p>
     
 
@@ -1207,7 +1107,7 @@
 
 
   
-    <article id="post-kubernetes/026-kubernetes-部署前后端服务分离示例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-kubernetes/048-Kubernetes-部署-MySQL-到-k8s-集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1215,7 +1115,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/" target="_blank">Kubernetes 部署前后端分离服务示例</a>
+	  <a class="article-title" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/" target="_blank">部署 MySQL 到 k8s 集群</a>
   
     </h1>
   
@@ -1223,8 +1123,8 @@
 
   
   
-<a href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/" class="archive-article-date">
-        <time datetime="2023-10-18T06:11:28.451Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+<a href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
 </a>
 
   
@@ -1236,13 +1136,12 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="前后端分离服务部署示例"><a href="#前后端分离服务部署示例" class="headerlink" title="前后端分离服务部署示例"></a>前后端分离服务部署示例</h2><ol>
-<li><p>本示例架构如下图所示：</p>
-<ul>
-<li>流量经过阿里云 Nginx 服务器，反向代理到公司公网入口路由器上；</li>
-<li>在路由器上配置端口映射，将 8888 端口的流量转发到内部的 nginx 服务器上；
+    <h2 id="部署-MySQL-到-k8s-集群"><a href="#部署-MySQL-到-k8s-集群" class="headerlink" title="部署 MySQL 到 k8s 集群"></a>部署 MySQL 到 k8s 集群</h2><h3 id="命名空间准备"><a href="#命名空间准备" class="headerlink" title="命名空间准备"></a>命名空间准备</h3><ol>
+<li><p>创建项目专用的 namespace</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ns tms-test</span><br></pre></td></tr></table></figure></li>
+</ol>
     
-    <a class="article-more-a" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/#more">more >></a>
+    <a class="article-more-a" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/#more">more >></a>
     
     
 
@@ -1267,26 +1166,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kubernetes</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Deployment</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Ingress</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ConfigMap</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Secret</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Service</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -1306,7 +1185,123 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2023/10/18/kubernetes/026-kubernetes-%E9%83%A8%E7%BD%B2%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB%E7%A4%BA%E4%BE%8B/">展开全文 >></a>
+      <a class="article-more-a" href="/2023/10/18/kubernetes/048-Kubernetes-%E9%83%A8%E7%BD%B2-MySQL-%E5%88%B0-k8s-%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kubernetes/044-kubernetes-CICD-Java-应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/" target="_blank">自动化构建 Java 应用</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <time datetime="2023-10-18T06:11:28.449Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-10-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li>资料来源: <a target="_blank" rel="noopener" href="https://ke.qq.com/course/2738602">Kubernetes全栈架构师：基于世界500强的k8s实战课程</a></li>
+</ul>
+<h2 id="自动化构建-Java-应用"><a href="#自动化构建-Java-应用" class="headerlink" title="自动化构建 Java 应用"></a>自动化构建 Java 应用</h2><h3 id="创建-Java-测试用例"><a href="#创建-Java-测试用例" class="headerlink" title="创建 Java 测试用例"></a>创建 Java 测试用例</h3><p>示例项目可以从 <code>https://gitee.com/dukuan/spring-boot-project.git</code> 找到该项目(也可以使用 公司的 Java 项目也是一样的)。接下来将该项目导入到自己的 Gitlab 中。</p>
+    
+    <a class="article-more-a" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/#more">more >></a>
+    
+    
+
+    <!-- 修改开始 -->
+    
+
+    
+    <!-- 修改结束 -->
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CICD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">DevOps</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Jenkins//" class="article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/10/18/kubernetes/044-kubernetes-CICD-Java-%E5%BA%94%E7%94%A8/">展开全文 >></a>
     </p>
     
 
@@ -1338,7 +1333,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/11/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><a class="extend next" rel="next" href="/page/13/">下一页</a>
     </nav>
   
 
@@ -1475,11 +1470,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
+                <a href="javascript:void(0)" class="js-tag color5">copy</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">copy</a>
+                <a href="javascript:void(0)" class="js-tag color4">Playbook</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1495,7 +1490,55 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">应用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Rsync</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1503,11 +1546,247 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nexus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">H2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SVN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">logratate</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Others</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">OpenOffice</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ONLYOFFICE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Token</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Other</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">HAProxy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ESXi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GlusterFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CICD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Prometheus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">PromQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AlertRule</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Alertmanager</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Monitor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Image</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Mac</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1547,14 +1826,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Apache</a>
               </li>
              
@@ -1571,283 +1842,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">buildx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Sentry</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Prometheus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PromQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Oracle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Database</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AlertRule</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Monitor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Alertmanager</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MacPorts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">应用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SaltStack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Evtsys</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Suse</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Node</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nexus</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H2</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Others</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">OpenOffice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SVN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ONLYOFFICE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ActiveMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">GitHub</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Token</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">FastDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">HAProxy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Other</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ESXi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nacos</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GlusterFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">mips64le</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CICD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SonarQube</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Supervisor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能调优</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">envsubst</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ClamAV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">elasticsearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS8</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SSL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">acme.sh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RocketMQ</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Slackware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">RockyLinux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vnc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1859,19 +1854,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">buildx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">logratate</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1883,7 +1874,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Jinja2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1895,10 +1890,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Django基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Django</a>
               </li>
              
@@ -1907,11 +1898,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Django基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">URL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Template</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ORM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1931,10 +1930,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ORM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">GitLab-API</a>
               </li>
              
@@ -1943,15 +1938,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Jinja2</a>
+                <a href="javascript:void(0)" class="js-tag color3">smtplib</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">smtplib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1963,11 +1954,27 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">ARM64</a>
+                <a href="javascript:void(0)" class="js-tag color3">信创</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">信创</a>
+                <a href="javascript:void(0)" class="js-tag color5">疑难杂症</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ARM64</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1983,6 +1990,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">route</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
@@ -1991,15 +2006,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">loongarch64</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Etcd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EFK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2019,6 +2034,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxl-job-admin</a>
               </li>
              
@@ -2032,34 +2051,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">疑难杂症</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">双网卡</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">route</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MacOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Clash</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">skywalking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2079,6 +2070,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DaemonSet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Label</a>
               </li>
              
@@ -2091,10 +2086,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DaemonSet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Ingress</a>
               </li>
              
@@ -2103,15 +2094,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Secret</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">kubelet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2123,11 +2106,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ConfigMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">init容器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Jobs</a>
+                <a href="javascript:void(0)" class="js-tag color4">PKI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TLS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">kubelet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2143,11 +2138,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PKI</a>
+                <a href="javascript:void(0)" class="js-tag color5">Jobs</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TLS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Service</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RBAC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2159,19 +2158,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Service</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Rook</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RBAC</a>
+                <a href="javascript:void(0)" class="js-tag color5">Helm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Helm</a>
+                <a href="javascript:void(0)" class="js-tag color4">Operator</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2187,7 +2182,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Operator</a>
+                <a href="javascript:void(0)" class="js-tag color4">cri</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2195,19 +2190,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cri</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">istio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kubeedge</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EdgeMesh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2219,15 +2210,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ingress-nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ETCD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kubeedge</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">EdgeMesh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2259,15 +2250,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">构建工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码质量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2295,10 +2286,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">RMAN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MongoDB</a>
               </li>
              
@@ -2308,6 +2295,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Databases</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RMAN</a>
               </li>
             
             <div class="clearfix"></div>
